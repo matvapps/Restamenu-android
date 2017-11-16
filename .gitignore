@@ -7,3 +7,6 @@
 /build
 /captures
 .externalNativeBuild
+libs/
+sampledata/
+src/main/java/com/restamenu/views/
