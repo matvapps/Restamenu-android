@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="com.restamenu.SplashActivity">
+
+    <ImageView
+        android:id="@+id/splash_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:scaleType="centerCrop" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+
+
+        <ImageView
+            android:id="@+id/restamenu_text"
+            android:layout_width="@dimen/splash_title_width"
+            android:layout_height="@dimen/splash_title_height"
+            android:layout_gravity="center"
+            android:alpha="0"
+            android:src="@drawable/restamenu_text" />
+        
+        <ImageView
+            android:id="@+id/electronic_menu_text"
+            android:layout_width="@dimen/splash_rest_text_width"
+            android:layout_height="@dimen/splash_rest_text_height"
+            android:src="@drawable/electronic_menu_text"
+            android:alpha="0"
+            android:layout_gravity="center"/>
+
+    </FrameLayout>
+
+
+
+    <ImageView
+        android:id="@+id/splash_cursor"
+        android:layout_width="@dimen/splash_cursor_width"
+        android:layout_height="@dimen/splash_cursor_width"
+        android:layout_gravity="center"
+        android:src="@drawable/circle_shape" />
+</FrameLayout>

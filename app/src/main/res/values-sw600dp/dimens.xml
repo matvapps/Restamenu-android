@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="splash_title_width">175dp</dimen>
+    <dimen name="splash_title_height">75dp</dimen>
+
+    <dimen name="splash_cursor_width">15dp</dimen>
+
+    <dimen name="splash_rest_text_width">97dp</dimen>
+    <dimen name="splash_rest_text_height">47dp</dimen>
+
+    <item type="bool" name="isLargeLayout">true</item>
+
+
+</resources>
