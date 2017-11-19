@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <dimen name="splash_cursor_margin_left">160dp</dimen>
     <dimen name="splash_title_width">150dp</dimen>
     <dimen name="splash_title_height">40dp</dimen>
 
@@ -8,7 +10,12 @@
     <dimen name="splash_rest_text_width">80dp</dimen>
     <dimen name="splash_rest_text_height">30dp</dimen>
 
+    <dimen name="splash_title_container_height">100dp</dimen>
+    <dimen name="title_shift_margin">15dp</dimen>
+
+
     <item type="bool" name="isLargeLayout">false</item>
+
 
 
 
