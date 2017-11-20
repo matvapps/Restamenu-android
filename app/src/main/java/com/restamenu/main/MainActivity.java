@@ -1,10 +1,11 @@
-package com.restamenu;
+package com.restamenu.main;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.crashlytics.android.Crashlytics;
+import com.restamenu.R;
 
 import io.fabric.sdk.android.Fabric;
 

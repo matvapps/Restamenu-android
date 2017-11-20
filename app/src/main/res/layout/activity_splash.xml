@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="com.restamenu.SplashActivity">
+    tools:context="com.restamenu.splash.SplashActivity">
 
     <ImageView
         android:id="@+id/splash_background"
@@ -16,7 +16,7 @@
         android:src="@drawable/splash_background" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center">
@@ -28,6 +28,7 @@
             android:layout_height="@dimen/splash_cursor_width"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/splash_title_width"
+            android:layout_marginStart="@dimen/splash_title_width"
             android:src="@drawable/circle_shape" />
 
 

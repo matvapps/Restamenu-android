@@ -11,13 +11,16 @@
     <dimen name="splash_rest_text_height">30dp</dimen>
 
     <dimen name="splash_title_container_height">100dp</dimen>
-    <dimen name="title_shift_margin">15dp</dimen>
+    <dimen name="title_shift_margin">13dp</dimen>
+    <dimen name="food_type_img_size">11dp</dimen>
+    <dimen name="restaurant_image_height">135dp</dimen>
+    <dimen name="restaurant_data_container_height">110dp</dimen>
+    <dimen name="card_restaurant_width">220dp</dimen>
+    <dimen name="card_restaurant_height">245dp</dimen>
 
 
     <item type="bool" name="isLargeLayout">false</item>
-
-
-
+    <item name="card_restaurant_radius" type="dimen" format="float">1.5dp</item>
 
 
 </resources>

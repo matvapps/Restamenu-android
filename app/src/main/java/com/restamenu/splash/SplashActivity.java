@@ -1,16 +1,16 @@
-package com.restamenu;
+package com.restamenu.splash;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.github.florent37.viewanimator.AnimationListener;
 import com.github.florent37.viewanimator.ViewAnimator;
+import com.restamenu.R;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -55,15 +55,17 @@ public class SplashActivity extends AppCompatActivity {
         ViewAnimator
                 // Splash alpha animation
                 .animate(splashBackgroundImage)
-                .startDelay(150)
-                .duration(1250)
+                .startDelay(50)
+                .duration(700)
                 .interpolator(new LinearInterpolator())
                 .alpha(0, 1)
+
                 // Dot scale animation
                 .thenAnimate(splashCursorImage)
                 .duration(200)
                 .interpolator(new AccelerateDecelerateInterpolator())
                 .scale(0, 1)
+
                 // From dot to line animation
                 .thenAnimate(splashCursorImage)
                 .duration(100)
@@ -78,25 +80,26 @@ public class SplashActivity extends AppCompatActivity {
                 })
                 // line moving animation
                 .thenAnimate(splashCursorImage)
-                .startDelay(1200)
-                .duration(400)
-                .interpolator(new AccelerateInterpolator())
-                .translationX(0, -getResources().getDimension(R.dimen.splash_title_width)/ 2 - 16)
+                .startDelay(350)
+                .duration(350)
+                .interpolator(new AccelerateDecelerateInterpolator())
+                .translationX(0, -getResources().getDimension(R.dimen.splash_title_width)/ 2)
 
                 // moving container with title
                 .andAnimate(titleContainer)
-                .duration(400)
-                .interpolator(new AccelerateInterpolator())
+                .duration(350)
+                .interpolator(new AccelerateDecelerateInterpolator())
                 .translationX(0, -getResources().getDimension(R.dimen.splash_title_width) / 2)
+
                 // slide animation of container
                 .andAnimate(restamenuTextImage)
-                .duration(400)
-                .interpolator(new AccelerateInterpolator())
-                .slideLeft()
-
+                .duration(350)
+                .interpolator(new AccelerateDecelerateInterpolator())
+                .translationX(-getResources().getDimension(R.dimen.splash_title_width), 0)
+                .alpha(1.f, 1.f)
 
                 .thenAnimate(splashCursorImage)
-                .duration(1500)
+                .duration(250)
                 .onStop(new AnimationListener.Stop() {
                     @Override
                     public void onStop() {
@@ -107,20 +110,21 @@ public class SplashActivity extends AppCompatActivity {
 
                 // from line to dot
                 .thenAnimate(splashCursorImage)
-                .duration(200)
+                .duration(175)
                 .interpolator(new LinearInterpolator())
                 .scaleY(2.5f, 1)
                 .scaleX(0.25f, 1)
 
                 // dot anim alpha
                 .thenAnimate(splashCursorImage)
+                .startDelay(30)
                 .duration(100)
                 .interpolator(new LinearInterpolator())
                 .alpha(1, 0)
 
                 // move title up
                 .thenAnimate(restamenuTextImage)
-                .startDelay(1350)
+                .startDelay(600)
                 .duration(350)
                 .interpolator(new AccelerateDecelerateInterpolator())
                 .translationY(0, -getResources().getDimension(R.dimen.title_shift_margin))
