@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.restamenu.R;
+
 /**
  * @author Roodie
  */
@@ -36,11 +38,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         container = findViewById(R.id.container);
 
-        toolbar = findViewById(this, R.id.toolbar);
-        toolbarTitle = findViewById(this, R.id.toolbar_title);
+        toolbar = findViewById(R.id.toolbar);
+        toolbarTitle = findViewById(R.id.toolbar_title);
 
-        appBarLayout = findViewById(this, R.id.appbar);
-        coordinatorLayout = findViewById(this, R.id.main_content);
+        appBarLayout = findViewById(R.id.appbar);
+        coordinatorLayout = findViewById(R.id.main_content);
 
         setContentFrame();
 
@@ -72,6 +74,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public int getToolbarIcon() {
-        return R.drawable.ic_arrow_back;
+        return R.drawable.ic_back;
     }
 }
