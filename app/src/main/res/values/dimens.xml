@@ -26,7 +26,7 @@
 
 
     <item type="bool" name="isLargeLayout">false</item>
-    <item name="restaurant_item_card_radius" type="dimen" format="float">0.5dp</item>
+    <dimen name="restaurant_item_card_radius">0.5dp</dimen>
 
 
 </resources>

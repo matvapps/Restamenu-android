@@ -14,7 +14,7 @@
     <dimen name="splash_title_container_height">90dp</dimen>
 
     <item type="bool" name="isLargeLayout">false</item>
-    <item name="restaurant_item_card_radius" type="dimen" format="float">0.5dp</item>
+    <dimen name="restaurant_item_card_radius">0.5dp</dimen>
     <!---->
 
     <dimen name="title_shift_margin">13dp</dimen>
