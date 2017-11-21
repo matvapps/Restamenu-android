@@ -16,8 +16,7 @@
         style="@style/TextTitleToolBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:customFont="bold" />
+        android:layout_gravity="center" />
 
     <!-- TODO add subtitle-->
 
