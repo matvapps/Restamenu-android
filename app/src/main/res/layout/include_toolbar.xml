@@ -4,46 +4,21 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/white"
+    android:background="?colorPrimary"
     android:elevation="0dp"
-    android:gravity="center"
     app:elevation="0dp"
     app:layout_scrollFlags="scroll|enterAlways"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-    <FrameLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/toolbar_title"
+        style="@style/TextTitleToolBar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp">
+        android:layout_gravity="center"
+        app:customFont="bold" />
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="start|center_vertical"
-            android:src="@drawable/ic_burger_menu"/>
-
-        <ImageView
-            android:layout_width="120dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:src="@drawable/logo" />
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_rect_stroke_grey"
-            android:layout_gravity="end|center_vertical">
-
-            <!--<Spinner-->
-                <!--android:layout_width="35dp"-->
-                <!--android:layout_height="20dp" />-->
-
-        </FrameLayout>
-    </FrameLayout>
-
+    <!-- TODO add subtitle-->
 
 </android.support.v7.widget.Toolbar>

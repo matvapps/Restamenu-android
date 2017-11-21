@@ -1,6 +1,5 @@
 package com.restamenu.base;
 
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -10,8 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
-import com.restamenu.R;
 
 /**
  * @author Roodie
@@ -39,22 +36,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         container = findViewById(R.id.container);
 
-        toolbar = findViewById(R.id.toolbar);
-//        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbar = findViewById(this, R.id.toolbar);
+        toolbarTitle = findViewById(this, R.id.toolbar_title);
 
-        appBarLayout = findViewById(R.id.appbar);
-        coordinatorLayout = findViewById(R.id.main_content);
+        appBarLayout = findViewById(this, R.id.appbar);
+        coordinatorLayout = findViewById(this, R.id.main_content);
 
         setContentFrame();
-
-        boolean isLargeLayout = getResources().getBoolean(R.bool.isLargeLayout);
-        if(isLargeLayout) {
-            // Tablet Mode
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        } else {
-            // Handset Mode
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
 
         initViews();
         configureToolbar();
@@ -84,6 +72,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public int getToolbarIcon() {
-        return R.drawable.ic_back;
+        return R.drawable.ic_arrow_back;
     }
 }
