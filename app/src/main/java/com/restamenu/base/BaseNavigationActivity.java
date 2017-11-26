@@ -27,7 +27,7 @@ public abstract class BaseNavigationActivity<P extends Presenter<V>, V, M> exten
 
     @Override
     public int getToolbarIcon() {
-        return R.drawable.ic_menu;
+        return R.drawable.ic_burger_menu;
     }
 
     @Override
@@ -37,12 +37,12 @@ public abstract class BaseNavigationActivity<P extends Presenter<V>, V, M> exten
 
         if (navigationView != null) {
 
-            drawerToggle = new ActionBarDrawerToggle(
-                    this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawerLayout.setDrawerListener(drawerToggle);
-            drawerToggle.syncState();
-
-            navigationView.setNavigationItemSelectedListener(this);
+//            drawerToggle = new ActionBarDrawerToggle(
+//                    this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//            drawerLayout.setDrawerListener(drawerToggle);
+//            drawerToggle.syncState();
+//
+//            navigationView.setNavigationItemSelectedListener(this);
 
         }
 

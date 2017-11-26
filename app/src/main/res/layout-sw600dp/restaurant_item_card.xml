@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
 
     <android.support.v7.widget.CardView
         android:layout_width="@dimen/restaurant_item_card_width"
         android:layout_height="@dimen/restaurant_item_card_height"
-        app:cardCornerRadius="@dimen/restaurant_item_card_radius">
+        app:cardCornerRadius="@dimen/restaurant_item_card_radius"
+        app:cardElevation="2dp"
+        android:layout_marginBottom="3dp">
 
 
         <LinearLayout
@@ -18,12 +20,11 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/restaurant_id"
+                android:id="@+id/restaurant_background"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/restaurant_item_card_image_height"
                 android:background="@color/white_two"
-                android:scaleType="centerCrop"
-                android:src="@drawable/rest_background_test" />
+                android:scaleType="centerCrop" />
 
 
             <LinearLayout

@@ -1,5 +1,6 @@
 package com.restamenu.base;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -39,12 +40,21 @@ public abstract class BaseActivity extends AppCompatActivity {
         container = findViewById(R.id.container);
 
         toolbar = findViewById(R.id.toolbar);
-        toolbarTitle = findViewById(R.id.toolbar_title);
+//        toolbarTitle = findViewById(R.id.toolbar_title);
 
         appBarLayout = findViewById(R.id.appbar);
         coordinatorLayout = findViewById(R.id.main_content);
 
         setContentFrame();
+
+        boolean isLargeLayout = getResources().getBoolean(R.bool.isLargeLayout);
+        if(isLargeLayout) {
+            // Tablet Mode
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        } else {
+            // Handset Mode
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
 
         initViews();
         configureToolbar();
