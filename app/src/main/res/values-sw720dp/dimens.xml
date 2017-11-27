@@ -13,21 +13,52 @@
     <dimen name="splash_title_container_height">200dp</dimen>
 
     <item name="isLargeLayout" type="bool">true</item>
-    <item name="restaurant_item_card_radius" format="float" type="dimen">0.5</item>
-
     <dimen name="card_restaurant_radius">1.5dp</dimen>
     <dimen name="title_shift_margin">20dp</dimen>
 
 
-    <dimen name="restaurant_data_container_height">110dp</dimen>
-    <dimen name="restaurant_image_height">180dp</dimen>
-    <dimen name="card_restaurant_height">295dp</dimen>
-    <dimen name="card_restaurant_width">275dp</dimen>
 
-    <dimen name="restaurant_item_card_width">375dp</dimen>
-    <dimen name="restaurant_item_card_height">350dp</dimen>
-    <dimen name="restaurant_item_card_image_height">225dp</dimen>
-    <dimen name="restaurant_item_card_data_container_height">125dp</dimen>
+    <!--Restaurant item dimensions-->
+
+    <!--CardView-->
+    <dimen name="restaurant_radius">0.5dp</dimen>
+    <dimen name="restaurant_type_margin_top">4.5dp</dimen>
+    <dimen name="restaurant_type_text_linespacing">24.9sp</dimen>
+    <dimen name="restaurant_elevation">2dp</dimen>
+    <dimen name="restaurant_width">300dp</dimen>
+    <dimen name="restaurant_height">310dp</dimen>
+    <!---->
+
+
+    <!--Cuisine type container-->
+    <dimen name="restaurant_food_type_restaurant_img_size">12.5dp</dimen>
+    <dimen name="restaurant_food_type_delivery_width">18.5dp</dimen>
+    <dimen name="restaurant_food_type_delivery_height">12.5dp</dimen>
+    <dimen name="restaurant_food_type_container_margin">4dp</dimen>
+    <dimen name="restaurant_food_type_takeway_width">13dp</dimen>
+    <dimen name="restaurant_food_type_takeway_height">15dp</dimen>
+    <!---->
+
+
+    <!--Image and data container-->
+    <dimen name="restaurant_image_height">135dp</dimen>
+    <dimen name="restaurant_data_container_padding">16dp</dimen>
+    <dimen name="restaurant_data_container_height">110dp</dimen>
+    <!---->
+
+
+    <!--Title-->
+    <dimen name="restaurant_title">8dp</dimen>
+    <dimen name="restaurant_title_linespacing">177.9sp</dimen>
+    <dimen name="restaurant_title_text_size">14sp</dimen>
+    <!---->
+
+
+    <dimen name="restaurant_type_text_size">9sp</dimen>
+
+    <!---->
+    <!---->
+
 
 
     <!--Nearby card dimensions-->
