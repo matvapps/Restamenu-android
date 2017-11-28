@@ -1,8 +1,10 @@
 package com.restamenu.splash;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
@@ -11,6 +13,7 @@ import android.widget.ImageView;
 import com.github.florent37.viewanimator.AnimationListener;
 import com.github.florent37.viewanimator.ViewAnimator;
 import com.restamenu.R;
+import com.restamenu.main.MainActivity;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -51,6 +54,15 @@ public class SplashActivity extends AppCompatActivity {
 
         splashCursorImage.setScaleX(0);
         splashCursorImage.setScaleY(0);
+
+        splashBackgroundImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                finish();
+            }
+        });
+
 
         ViewAnimator
                 // Splash alpha animation
@@ -135,6 +147,14 @@ public class SplashActivity extends AppCompatActivity {
                 .interpolator(new AccelerateDecelerateInterpolator())
                 .translationY(0, getResources().getDimension(R.dimen.title_shift_margin))
                 .alpha(0, 1)
+
+                .onStop(new AnimationListener.Stop() {
+                    @Override
+                    public void onStop() {
+                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                        finish();
+                    }
+                })
 
 
 

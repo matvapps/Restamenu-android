@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/nearby_restaurant_card_margin_right"
+    android:layout_marginRight="@dimen/nearby_restaurant_card_margin_right">
 
 
     <android.support.v7.widget.CardView
-        android:layout_width="@dimen/card_restaurant_width"
-        android:layout_height="@dimen/card_restaurant_height"
-        app:cardCornerRadius="@dimen/card_restaurant_radius">
+        android:layout_width="@dimen/nearby_restaurant_card_width"
+        android:layout_height="@dimen/nearby_restaurant_card_height"
+        app:cardCornerRadius="@dimen/nearby_restaurant_card_radius"
+        app:cardElevation="@dimen/nearby_restaurant_card_elevation">
 
 
         <LinearLayout
@@ -18,71 +21,74 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/restaurant_id"
+                android:id="@+id/restaurant_background"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/restaurant_data_container_height"
+                android:layout_height="@dimen/nearby_restaurant_image_height"
                 android:background="@color/white_two"
-                android:scaleType="centerCrop"
-                android:src="@drawable/rest_background_test" />
+                android:scaleType="centerCrop" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="110dp"
+                android:layout_height="@dimen/nearby_restaurant_data_container_height"
                 android:orientation="vertical"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
+                android:paddingLeft="@dimen/nearby_restaurant_data_container_padding"
+                android:paddingRight="@dimen/nearby_restaurant_data_container_padding">
 
                 <TextView
                     android:id="@+id/restaurant_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginTop="16dp"
-                    android:lineSpacingExtra="180.9sp"
+                    android:layout_marginLeft="@dimen/nearby_restaurant_title_text_margin_left"
+                    android:layout_marginStart="@dimen/nearby_restaurant_title_text_margin_left"
+                    android:layout_marginTop="@dimen/nearby_restaurant_title_text_margin_top"
+                    android:lineSpacingExtra="@dimen/nearby_restaurant_title_text_linespacing"
                     android:text="Indego by Vineet"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/nearby_restaurant_title_text_size" />
 
                 <TextView
                     android:id="@+id/restaurant_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4.5dp"
-                    android:lineSpacingExtra="24.9sp"
+                    android:layout_marginTop="@dimen/nearby_restaurant_type_text_margin_top"
+                    android:lineSpacingExtra="@dimen/nearby_restaurant_type_text_linespacing"
                     android:text="Restaurant"
                     android:textColor="@color/black"
-                    android:textSize="9sp" />
+                    android:textSize="@dimen/nearby_restaurant_type_text_size" />
 
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginBottom="9dp"
+                    android:layout_marginBottom="@dimen/nearby_restaurant_cuisine_type_container_margin_top"
+                    android:layout_marginTop="@dimen/nearby_restaurant_cuisine_type_container_margin_top"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/food_type_restaurant_img"
-                        android:layout_width="@dimen/food_type_img_size"
-                        android:layout_height="@dimen/food_type_img_size"
+                        android:layout_width="@dimen/nearby_restaurant_cuisine_type_img_size"
+                        android:layout_height="@dimen/nearby_restaurant_cuisine_type_img_size"
                         android:layout_gravity="bottom"
+                        android:layout_marginEnd="@dimen/nearby_restaurant_cuisine_type_image_margin"
+                        android:layout_marginRight="@dimen/nearby_restaurant_cuisine_type_image_margin"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_drink_noactive" />
 
                     <ImageView
                         android:id="@+id/food_type_takeaway_img"
-                        android:layout_width="@dimen/food_type_img_size"
-                        android:layout_height="13.5dp"
+                        android:layout_width="@dimen/nearby_restaurant_cuisine_type_img_size"
+                        android:layout_height="@dimen/nearby_restaurant_cuisine_type_takeway_image_height"
                         android:layout_gravity="bottom"
+                        android:layout_marginEnd="@dimen/nearby_restaurant_cuisine_type_image_margin"
+                        android:layout_marginRight="@dimen/nearby_restaurant_cuisine_type_image_margin"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_eat_noactive" />
 
                     <ImageView
                         android:id="@+id/food_type_delivery_img"
-                        android:layout_width="16.5dp"
-                        android:layout_height="@dimen/food_type_img_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/nearby_restaurant_cuisine_type_img_size"
                         android:layout_gravity="bottom"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_deliver_noactive" />
@@ -96,8 +102,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="@dimen/food_type_img_size"
-                        android:layout_height="@dimen/food_type_img_size"
+                        android:layout_width="@dimen/nearby_restaurant_cuisine_type_img_size"
+                        android:layout_height="@dimen/nearby_restaurant_cuisine_type_img_size"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_pin_1" />
 
@@ -106,20 +112,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:lineSpacingExtra="25.9sp"
+                        android:lineSpacingExtra="@dimen/nearby_restaurant_street_text_linespacing"
                         android:text="Grosvenor House Dubai"
                         android:textColor="@color/black"
-                        android:textSize="8sp" />
+                        android:textSize="@dimen/nearby_restaurant_street_text_size" />
 
                     <TextView
                         android:id="@+id/distance_to_restaurant"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:lineSpacingExtra="25.9sp"
+                        android:lineSpacingExtra="@dimen/nearby_restaurant_distance_text_linespacing"
                         android:text="150 m"
                         android:textColor="@color/brownish_grey"
-                        android:textSize="8sp" />
+                        android:textSize="@dimen/nearby_restaurant_distance_text_size" />
 
                 </LinearLayout>
 
