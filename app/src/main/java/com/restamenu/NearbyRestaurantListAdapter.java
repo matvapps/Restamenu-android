@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.restamenu.model.content.Restaurant;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,9 +20,15 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<NearbyRest
     private List<Restaurant> restaurants;
     private Context context;
 
-    public NearbyRestaurantListAdapter(Context context, List<Restaurant> restaurants) {
-        this.restaurants = restaurants;
+    public NearbyRestaurantListAdapter(Context context) {
+        this.restaurants = new ArrayList<>();
         this.context = context;
+    }
+
+    public void setData(List<Restaurant> data) {
+        this.restaurants.clear();
+        this.restaurants.addAll(data);
+        notifyDataSetChanged();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.restamenu.main;
 
 import com.restamenu.base.BaseView;
+import com.restamenu.model.content.Restaurant;
 
 import java.util.List;
 
@@ -8,5 +9,5 @@ import java.util.List;
  * @author Roodie
  */
 
-public interface MainView extends BaseView<List<Object>> {
+public interface MainView extends BaseView<List<Restaurant>> {
 }

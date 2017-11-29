@@ -1,4 +1,4 @@
-package com.restamenu;
+package com.restamenu.model.content;
 
 /**
  * Created by DEV on 23.11.2017.

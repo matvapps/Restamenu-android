@@ -9,7 +9,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import com.restamenu.R;
 
@@ -21,7 +20,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected FrameLayout container;
     protected Toolbar toolbar;
-    protected TextView toolbarTitle;
+    //protected TextView toolbarTitle;
 
     protected CoordinatorLayout coordinatorLayout;
     protected AppBarLayout appBarLayout;
@@ -40,7 +39,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         container = findViewById(R.id.container);
 
         toolbar = findViewById(R.id.toolbar);
-        toolbarTitle = findViewById(R.id.toolbar_title);
+        //toolbarTitle = findViewById(R.id.toolbar_title);
 
         appBarLayout = findViewById(R.id.appbar);
         coordinatorLayout = findViewById(R.id.main_content);

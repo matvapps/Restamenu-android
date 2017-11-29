@@ -1,25 +1,20 @@
 package com.restamenu.main;
 
-import android.app.LoaderManager;
-import android.content.Loader;
-import android.os.Bundle;
-
-import com.restamenu.R;
+import com.restamenu.api.DataSource;
+import com.restamenu.api.RepositoryProvider;
 import com.restamenu.base.Presenter;
-import com.restamenu.loader.LoaderResult;
+import com.restamenu.model.content.Restaurant;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Roodie
  */
 
-public class MainPresenter implements Presenter<MainView>, LoaderManager.LoaderCallbacks<LoaderResult> {
+public class MainPresenter implements Presenter<MainView> {
 
-    private final LoaderManager loaderManager;
     private MainView view;
-
-    public MainPresenter(LoaderManager loaderManager) {
-        this.loaderManager = loaderManager;
-    }
 
     @Override
     public void attachView(MainView view) {
@@ -29,51 +24,31 @@ public class MainPresenter implements Presenter<MainView>, LoaderManager.LoaderC
     @Override
     public void detachView() {
         this.view = null;
+    }
+
+    public void init() {
+        List<Restaurant> restaurants = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            restaurants.add(new Restaurant());
+        }
+        view.setData(restaurants);
 
     }
 
     public void loadData() {
-        //TODO Put data in bundle if needed to send in loader
-        Bundle bundle = new Bundle();
-        bundle.putBoolean("key", true);
-        loaderManager.restartLoader(R.id.restaurants_loader_id, bundle, this);
-
-
-    }
-
-    @Override
-    public Loader<LoaderResult> onCreateLoader(int i, Bundle bundle) {
-        switch (i) {
-            case R.id.restaurants_loader_id: {
-                //TODO gat data from bundle if needed
-                //return new RestLoader();
-                return null;
+        RepositoryProvider.getRemoteRepository().getRestaurants(new DataSource.LoadRestaurantsCallback() {
+            @Override
+            public void onNext(List<Restaurant> data) {
+                view.setData(data);
+                view.showLoading(false);
             }
-            default:
-                return null;
-        }
-    }
 
-    @Override
-    public void onLoadFinished(Loader<LoaderResult> loader, LoaderResult loaderResult) {
-        switch (loader.getId()) {
-            case R.id.restaurants_loader_id:
-                if (loaderResult.getError() != null) {
-                    //Do smth in case of error
-                } else if (loaderResult.isCompleted()) {
-                    //Do smth if completed
-                } else {
-                    //Do smth on next
-                }
-                break;
-            default:
-                break;
-        }
+            @Override
+            public void onError(Throwable error) {
+                view.showError();
 
-    }
-
-    @Override
-    public void onLoaderReset(Loader<LoaderResult> loader) {
-
+            }
+        });
     }
 }

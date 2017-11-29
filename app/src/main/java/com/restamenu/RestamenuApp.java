@@ -3,9 +3,15 @@ package com.restamenu;
 import android.app.Application;
 import android.support.annotation.NonNull;
 
-import com.restamenu.data.RestaMenuPreferences;
-import com.restamenu.state.ApplicationState;
-import com.restamenu.state.InMemoryCache;
+import com.crashlytics.android.Crashlytics;
+import com.restamenu.api.ApiFactory;
+import com.restamenu.api.RemoteRepository;
+import com.restamenu.api.RepositoryProvider;
+import com.restamenu.data.database.LocalRepository;
+import com.restamenu.data.preferences.KeyValueStorage;
+import com.restamenu.util.AppExecutors;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by Alexandr.
@@ -27,18 +33,18 @@ public class RestamenuApp extends Application {
         sInstance = this;
         initApi();
 
-//        final Fabric fabric = new Fabric.Builder(this)
-//                .kits(new Crashlytics(), new Answers())
-//                .debuggable(BuildConfig.DEBUG ? true : false)
-//                .build();
-//        Fabric.with(fabric);
+        final Fabric fabric = new Fabric.Builder(this)
+                .kits(new Crashlytics())
+                .debuggable(BuildConfig.DEBUG ? true : false)
+                .build();
+        Fabric.with(fabric);
 //        SQLite.initialize(this);
 
     }
 
     private void initApi() {
-        ApplicationState.setPreferences(new RestaMenuPreferences(this));
-        ApplicationState.setMemoryCache(new InMemoryCache());
-
+        RepositoryProvider.setPreferences(new KeyValueStorage(this));
+        RepositoryProvider.setLocalRepository(new LocalRepository());
+        RepositoryProvider.setRemoteRepository(new RemoteRepository(new AppExecutors(), ApiFactory.getService()));
     }
 }

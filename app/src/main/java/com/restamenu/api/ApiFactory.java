@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.restamenu.BuildConfig;
 import com.restamenu.RestamenuApp;
+import com.restamenu.api.service.RestaMenuService;
 
 import java.util.concurrent.TimeUnit;
 
