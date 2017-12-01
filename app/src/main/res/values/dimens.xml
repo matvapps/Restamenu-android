@@ -51,7 +51,7 @@
 
 
     <!--Title-->
-    <dimen name="restaurant_title">8dp</dimen>
+    <dimen name="restaurant_title_margin">8dp</dimen>
     <dimen name="restaurant_title_linespacing">177.9sp</dimen>
     <dimen name="restaurant_title_text_size">14sp</dimen>
     <!---->
@@ -110,6 +110,24 @@
     <dimen name="nearby_restaurant_cuisine_type_container_margin_top">9dp</dimen>
     <dimen name="nearby_restaurant_cuisine_type_takeway_image_height">13.5dp</dimen>
     <dimen name="nearby_restaurant_cuisine_type_img_size">11dp</dimen>
+    <dimen name="food_type_img_margin">3dp</dimen>
+    <dimen name="restaurant_item_padding">8dp</dimen>
+    <dimen name="activity_main_fragment_nearby_height">470dp</dimen>
+    <dimen name="activity_main_search_restaurant_margin">200dp</dimen>
+    <dimen name="activity_main_restaurants_in_margin_bottom">30dp</dimen>
+    <dimen name="activity_main_restaurants_in_margin_top">24dp</dimen>
+    <dimen name="activity_main_restaurants_in_text_size">32sp</dimen>
+    <dimen name="fragment_nearby_near_text_margin_top">40dp</dimen>
+    <dimen name="fragment_nearby_near_text_margin_bottom">16dp</dimen>
+    <dimen name="fragment_nearby_near_text_size">26sp</dimen>
+    <dimen name="fragment_nearby_content_container_margin_left">16dp</dimen>
+    <dimen name="fragment_nearby_scrollit_container_width">125dp</dimen>
+    <dimen name="fragment_nearby_scroll_image_width">20dp</dimen>
+    <dimen name="fragment_nearby_scroll_image_margin_right">4dp</dimen>
+    <dimen name="fragment_nearby_scroll_text_size">12sp</dimen>
+    <dimen name="activity_main_search_container_padding_top">26dp</dimen>
+    <dimen name="restaurant_food_type_img_margin">4dp</dimen>
+    <dimen name="restaurant_span_count">1</dimen>
 
     <!---->
     <!---->

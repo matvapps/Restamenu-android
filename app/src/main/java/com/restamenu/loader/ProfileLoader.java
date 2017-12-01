@@ -3,7 +3,7 @@ package com.restamenu.loader;
 import android.content.Context;
 
 import com.restamenu.api.ApiFactory;
-import com.restamenu.api.RestaMenuService;
+import com.restamenu.api.service.RestaMenuService;
 
 /**
  * @author Roodie

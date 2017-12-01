@@ -40,7 +40,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/restaurant_title_margin"
-                    android:text="Indego by Vineet"
+                    android:text="Restaurant Bamboo Lagoon
+is waiting for you every evening!"
                     android:textColor="@color/black"
                     android:textSize="@dimen/restaurant_title_text_size" />
 
@@ -49,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/restaurant_type_margin_top"
-                    android:text="Restaurant"
+                    android:text="Order a table in advance to enjoy the performance of the artist performing your favorite hits."
                     android:textColor="@color/black"
                     android:textSize="@dimen/restaurant_type_text_size" />
 
@@ -58,13 +59,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/restaurant_food_type_container_margin"
+                    android:layout_marginBottom="@dimen/restaurant_title_margin"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/food_type_restaurant_img"
                         android:layout_width="@dimen/restaurant_food_type_restaurant_img_size"
                         android:layout_height="@dimen/restaurant_food_type_restaurant_img_size"
-                        android:layout_gravity="bottom"
+                        android:layout_gravity="center"
                         android:layout_marginEnd="@dimen/food_type_img_margin"
                         android:layout_marginRight="@dimen/food_type_img_margin"
                         android:scaleType="fitCenter"
@@ -74,7 +76,7 @@
                         android:id="@+id/food_type_takeaway_img"
                         android:layout_width="@dimen/restaurant_food_type_takeway_width"
                         android:layout_height="@dimen/restaurant_food_type_takeway_height"
-                        android:layout_gravity="bottom"
+                        android:layout_gravity="center"
                         android:layout_marginEnd="@dimen/food_type_img_margin"
                         android:layout_marginRight="@dimen/food_type_img_margin"
                         android:scaleType="fitCenter"
@@ -84,7 +86,7 @@
                         android:id="@+id/food_type_delivery_img"
                         android:layout_width="@dimen/restaurant_food_type_delivery_width"
                         android:layout_height="@dimen/restaurant_food_type_delivery_height"
-                        android:layout_gravity="bottom"
+                        android:layout_gravity="center"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_delivery_active" />
 

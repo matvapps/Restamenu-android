@@ -15,54 +15,48 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="125dp"
-            android:layout_marginStart="125dp"
-            android:layout_marginTop="24dp"
-            android:lineSpacingExtra="320sp"
-            android:text="Nearby restaurants"
+            android:layout_marginBottom="@dimen/fragment_nearby_near_text_margin_bottom"
+            android:layout_marginTop="@dimen/fragment_nearby_near_text_margin_top"
+            android:text="Restaurants by near you"
             android:textColor="#fefefe"
-            android:textSize="26sp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/fragment_nearby_near_text_size"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"/>
 
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginLeft="@dimen/fragment_nearby_content_container_margin_left"
+                android:layout_marginStart="@dimen/fragment_nearby_content_container_margin_left"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="125dp"
+                    android:layout_width="@dimen/fragment_nearby_scrollit_container_width"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginRight="4dp"
-                        android:src="@drawable/ic_arrow_back" />
+                        android:layout_width="@dimen/fragment_nearby_scroll_image_width"
+                        android:layout_height="@dimen/fragment_nearby_scroll_image_width"
+                        android:layout_marginEnd="@dimen/fragment_nearby_scroll_image_margin_right"
+                        android:layout_marginRight="@dimen/fragment_nearby_scroll_image_margin_right"
+                        android:src="@drawable/ic_scroll" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:lineSpacingExtra="2sp"
-                        android:text="You can \n scroll it"
+                        android:text=" Scroll it"
                         android:textColor="@color/white_70"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/fragment_nearby_scroll_text_size" />
 
                 </LinearLayout>
 
@@ -70,18 +64,10 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/restaurant_list_container"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clipChildren="false" />
-
-                <!--<include-->
-                <!--layout="@layout/nearby_restaurant_card"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"/>-->
+                    android:layout_height="wrap_content" />
 
 
             </LinearLayout>
-
-        </ScrollView>
 
     </LinearLayout>
 

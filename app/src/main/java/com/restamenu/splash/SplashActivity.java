@@ -16,16 +16,7 @@ import com.restamenu.R;
 import com.restamenu.main.MainActivity;
 import com.squareup.picasso.Picasso;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class SplashActivity extends AppCompatActivity {
-
-    @BindView(R.id.splash_background)ImageView splashBackgroundImage;
-    @BindView(R.id.splash_cursor) ImageView splashCursorImage;
-    @BindView(R.id.restamenu_text) ImageView restamenuTextImage;
-    @BindView(R.id.electronic_menu_text) ImageView electronicMenuText;
-    @BindView(R.id.title_container) FrameLayout titleContainer;
 
     @Override
     protected void onResume() {
@@ -48,7 +39,12 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        ButterKnife.bind(this);
+
+        ImageView splashBackgroundImage = findViewById(R.id.splash_background);
+        final ImageView splashCursorImage = findViewById(R.id.splash_cursor);
+        ImageView restamenuTextImage = findViewById(R.id.restamenu_text);
+        ImageView electronicMenuText = findViewById(R.id.electronic_menu_text);
+        FrameLayout titleContainer = findViewById(R.id.title_container);
 
         Picasso.with(this).load(R.drawable.splash_background).into(splashBackgroundImage);
 
@@ -155,9 +151,6 @@ public class SplashActivity extends AppCompatActivity {
                         finish();
                     }
                 })
-
-
-
                 .start();
 
 
