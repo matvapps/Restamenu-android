@@ -2,15 +2,16 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="@dimen/restaurant_item_padding">
 
 
     <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/restaurant_width"
         android:layout_height="@dimen/restaurant_height"
+        android:layout_marginBottom="@dimen/restaurant_elevation"
         app:cardCornerRadius="@dimen/restaurant_radius"
-        app:cardElevation="@dimen/restaurant_elevation"
-        android:layout_marginBottom="@dimen/restaurant_elevation">
+        app:cardElevation="@dimen/restaurant_elevation">
 
 
         <LinearLayout
@@ -38,8 +39,7 @@
                     android:id="@+id/restaurant_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/restaurant_title"
-                    android:lineSpacingExtra="@dimen/restaurant_title_linespacing"
+                    android:layout_marginTop="@dimen/restaurant_title_margin"
                     android:text="Indego by Vineet"
                     android:textColor="@color/black"
                     android:textSize="@dimen/restaurant_title_text_size" />
@@ -49,7 +49,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/restaurant_type_margin_top"
-                    android:lineSpacingExtra="@dimen/restaurant_type_text_linespacing"
                     android:text="Restaurant"
                     android:textColor="@color/black"
                     android:textSize="@dimen/restaurant_type_text_size" />
@@ -59,32 +58,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/restaurant_food_type_container_margin"
-                    android:layout_marginBottom="@dimen/restaurant_food_type_container_margin"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/food_type_restaurant_img"
                         android:layout_width="@dimen/restaurant_food_type_restaurant_img_size"
                         android:layout_height="@dimen/restaurant_food_type_restaurant_img_size"
-                        android:layout_gravity="bottom"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/restaurant_food_type_img_margin"
+                        android:layout_marginRight="@dimen/restaurant_food_type_img_margin"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ic_drink_noactive" />
+                        android:src="@drawable/ic_restoran_active" />
 
                     <ImageView
                         android:id="@+id/food_type_takeaway_img"
                         android:layout_width="@dimen/restaurant_food_type_takeway_width"
                         android:layout_height="@dimen/restaurant_food_type_takeway_height"
-                        android:layout_gravity="bottom"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/restaurant_food_type_img_margin"
+                        android:layout_marginRight="@dimen/restaurant_food_type_img_margin"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ic_eat_noactive" />
+                        android:src="@drawable/ic_food_active" />
 
                     <ImageView
                         android:id="@+id/food_type_delivery_img"
                         android:layout_width="@dimen/restaurant_food_type_delivery_width"
                         android:layout_height="@dimen/restaurant_food_type_delivery_height"
-                        android:layout_gravity="bottom"
+                        android:layout_gravity="center"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ic_deliver_noactive" />
+                        android:src="@drawable/ic_delivery_active" />
 
                 </LinearLayout>
 

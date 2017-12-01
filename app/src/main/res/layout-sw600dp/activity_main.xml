@@ -11,122 +11,49 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!--<include layout="@layout/include_toolbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"/>-->
-
-
-
         <include
             layout="@layout/fragment_nearby_restaurants"
             android:layout_width="match_parent"
-            android:layout_height="380dp" />
+            android:layout_height="@dimen/activity_main_fragment_nearby_height" />
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/grey"
+            android:paddingBottom="@dimen/activity_main_search_container_padding_top"
+            android:paddingTop="@dimen/activity_main_search_container_padding_top">
+
+
+            <include
+                layout="@layout/search_restaurant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_main_search_restaurant_margin"
+                android:layout_marginRight="@dimen/activity_main_search_restaurant_margin" />
+
+
+        </FrameLayout>
 
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="200dp"
-            android:layout_marginRight="200dp"
-            android:layout_marginTop="16dp"
-            android:text="Search by restaurant: "
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-
-        <include
-            layout="@layout/search_restaurant"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="200dp"
-            android:layout_marginRight="200dp" />
-
-        <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"/>-->
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="38dp"
-            android:layout_marginStart="38dp"
-            android:layout_marginTop="16dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/activity_main_restaurants_in_margin_bottom"
+            android:layout_marginTop="@dimen/activity_main_restaurants_in_margin_top"
             android:text="Restaurants in Dubai"
             android:textColor="@color/black"
-            android:textSize="32sp"
+            android:textSize="@dimen/activity_main_restaurants_in_text_size"
             android:textStyle="bold" />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/restaurants_list"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"/>
 
-            <include
-                layout="@layout/restaurant_item_card"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp" />
-
-            <include
-                layout="@layout/restaurant_item_card"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp" />
-
-            <include
-                layout="@layout/restaurant_item_card"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <include
-                layout="@layout/restaurant_item_card"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp" />
-
-            <include
-                layout="@layout/restaurant_item_card"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp" />
-
-            <include
-                layout="@layout/restaurant_item_card"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp" />
-
-
-        </LinearLayout>
 
     </LinearLayout>
 

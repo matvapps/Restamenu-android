@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/nearby_restaurants_container_background"
@@ -16,31 +16,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="24dp"
-            android:lineSpacingExtra="320sp"
-            android:textColor="#fefefe"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:text="Nearby restaurants" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/fragment_nearby_near_text_margin_bottom"
+            android:layout_marginTop="@dimen/fragment_nearby_near_text_margin_top"
+            android:text="Restaurants by near you"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/fragment_nearby_near_text_size"
+            android:textStyle="bold" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/restaurant_list_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipChildren="false"/>
+            android:clipChildren="false" />
 
         <!--<include-->
-            <!--layout="@layout/nearby_restaurant_card"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"/>-->
+        <!--layout="@layout/nearby_restaurant_card"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"/>-->
 
     </LinearLayout>
 
