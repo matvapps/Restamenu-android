@@ -12,7 +12,10 @@ import java.util.List;
 
 public interface DataSource {
 
-    void getRestaurants(@NonNull LoadRestaurantsCallback callback);
+    void getRestaurants(@NonNull Integer cityId, @NonNull LoadRestaurantsCallback callback);
+
+    //void getRestaurants(@NonNull Integer cityId, String keyword, Integer cusineId, Integer instituteId, Integer page,
+    //                     boolean details, @NonNull LoadRestaurantsCallback callback);
 
     void getRestaurant(@NonNull String id, @NonNull GetRestaurantCallback callback);
 

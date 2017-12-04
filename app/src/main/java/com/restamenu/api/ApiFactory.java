@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.restamenu.BuildConfig;
 import com.restamenu.RestamenuApp;
-import com.restamenu.api.service.RestaMenuService;
+import com.restamenu.api.service.RestaurantService;
 
 import java.util.concurrent.TimeUnit;
 
@@ -13,6 +13,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.restamenu.BuildConfig.BASE_URL;
 
 /**
  * @author Roodie
@@ -24,17 +26,17 @@ public final class ApiFactory {
 
     private static OkHttpClient sClient;
     private static Retrofit sRetrofit;
-    private static RestaMenuService restaMenuService;
+    private static RestaurantService restaMenuService;
 
     @NonNull
-    public static RestaMenuService getService() {
-        RestaMenuService service = restaMenuService;
+    public static RestaurantService getService() {
+        RestaurantService service = restaMenuService;
         if (service == null) {
             synchronized (ApiFactory.class) {
                 service = restaMenuService;
                 if (service == null) {
                     sRetrofit = buildRetrofit();
-                    service = restaMenuService = sRetrofit.create(RestaMenuService.class);
+                    service = restaMenuService = sRetrofit.create(RestaurantService.class);
                 }
             }
         }
@@ -51,7 +53,7 @@ public final class ApiFactory {
     @NonNull
     private static Retrofit buildRetrofit() {
         return new Retrofit.Builder()
-                .baseUrl("base_url")
+                .baseUrl(BASE_URL)
                 .client(getClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
