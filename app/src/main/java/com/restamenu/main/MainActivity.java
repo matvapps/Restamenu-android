@@ -10,6 +10,7 @@ import com.restamenu.R;
 import com.restamenu.RestaurantListAdapter;
 import com.restamenu.StartSnapHelper;
 import com.restamenu.base.BaseNavigationActivity;
+import com.restamenu.model.content.Restaurant;
 
 import java.util.List;
 
@@ -48,10 +49,10 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
         restaurantsListView.setLayoutManager(gridLayoutManager);
         nearbyRestaurantsView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        restaurantListAdapter = new NearbyRestaurantListAdapter(this);
+        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter(MainActivity.this);
         nearbyRestaurantsView.setAdapter(restaurantListAdapter);
-    }
-        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter(this);
+
+        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter(MainActivity.this);
         restaurantListAdapter = new RestaurantListAdapter(this);
 
         nearbyRestaurantsView.setAdapter(nearbyRestaurantListAdapter);

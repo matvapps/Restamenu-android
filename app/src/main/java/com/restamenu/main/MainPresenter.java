@@ -5,7 +5,6 @@ import com.restamenu.api.RepositoryProvider;
 import com.restamenu.base.Presenter;
 import com.restamenu.model.content.Restaurant;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,17 +26,19 @@ public class MainPresenter implements Presenter<MainView> {
     }
 
     public void init() {
-        List<Restaurant> restaurants = new ArrayList<>();
+        loadData();
+        //List<Restaurant> restaurants = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
+       /* for (int i = 0; i < 10; i++) {
             restaurants.add(new Restaurant());
-        }
-        view.setData(restaurants);
+        }*/
+        //view.setData(restaurants);
 
     }
 
     public void loadData() {
-        RepositoryProvider.getRemoteRepository().getRestaurants(new DataSource.LoadRestaurantsCallback() {
+        view.showLoading(true);
+        RepositoryProvider.getAppRepository().getRestaurants(1, new DataSource.LoadRestaurantsCallback() {
             @Override
             public void onNext(List<Restaurant> data) {
                 view.setData(data);

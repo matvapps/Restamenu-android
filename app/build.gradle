@@ -25,6 +25,8 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "0.0.1"
+        buildConfigField "String", "BASE_URL", "\"https://restamenu.com/api\""
+        buildConfigField "String", "AUTH_KEY", "\"0fbe1ddfbc52dffd9e79649d4e3c0b29\""
         project.ext.set("archivesBaseName", "Restamenu-" + defaultConfig.versionName);
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

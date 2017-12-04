@@ -1,74 +1,68 @@
 package com.restamenu.model.content;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 /**
  * Created by DEV on 23.11.2017.
  */
 
 public class Restaurant {
 
-    private String backgroundImageUrl;
-    private String title;
-    private String type;
-    private String[] foodTypes;
-    private String street;
+    @SerializedName("restaurant_id")
+    private int id;
+    private String name;
+
+    private List<Integer> cuisine; //массив значений для типов кухни данного ресторана
+    private List<Integer> institute; //Mассив значений для типов заведения данного ресторана
+    private List<Integer> service; //Массив с идентификаторами типов обслуживания данного ресторана
+    private String image;
+    private String background;
+    private String address;
+    private Location location;
     private int distance;
+    private int type;  //тип показа карточки категории. Например, 0 - по-умолчанию.
+
+    private String information;
+    private List<String> timing;
+    private List<String> phones;
+    private List<String> social;
+    private List<Integer> currency;
+    private List<Integer> languages;
+
+    //private String street;
+    //private int distance;
+
 
     public Restaurant() {
     }
 
-    public Restaurant(String backgroundImageUrl, String title, String type, String[] foodTypes, String street, int distance) {
-        this.title = title;
-        this.type = type;
-        this.foodTypes = foodTypes;
-        this.street = street;
-        this.distance = distance;
+    public List<Integer> getCuisine() {
+        return cuisine;
     }
 
-    public String getBackgroundImageUrl() {
-        return backgroundImageUrl;
+    public List<Integer> getInstitute() {
+        return institute;
     }
 
-    public void setBackgroundImageUrl(String backgroundImageUrl) {
-        this.backgroundImageUrl = backgroundImageUrl;
+    public String getImage() {
+        return image;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public int getId() {
+        return id;
     }
 
-    public String[] getFoodTypes() {
-        return foodTypes;
+    public String getName() {
+        return name;
     }
 
-    public void setFoodTypes(String[] foodTypes) {
-        this.foodTypes = foodTypes;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public int getDistance() {
-        return distance;
-    }
-
-    public void setDistance(int distance) {
-        this.distance = distance;
-    }
 }
+
+
+

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.crashlytics.android.Crashlytics;
 import com.restamenu.api.ApiFactory;
+import com.restamenu.api.ApplicationRepository;
 import com.restamenu.api.RemoteRepository;
 import com.restamenu.api.RepositoryProvider;
 import com.restamenu.data.database.LocalRepository;
@@ -44,7 +45,7 @@ public class RestamenuApp extends Application {
 
     private void initApi() {
         RepositoryProvider.setPreferences(new KeyValueStorage(this));
-        RepositoryProvider.setLocalRepository(new LocalRepository());
-        RepositoryProvider.setRemoteRepository(new RemoteRepository(new AppExecutors(), ApiFactory.getService()));
+        RepositoryProvider.setAppRepository(new ApplicationRepository(new LocalRepository(),
+                new RemoteRepository(new AppExecutors(), ApiFactory.getService())));
     }
 }
