@@ -1,6 +1,5 @@
 package com.restamenu;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +16,9 @@ import java.util.List;
 public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.ViewHolder> {
 
     private List<Restaurant> restaurants;
-    private Context context;
 
-    public RestaurantListAdapter(Context context) {
+    public RestaurantListAdapter() {
         this.restaurants = new ArrayList<>();
-        this.context = context;
     }
 
     public void setData(List<Restaurant> data) {

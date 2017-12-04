@@ -18,5 +18,14 @@ public class KeyValueStorage {
         editor = preferences.edit();
     }
 
+    public boolean isFirstTime() {
+        return preferences.getBoolean("is_first_time", true);
+    }
+
+    public void setFirsrTime(boolean data) {
+        editor.putBoolean("is_first_time", data);
+        editor.commit();
+    }
+
 
 }

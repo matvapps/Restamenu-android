@@ -32,13 +32,14 @@ public class RestamenuApp extends Application {
         super.onCreate();
 
         sInstance = this;
-        initApi();
 
         final Fabric fabric = new Fabric.Builder(this)
                 .kits(new Crashlytics())
                 .debuggable(BuildConfig.DEBUG ? true : false)
                 .build();
         Fabric.with(fabric);
+
+        initApi();
 //        SQLite.initialize(this);
 
     }
