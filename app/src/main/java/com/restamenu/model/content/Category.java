@@ -1,5 +1,7 @@
 package com.restamenu.model.content;
 
+import java.util.List;
+
 /**
  * @author Roodie
  */

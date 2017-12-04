@@ -6,6 +6,7 @@ import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Cuisine;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
+import com.restamenu.model.responce.CategoriesResponce;
 import com.restamenu.model.responce.RestaurantsResponce;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public interface RestaurantService {
      * @return
      */
     @NonNull
-    @GET("/getRestaurants")
+    @GET("getRestaurants")
     Call<RestaurantsResponce> getRestaurants(@NonNull @Query("city_id") Integer cityId,
                                              @Query("keyword") String keyword,
                                              @Query("cusine_id") Integer cusineId,
@@ -46,17 +47,17 @@ public interface RestaurantService {
      * @return
      */
     @NonNull
-    @GET("/getNearRestaurants")
-    Call<List<Restaurant>> getNearRestaurants(@NonNull @Query("city_id") Integer cityId,
+    @GET("getNearRestaurants")
+    Call<RestaurantsResponce> getNearRestaurants(@NonNull @Query("city_id") Integer cityId,
                                               @Query("geo") String geo,
                                               @Query("details") boolean details);
 
     @NonNull
-    @GET("/getInstitutions")
+    @GET("getInstitutions")
     Call<List<Institute>> getInstitutions();
 
     @NonNull
-    @GET("/getCusines")
+    @GET("getCusines")
     Call<List<Cuisine>> getCuisines();
 
     /**
@@ -67,18 +68,18 @@ public interface RestaurantService {
      * @return
      */
     @NonNull
-    @GET("/getRestaurant")
+    @GET("getRestaurant")
     Call<Restaurant> getRestaurant(@NonNull @Query("restaurant_id") Integer restaurantId,
                                    @Query("language_id") Integer languageId);
 
     @NonNull
-    @GET("/getCategories")
-    Call<List<Category>> getCategories(@NonNull @Query("restaurant_id") Integer restaurantId,
-                                       @NonNull @Query("service_id") Integer serviceId,
-                                       @Query("language_id") Integer languageId);
+    @GET("getCategories")
+    Call<CategoriesResponce> getCategories(@NonNull @Query("restaurant_id") Integer restaurantId,
+                                           @NonNull @Query("service_id") Integer serviceId,
+                                           @Query("language_id") Integer languageId);
 
     @NonNull
-    @GET("/getCategory")
+    @GET("getCategory")
     Call<Category> getCategory(@NonNull @Query("restaurant_id") Integer restaurantId,
                                @NonNull @Query("service_id") Integer serviceId,
                                @NonNull @Query("category_id") Integer categoryId,

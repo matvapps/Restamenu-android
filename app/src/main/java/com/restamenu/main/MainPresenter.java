@@ -51,5 +51,19 @@ public class MainPresenter implements Presenter<MainView> {
 
             }
         });
+
+        RepositoryProvider.getAppRepository().getNearRestaurants(1, "56.8457373,60.5972259", new DataSource.LoadRestaurantsCallback() {
+            @Override
+            public void onNext(List<Restaurant> data) {
+                view.setNearRestaurants(data);
+            }
+
+            @Override
+            public void onError(Throwable error) {
+                //TODO
+            }
+        });
+
+
     }
 }

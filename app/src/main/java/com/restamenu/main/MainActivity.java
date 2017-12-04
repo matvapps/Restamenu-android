@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.restamenu.NearbyRestaurantListAdapter;
 import com.restamenu.R;
@@ -11,6 +12,7 @@ import com.restamenu.RestaurantListAdapter;
 import com.restamenu.StartSnapHelper;
 import com.restamenu.base.BaseNavigationActivity;
 import com.restamenu.model.content.Restaurant;
+import com.restamenu.util.Logger;
 
 import java.util.List;
 
@@ -38,24 +40,19 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-
                 if (position == 1 && span_count > 2){
                     return  2;
                 }
-
                 return 1;
             }
         });
 
         restaurantsListView.setLayoutManager(gridLayoutManager);
         nearbyRestaurantsView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter(MainActivity.this);
+        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter();
         nearbyRestaurantsView.setAdapter(restaurantListAdapter);
 
-        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter(MainActivity.this);
-        restaurantListAdapter = new RestaurantListAdapter(this);
-
-        nearbyRestaurantsView.setAdapter(nearbyRestaurantListAdapter);
+        restaurantListAdapter = new RestaurantListAdapter();
         restaurantsListView.setAdapter(restaurantListAdapter);
 
     }
@@ -63,6 +60,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     @Override
     protected void attachPresenter() {
+        Logger.log("Attach");
         if (presenter == null) {
             presenter = new MainPresenter();
         }
@@ -78,12 +76,19 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     @Override
     public void setData(@NonNull List<Restaurant> data) {
+        Logger.log("Amount: " + data.size());
         restaurantListAdapter.setData(data);
+    }
+
+    @Override
+    public void setNearRestaurants(List<Restaurant> data) {
+        Logger.log("Amount: " + data.size());
         nearbyRestaurantListAdapter.setData(data);
     }
 
     @Override
     public void showError() {
+        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
         //TODO
     }
 

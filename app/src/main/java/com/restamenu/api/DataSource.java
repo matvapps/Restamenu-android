@@ -2,6 +2,8 @@ package com.restamenu.api;
 
 import android.support.annotation.NonNull;
 
+import com.restamenu.model.content.Category;
+import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 
 import java.util.List;
@@ -14,21 +16,39 @@ public interface DataSource {
 
     void getRestaurants(@NonNull Integer cityId, @NonNull LoadRestaurantsCallback callback);
 
-    //void getRestaurants(@NonNull Integer cityId, String keyword, Integer cusineId, Integer instituteId, Integer page,
-    //                     boolean details, @NonNull LoadRestaurantsCallback callback);
+    void getCategories(@NonNull Integer restaurantId, @NonNull Integer serviceId, @NonNull GetCategoriesCallback callback);
 
-    void getRestaurant(@NonNull String id, @NonNull GetRestaurantCallback callback);
+    void getCategory(@NonNull Integer restaurantId, @NonNull Integer serviceId, @NonNull Integer categoryId, @NonNull GetCategoryCallback callback);
+
+    void getRestaurant(@NonNull Integer id, @NonNull GetRestaurantCallback callback);
+
+    void getNearRestaurants(@NonNull Integer cityId, @NonNull String geo, @NonNull LoadRestaurantsCallback callback);
 
     interface LoadRestaurantsCallback {
-
         void onNext(List<Restaurant> data);
-
         void onError(Throwable error);
     }
 
     interface GetRestaurantCallback {
-
         void onNext(Restaurant data);
+
+        void onError(Throwable error);
+    }
+
+    interface GetCategoryCallback {
+        void onNext(Category data);
+
+        void onError(Throwable error);
+    }
+
+    interface GetCategoriesCallback {
+        void onNext(List<Category> data);
+
+        void onError(Throwable error);
+    }
+
+    interface GetInstitutionsCallback {
+        void onNext(List<Institute> data);
 
         void onError(Throwable error);
     }

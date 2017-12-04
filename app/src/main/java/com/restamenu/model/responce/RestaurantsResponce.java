@@ -2,6 +2,7 @@ package com.restamenu.model.responce;
 
 import com.restamenu.model.content.Restaurant;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class RestaurantsResponce {
 
-    private List<Restaurant> restaurants;
+    private List<Restaurant> restaurants = new ArrayList<>();
 
     public List<Restaurant> getRestaurants() {
         return restaurants;

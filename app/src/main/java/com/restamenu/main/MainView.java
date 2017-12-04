@@ -10,4 +10,6 @@ import java.util.List;
  */
 
 public interface MainView extends BaseView<List<Restaurant>> {
+
+    void setNearRestaurants(List<Restaurant> data);
 }

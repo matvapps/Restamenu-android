@@ -1,5 +1,7 @@
 package com.restamenu.api;
 
+import android.support.annotation.NonNull;
+
 import com.restamenu.data.preferences.KeyValueStorage;
 
 /**
@@ -8,25 +10,25 @@ import com.restamenu.data.preferences.KeyValueStorage;
 
 public final class RepositoryProvider {
 
-    private static KeyValueStorage preferences;
-    private static ApplicationRepository appRepository;
+    private static KeyValueStorage sPreferences;
+    private static ApplicationRepository sAppRepository;
 
     public RepositoryProvider() {
     }
 
     public static KeyValueStorage getPreferences() {
-        return preferences;
+        return sPreferences;
     }
 
-    public static void setPreferences(KeyValueStorage preferences) {
-        RepositoryProvider.preferences = preferences;
+    public static void setPreferences(@NonNull KeyValueStorage preferences) {
+        sPreferences = preferences;
     }
 
     public static ApplicationRepository getAppRepository() {
-        return appRepository;
+        return sAppRepository;
     }
 
-    public static void setAppRepository(ApplicationRepository appRepository) {
-        RepositoryProvider.appRepository = appRepository;
+    public static void setAppRepository(@NonNull ApplicationRepository appRepository) {
+        sAppRepository = appRepository;
     }
 }
