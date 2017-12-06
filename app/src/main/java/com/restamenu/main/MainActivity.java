@@ -49,10 +49,12 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
         restaurantsListView.setLayoutManager(gridLayoutManager);
         nearbyRestaurantsView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter();
-        nearbyRestaurantsView.setAdapter(restaurantListAdapter);
 
+        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter();
         restaurantListAdapter = new RestaurantListAdapter();
+
+
+        nearbyRestaurantsView.setAdapter(nearbyRestaurantListAdapter);
         restaurantsListView.setAdapter(restaurantListAdapter);
 
     }
@@ -82,7 +84,8 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     @Override
     public void setNearRestaurants(List<Restaurant> data) {
-        Logger.log("Amount: " + data.size());
+        Logger.log("Nearby Amount: " + data.size());
+
         nearbyRestaurantListAdapter.setData(data);
     }
 

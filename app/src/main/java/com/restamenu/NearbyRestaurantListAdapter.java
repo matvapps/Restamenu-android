@@ -40,16 +40,9 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<NearbyRest
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-//        if(restaurants.get(position).getTitle() != null) {
-//
-//            holder.restaurantBackgroundImageView.setImageDrawable(
-//                    ContextCompat.getDrawable(context, R.drawable.rest_background_test));
-//            holder.restaurantTitleTextView.setText(restaurants.get(position).getTitle());
-//            holder.restaurantTypeTextView.setText(restaurants.get(position).getType());
-//            holder.restaurantStreetTextView.setText(restaurants.get(position).getStreet());
-//            holder.restaurantDistanceTextView.setText(
-//                    String.valueOf(restaurants.get(position).getDistance()));
-//        }
+        holder.restaurantTitleTextView.setText(restaurants.get(position).getName());
+        holder.restaurantStreetTextView.setText(restaurants.get(position).getAddress());
+        holder.restaurantDistanceTextView.setText(restaurants.get(position).getDistance() + "m");
 
     }
 

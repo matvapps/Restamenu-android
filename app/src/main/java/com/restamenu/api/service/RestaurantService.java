@@ -4,9 +4,9 @@ import android.support.annotation.NonNull;
 
 import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Cuisine;
-import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.model.responce.CategoriesResponce;
+import com.restamenu.model.responce.InstitutionsResponse;
 import com.restamenu.model.responce.RestaurantsResponce;
 
 import java.util.List;
@@ -54,7 +54,7 @@ public interface RestaurantService {
 
     @NonNull
     @GET("getInstitutions")
-    Call<List<Institute>> getInstitutions();
+    Call<InstitutionsResponse> getInstitutions();
 
     @NonNull
     @GET("getCusines")

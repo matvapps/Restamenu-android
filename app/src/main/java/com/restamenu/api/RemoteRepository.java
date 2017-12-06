@@ -8,6 +8,7 @@ import com.restamenu.api.service.RestaurantService;
 import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.model.responce.CategoriesResponce;
+import com.restamenu.model.responce.InstitutionsResponse;
 import com.restamenu.model.responce.RestaurantsResponce;
 import com.restamenu.util.AppExecutors;
 
@@ -44,13 +45,35 @@ public class RemoteRepository {
                     @Override
                     public void onResponse(Call<RestaurantsResponce> call, Response<RestaurantsResponce> response) {
                         if (response.code() == 200) {
-                            callback.onNext(response.body().getRestaurants());
+                            callback.onNext(response.body().getData());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<RestaurantsResponce> call, Throwable t) {
                         callback.onError(t);
+                    }
+                });
+            }
+        });
+    }
+
+    public void getInstitutions(@NonNull final DataSource.GetInstitutionsCallback callback) {
+        executors.networkIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                Call<InstitutionsResponse> call = restaMenuService.getInstitutions();
+                call.enqueue(new Callback<InstitutionsResponse>() {
+                    @Override
+                    public void onResponse(Call<InstitutionsResponse> call, Response<InstitutionsResponse> response) {
+                        if(response.code() == 200) {
+                            callback.onNext(response.body().getData());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<InstitutionsResponse> call, Throwable t) {
+
                     }
                 });
             }
@@ -66,7 +89,7 @@ public class RemoteRepository {
                     @Override
                     public void onResponse(Call<RestaurantsResponce> call, Response<RestaurantsResponce> response) {
                         if (response.code() == 200) {
-                            callback.onNext(response.body().getRestaurants());
+                            callback.onNext(response.body().getData());
                         }
                     }
 

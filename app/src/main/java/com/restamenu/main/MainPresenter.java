@@ -3,6 +3,7 @@ package com.restamenu.main;
 import com.restamenu.api.DataSource;
 import com.restamenu.api.RepositoryProvider;
 import com.restamenu.base.Presenter;
+import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 
 import java.util.List;
@@ -52,6 +53,19 @@ public class MainPresenter implements Presenter<MainView> {
             }
         });
 
+        RepositoryProvider.getAppRepository().getInstitutions(new DataSource.GetInstitutionsCallback() {
+            @Override
+            public void onNext(List<Institute> data) {
+
+            }
+
+            @Override
+            public void onError(Throwable error) {
+
+            }
+        });
+
+
         RepositoryProvider.getAppRepository().getNearRestaurants(1, "56.8457373,60.5972259", new DataSource.LoadRestaurantsCallback() {
             @Override
             public void onNext(List<Restaurant> data) {
@@ -63,7 +77,6 @@ public class MainPresenter implements Presenter<MainView> {
                 //TODO
             }
         });
-
 
     }
 }

@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.restamenu.data.database.LocalRepository;
 import com.restamenu.model.content.Category;
+import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 
 import java.util.List;
@@ -30,6 +31,21 @@ public class ApplicationRepository implements DataSource {
             public void onNext(List<Restaurant> data) {
                 callback.onNext(data);
                 //TODO save in db
+            }
+
+            @Override
+            public void onError(Throwable error) {
+                callback.onError(error);
+            }
+        });
+    }
+
+    @Override
+    public void getInstitutions(@NonNull final GetInstitutionsCallback callback) {
+        remoteRepository.getInstitutions(new GetInstitutionsCallback() {
+            @Override
+            public void onNext(List<Institute> data) {
+                callback.onNext(data);
             }
 
             @Override

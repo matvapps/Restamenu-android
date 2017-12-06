@@ -1,6 +1,7 @@
 package com.restamenu;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import java.util.List;
 
 
 public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.ViewHolder> {
+
+    public static final int ADVERTISING_VIEW = 1;
 
     private List<Restaurant> restaurants;
 
@@ -38,8 +41,11 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rootView;
-        switch (viewType) {
-            case 1:
+
+        Log.d("RestaurantListAdapter", "onCreateViewHolder: " + viewType);
+
+        switch (restaurants.get(viewType).getType()) {
+            case ADVERTISING_VIEW:
                 rootView = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.advertising_restaurant_item_card, parent, false);
                 break;
@@ -56,16 +62,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-//        if(restaurants.get(position).getTitle() != null) {
-//
-//            holder.restaurantBackgroundImageView.setImageDrawable(
-//                    ContextCompat.getDrawable(context, R.drawable.rest_background_test));
-//            holder.restaurantTitleTextView.setText(restaurants.get(position).getTitle());
-//            holder.restaurantTypeTextView.setText(restaurants.get(position).getType());
-//            holder.restaurantStreetTextView.setText(restaurants.get(position).getStreet());
-//            holder.restaurantDistanceTextView.setText(
-//                    String.valueOf(restaurants.get(position).getDistance()));
-//        }
+        holder.restaurantTitleTextView.setText(restaurants.get(position).getName());
 
     }
 

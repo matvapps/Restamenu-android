@@ -24,6 +24,8 @@ public interface DataSource {
 
     void getNearRestaurants(@NonNull Integer cityId, @NonNull String geo, @NonNull LoadRestaurantsCallback callback);
 
+    void getInstitutions(@NonNull GetInstitutionsCallback callback);
+
     interface LoadRestaurantsCallback {
         void onNext(List<Restaurant> data);
         void onError(Throwable error);

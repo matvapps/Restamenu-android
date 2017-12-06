@@ -11,9 +11,9 @@ import java.util.List;
 
 public class RestaurantsResponce {
 
-    private List<Restaurant> restaurants = new ArrayList<>();
+    private List<Restaurant> data = new ArrayList<>();
 
-    public List<Restaurant> getRestaurants() {
-        return restaurants;
+    public List<Restaurant> getData() {
+        return data;
     }
 }

@@ -10,13 +10,13 @@ package com.restamenu.model.content;
 public class Institute {
 
     private int institute_id;
-    private String name;
+    private String balance;
 
     public int getId() {
         return institute_id;
-    }
+}
 
-    public String getName() {
-        return name;
+    public String getBalance() {
+        return balance;
     }
 }
