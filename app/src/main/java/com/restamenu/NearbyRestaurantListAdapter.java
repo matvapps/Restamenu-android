@@ -1,5 +1,6 @@
 package com.restamenu;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.restamenu.model.content.Restaurant;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +19,11 @@ import java.util.List;
 public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<NearbyRestaurantListAdapter.ViewHolder> {
 
     private List<Restaurant> restaurants;
+    private Context context;
 
-    public NearbyRestaurantListAdapter() {
+    public NearbyRestaurantListAdapter(Context context) {
         this.restaurants = new ArrayList<>();
+        this.context = context;
     }
 
     public void setData(List<Restaurant> data) {
@@ -40,9 +44,33 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<NearbyRest
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
+        Restaurant restaurant = restaurants.get(position);
+
+
         holder.restaurantTitleTextView.setText(restaurants.get(position).getName());
         holder.restaurantStreetTextView.setText(restaurants.get(position).getAddress());
         holder.restaurantDistanceTextView.setText(restaurants.get(position).getDistance() + "m");
+        Picasso.with(context).load(R.drawable.restaurants).into(holder.restaurantBackgroundImageView);
+
+        for (int i = 0; i < restaurant.getService().size(); i++) {
+            switch (restaurant.getService().get(i)) {
+                //restaurant
+                case 1: {
+                    Picasso.with(context).load(R.drawable.ic_restoran_active).into(holder.foodTypeRestaurantImageView);
+                    break;
+                }
+                //takeaway
+                case 2: {
+                    Picasso.with(context).load(R.drawable.ic_food_active).into(holder.foodTypeTakeawayImageView);
+                    break;
+                }
+                //delivery
+                case 3: {
+                    Picasso.with(context).load(R.drawable.ic_deliver_active).into(holder.foodTypeDeliveryImageView);
+                    break;
+                }
+            }
+        }
 
     }
 

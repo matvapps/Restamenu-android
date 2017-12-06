@@ -75,7 +75,7 @@
     <dimen name="nearby_restaurant_card_width">271.6dp</dimen>
     <dimen name="nearby_restaurant_card_height">296.1dp</dimen>
     <dimen name="nearby_restaurant_card_margin_right">16dp</dimen>
-    <dimen name="nearby_restaurant_card_elevation">2dp</dimen>
+    <dimen name="nearby_restaurant_card_elevation">4dp</dimen>
     <!---->
 
     <!--Image and data container-->
