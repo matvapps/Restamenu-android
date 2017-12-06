@@ -1,6 +1,7 @@
 package com.restamenu.api;
 
-import com.restamenu.data.database.LocalRepository;
+import android.support.annotation.NonNull;
+
 import com.restamenu.data.preferences.KeyValueStorage;
 
 /**
@@ -9,34 +10,25 @@ import com.restamenu.data.preferences.KeyValueStorage;
 
 public final class RepositoryProvider {
 
-    private static KeyValueStorage preferences;
-    private static LocalRepository localRepository;
-    private static RemoteRepository remoteRepository;
+    private static KeyValueStorage sPreferences;
+    private static ApplicationRepository sAppRepository;
 
     public RepositoryProvider() {
     }
 
     public static KeyValueStorage getPreferences() {
-        return preferences;
+        return sPreferences;
     }
 
-    public static void setPreferences(KeyValueStorage preferences) {
-        RepositoryProvider.preferences = preferences;
+    public static void setPreferences(@NonNull KeyValueStorage preferences) {
+        sPreferences = preferences;
     }
 
-    public static LocalRepository getLocalRepository() {
-        return localRepository;
+    public static ApplicationRepository getAppRepository() {
+        return sAppRepository;
     }
 
-    public static void setLocalRepository(LocalRepository localRepository) {
-        RepositoryProvider.localRepository = localRepository;
-    }
-
-    public static RemoteRepository getRemoteRepository() {
-        return remoteRepository;
-    }
-
-    public static void setRemoteRepository(RemoteRepository remoteRepository) {
-        RepositoryProvider.remoteRepository = remoteRepository;
+    public static void setAppRepository(@NonNull ApplicationRepository appRepository) {
+        sAppRepository = appRepository;
     }
 }

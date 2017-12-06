@@ -4,12 +4,16 @@ import android.support.annotation.NonNull;
 
 import com.restamenu.BuildConfig;
 import com.restamenu.RestamenuApp;
-import com.restamenu.api.service.RestaMenuService;
+import com.restamenu.api.service.RestaurantService;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -21,20 +25,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public final class ApiFactory {
 
     public static final int cacheSize = 10 * 1024 * 1024; // 10 MiB
+    public static final String BASE_URL = "http://restamenu.com/api";
 
     private static OkHttpClient sClient;
     private static Retrofit sRetrofit;
-    private static RestaMenuService restaMenuService;
+    private static RestaurantService restaMenuService;
 
     @NonNull
-    public static RestaMenuService getService() {
-        RestaMenuService service = restaMenuService;
+    public static RestaurantService getService() {
+        RestaurantService service = restaMenuService;
         if (service == null) {
             synchronized (ApiFactory.class) {
                 service = restaMenuService;
                 if (service == null) {
                     sRetrofit = buildRetrofit();
-                    service = restaMenuService = sRetrofit.create(RestaMenuService.class);
+                    service = restaMenuService = sRetrofit.create(RestaurantService.class);
                 }
             }
         }
@@ -51,7 +56,7 @@ public final class ApiFactory {
     @NonNull
     private static Retrofit buildRetrofit() {
         return new Retrofit.Builder()
-                .baseUrl("base_url")
+                .baseUrl(BASE_URL +"/")
                 .client(getClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -77,15 +82,37 @@ public final class ApiFactory {
         /**
          * Can be disabled/enabled in DEBUG_MODE.
          */
-        //interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         interceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
         Cache cache = new Cache(RestamenuApp.get().getCacheDir(), cacheSize);
         return new OkHttpClient.Builder()
+                .addInterceptor(keyInterceptor())
                 .addInterceptor(interceptor)
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .cache(cache)
                 .build();
+    }
+
+    private static Interceptor keyInterceptor() {
+        Interceptor intrceptor = null;
+
+        intrceptor = new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request original = chain.request();
+
+                Request request = original.newBuilder()
+                        //.header("Content-Type", "application/json")
+                        //.header("Accept", "application/json")
+                        .header("key", BuildConfig.AUTH_KEY)
+                        .header("Cache-Control", "max-age=30") // read from cache for 1/2 minute
+                        .method(original.method(), original.body())
+                        .build();
+
+                return chain.proceed(request);
+            }
+        };
+        return intrceptor;
     }
 
 

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.github.florent37.viewanimator.AnimationListener;
 import com.github.florent37.viewanimator.ViewAnimator;
 import com.restamenu.R;
+import com.restamenu.api.RepositoryProvider;
 import com.restamenu.main.MainActivity;
 import com.squareup.picasso.Picasso;
 
@@ -34,11 +35,27 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
+    public void showMainScreen() {
+        RepositoryProvider.getPreferences().setFirsrTime(false);
+        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_splash);
+
+        boolean firstTime = RepositoryProvider.getPreferences().isFirstTime();
+        if (!firstTime) {
+            Intent intent = new Intent(SplashActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+            finish();
+            return;
+        }
 
         ImageView splashBackgroundImage = findViewById(R.id.splash_background);
         final ImageView splashCursorImage = findViewById(R.id.splash_cursor);
@@ -54,8 +71,7 @@ public class SplashActivity extends AppCompatActivity {
         splashBackgroundImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                finish();
+                showMainScreen();
             }
         });
 
@@ -147,8 +163,7 @@ public class SplashActivity extends AppCompatActivity {
                 .onStop(new AnimationListener.Stop() {
                     @Override
                     public void onStop() {
-                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                        finish();
+                        showMainScreen();
                     }
                 })
                 .start();
