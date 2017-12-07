@@ -38,6 +38,14 @@ public class Restaurant {
     public Restaurant() {
     }
 
+    public List<Integer> getService() {
+        return service;
+    }
+
+    public void setService(List<Integer> service) {
+        this.service = service;
+    }
+
     public List<Integer> getCuisine() {
         return cuisine;
     }

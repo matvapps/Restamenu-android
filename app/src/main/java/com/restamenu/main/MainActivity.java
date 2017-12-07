@@ -35,24 +35,32 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
         final int span_count = getResources().getInteger(R.integer.restaurant_span_count);
 
+        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter(MainActivity.this);
+        restaurantListAdapter = new RestaurantListAdapter(MainActivity.this);
+
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, span_count);
         gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if (position == 1 && span_count > 2){
-                    return  2;
+                switch (restaurantListAdapter.getItem(position).getType()) {
+                    case 0:
+                        return 1;
+                    case 1:
+                        return 1;
+                    case 2:
+                        return 2;
+                    case 3:
+                        return 3;
+                    default:
+                        return -1;
                 }
-                return 1;
             }
         });
 
         restaurantsListView.setLayoutManager(gridLayoutManager);
         nearbyRestaurantsView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter();
-        restaurantListAdapter = new RestaurantListAdapter();
-
 
         nearbyRestaurantsView.setAdapter(nearbyRestaurantListAdapter);
         restaurantsListView.setAdapter(restaurantListAdapter);

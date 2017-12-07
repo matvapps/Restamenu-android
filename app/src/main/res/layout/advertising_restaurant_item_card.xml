@@ -49,6 +49,8 @@ is waiting for you every evening!"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/restaurant_type_margin_top"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:text="Order a table in advance to enjoy the performance of the artist performing your favorite hits."
                     android:textColor="@color/black"
                     android:textSize="@dimen/restaurant_type_text_size" />
@@ -79,7 +81,7 @@ is waiting for you every evening!"
                         android:layout_marginEnd="@dimen/restaurant_food_type_img_margin"
                         android:layout_gravity="center"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ic_food_active" />
+                        android:src="@drawable/ic_food_noactive" />
 
                     <ImageView
                         android:id="@+id/food_type_delivery_img"
@@ -95,7 +97,7 @@ is waiting for you every evening!"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="end"
-                        android:textSize="8sp"
+                        android:textSize="10sp"
                         android:text="as advertising"
                         android:textColor="#999999"
                         />

@@ -57,8 +57,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
 
     implementation 'com.squareup.picasso:picasso:2.5.2'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    implementation 'com.github.florent37:viewanimator:1.0.5'
+    implementation 'com.github.florent37:viewanimator:1.0.5' // view animator
+    implementation 'com.makeramen:roundedimageview:2.3.0' // rounded imageview
 
     compile 'com.github.flavienlaurent.discrollview:library:0.0.2@aar'
 

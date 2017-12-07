@@ -78,7 +78,7 @@
                         android:layout_marginEnd="@dimen/restaurant_food_type_img_margin"
                         android:layout_gravity="center"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ic_food_active" />
+                        android:src="@drawable/ic_food_noactive" />
 
                     <ImageView
                         android:id="@+id/food_type_delivery_img"
