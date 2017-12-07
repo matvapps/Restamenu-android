@@ -62,6 +62,17 @@ public class Restaurant {
         return name;
     }
 
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Restaurant{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", image='").append(image).append('\'');
+        sb.append(", address='").append(address).append('\'');
+        sb.append(", type=").append(type);
+        sb.append('}');
+        return sb.toString();
+    }
 }
 
 

@@ -31,7 +31,7 @@
     <!---->
 
 
-    <!--Cuisine type container-->
+    Cusine type container-->
     <dimen name="restaurant_food_type_restaurant_img_size">12dp</dimen>
     <dimen name="restaurant_food_type_delivery_width">18dp</dimen>
     <dimen name="restaurant_food_type_delivery_height">12dp</dimen>
@@ -102,7 +102,7 @@
     <!---->
 
 
-    <!--Cuisine type container-->
+    Cusine type container-->
     <dimen name="nearby_restaurant_cuisine_type_image_margin">4dp</dimen>
     <dimen name="nearby_restaurant_cuisine_type_container_margin_top">10.8dp</dimen>
     <dimen name="nearby_restaurant_cuisine_type_container_margin_bottom">6.5dp</dimen>

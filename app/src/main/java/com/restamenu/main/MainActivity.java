@@ -76,13 +76,13 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     @Override
     public void setData(@NonNull List<Restaurant> data) {
-        Logger.log("Amount: " + data.size());
+        Logger.log("Rests: " + data.toString());
         restaurantListAdapter.setData(data);
     }
 
     @Override
     public void setNearRestaurants(List<Restaurant> data) {
-        Logger.log("Amount: " + data.size());
+        Logger.log("Near: " + data.toString());
         nearbyRestaurantListAdapter.setData(data);
     }
 

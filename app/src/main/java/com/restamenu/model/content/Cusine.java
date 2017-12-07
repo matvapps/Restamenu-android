@@ -4,7 +4,7 @@ package com.restamenu.model.content;
  * @author Roodie
  */
 
-public class Cuisine {
+public class Cusine {
 
     private int cusine_id;
     private String name;
