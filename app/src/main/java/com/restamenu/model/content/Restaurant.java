@@ -42,38 +42,56 @@ public class Restaurant {
         return cuisine;
     }
 
+    public List<Integer> getService() {
+        return service;
+    }
+
     public List<Integer> getInstitute() {
-        return institute;
+            return institute;
+        }
+
+    public void setService(List<Integer> service) {
+        this.service = service;
     }
 
     public String getImage() {
-        return image;
-    }
+            return image;
+        }
 
-    public int getType() {
-        return type;
-    }
 
-    public int getId() {
-        return id;
-    }
+        public int getType () {
+            return type;
+        }
 
-    public String getName() {
-        return name;
-    }
+        public int getId () {
+            return id;
+        }
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("Restaurant{");
-        sb.append("id=").append(id);
-        sb.append(", name='").append(name).append('\'');
-        sb.append(", image='").append(image).append('\'');
-        sb.append(", address='").append(address).append('\'');
-        sb.append(", type=").append(type);
-        sb.append('}');
-        return sb.toString();
-    }
-}
+        public String getName () {
+            return name;
+        }
 
+        public void setAddress (String address){
+            this.address = address;
+        }
+
+        public String getAddress () {
+            return address;
+        }
+
+
+        @Override
+        public String toString() {
+            final StringBuffer sb = new StringBuffer("Restaurant{");
+            sb.append("id=").append(id);
+            sb.append(", name='").append(name).append('\'');
+            sb.append(", image='").append(image).append('\'');
+            sb.append(", address='").append(address).append('\'');
+            sb.append(", type=").append(type);
+            sb.append('}');
+            return sb.toString();
+        }
+
+    }
 
 

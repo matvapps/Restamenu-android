@@ -45,7 +45,7 @@ public class RestamenuApp extends Application {
 
     private void initApi() {
         RepositoryProvider.setPreferences(new KeyValueStorage(this));
-        RepositoryProvider.setAppRepository(new ApplicationRepository(new LocalRepository(),
+         RepositoryProvider.setAppRepository(new ApplicationRepository(new LocalRepository(),
                 new RemoteRepository(ApiFactory.getService())));
     }
 }

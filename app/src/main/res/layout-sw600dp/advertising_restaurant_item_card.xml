@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/restaurant_item_padding">
 
 
     <android.support.v7.widget.CardView
-        android:layout_width="@dimen/advertising_restaurant_item_width"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/restaurant_height"
         android:layout_marginBottom="@dimen/restaurant_elevation"
         app:cardCornerRadius="@dimen/restaurant_radius"
@@ -50,6 +50,8 @@ is waiting for you every evening!"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/restaurant_type_margin_top"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:text="Order a table in advance to enjoy the performance of the artist performing your favorite hits."
                     android:textColor="@color/black"
                     android:textSize="@dimen/restaurant_type_text_size" />
@@ -70,7 +72,7 @@ is waiting for you every evening!"
                         android:layout_marginEnd="@dimen/food_type_img_margin"
                         android:layout_marginRight="@dimen/food_type_img_margin"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ic_restoran_active" />
+                        android:src="@drawable/ic_restoran_noactive" />
 
                     <ImageView
                         android:id="@+id/food_type_takeaway_img"
@@ -80,7 +82,7 @@ is waiting for you every evening!"
                         android:layout_marginEnd="@dimen/food_type_img_margin"
                         android:layout_marginRight="@dimen/food_type_img_margin"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ic_food_active" />
+                        android:src="@drawable/ic_food_noactive" />
 
                     <ImageView
                         android:id="@+id/food_type_delivery_img"
@@ -88,7 +90,7 @@ is waiting for you every evening!"
                         android:layout_height="@dimen/restaurant_food_type_delivery_height"
                         android:layout_gravity="center"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ic_delivery_active" />
+                        android:src="@drawable/ic_delivery_noactive" />
 
 
                     <TextView

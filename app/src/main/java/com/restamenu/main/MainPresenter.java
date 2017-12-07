@@ -4,8 +4,11 @@ import com.restamenu.api.RepositoryProvider;
 import com.restamenu.base.Presenter;
 import com.restamenu.rx.BaseSchedulerProvider;
 import com.restamenu.rx.SchedulerProvider;
+import com.restamenu.model.content.Institute;
+import com.restamenu.model.content.Restaurant;
 
 import io.reactivex.Flowable;
+import java.util.List;
 
 /**
  * @author Roodie
@@ -31,6 +34,14 @@ public class MainPresenter implements Presenter<MainView> {
     }
 
     public void init() {
+        loadData();
+        //List<Restaurant> restaurants = new ArrayList<>();
+
+       /* for (int i = 0; i < 10; i++) {
+            restaurants.add(new Restaurant());
+        }*/
+        //view.setData(restaurants);
+
         loadData();
     }
 
