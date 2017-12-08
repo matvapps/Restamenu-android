@@ -3,10 +3,14 @@ package com.restamenu.api;
 import android.support.annotation.NonNull;
 
 import com.restamenu.model.content.Category;
+import com.restamenu.model.content.Cusine;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 
 import java.util.List;
+
+import io.reactivex.Flowable;
+import io.reactivex.Single;
 
 /**
  * @author Roodie
@@ -14,46 +18,22 @@ import java.util.List;
 
 public interface DataSource {
 
-    void getRestaurants(@NonNull Integer cityId, @NonNull LoadRestaurantsCallback callback);
+    Flowable<List<Restaurant>> getRestaurants(@NonNull Integer cityId, int page);
 
-    void getCategories(@NonNull Integer restaurantId, @NonNull Integer serviceId, @NonNull GetCategoriesCallback callback);
+    Flowable<List<Category>> getCategories(@NonNull Integer restaurantId, @NonNull Integer serviceId);
 
-    void getCategory(@NonNull Integer restaurantId, @NonNull Integer serviceId, @NonNull Integer categoryId, @NonNull GetCategoryCallback callback);
+    Single<Category> getCategory(@NonNull Integer restaurantId, @NonNull Integer serviceId, @NonNull Integer categoryId);
 
-    void getRestaurant(@NonNull Integer id, @NonNull GetRestaurantCallback callback);
+    Single<Restaurant> getRestaurant(@NonNull Integer id);
 
-    void getNearRestaurants(@NonNull Integer cityId, @NonNull String geo, @NonNull LoadRestaurantsCallback callback);
+    Flowable<List<Restaurant>> getNearRestaurants(@NonNull Integer cityId, @NonNull String geo);
 
-    void getInstitutions(@NonNull GetInstitutionsCallback callback);
+    Flowable<List<Institute>> getInstitutions();
 
-    interface LoadRestaurantsCallback {
-        void onNext(List<Restaurant> data);
-        void onError(Throwable error);
-    }
+    Flowable<List<Cusine>> getCusines();
 
-    interface GetRestaurantCallback {
-        void onNext(Restaurant data);
+    void refreshCusines();
 
-        void onError(Throwable error);
-    }
-
-    interface GetCategoryCallback {
-        void onNext(Category data);
-
-        void onError(Throwable error);
-    }
-
-    interface GetCategoriesCallback {
-        void onNext(List<Category> data);
-
-        void onError(Throwable error);
-    }
-
-    interface GetInstitutionsCallback {
-        void onNext(List<Institute> data);
-
-        void onError(Throwable error);
-    }
-
+    void refreshInstitutions();
 
 }

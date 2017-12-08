@@ -11,6 +11,7 @@ import com.restamenu.R;
 import com.restamenu.RestaurantListAdapter;
 import com.restamenu.StartSnapHelper;
 import com.restamenu.base.BaseNavigationActivity;
+import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.util.Logger;
 
@@ -35,8 +36,8 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
         final int span_count = getResources().getInteger(R.integer.restaurant_span_count);
 
-        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter(MainActivity.this);
-        restaurantListAdapter = new RestaurantListAdapter(MainActivity.this);
+        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter();
+        restaurantListAdapter = new RestaurantListAdapter();
 
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, span_count);
@@ -61,8 +62,10 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
         restaurantsListView.setLayoutManager(gridLayoutManager);
         nearbyRestaurantsView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter();
+        nearbyRestaurantsView.setAdapter(restaurantListAdapter);
 
-        nearbyRestaurantsView.setAdapter(nearbyRestaurantListAdapter);
+        restaurantListAdapter = new RestaurantListAdapter();
         restaurantsListView.setAdapter(restaurantListAdapter);
 
     }
@@ -92,9 +95,13 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     @Override
     public void setNearRestaurants(List<Restaurant> data) {
-        Logger.log("Nearby Amount: " + data.size());
-
+        Logger.log("Near: " + data.toString());
         nearbyRestaurantListAdapter.setData(data);
+    }
+
+    @Override
+    public void setInstitutions(List<Institute> data) {
+        //TODO
     }
 
     @Override

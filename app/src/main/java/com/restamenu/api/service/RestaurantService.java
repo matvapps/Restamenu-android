@@ -3,15 +3,13 @@ package com.restamenu.api.service;
 import android.support.annotation.NonNull;
 
 import com.restamenu.model.content.Category;
-import com.restamenu.model.content.Cuisine;
+import com.restamenu.model.content.Cusine;
+import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
-import com.restamenu.model.responce.CategoriesResponce;
-import com.restamenu.model.responce.InstitutionsResponse;
-import com.restamenu.model.responce.RestaurantsResponce;
+import com.restamenu.model.responce.ListResponce;
 
-import java.util.List;
-
-import retrofit2.Call;
+import io.reactivex.Flowable;
+import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -32,12 +30,12 @@ public interface RestaurantService {
      */
     @NonNull
     @GET("getRestaurants")
-    Call<RestaurantsResponce> getRestaurants(@NonNull @Query("city_id") Integer cityId,
-                                             @Query("keyword") String keyword,
-                                             @Query("cusine_id") Integer cusineId,
-                                             @Query("institute_id") Integer instituteId,
-                                             @Query("page") Integer page,
-                                             @Query("details") boolean details);
+    Flowable<ListResponce<Restaurant>> getRestaurants(@NonNull @Query("city_id") Integer cityId,
+                                                      @Query("keyword") String keyword,
+                                                      @Query("cusine_id") Integer cusineId,
+                                                      @Query("institute_id") Integer instituteId,
+                                                      @Query("page") Integer page,
+                                                      @Query("details") boolean details);
 
     /**
      *
@@ -48,17 +46,17 @@ public interface RestaurantService {
      */
     @NonNull
     @GET("getNearRestaurants")
-    Call<RestaurantsResponce> getNearRestaurants(@NonNull @Query("city_id") Integer cityId,
-                                              @Query("geo") String geo,
-                                              @Query("details") boolean details);
+    Flowable<ListResponce<Restaurant>> getNearRestaurants(@NonNull @Query("city_id") Integer cityId,
+                                                          @Query("geo") String geo,
+                                                          @Query("details") boolean details);
 
     @NonNull
     @GET("getInstitutions")
-    Call<InstitutionsResponse> getInstitutions();
+    Flowable<ListResponce<Institute>> getInstitutions();
 
     @NonNull
     @GET("getCusines")
-    Call<List<Cuisine>> getCuisines();
+    Flowable<ListResponce<Cusine>> getCuisines();
 
     /**
      * Возвращает данные по одному конкретному ресторану.
@@ -69,22 +67,22 @@ public interface RestaurantService {
      */
     @NonNull
     @GET("getRestaurant")
-    Call<Restaurant> getRestaurant(@NonNull @Query("restaurant_id") Integer restaurantId,
-                                   @Query("language_id") Integer languageId);
+    Single<Restaurant> getRestaurant(@NonNull @Query("restaurant_id") Integer restaurantId,
+                                     @Query("language_id") Integer languageId);
 
     @NonNull
     @GET("getCategories")
-    Call<CategoriesResponce> getCategories(@NonNull @Query("restaurant_id") Integer restaurantId,
-                                           @NonNull @Query("service_id") Integer serviceId,
-                                           @Query("language_id") Integer languageId);
+    Flowable<ListResponce<Category>> getCategories(@NonNull @Query("restaurant_id") Integer restaurantId,
+                                                   @NonNull @Query("service_id") Integer serviceId,
+                                                   @Query("language_id") Integer languageId);
 
     @NonNull
     @GET("getCategory")
-    Call<Category> getCategory(@NonNull @Query("restaurant_id") Integer restaurantId,
-                               @NonNull @Query("service_id") Integer serviceId,
-                               @NonNull @Query("category_id") Integer categoryId,
-                               @Query("language_id") Integer languageId,
-                               @Query("currency_id") Integer currencyId);
+    Single<Category> getCategory(@NonNull @Query("restaurant_id") Integer restaurantId,
+                                 @NonNull @Query("service_id") Integer serviceId,
+                                 @NonNull @Query("category_id") Integer categoryId,
+                                 @Query("language_id") Integer languageId,
+                                 @Query("currency_id") Integer currencyId);
 
 
 

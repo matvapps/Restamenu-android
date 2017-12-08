@@ -10,7 +10,6 @@ import com.restamenu.api.RemoteRepository;
 import com.restamenu.api.RepositoryProvider;
 import com.restamenu.data.database.LocalRepository;
 import com.restamenu.data.preferences.KeyValueStorage;
-import com.restamenu.util.AppExecutors;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -46,7 +45,7 @@ public class RestamenuApp extends Application {
 
     private void initApi() {
         RepositoryProvider.setPreferences(new KeyValueStorage(this));
-        RepositoryProvider.setAppRepository(new ApplicationRepository(new LocalRepository(),
-                new RemoteRepository(new AppExecutors(), ApiFactory.getService())));
+         RepositoryProvider.setAppRepository(new ApplicationRepository(new LocalRepository(),
+                new RemoteRepository(ApiFactory.getService())));
     }
 }

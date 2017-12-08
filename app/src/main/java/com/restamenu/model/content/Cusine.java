@@ -4,16 +4,13 @@ package com.restamenu.model.content;
  * @author Roodie
  */
 
-/**
- * Тип заведения (ресторан, кафе, бар, и т.д.)
- */
-public class Institute {
+public class Cusine {
 
-    private int institute_id;
+    private int cusine_id;
     private String name;
 
     public int getId() {
-        return institute_id;
+        return cusine_id;
     }
 
     public String getName() {

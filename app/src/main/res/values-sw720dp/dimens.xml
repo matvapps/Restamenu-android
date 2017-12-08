@@ -39,7 +39,7 @@
     <dimen name="restaurant_type_text_size">14.25sp</dimen>
     <!---->
 
-    <!--Cuisine type container-->
+    Cusine type container-->
     <dimen name="restaurant_food_type_restaurant_img_size">16.9dp</dimen>
     <dimen name="restaurant_food_type_delivery_width">23.6dp</dimen>
     <dimen name="restaurant_food_type_delivery_height">16.8dp</dimen>
@@ -109,7 +109,7 @@
     <!---->
 
 
-    <!--Cuisine type container-->
+    Cusine type container-->
     <dimen name="nearby_restaurant_cuisine_type_image_margin">5.9dp</dimen>
     <dimen name="nearby_restaurant_cuisine_type_container_margin_top">20dp</dimen>
     <dimen name="nearby_restaurant_cuisine_type_container_margin_bottom">7dp</dimen>
@@ -144,6 +144,6 @@
     <!---->
 
 
-    <item type = "integer" name="restaurant_span_count">3</item>
+    <item name="restaurant_span_count" type="integer">3</item>
 
 </resources>

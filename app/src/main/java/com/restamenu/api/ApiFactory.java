@@ -16,7 +16,10 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.restamenu.BuildConfig.BASE_URL;
 
 /**
  * @author Roodie
@@ -25,7 +28,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public final class ApiFactory {
 
     public static final int cacheSize = 10 * 1024 * 1024; // 10 MiB
-    public static final String BASE_URL = "http://restamenu.com/api";
 
     private static OkHttpClient sClient;
     private static Retrofit sRetrofit;
@@ -56,9 +58,10 @@ public final class ApiFactory {
     @NonNull
     private static Retrofit buildRetrofit() {
         return new Retrofit.Builder()
-                .baseUrl(BASE_URL +"/")
+                .baseUrl(BASE_URL)
                 .client(getClient())
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 
