@@ -6,21 +6,28 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import com.mikepenz.fastadapter.FastAdapter;
+import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.restamenu.NearbyRestaurantListAdapter;
 import com.restamenu.R;
 import com.restamenu.RestaurantListAdapter;
+import com.restamenu.SampleItemType;
+import com.restamenu.SectionsItemType;
 import com.restamenu.StartSnapHelper;
 import com.restamenu.base.BaseNavigationActivity;
+import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.util.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView, List<Restaurant>> implements MainView {
 
     private RecyclerView nearbyRestaurantsView;
     private RecyclerView restaurantsListView;
+    private RecyclerView itemTypeView;
     private NearbyRestaurantListAdapter nearbyRestaurantListAdapter;
     private RestaurantListAdapter restaurantListAdapter;
 
@@ -31,13 +38,34 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         nearbyRestaurantsView = findViewById(R.id.restaurant_list_container);
         restaurantsListView = findViewById(R.id.restaurants_list);
 
+        itemTypeView = findViewById(R.id.item_type);
+        itemTypeView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        ItemAdapter<SampleItemType> sampleItemTypeItemAdapter = new ItemAdapter<>();
+        FastAdapter fastAdapter = FastAdapter.with(sampleItemTypeItemAdapter);
+
+        itemTypeView.setAdapter(fastAdapter);
+
+        ArrayList<Category> categories = new ArrayList<>();
+        categories.add(new Category("Category 1"));
+        categories.add(new Category("Category 2"));
+        categories.add(new Category("Category 3"));
+        SectionsItemType sectionsItemType = new SectionsItemType(categories);
+
+//        ArrayList<Promotion> promotions = new ArrayList<>();
+//        promotions.add(new Promotion());
+//        promotions.add(new Promotion());
+//        promotions.add(new Promotion());
+//        PromotionsItemType promotionsItemType = new PromotionsItemType(promotions);
+
+//        sampleItemTypeItemAdapter.add(promotionsItemType);
+        sampleItemTypeItemAdapter.add(sectionsItemType);
+
+
         final StartSnapHelper startSnapHelper = new StartSnapHelper();
         startSnapHelper.attachToRecyclerView(nearbyRestaurantsView);
 
         final int span_count = getResources().getInteger(R.integer.restaurant_span_count);
-
-        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter();
-        restaurantListAdapter = new RestaurantListAdapter();
 
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, span_count);
@@ -62,12 +90,11 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
         restaurantsListView.setLayoutManager(gridLayoutManager);
         nearbyRestaurantsView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter();
-        nearbyRestaurantsView.setAdapter(restaurantListAdapter);
+        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter(MainActivity.this);
+        nearbyRestaurantsView.setAdapter(nearbyRestaurantListAdapter);
 
-        restaurantListAdapter = new RestaurantListAdapter();
+        restaurantListAdapter = new RestaurantListAdapter(MainActivity.this);
         restaurantsListView.setAdapter(restaurantListAdapter);
-
     }
 
 

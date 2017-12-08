@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/contact_icon"
+            android:layout_width="@dimen/restaurant_contact_icon_size"
+            android:layout_height="@dimen/restaurant_contact_icon_size"
+            android:layout_alignBottom="@+id/contact_title"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="@dimen/restaurant_contact_icon_margin_end"
+            android:src="@drawable/ic_time_black" />
+
+        <TextView
+            android:id="@+id/contact_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/contact_icon"
+            tools:text="Opening Hours"
+            android:textColor="@color/black"
+            android:textSize="@dimen/restaurant_contact_title_text_size"
+            android:layout_marginTop="@dimen/restaurant_contact_title_margin_top" />
+
+
+        <TextView
+            android:id="@+id/contact_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/contact_title"
+            android:layout_below="@+id/contact_title"
+            tools:text="Mon - Fri 12:00 - 24:00"
+            android:textColor="@color/black"
+            android:textSize="@dimen/restaurant_contact_content_text_size" />
+
+        <View
+            android:id="@+id/contact_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/contact_content"
+            android:layout_marginTop="@dimen/restaurant_contact_divider_margin_top"
+            android:background="@color/greyish" />
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>

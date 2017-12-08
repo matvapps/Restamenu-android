@@ -1,5 +1,6 @@
 package com.restamenu;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +19,11 @@ import java.util.List;
 public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<NearbyRestaurantListAdapter.ViewHolder> {
 
     private List<Restaurant> restaurants;
+    private Context context;
 
-    public NearbyRestaurantListAdapter() {
+    public NearbyRestaurantListAdapter(Context context) {
         this.restaurants = new ArrayList<>();
+        this.context = context;
     }
 
     public void setData(List<Restaurant> data) {
@@ -33,7 +36,7 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<NearbyRest
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View rootView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.nearby_restaurant_card, parent, false);
+                .inflate(R.layout.restaurant_card_nearby, parent, false);
 
         return new ViewHolder(rootView);
     }
@@ -43,26 +46,27 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<NearbyRest
 
         Restaurant restaurant = restaurants.get(position);
 
-        holder.restaurantTitleTextView.setText(restaurant.getName());
-        holder.restaurantStreetTextView.setText(restaurant.getAddress());
-        holder.restaurantDistanceTextView.setText(restaurant.getDistance() + "m");
-        Picasso.with(holder.itemView.getContext()).load(R.drawable.restaurants).into(holder.restaurantBackgroundImageView);
+
+        holder.restaurantTitleTextView.setText(restaurants.get(position).getName());
+        holder.restaurantStreetTextView.setText(restaurants.get(position).getAddress());
+        holder.restaurantDistanceTextView.setText(restaurants.get(position).getDistance() + "m");
+        Picasso.with(context).load(R.drawable.restaurants).into(holder.restaurantBackgroundImageView);
 
         for (int i = 0; i < restaurant.getService().size(); i++) {
             switch (restaurant.getService().get(i)) {
                 //restaurant
                 case 1: {
-                    Picasso.with(holder.itemView.getContext()).load(R.drawable.ic_restoran_active).into(holder.foodTypeRestaurantImageView);
+                    Picasso.with(context).load(R.drawable.ic_restoran_active).into(holder.foodTypeRestaurantImageView);
                     break;
                 }
                 //takeaway
                 case 2: {
-                    Picasso.with(holder.itemView.getContext()).load(R.drawable.ic_food_active).into(holder.foodTypeTakeawayImageView);
+                    Picasso.with(context).load(R.drawable.ic_food_active).into(holder.foodTypeTakeawayImageView);
                     break;
                 }
                 //delivery
                 case 3: {
-                    Picasso.with(holder.itemView.getContext()).load(R.drawable.ic_deliver_active).into(holder.foodTypeDeliveryImageView);
+                    Picasso.with(context).load(R.drawable.ic_deliver_active).into(holder.foodTypeDeliveryImageView);
                     break;
                 }
             }

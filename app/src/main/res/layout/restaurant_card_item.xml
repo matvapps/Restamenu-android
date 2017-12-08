@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/restaurant_height"
         android:layout_marginBottom="@dimen/restaurant_elevation"
-        android:background="?selectableItemBackground"
         app:cardCornerRadius="@dimen/restaurant_radius"
         app:cardElevation="@dimen/restaurant_elevation">
 
@@ -65,9 +64,9 @@
                         android:id="@+id/food_type_restaurant_img"
                         android:layout_width="@dimen/restaurant_food_type_restaurant_img_size"
                         android:layout_height="@dimen/restaurant_food_type_restaurant_img_size"
-                        android:layout_gravity="center"
-                        android:layout_marginEnd="@dimen/restaurant_food_type_img_margin"
                         android:layout_marginRight="@dimen/restaurant_food_type_img_margin"
+                        android:layout_marginEnd="@dimen/restaurant_food_type_img_margin"
+                        android:layout_gravity="center"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_restoran_noactive" />
 
@@ -75,9 +74,9 @@
                         android:id="@+id/food_type_takeaway_img"
                         android:layout_width="@dimen/restaurant_food_type_takeway_width"
                         android:layout_height="@dimen/restaurant_food_type_takeway_height"
-                        android:layout_gravity="center"
-                        android:layout_marginEnd="@dimen/restaurant_food_type_img_margin"
                         android:layout_marginRight="@dimen/restaurant_food_type_img_margin"
+                        android:layout_marginEnd="@dimen/restaurant_food_type_img_margin"
+                        android:layout_gravity="center"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_food_noactive" />
 

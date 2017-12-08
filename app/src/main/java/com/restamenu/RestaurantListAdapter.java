@@ -1,5 +1,6 @@
 package com.restamenu;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,10 +18,12 @@ import java.util.List;
 
 public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.ViewHolder> {
 
+    private Context context;
     private List<Restaurant> restaurants;
 
-    public RestaurantListAdapter() {
+    public RestaurantListAdapter(Context context) {
         this.restaurants = new ArrayList<>();
+        this.context = context;
     }
 
     public void setData(List<Restaurant> data) {
@@ -29,7 +32,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         notifyDataSetChanged();
     }
 
-    public Restaurant getItem(int position) {
+    public Restaurant getItem(int position){
         return restaurants.get(position);
     }
 
@@ -49,11 +52,11 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         switch (restaurants.get(viewType).getType()) {
             case 0:
                 rootView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.restaurant_item_card, parent, false);
+                        .inflate(R.layout.restaurant_card_item, parent, false);
                 break;
             default:
                 rootView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.advertising_restaurant_item_card, parent, false);
+                        .inflate(R.layout.restaurant_advertising_card_item, parent, false);
                 break;
         }
 
@@ -67,23 +70,23 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         Restaurant restaurant = restaurants.get(position);
 
         holder.restaurantTitleTextView.setText(restaurants.get(position).getName());
-        Picasso.with(holder.itemView.getContext()).load(R.drawable.restaurants).into(holder.restaurantBackgroundImageView);
+        Picasso.with(context).load(R.drawable.restaurants).into(holder.restaurantBackgroundImageView);
 
         for (int i = 0; i < restaurant.getService().size(); i++) {
             switch (restaurant.getService().get(i)) {
                 //restaurant
                 case 1: {
-                    Picasso.with(holder.itemView.getContext()).load(R.drawable.ic_restoran_active).into(holder.foodTypeRestaurantImageView);
+                    Picasso.with(context).load(R.drawable.ic_restoran_active).into(holder.foodTypeRestaurantImageView);
                     break;
                 }
                 //takeaway
                 case 2: {
-                    Picasso.with(holder.itemView.getContext()).load(R.drawable.ic_food_active).into(holder.foodTypeTakeawayImageView);
+                    Picasso.with(context).load(R.drawable.ic_food_active).into(holder.foodTypeTakeawayImageView);
                     break;
                 }
                 //delivery
                 case 3: {
-                    Picasso.with(holder.itemView.getContext()).load(R.drawable.ic_deliver_active).into(holder.foodTypeDeliveryImageView);
+                    Picasso.with(context).load(R.drawable.ic_deliver_active).into(holder.foodTypeDeliveryImageView);
                     break;
                 }
             }

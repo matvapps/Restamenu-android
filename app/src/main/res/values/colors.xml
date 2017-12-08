@@ -14,6 +14,9 @@
     <color name="greyish">#e6e6e6</color>
     <color name="white_70">#b3ffffff</color>
     <color name="grey">#f0f0f0</color>
+    <color name="golden">#f8c700</color>
 
     <color name="test_purple">#350b3d</color>
+    <color name="test_rose">#681d60</color>
+
 </resources>

@@ -140,6 +140,42 @@
     <dimen name="fragment_nearby_scroll_image_margin_right">4dp</dimen>
     <dimen name="fragment_nearby_scroll_text_size">12sp</dimen>
     <dimen name="restaurant_food_type_img_margin">4dp</dimen>
+    <dimen name="restaurant_header_margin">22dp</dimen>
+    <dimen name="restaurant_header_favorite_icon_size">14dp</dimen>
+    <dimen name="restaurant_header_favorite_icon_margin">4dp</dimen>
+    <dimen name="restaurant_header_favorite_text_size">12sp</dimen>
+    <dimen name="restaurant_header_title_text_size">30sp</dimen>
+    <dimen name="restaurant_header_title_margin_top">6dp</dimen>
+    <dimen name="restaurant_header_type_text_size">17sp</dimen>
+    <dimen name="restaurant_header_margin_top">5dp</dimen>
+    <dimen name="restaurant_header_icon_size">12dp</dimen>
+    <dimen name="restaurant_header_icon_margin">7dp</dimen>
+    <dimen name="restaurant_header_text_size">12sp</dimen>
+    <dimen name="restaurant_header_gallery_margin_top">22dp</dimen>
+    <dimen name="restaurant_header_type_margin_bottom">14dp</dimen>
+    <dimen name="restaurant_gallery_item_height">140dp</dimen>
+    <dimen name="restaurant_gallery_item_radius">3dp</dimen>
+    <dimen name="spinner_service_first_item_height">70dp</dimen>
+    <dimen name="spinner_service_image_size">35dp</dimen>
+    <dimen name="spinner_service_image_margin_start">30dp</dimen>
+    <dimen name="spinner_service_title_margin_start">30dp</dimen>
+    <dimen name="spinner_service_title_text_size">24sp</dimen>
+    <dimen name="spinner_service_order_type_text_size">14sp</dimen>
+    <dimen name="spinner_service_arrow_down_size">13dp</dimen>
+    <dimen name="spinner_service_arrow_down_margin_end">30dp</dimen>
+    <dimen name="dish_category_item_margin_bottom">16dp</dimen>
+    <dimen name="dish_category_item_background_height">160dp</dimen>
+    <dimen name="dish_category_item_background_radius">3dp</dimen>
+    <dimen name="dish_category_name_margin">16dp</dimen>
+    <dimen name="dish_category_name_text_size">24sp</dimen>
+    <dimen name="restaurant_promotions_height">170dp</dimen>
+    <dimen name="restaurant_promotions_radius">2dp</dimen>
+    <dimen name="restaurant_contact_icon_size">13dp</dimen>
+    <dimen name="restaurant_contact_icon_margin_end">5dp</dimen>
+    <dimen name="restaurant_contact_title_text_size">12sp</dimen>
+    <dimen name="restaurant_contact_title_margin_top">6dp</dimen>
+    <dimen name="restaurant_contact_content_text_size">10sp</dimen>
+    <dimen name="restaurant_contact_divider_margin_top">16dp</dimen>
     <!---->
 
     <item name="restaurant_span_count" type="integer">1</item>
