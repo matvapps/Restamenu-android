@@ -34,6 +34,10 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".restaurant.RestaurantActivity">
+
+        </activity>
+
     </application>
 
 </manifest>

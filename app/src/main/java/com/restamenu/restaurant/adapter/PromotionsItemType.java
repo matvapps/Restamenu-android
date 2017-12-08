@@ -1,4 +1,4 @@
-package com.restamenu;
+package com.restamenu.restaurant.adapter;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
+import com.restamenu.R;
 import com.restamenu.model.content.Promotion;
 
 import java.util.List;
@@ -14,6 +15,9 @@ import java.util.List;
  * Created by Alexandr.
  */
 
+/**
+ * NOT USED
+ */
 public class PromotionsItemType extends SampleItemType {
 
     String title;
@@ -58,7 +62,7 @@ public class PromotionsItemType extends SampleItemType {
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {
 
-//        TextView titleText;
+        //        TextView titleText;
         RecyclerView promotionsList;
 
         public ViewHolder(View view) {

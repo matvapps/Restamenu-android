@@ -11,13 +11,13 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.restamenu.NearbyRestaurantListAdapter;
 import com.restamenu.R;
 import com.restamenu.RestaurantListAdapter;
-import com.restamenu.SampleItemType;
-import com.restamenu.SectionsItemType;
 import com.restamenu.StartSnapHelper;
 import com.restamenu.base.BaseNavigationActivity;
 import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
+import com.restamenu.restaurant.adapter.SampleItemType;
+import com.restamenu.restaurant.adapter.SectionsItemType;
 import com.restamenu.util.Logger;
 
 import java.util.ArrayList;
