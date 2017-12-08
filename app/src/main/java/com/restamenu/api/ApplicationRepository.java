@@ -8,6 +8,8 @@ import com.restamenu.model.content.Cusine;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +30,13 @@ public class ApplicationRepository implements DataSource {
     private Map<Integer, Institute> institutions;
     private Map<Integer, Cusine> cusines;
 
+    /**
+     * Marks the cusines cache as invalid, to force an update the next time data is requested.
+     */
     private boolean cusinesAreValid = false;
+    /**
+     * Marks the institutions cache as invalid, to force an update the next time data is requested.
+     */
     private boolean institutionsAreValid = false;
 
 
@@ -38,8 +46,6 @@ public class ApplicationRepository implements DataSource {
 
         restaurants = new HashMap<>(50);
         nearRestaurants = new HashMap<>(50);
-        //institutions = new HashMap<>(10);
-        //cusines = new HashMap<>(10);
     }
 
     @Override
@@ -166,6 +172,5 @@ public class ApplicationRepository implements DataSource {
     @Override
     public void refreshInstitutions() {
         institutionsAreValid = true;
-
     }
 }

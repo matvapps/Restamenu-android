@@ -43,27 +43,26 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<NearbyRest
 
         Restaurant restaurant = restaurants.get(position);
 
-
-        holder.restaurantTitleTextView.setText(restaurants.get(position).getName());
-        holder.restaurantStreetTextView.setText(restaurants.get(position).getAddress());
-        holder.restaurantDistanceTextView.setText(restaurants.get(position).getDistance() + "m");
-        Picasso.with(context).load(R.drawable.restaurants).into(holder.restaurantBackgroundImageView);
+        holder.restaurantTitleTextView.setText(restaurant.getName());
+        holder.restaurantStreetTextView.setText(restaurant.getAddress());
+        holder.restaurantDistanceTextView.setText(restaurant.getDistance() + "m");
+        Picasso.with(holder.itemView.getContext()).load(R.drawable.restaurants).into(holder.restaurantBackgroundImageView);
 
         for (int i = 0; i < restaurant.getService().size(); i++) {
             switch (restaurant.getService().get(i)) {
                 //restaurant
                 case 1: {
-                    Picasso.with(context).load(R.drawable.ic_restoran_active).into(holder.foodTypeRestaurantImageView);
+                    Picasso.with(holder.itemView.getContext()).load(R.drawable.ic_restoran_active).into(holder.foodTypeRestaurantImageView);
                     break;
                 }
                 //takeaway
                 case 2: {
-                    Picasso.with(context).load(R.drawable.ic_food_active).into(holder.foodTypeTakeawayImageView);
+                    Picasso.with(holder.itemView.getContext()).load(R.drawable.ic_food_active).into(holder.foodTypeTakeawayImageView);
                     break;
                 }
                 //delivery
                 case 3: {
-                    Picasso.with(context).load(R.drawable.ic_deliver_active).into(holder.foodTypeDeliveryImageView);
+                    Picasso.with(holder.itemView.getContext()).load(R.drawable.ic_deliver_active).into(holder.foodTypeDeliveryImageView);
                     break;
                 }
             }

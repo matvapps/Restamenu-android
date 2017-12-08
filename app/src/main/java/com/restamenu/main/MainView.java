@@ -1,6 +1,7 @@
 package com.restamenu.main;
 
 import com.restamenu.base.BaseView;
+import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 
 import java.util.List;
@@ -12,4 +13,6 @@ import java.util.List;
 public interface MainView extends BaseView<List<Restaurant>> {
 
     void setNearRestaurants(List<Restaurant> data);
+
+    void setInstitutions(List<Institute> data);
 }

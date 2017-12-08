@@ -11,6 +11,7 @@ import com.restamenu.R;
 import com.restamenu.RestaurantListAdapter;
 import com.restamenu.StartSnapHelper;
 import com.restamenu.base.BaseNavigationActivity;
+import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.util.Logger;
 
@@ -35,8 +36,8 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
         final int span_count = getResources().getInteger(R.integer.restaurant_span_count);
 
-        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter(MainActivity.this);
-        restaurantListAdapter = new RestaurantListAdapter(MainActivity.this);
+        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter();
+        restaurantListAdapter = new RestaurantListAdapter();
 
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, span_count);
@@ -96,6 +97,11 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     public void setNearRestaurants(List<Restaurant> data) {
         Logger.log("Near: " + data.toString());
         nearbyRestaurantListAdapter.setData(data);
+    }
+
+    @Override
+    public void setInstitutions(List<Institute> data) {
+        //TODO
     }
 
     @Override

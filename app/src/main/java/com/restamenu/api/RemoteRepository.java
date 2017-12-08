@@ -6,32 +6,20 @@ import com.restamenu.api.service.RestaurantService;
 import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Cusine;
 import com.restamenu.model.content.Institute;
-import com.restamenu.api.DataSource.GetRestaurantCallback;
-import com.restamenu.api.DataSource.LoadRestaurantsCallback;
-import com.restamenu.api.service.RestaurantService;
-import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.model.responce.ListResponce;
-import com.restamenu.model.responce.CategoriesResponce;
-import com.restamenu.model.responce.InstitutionsResponse;
-import com.restamenu.model.responce.RestaurantsResponce;
-
 
 import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 
 /**
  * @author Roodie
  */
 
-public class RemoteRepository implements DataSource {
+public class RemoteRepository {
 
     private final RestaurantService restaMenuService;
 
@@ -76,4 +64,6 @@ public class RemoteRepository implements DataSource {
         return restaMenuService.getInstitutions()
                 .map(ListResponce<Institute>::getData);
     }
+
+
 }
