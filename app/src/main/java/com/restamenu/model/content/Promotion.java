@@ -1,59 +1,39 @@
 package com.restamenu.model.content;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.ImageView;
-
-import com.mikepenz.fastadapter.items.AbstractItem;
-import com.restamenu.R;
-
-import java.util.List;
-
 /**
  * Created by Alexandr.
  */
 
-public class Promotion extends AbstractItem<Promotion, Promotion.ViewHolder> {
+public class Promotion {
 
-    String background;
+    private int promo_id;
+    private String name;
+    private String image;
+    private String link;
 
+    public int getPromo_id() {
+        return promo_id;
+    }
 
-    public Promotion() {}
+    public String getName() {
+        return name;
+    }
 
-    @Override
-    public Promotion.ViewHolder getViewHolder(@NonNull View v) {
-        return new Promotion.ViewHolder(v);
+    public String getImage() {
+        return image;
+    }
+
+    public String getLink() {
+        return link;
     }
 
     @Override
-    public int getType() {
-        return 0;
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Promotion{");
+        sb.append("promo_id=").append(promo_id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", image='").append(image).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
-
-    @Override
-    public int getLayoutRes() {
-        return R.layout.restaurant_promotion_item;
-    }
-
-    @Override
-    public void bindView(@NonNull ViewHolder holder, @NonNull List<Object> payloads) {
-        super.bindView(holder, payloads);
-
-        holder.backgroundView.setImageResource(R.drawable.restaurants);
-
-    }
-
-    protected static class ViewHolder extends RecyclerView.ViewHolder {
-
-        ImageView backgroundView;
-
-        public ViewHolder(View view) {
-            super(view);
-
-            backgroundView = view.findViewById(R.id.promotion_background);
-
-        }
-    }
-
 }

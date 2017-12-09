@@ -7,6 +7,8 @@ import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Cusine;
 import com.restamenu.model.content.Image;
 import com.restamenu.model.content.Institute;
+import com.restamenu.model.content.Product;
+import com.restamenu.model.content.Promotion;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.model.responce.ListResponce;
 import com.restamenu.model.responce.Responce;
@@ -14,7 +16,6 @@ import com.restamenu.model.responce.Responce;
 import java.util.List;
 
 import io.reactivex.Flowable;
-import io.reactivex.Single;
 
 
 /**
@@ -54,8 +55,9 @@ public class RemoteRepository {
                 .map(ListResponce<Category>::getData);
     }
 
-    public Single<Category> getCategory(@NonNull final Integer restId, final Integer serviceId, final Integer categoryId) {
-        return restaMenuService.getCategory(restId, serviceId, categoryId, null, null);
+    public Flowable<List<Product>> getCategoryProducts(@NonNull final Integer restId, final Integer serviceId, final Integer categoryId) {
+        return restaMenuService.getCategory(restId, serviceId, categoryId, null, null)
+                .map(ListResponce<Product>::getData);
     }
 
     public Flowable<List<Cusine>> getCusines() {
@@ -71,6 +73,11 @@ public class RemoteRepository {
     public Flowable<List<Image>> getGallery(@NonNull Integer restaurantId) {
         return restaMenuService.getGallery(restaurantId)
                 .map(ListResponce<Image>::getData);
+    }
+
+    public Flowable<List<Promotion>> getPromotions(@NonNull Integer restaurantId) {
+        return restaMenuService.getPromotions(restaurantId)
+                .map(ListResponce<Promotion>::getData);
     }
 
 

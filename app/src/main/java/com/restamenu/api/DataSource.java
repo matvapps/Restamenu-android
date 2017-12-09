@@ -6,12 +6,13 @@ import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Cusine;
 import com.restamenu.model.content.Image;
 import com.restamenu.model.content.Institute;
+import com.restamenu.model.content.Product;
+import com.restamenu.model.content.Promotion;
 import com.restamenu.model.content.Restaurant;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
-import io.reactivex.Single;
 
 /**
  * @author Roodie
@@ -23,7 +24,7 @@ public interface DataSource {
 
     Flowable<List<Category>> getCategories(@NonNull Integer restaurantId, @NonNull Integer serviceId);
 
-    Single<Category> getCategory(@NonNull Integer restaurantId, @NonNull Integer serviceId, @NonNull Integer categoryId);
+    Flowable<List<Promotion>> getPromotions(@NonNull Integer restaurantId);
 
     Flowable<Restaurant> getRestaurant(@NonNull Integer id);
 
@@ -38,6 +39,8 @@ public interface DataSource {
     void refreshInstitutions();
 
     Flowable<List<Image>> getGallery(@NonNull Integer restaurantId);
+
+    Flowable<List<Product>> getCategoryProducts(@NonNull Integer restaurantId, @NonNull Integer serviceId, @NonNull Integer categoryId);
 
 
 

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.restamenu.base.EmptyView;
 import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Image;
+import com.restamenu.model.content.Promotion;
 import com.restamenu.model.content.Restaurant;
 
 import java.util.List;
@@ -19,5 +20,6 @@ public interface RestaurantView extends EmptyView<Restaurant> {
 
     void setGallery(@NonNull List<Image> images);
 
+    void setPromotions(@NonNull List<Promotion> promotions);
 
 }

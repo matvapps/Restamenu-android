@@ -6,12 +6,13 @@ import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Cusine;
 import com.restamenu.model.content.Image;
 import com.restamenu.model.content.Institute;
+import com.restamenu.model.content.Product;
+import com.restamenu.model.content.Promotion;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.model.responce.ListResponce;
 import com.restamenu.model.responce.Responce;
 
 import io.reactivex.Flowable;
-import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -80,15 +81,19 @@ public interface RestaurantService {
 
     @NonNull
     @GET("getCategory")
-    Single<Category> getCategory(@NonNull @Query("restaurant_id") Integer restaurantId,
-                                 @NonNull @Query("service_id") Integer serviceId,
-                                 @NonNull @Query("category_id") Integer categoryId,
-                                 @Query("language_id") Integer languageId,
-                                 @Query("currency_id") Integer currencyId);
+    Flowable<ListResponce<Product>> getCategory(@NonNull @Query("restaurant_id") Integer restaurantId,
+                                                @NonNull @Query("service_id") Integer serviceId,
+                                                @NonNull @Query("category_id") Integer categoryId,
+                                                @Query("language_id") Integer languageId,
+                                                @Query("currency_id") Integer currencyId);
 
     @NonNull
     @GET("getGallery")
     Flowable<ListResponce<Image>> getGallery(@NonNull @Query("restaurant_id") Integer restaurantId);
+
+    @NonNull
+    @GET("getPromotions")
+    Flowable<ListResponce<Promotion>> getPromotions(@NonNull @Query("restaurant_id") Integer restaurantId);
 
 
 

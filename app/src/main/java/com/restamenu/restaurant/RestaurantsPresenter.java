@@ -7,6 +7,7 @@ import com.restamenu.base.Presenter;
 import com.restamenu.rx.BaseSchedulerProvider;
 import com.restamenu.rx.SchedulerProvider;
 import com.restamenu.util.ListUtils;
+import com.restamenu.util.Logger;
 
 import io.reactivex.Flowable;
 
@@ -48,6 +49,7 @@ public class RestaurantsPresenter implements Presenter<RestaurantView> {
                     if (!ListUtils.isEmpty(restaurant.getServices()))
                         loadCategories(restaurantId, restaurant.getServices().get(0));
                     loadGallery(restaurantId);
+                    loadPromotions(restaurantId);
                 }, throwable -> view.showError());
     }
 
@@ -60,6 +62,8 @@ public class RestaurantsPresenter implements Presenter<RestaurantView> {
                 .observeOn(schedulerProvider.ui())
                 .subscribe(categories -> {
                     view.setCategories(categories);
+                    if (!ListUtils.isEmpty(categories))
+                        loadProducts(restaurantId, serviceId, categories.get(0).geId());
                 }, throwable -> view.showError());
     }
 
@@ -72,6 +76,27 @@ public class RestaurantsPresenter implements Presenter<RestaurantView> {
                 .subscribe(images -> {
                     view.setGallery(images);
                 }, throwable -> view.showError());
+    }
 
+    private void loadPromotions(int restaurantId) {
+        RepositoryProvider.getAppRepository().getPromotions(restaurantId)
+                .flatMap(Flowable::fromIterable)
+                .toList()
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(promotions -> {
+                    view.setPromotions(promotions);
+                }, throwable -> view.showError());
+    }
+
+    private void loadProducts(int restaurantId, int serviceId, int categoryId) {
+        RepositoryProvider.getAppRepository().getCategoryProducts(restaurantId, serviceId, categoryId)
+                .flatMap(Flowable::fromIterable)
+                .toList()
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(products -> {
+                    Logger.log("Products: " + products.toString());
+                }, throwable -> view.showError());
     }
 }

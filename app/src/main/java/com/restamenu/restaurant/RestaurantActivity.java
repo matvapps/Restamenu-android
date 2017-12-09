@@ -11,6 +11,7 @@ import com.restamenu.R;
 import com.restamenu.base.BasePresenterActivity;
 import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Image;
+import com.restamenu.model.content.Promotion;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.adapter.RestaurantsAdapter;
 import com.restamenu.util.Logger;
@@ -50,6 +51,11 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     @Override
     public void setGallery(@NonNull List<Image> images) {
         Logger.log("Gallery: " + images.toString());
+    }
+
+    @Override
+    public void setPromotions(@NonNull List<Promotion> promotions) {
+        Logger.log("Promotions: " + promotions.toString());
     }
 
     @Override

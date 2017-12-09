@@ -7,6 +7,8 @@ import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Cusine;
 import com.restamenu.model.content.Image;
 import com.restamenu.model.content.Institute;
+import com.restamenu.model.content.Product;
+import com.restamenu.model.content.Promotion;
 import com.restamenu.model.content.Restaurant;
 
 import java.util.HashMap;
@@ -15,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Flowable;
-import io.reactivex.Single;
 
 /**
  * @author Roodie
@@ -92,8 +93,13 @@ public class ApplicationRepository implements DataSource {
     }
 
     @Override
-    public Single<Category> getCategory(@NonNull Integer restaurantId, @NonNull Integer serviceId, @NonNull Integer categoryId) {
-        return remoteRepository.getCategory(restaurantId, serviceId, categoryId);
+    public Flowable<List<Product>> getCategoryProducts(@NonNull Integer restaurantId, @NonNull Integer serviceId, @NonNull Integer categoryId) {
+        return remoteRepository.getCategoryProducts(restaurantId, serviceId, categoryId);
+    }
+
+    @Override
+    public Flowable<List<Promotion>> getPromotions(@NonNull Integer restaurantId) {
+        return remoteRepository.getPromotions(restaurantId);
     }
 
     @Override
