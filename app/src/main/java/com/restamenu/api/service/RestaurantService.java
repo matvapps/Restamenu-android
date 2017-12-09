@@ -4,9 +4,11 @@ import android.support.annotation.NonNull;
 
 import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Cusine;
+import com.restamenu.model.content.Image;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.model.responce.ListResponce;
+import com.restamenu.model.responce.Responce;
 
 import io.reactivex.Flowable;
 import io.reactivex.Single;
@@ -67,8 +69,8 @@ public interface RestaurantService {
      */
     @NonNull
     @GET("getRestaurant")
-    Single<Restaurant> getRestaurant(@NonNull @Query("restaurant_id") Integer restaurantId,
-                                     @Query("language_id") Integer languageId);
+    Flowable<Responce<Restaurant>> getRestaurant(@NonNull @Query("restaurant_id") Integer restaurantId,
+                                                 @Query("language_id") Integer languageId);
 
     @NonNull
     @GET("getCategories")
@@ -83,6 +85,10 @@ public interface RestaurantService {
                                  @NonNull @Query("category_id") Integer categoryId,
                                  @Query("language_id") Integer languageId,
                                  @Query("currency_id") Integer currencyId);
+
+    @NonNull
+    @GET("getGallery")
+    Flowable<ListResponce<Image>> getGallery(@NonNull @Query("restaurant_id") Integer restaurantId);
 
 
 

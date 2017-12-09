@@ -5,9 +5,11 @@ import android.support.annotation.NonNull;
 import com.restamenu.api.service.RestaurantService;
 import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Cusine;
+import com.restamenu.model.content.Image;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.model.responce.ListResponce;
+import com.restamenu.model.responce.Responce;
 
 import java.util.List;
 
@@ -42,8 +44,9 @@ public class RemoteRepository {
                 .map(ListResponce<Restaurant>::getData);
     }
 
-    public Single<Restaurant> getRestaurant(final @NonNull Integer id) {
-        return restaMenuService.getRestaurant(id, null);
+    public Flowable<Restaurant> getRestaurant(final @NonNull Integer id) {
+        return restaMenuService.getRestaurant(id, null)
+                .map(Responce<Restaurant>::getItem);
     }
 
     public Flowable<List<Category>> getCategories(@NonNull Integer restId, Integer serviceId) {
@@ -63,6 +66,11 @@ public class RemoteRepository {
     public Flowable<List<Institute>> getInstitutions() {
         return restaMenuService.getInstitutions()
                 .map(ListResponce<Institute>::getData);
+    }
+
+    public Flowable<List<Image>> getGallery(@NonNull Integer restaurantId) {
+        return restaMenuService.getGallery(restaurantId)
+                .map(ListResponce<Image>::getData);
     }
 
 

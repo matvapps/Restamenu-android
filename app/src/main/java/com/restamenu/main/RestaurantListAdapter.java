@@ -1,4 +1,4 @@
-package com.restamenu;
+package com.restamenu.main;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.restamenu.R;
 import com.restamenu.model.content.Restaurant;
 import com.squareup.picasso.Picasso;
 
@@ -20,10 +21,12 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
     private Context context;
     private List<Restaurant> restaurants;
+    private RestaurantClickListener listener;
 
-    public RestaurantListAdapter(Context context) {
+    public RestaurantListAdapter(Context context, RestaurantClickListener listener) {
         this.restaurants = new ArrayList<>();
         this.context = context;
+        this.listener = listener;
     }
 
     public void setData(List<Restaurant> data) {
@@ -38,7 +41,6 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
     @Override
     public int getItemViewType(int position) {
-
         return position;
     }
 
@@ -67,13 +69,15 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
+        final Restaurant item = restaurants.get(position);
         Restaurant restaurant = restaurants.get(position);
 
-        holder.restaurantTitleTextView.setText(restaurants.get(position).getName());
+        holder.restaurantTitleTextView.setText(item.getName());
+        holder.itemView.setOnClickListener(click -> listener.onRestaurantClicked(item.getId()));
         Picasso.with(context).load(R.drawable.restaurants).into(holder.restaurantBackgroundImageView);
 
-        for (int i = 0; i < restaurant.getService().size(); i++) {
-            switch (restaurant.getService().get(i)) {
+        for (int i = 0; i < restaurant.getServices().size(); i++) {
+            switch (restaurant.getServices().get(i)) {
                 //restaurant
                 case 1: {
                     Picasso.with(context).load(R.drawable.ic_restoran_active).into(holder.foodTypeRestaurantImageView);

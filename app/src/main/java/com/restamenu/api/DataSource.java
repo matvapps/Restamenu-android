@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Cusine;
+import com.restamenu.model.content.Image;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 
@@ -24,7 +25,7 @@ public interface DataSource {
 
     Single<Category> getCategory(@NonNull Integer restaurantId, @NonNull Integer serviceId, @NonNull Integer categoryId);
 
-    Single<Restaurant> getRestaurant(@NonNull Integer id);
+    Flowable<Restaurant> getRestaurant(@NonNull Integer id);
 
     Flowable<List<Restaurant>> getNearRestaurants(@NonNull Integer cityId, @NonNull String geo);
 
@@ -35,5 +36,9 @@ public interface DataSource {
     void refreshCusines();
 
     void refreshInstitutions();
+
+    Flowable<List<Image>> getGallery(@NonNull Integer restaurantId);
+
+
 
 }

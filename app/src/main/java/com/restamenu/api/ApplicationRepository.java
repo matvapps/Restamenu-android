@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.restamenu.data.database.LocalRepository;
 import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Cusine;
+import com.restamenu.model.content.Image;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 
@@ -65,8 +66,24 @@ public class ApplicationRepository implements DataSource {
     }
 
     @Override
-    public Single<Restaurant> getRestaurant(@NonNull Integer id) {
-        return remoteRepository.getRestaurant(id);
+    public Flowable<Restaurant> getRestaurant(@NonNull Integer id) {
+        final Restaurant cached = getRestaurantById(id);
+        if (cached != null && cached.isDetailsFetched()) {
+            return Flowable.just(cached);
+        }
+        return remoteRepository.getRestaurant(id)
+                //.map(restaurant -> restaurant.setDetailsFetched(true))
+                .doOnNext(restaurant -> {
+                    restaurant.setDetailsFetched(true);
+                    restaurants.put(restaurant.getId(), restaurant);
+                });
+    }
+
+    private Restaurant getRestaurantById(@NonNull Integer id) {
+        if (restaurants == null || restaurants.isEmpty())
+            return null;
+        else
+            return restaurants.get(id);
     }
 
     @Override
@@ -172,5 +189,10 @@ public class ApplicationRepository implements DataSource {
     @Override
     public void refreshInstitutions() {
         institutionsAreValid = true;
+    }
+
+    @Override
+    public Flowable<List<Image>> getGallery(@NonNull Integer restaurantId) {
+        return remoteRepository.getGallery(restaurantId);
     }
 }

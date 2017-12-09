@@ -1,4 +1,4 @@
-package com.restamenu;
+package com.restamenu.main;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.restamenu.R;
 import com.restamenu.model.content.Restaurant;
 import com.squareup.picasso.Picasso;
 
@@ -52,8 +53,8 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<NearbyRest
         holder.restaurantDistanceTextView.setText(restaurants.get(position).getDistance() + "m");
         Picasso.with(context).load(R.drawable.restaurants).into(holder.restaurantBackgroundImageView);
 
-        for (int i = 0; i < restaurant.getService().size(); i++) {
-            switch (restaurant.getService().get(i)) {
+        for (int i = 0; i < restaurant.getServices().size(); i++) {
+            switch (restaurant.getServices().get(i)) {
                 //restaurant
                 case 1: {
                     Picasso.with(context).load(R.drawable.ic_restoran_active).into(holder.foodTypeRestaurantImageView);

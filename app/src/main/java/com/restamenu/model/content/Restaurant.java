@@ -31,6 +31,8 @@ public class Restaurant {
     private List<Integer> currency;
     private List<Integer> languages;
 
+    private boolean detailsFetched = false;
+
     //private String street;
     //private int distance;
 
@@ -46,15 +48,15 @@ public class Restaurant {
         return name;
     }
 
-    public List<Integer> getCuisine() {
+    public List<Integer> getCuisines() {
         return cuisine;
     }
 
-    public List<Integer> getInstitute() {
+    public List<Integer> getInstitutes() {
         return institute;
     }
 
-    public List<Integer> getService() {
+    public List<Integer> getServices() {
         return service;
     }
 
@@ -104,6 +106,14 @@ public class Restaurant {
 
     public List<Integer> getLanguages() {
         return languages;
+    }
+
+    public boolean isDetailsFetched() {
+        return detailsFetched;
+    }
+
+    public void setDetailsFetched(boolean detailsFetched) {
+        this.detailsFetched = detailsFetched;
     }
 
     @Override
