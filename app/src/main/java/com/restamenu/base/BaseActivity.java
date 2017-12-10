@@ -69,14 +69,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void initViews();
 
     /**
-     * Override this if you want to set up the container content.
+     * Override this if you want to change up the container content.
      */
     @LayoutRes
     protected abstract int getContentViewLayoutId();
 
 
     /**
-     * Override this to add additional buttons/textViews to toolbar or set up toolbar.
+     * Override this to add additional buttons/textViews to toolbar or change up toolbar.
      */
     protected void configureToolbar() {
 

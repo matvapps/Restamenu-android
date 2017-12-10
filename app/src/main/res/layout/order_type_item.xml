@@ -13,7 +13,7 @@
 
 
         <ImageView
-            android:id="@+id/restaurant_service_image"
+            android:id="@+id/order_type_image"
             android:layout_width="@dimen/spinner_service_image_size"
             android:layout_height="@dimen/spinner_service_image_size"
             android:layout_marginStart="@dimen/spinner_service_image_margin_start"
@@ -26,7 +26,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/restaurant_service_title"
+                android:id="@+id/order_type_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"

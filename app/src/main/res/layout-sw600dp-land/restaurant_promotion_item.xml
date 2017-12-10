@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.makeramen.roundedimageview.RoundedImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/promotion_background"
+    android:layout_width="@dimen/restaurant_promotion_width"
+    android:layout_height="@dimen/restaurant_promotions_height"
+    android:scaleType="centerCrop"
+    android:layout_marginEnd="@dimen/restaurant_promotion_item_margin_start"
+    android:src="@drawable/restaurants"
+    app:riv_corner_radius="@dimen/restaurant_promotions_radius" />

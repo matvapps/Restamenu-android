@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/restaurant_item_text_margin"
+    android:layout_marginRight="@dimen/restaurant_item_text_margin"
+    android:gravity="start"
+    android:lineSpacingExtra="@dimen/restaurant_item_text_linespacing"
+    android:textColor="@color/black"
+    android:textSize="@dimen/restaurant_item_text_size"
+    tools:text="Details" />

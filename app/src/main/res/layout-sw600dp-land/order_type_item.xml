@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/order_type_view"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/order_type_item_width"
+    android:background="@drawable/round_rect_stroke_grey"
+    android:layout_height="@dimen/order_type_item_height"
+    android:layout_marginStart="16dp">
+
+    <ImageView
+        android:id="@+id/order_type_image"
+        android:layout_width="@dimen/order_type_item_image_size"
+        android:layout_height="@dimen/order_type_item_image_size"
+        android:src="@drawable/ic_food_noact"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/order_type_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/order_type_title_margin"
+        android:text="At Restaurant"
+        android:textColor="@color/black"
+        android:textSize="@dimen/order_type_title_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/order_type_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/order_type_image" />
+
+
+    <LinearLayout
+        android:id="@+id/order_type_selected_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/order_type_selected_container_margin"
+        android:layout_marginEnd="@dimen/order_type_selected_container_margin"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/order_type_selected_text_margin_end"
+            android:text="Selected"
+            android:textColor="@color/white"
+            android:textSize="@dimen/order_type_selected_text_size" />
+
+        <ImageView
+            android:layout_width="@dimen/order_type_fav_image_size"
+            android:layout_height="@dimen/order_type_fav_image_size"
+            android:src="@drawable/ic_checkd" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/order_type_not_available"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/order_type_not_available_margin"
+        android:layout_marginEnd="@dimen/order_type_not_available_margin"
+        android:visibility="gone"
+        android:text="Not available"
+        android:textSize="@dimen/order_type_not_available_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>

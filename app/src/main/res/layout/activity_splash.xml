@@ -29,7 +29,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/splash_title_width"
             android:layout_marginStart="@dimen/splash_title_width"
-            android:src="@drawable/circle_shape" />
+            android:src="@drawable/circle_red_shape" />
 
 
         <FrameLayout

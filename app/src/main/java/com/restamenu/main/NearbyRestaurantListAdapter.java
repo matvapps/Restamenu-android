@@ -1,6 +1,7 @@
 package com.restamenu.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.restamenu.R;
 import com.restamenu.model.content.Restaurant;
+import com.restamenu.restaurant.RestaurantActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -73,6 +75,13 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<NearbyRest
             }
         }
 
+        holder.rootView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, RestaurantActivity.class);
+            intent.putExtra(RestaurantActivity.KEY_RESTAURANT_ID, restaurant.getId());
+
+            context.startActivity(intent);
+        });
+
     }
 
     @Override
@@ -82,6 +91,7 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<NearbyRest
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
+        View rootView;
         ImageView restaurantBackgroundImageView;
         TextView restaurantTitleTextView;
         TextView restaurantTypeTextView;
@@ -95,6 +105,7 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<NearbyRest
         public ViewHolder(View itemView) {
             super(itemView);
 
+            rootView = itemView;
             restaurantBackgroundImageView = itemView.findViewById(R.id.restaurant_background);
             restaurantTitleTextView = itemView.findViewById(R.id.restaurant_title);
             restaurantTypeTextView = itemView.findViewById(R.id.restaurant_type);

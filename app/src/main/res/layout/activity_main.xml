@@ -29,7 +29,7 @@
             android:paddingTop="@dimen/activity_main_search_container_padding_top">
 
             <include
-                layout="@layout/search_restaurant"
+                layout="@layout/restaurant_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_main_search_restaurant_margin"

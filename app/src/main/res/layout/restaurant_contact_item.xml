@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="@dimen/restaurant_contact_item_width"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/restaurant_contact_item_padding"
+        android:layout_marginRight="@dimen/restaurant_contact_item_padding"
+        android:layout_marginTop="@dimen/restaurant_contact_item_padding">
 
 
         <ImageView
@@ -24,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:textStyle="bold"
             android:layout_toEndOf="@+id/contact_icon"
             tools:text="Opening Hours"
             android:textColor="@color/black"
@@ -43,7 +47,7 @@
 
         <View
             android:id="@+id/contact_divider"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/restaurant_contact_divider_width"
             android:layout_height="1dp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/contact_content"

@@ -14,7 +14,8 @@ public enum ItemType {
     PROMOTIONS(5),
     GALLERY(6),
     ABOUT(7),
-    CONTACTS(8),
+    CONTACTS_PHONE(8),
+    CONTACTS_TABLET(10),
     MAP(9);
 
     private final int position;

@@ -18,8 +18,8 @@ import java.util.List;
 
 public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView, List<Restaurant>> implements MainView, RestaurantClickListener {
 
-    private RecyclerView nearbyRestaurantsView;
-    private RecyclerView restaurantsListView;
+    private RecyclerView nearbyRestaurantsRecycler;
+    private RecyclerView restaurantsRecycler;
     private RecyclerView itemTypeView;
     private NearbyRestaurantListAdapter nearbyRestaurantListAdapter;
     private RestaurantListAdapter restaurantListAdapter;
@@ -28,11 +28,11 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     @Override
     protected void initViews() {
         super.initViews();
-        nearbyRestaurantsView = findViewById(R.id.restaurant_list_container);
-        restaurantsListView = findViewById(R.id.restaurants_list);
+        nearbyRestaurantsRecycler = findViewById(R.id.restaurant_list_container);
+        restaurantsRecycler = findViewById(R.id.restaurants_list);
 
         final StartSnapHelper startSnapHelper = new StartSnapHelper();
-        startSnapHelper.attachToRecyclerView(nearbyRestaurantsView);
+        startSnapHelper.attachToRecyclerView(nearbyRestaurantsRecycler);
         final int span_count = getResources().getInteger(R.integer.restaurant_span_count);
 
 
@@ -56,13 +56,15 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
             }
         });
 
-        restaurantsListView.setLayoutManager(gridLayoutManager);
-        nearbyRestaurantsView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        restaurantsRecycler.setLayoutManager(gridLayoutManager);
+        nearbyRestaurantsRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter(MainActivity.this);
-        nearbyRestaurantsView.setAdapter(nearbyRestaurantListAdapter);
+        nearbyRestaurantsRecycler.setAdapter(nearbyRestaurantListAdapter);
 
         restaurantListAdapter = new RestaurantListAdapter(MainActivity.this, this);
-        restaurantsListView.setAdapter(restaurantListAdapter);
+        restaurantsRecycler.setAdapter(restaurantListAdapter);
+
+
     }
 
 

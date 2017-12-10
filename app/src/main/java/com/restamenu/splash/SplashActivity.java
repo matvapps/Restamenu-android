@@ -127,7 +127,7 @@ public class SplashActivity extends AppCompatActivity {
                 .onStop(new AnimationListener.Stop() {
                     @Override
                     public void onStop() {
-                        splashCursorImage.setImageResource(R.drawable.circle_shape);
+                        splashCursorImage.setImageResource(R.drawable.circle_red_shape);
                     }
                 })
                 .scaleY(5f, 5f)

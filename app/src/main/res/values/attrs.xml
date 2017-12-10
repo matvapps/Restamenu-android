@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
     <declare-styleable name="StrokeTitleContainer">
-        
-        <attr name="stc_stroke_size" format="dimension"/>
-        <attr name="stc_hintText" format="string"/>
-        <attr name="stc_radius" format="float"/>
-        <attr name="stc_font_size" format="dimension"/>
-        <attr name="stc_stroke_color" format="color|reference"/>
-        <attr name="stc_text_color" format="color|reference"/>
+
+        <attr name="stc_stroke_size" format="dimension" />
+        <attr name="stc_hintText" format="string" />
+        <attr name="stc_radius" format="float" />
+        <attr name="stc_font_size" format="dimension" />
+        <attr name="stc_stroke_color" format="color|reference" />
+        <attr name="stc_text_color" format="color|reference" />
 
 
     </declare-styleable>
+
+    <item name="match_parent" type="dimen">-1</item>
+    <item name="wrap_content" type="dimen">-2</item>
 
 </resources>

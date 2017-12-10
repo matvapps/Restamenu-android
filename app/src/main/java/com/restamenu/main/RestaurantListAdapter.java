@@ -1,8 +1,8 @@
 package com.restamenu.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.restamenu.R;
 import com.restamenu.model.content.Restaurant;
+import com.restamenu.restaurant.RestaurantActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -49,8 +50,6 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rootView;
 
-        Log.d("RestaurantListAdapter", "onCreateViewHolder: " + viewType);
-
         switch (restaurants.get(viewType).getType()) {
             case 0:
                 rootView = LayoutInflater.from(parent.getContext())
@@ -70,14 +69,14 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         final Restaurant item = restaurants.get(position);
-        Restaurant restaurant = restaurants.get(position);
+//        Restaurant restaurant = restaurants.get(position);
 
         holder.restaurantTitleTextView.setText(item.getName());
         holder.itemView.setOnClickListener(click -> listener.onRestaurantClicked(item.getId()));
         Picasso.with(context).load(R.drawable.restaurants).into(holder.restaurantBackgroundImageView);
 
-        for (int i = 0; i < restaurant.getServices().size(); i++) {
-            switch (restaurant.getServices().get(i)) {
+        for (int i = 0; i < item.getServices().size(); i++) {
+            switch (item.getServices().get(i)) {
                 //restaurant
                 case 1: {
                     Picasso.with(context).load(R.drawable.ic_restoran_active).into(holder.foodTypeRestaurantImageView);
@@ -96,6 +95,14 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
             }
         }
 
+        holder.rootView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, RestaurantActivity.class);
+            intent.putExtra(RestaurantActivity.KEY_RESTAURANT_ID, item.getId());
+
+            context.startActivity(intent);
+        });
+
+
     }
 
     @Override
@@ -105,6 +112,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        View rootView;
         ImageView restaurantBackgroundImageView;
         TextView restaurantTitleTextView;
         TextView restaurantTypeTextView;
@@ -118,6 +126,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         public ViewHolder(View itemView) {
             super(itemView);
 
+            rootView = itemView;
             restaurantBackgroundImageView = itemView.findViewById(R.id.restaurant_background);
             restaurantTitleTextView = itemView.findViewById(R.id.restaurant_title);
             restaurantTypeTextView = itemView.findViewById(R.id.restaurant_type);

@@ -68,6 +68,7 @@ dependencies {
     implementation 'com.mikepenz:fastadapter-commons:3.0.3@aar'
     implementation 'com.mikepenz:fastadapter-extensions:3.0.3@aar'
 
+
     implementation 'com.github.florent37:viewanimator:1.0.5'
     compile 'com.github.flavienlaurent.discrollview:library:0.0.2@aar'
     implementation('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {

@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:layout_width="match_parent"
@@ -14,15 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/restaurant_header_margin"
-        android:layout_marginStart="@dimen/restaurant_header_margin">
+        android:layout_marginTop="@dimen/restaurant_header_margin">
 
         <LinearLayout
-            android:id="@+id/favourite_container"
+            android:id="@+id/restaurant_favourite_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginStart="@dimen/restaurant_header_margin">
 
             <ImageView
                 android:id="@+id/favourite_icon_image"
@@ -34,7 +34,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="In favorite"
+                android:text="In favorite"
                 android:textSize="@dimen/restaurant_header_favorite_text_size"
                 android:textColor="@color/white" />
 
@@ -48,7 +48,8 @@
             android:textColor="@color/white"
             android:textSize="@dimen/restaurant_header_title_text_size"
             android:textStyle="bold"
-            android:layout_marginTop="@dimen/restaurant_header_title_margin_top"/>
+            android:layout_marginTop="@dimen/restaurant_header_title_margin_top"
+            android:layout_marginStart="@dimen/restaurant_header_margin"/>
 
         <TextView
             android:id="@+id/restaurant_type"
@@ -57,13 +58,15 @@
             tools:text="Restaurant"
             android:textColor="@color/white"
             android:textSize="@dimen/restaurant_header_type_text_size"
-            android:layout_marginBottom="@dimen/restaurant_header_type_margin_bottom"/>
+            android:layout_marginBottom="@dimen/restaurant_header_type_margin_bottom"
+            android:layout_marginStart="@dimen/restaurant_header_margin"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:layout_marginTop="@dimen/restaurant_header_margin_top">
+            android:layout_marginTop="@dimen/restaurant_header_margin_top"
+            android:layout_marginStart="@dimen/restaurant_header_margin">
 
             <ImageView
                 android:layout_width="@dimen/restaurant_header_icon_size"
@@ -85,7 +88,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:layout_marginTop="@dimen/restaurant_header_margin_top">
+            android:layout_marginTop="@dimen/restaurant_header_margin_top"
+            android:layout_marginStart="@dimen/restaurant_header_margin">
 
             <ImageView
                 android:layout_width="@dimen/restaurant_header_icon_size"
@@ -107,7 +111,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:layout_marginTop="@dimen/restaurant_header_margin_top">
+            android:layout_marginTop="@dimen/restaurant_header_margin_top"
+            android:layout_marginStart="@dimen/restaurant_header_margin">
 
             <ImageView
                 android:layout_width="@dimen/restaurant_header_icon_size"
@@ -116,7 +121,7 @@
                 android:src="@drawable/ic_time" />
 
             <TextView
-                android:id="@+id/restaurant_time"
+                android:id="@+id/restaurant_opening_hours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Mon - Fri 12:00 - 24:00"
@@ -126,10 +131,11 @@
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/restaurant_gallery"
+            android:id="@+id/gallery_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipChildren="false"
+            android:layout_marginBottom="16dp"
             android:layout_marginTop="@dimen/restaurant_header_gallery_margin_top"/>
 
     </LinearLayout>
