@@ -2,33 +2,41 @@ package com.restamenu.restaurant;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Display;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.base.BasePresenterActivity;
 import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Contact;
 import com.restamenu.model.content.Image;
+import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Promotion;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.adapter.AdapterItemType;
+import com.restamenu.restaurant.adapter.CategoryClickListener;
 import com.restamenu.restaurant.adapter.GalleryAdapter;
 import com.restamenu.restaurant.adapter.ItemType;
 import com.restamenu.restaurant.adapter.OrderTypeSpinnerAdapter;
 import com.restamenu.restaurant.adapter.RestaurantsAdapter;
 import com.restamenu.restaurant.adapter.ServiceType;
 import com.restamenu.util.Logger;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresenter, RestaurantView, Restaurant> implements RestaurantView {
+public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresenter, RestaurantView, Restaurant>
+        implements RestaurantView, CategoryClickListener {
 
     public static final String KEY_RESTAURANT_ID = "key_rest_id";
     private Integer restaurantId;
@@ -37,6 +45,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     private List<AdapterItemType> items;
     private GalleryAdapter galleryAdapter;
     private OrderTypeSpinnerAdapter orderTypeSpinnerAdapter;
+    private Restaurant restaurant;
 
     private View favouriteContainer;
     private TextView restaurantTitleView;
@@ -44,6 +53,8 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     private TextView restaurantAddressView;
     private TextView restaurantPhoneView;
     private TextView restaurantOpeningHours;
+    private ImageView restaurantImage;
+    private ImageView restaurantBackground;
     private RecyclerView recycler;
     private RecyclerView galleryRecycler;
     private Spinner orderTypeSpinner;
@@ -60,14 +71,13 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         restaurantId = getIntent().getIntExtra(KEY_RESTAURANT_ID, 1);
         super.onCreate(savedInstanceState);
 
-        //
-
     }
 
     @Override
     public void setData(@NonNull Restaurant data) {
         Logger.log("Rest: " + data.toString());
 
+        restaurant = data;
         restaurantTitleView.setText(data.getName());
 
         ////        restaurantTypeView;
@@ -78,13 +88,22 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         int aboutTitlePos = getResources().getInteger(R.integer.about_title_pos);
         int aboutTextPos = getResources().getInteger(R.integer.about_text_pos);
 
-        adapter.change(new AdapterItemType("About Restaurant", null, ItemType.TITLE), aboutTitlePos);
-        adapter.change(new AdapterItemType(data.getInformation(), null, ItemType.ABOUT), aboutTextPos);
+        adapter.change(new AdapterItemType<>("About Restaurant", null, ItemType.TITLE), aboutTitlePos);
+        adapter.change(new AdapterItemType<>(data.getInformation(), null, ItemType.ABOUT), aboutTextPos);
 
         setContacts(data);
-//
-        if (isTablet()) {
 
+        //load restaurant background
+        //TODO:
+        String backgroundUrl = restaurant.getBackground().replace("width", "?width");
+        Picasso.with(this).load(BuildConfig.BASE_URL + backgroundUrl).into(restaurantBackground);
+
+        // add map
+        int mapPos = getResources().getInteger(R.integer.map_pos);
+        adapter.change(new AdapterItemType<Image>(restaurant.getLocation().getImage(), null, ItemType.MAP), mapPos);
+
+        if (isTablet()) {
+            Picasso.with(this).load(BuildConfig.BASE_URL + restaurant.getImage()).into(restaurantImage);
         } else {
             ArrayList<ServiceType> serviceTypes = new ArrayList<>();
             serviceTypes.add(ServiceType.DELIVERY);
@@ -145,7 +164,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         int menuSectionListPos = getResources().getInteger(R.integer.menu_sections_list_pos);
 
         if (isTablet()) {
-            adapter.change(new AdapterItemType("Menu Sections", null, ItemType.TITLE), menuSectionTitlePos);
+            adapter.change(new AdapterItemType<>("Menu Sections", null, ItemType.TITLE), menuSectionTitlePos);
             itemType = ItemType.MENU_TABLET;
         } else {
             itemType = ItemType.MENU_PHONE;
@@ -183,6 +202,19 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     }
 
     @Override
+    public void setInstitutions(@NonNull List<Institute> institutions) {
+        StringBuilder instituteText = new StringBuilder();
+        for (int i = 0; i < restaurant.getInstitutes().size(); i++) {
+            if (i < restaurant.getInstitutes().size() - 1)
+                instituteText.append(getInstituteName(institutions, restaurant.getInstitutes().get(i))).append(", ");
+            else
+                instituteText.append(getInstituteName(institutions, restaurant.getInstitutes().get(i))).append("");
+        }
+
+        restaurantTypeView.setText(instituteText.toString());
+    }
+
+    @Override
     public void showError() {
 
     }
@@ -199,7 +231,14 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             presenter = new RestaurantsPresenter(restaurantId);
         }
         presenter.attachView(this);
-        presenter.loadData();
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        int width = size.x;
+
+        presenter.loadData(width);
 
     }
 
@@ -214,6 +253,8 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         restaurantOpeningHours = findViewById(R.id.restaurant_opening_hours);
         favouriteContainer = findViewById(R.id.restaurant_favourite_container);
         orderTypeSpinner = findViewById(R.id.order_type_spinner);
+        restaurantImage = findViewById(R.id.restaurant_image);
+        restaurantBackground = findViewById(R.id.restaurant_background);
 
         //TODO
 //        favouriteContainer.setVisibility(View.INVISIBLE);
@@ -234,13 +275,10 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
         adapter = new RestaurantsAdapter();
         for (int i = 0; i < restaurantContentListSize; i++) {
-            adapter.add(new AdapterItemType("", null, ItemType.TITLE));
+            adapter.add(new AdapterItemType<>("", null, ItemType.TITLE));
         }
 
         recycler.setAdapter(adapter);
-
-        int mapPos = getResources().getInteger(R.integer.map_pos);
-        adapter.change(new AdapterItemType<Image>(null, null, ItemType.MAP), mapPos);
 
     }
 
@@ -259,8 +297,26 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
     }
 
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
     private boolean isTablet() {
         return getResources().getBoolean(R.bool.isLargeLayout);
     }
 
+    @Override
+    public void onCategoryClicked(int categoryId) {
+        // TODO: start CategoryActivity
+//        CategoryActivity.start(this, restaurantId,1,  categoryId);
+    }
+
+    private String getInstituteName(List<Institute> instituteList, int instituteId) {
+        for (int i = 0; i < instituteList.size(); i++) {
+            if (instituteList.get(i).getId() == instituteId)
+                return instituteList.get(i).getName();
+        }
+        return "";
+    }
 }

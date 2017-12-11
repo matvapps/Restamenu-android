@@ -37,6 +37,16 @@ public class MainPresenter implements Presenter<MainView> {
     public void loadData() {
         view.showLoading(true);
 
+        RepositoryProvider.getAppRepository().getInstitutions()
+                .flatMap(Flowable::fromIterable)
+                .toList()
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(institutes -> {
+                    view.setInstitutions(institutes);
+                    view.showLoading(false);
+                }, throwable -> view.showError());
+
         RepositoryProvider.getAppRepository().getRestaurants(1, 1)
                 .flatMap(Flowable::fromIterable)
                 .toList()
@@ -54,16 +64,6 @@ public class MainPresenter implements Presenter<MainView> {
                 .observeOn(schedulerProvider.ui())
                 .subscribe(restaurants -> {
                     view.setNearRestaurants(restaurants);
-                    view.showLoading(false);
-                }, throwable -> view.showError());
-
-        RepositoryProvider.getAppRepository().getInstitutions()
-                .flatMap(Flowable::fromIterable)
-                .toList()
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
-                .subscribe(institutes -> {
-                    view.setInstitutions(institutes);
                     view.showLoading(false);
                 }, throwable -> view.showError());
 

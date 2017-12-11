@@ -26,7 +26,7 @@ public interface DataSource {
 
     Flowable<List<Promotion>> getPromotions(@NonNull Integer restaurantId);
 
-    Flowable<Restaurant> getRestaurant(@NonNull Integer id);
+    Flowable<Restaurant> getRestaurant(@NonNull Integer id, @NonNull Integer width);
 
     Flowable<List<Restaurant>> getNearRestaurants(@NonNull Integer cityId, @NonNull String geo);
 

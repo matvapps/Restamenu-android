@@ -12,6 +12,7 @@
         android:orientation="vertical">
 
         <include
+            android:id="@+id/nearby_list_container"
             layout="@layout/fragment_nearby_restaurants"
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_main_fragment_nearby_height" />

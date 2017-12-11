@@ -39,6 +39,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         container = findViewById(R.id.container);
 
         toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(getToolbarIcon());
         //toolbarTitle = findViewById(R.id.toolbar_title);
 
         appBarLayout = findViewById(R.id.appbar);
@@ -83,6 +84,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public int getToolbarIcon() {
-        return R.drawable.ic_back;
+        return R.drawable.ic_burger_menu;
     }
 }

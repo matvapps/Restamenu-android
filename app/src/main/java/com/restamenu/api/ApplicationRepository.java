@@ -67,12 +67,12 @@ public class ApplicationRepository implements DataSource {
     }
 
     @Override
-    public Flowable<Restaurant> getRestaurant(@NonNull Integer id) {
+    public Flowable<Restaurant> getRestaurant(@NonNull Integer id, @NonNull Integer width) {
         final Restaurant cached = getRestaurantById(id);
         if (cached != null && cached.isDetailsFetched()) {
             return Flowable.just(cached);
         }
-        return remoteRepository.getRestaurant(id)
+        return remoteRepository.getRestaurant(id, width)
                 //.map(restaurant -> restaurant.setDetailsFetched(true))
                 .doOnNext(restaurant -> {
                     restaurant.setDetailsFetched(true);

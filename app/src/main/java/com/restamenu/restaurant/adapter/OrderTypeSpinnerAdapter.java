@@ -24,7 +24,7 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
     private final List<ServiceType> items;
     private final List<Integer> usingServices;
 
-    public OrderTypeSpinnerAdapter(Context context, List objects, List usingServices) {
+    public OrderTypeSpinnerAdapter(Context context, List<ServiceType> objects, List<Integer> usingServices) {
         super(context, 0, objects);
 
         this.usingServices = usingServices;
@@ -49,16 +49,19 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
 
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        return createItemView(position, R.layout.order_type_item, parent);
+        if (usingServices.size() > 0)
+            return createItemView(position, R.layout.order_type_item, parent);
+        else
+            return createItemView(position, R.layout.order_type_dropdown_item, parent);
     }
 
     private View createItemView(int position, int viewId, ViewGroup parent) {
 
         View view = mInflater.inflate(viewId, parent, false);
 
-        if (position == 0) {
-            view = mInflater.inflate(R.layout.order_type_item, parent, false);
-        }
+//        if (position == 0) {
+//            view = mInflater.inflate(R.layout.order_type_item, parent, false);
+//        }
 
         TextView titleText = view.findViewById(R.id.order_type_title);
         ImageView serviceImage = view.findViewById(R.id.order_type_image);
@@ -94,13 +97,10 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
                 serviceTitle = parent.getContext().getResources().getString(R.string.service_delivery);
                 if (usingServices.indexOf(3) == -1) {
                     view.setEnabled(false);
-                    try {
-                        titleText.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.warm_grey_66));
-                        serviceImage.setVisibility(View.INVISIBLE);
-                        notAvailable.setVisibility(View.VISIBLE);
-                    } catch (Exception ex) {
+                    titleText.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.warm_grey_66));
+                    serviceImage.setVisibility(View.INVISIBLE);
+                    notAvailable.setVisibility(View.VISIBLE);
 
-                    }
                 } else
                     serviceImage.setImageResource(R.drawable.ic_deliver_noactive);
                 break;

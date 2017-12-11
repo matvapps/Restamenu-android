@@ -35,10 +35,6 @@
             android:layout_height="match_parent"
             android:clipChildren="false" />
 
-        <!--<include-->
-        <!--layout="@layout/nearby_restaurant_card"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"/>-->
 
     </LinearLayout>
 

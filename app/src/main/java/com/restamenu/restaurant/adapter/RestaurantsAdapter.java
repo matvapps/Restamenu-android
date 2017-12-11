@@ -10,12 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Contact;
 import com.restamenu.model.content.Image;
 import com.restamenu.model.content.Promotion;
 import com.restamenu.util.Logger;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -190,7 +192,12 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             case 9: {
                 // TODO:
                 ImageViewHolder imageViewHolder = (ImageViewHolder) holder;
-                imageViewHolder.image.setImageResource(R.drawable.test_map);
+//                imageViewHolder.image.setImageResource(R.drawable.test_map);
+
+                // load map
+                // TODO:
+                String backgroundUrl = item.getTitle().replace("width", "?width");
+                Picasso.with(holder.itemView.getContext()).load(BuildConfig.BASE_URL + backgroundUrl).into(imageViewHolder.image);
 
                 break;
             }

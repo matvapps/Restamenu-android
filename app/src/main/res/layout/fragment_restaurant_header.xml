@@ -5,9 +5,11 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:id="@+id/restaurant_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@color/test_rose"/>
+        android:scaleType="fitXY"
+        android:src="@android:color/darker_gray"/>
 
 
     <LinearLayout

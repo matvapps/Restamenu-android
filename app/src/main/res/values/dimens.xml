@@ -159,6 +159,7 @@
     <dimen name="spinner_service_image_container">95dp</dimen>
     <dimen name="restaurant_item_title_margin_top">40dp</dimen>
 
+    <item name="product_span_count" type="integer">1</item>
 
 
 </resources>

@@ -261,5 +261,7 @@
     <item type="integer" name="contacts_list_pos">9</item>
     <item type="integer" name="map_pos">10</item>
 
+    <item name="product_span_count" type="integer">3</item>
+
 
 </resources>

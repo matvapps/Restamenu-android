@@ -1,7 +1,7 @@
 package com.restamenu.category;
 
-import android.support.annotation.NonNull;
-
+import com.restamenu.base.EmptyView;
+import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Product;
 
 import java.util.List;
@@ -10,8 +10,7 @@ import java.util.List;
  * Created by Alexandr.
  */
 
-public interface CategoryView {
+public interface CategoryView extends EmptyView<List<Category>>{
 
-    void setProducts(@NonNull List<Product> products);
-
+    void setProducts(List<Product> products);
 }

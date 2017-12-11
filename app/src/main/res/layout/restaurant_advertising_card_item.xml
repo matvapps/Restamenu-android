@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="16dp">
@@ -40,7 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/restaurant_title_margin"
-                    android:text="Restaurant Bamboo Lagoon
+                    tools:text="Restaurant Bamboo Lagoon
 is waiting for you every evening!"
                     android:textColor="@color/black"
                     android:textSize="@dimen/restaurant_title_text_size" />
@@ -52,7 +53,7 @@ is waiting for you every evening!"
                     android:layout_marginTop="@dimen/restaurant_type_margin_top"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    android:text="Order a table in advance to enjoy the performance of the artist performing your favorite hits."
+                    tools:text="Order a table in advance to enjoy the performance of the artist performing your favorite hits."
                     android:textColor="@color/black"
                     android:textSize="@dimen/restaurant_type_text_size" />
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/nearby_restaurant_card_margin_right"
@@ -44,10 +45,9 @@
                     android:id="@+id/restaurant_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/nearby_restaurant_title_text_margin_left"
                     android:layout_marginStart="@dimen/nearby_restaurant_title_text_margin_left"
                     android:layout_marginTop="@dimen/nearby_restaurant_title_text_margin_top"
-                    android:text="Indego by Vineet"
+                    tools:text="Indego by Vineet"
                     android:textColor="@color/black"
                     android:textSize="@dimen/nearby_restaurant_title_text_size" />
 
@@ -56,7 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/nearby_restaurant_type_text_margin_top"
-                    android:text="Restaurant"
+                    tools:text="Restaurant"
                     android:textColor="@color/black"
                     android:textSize="@dimen/nearby_restaurant_type_text_size" />
 
@@ -74,7 +74,6 @@
                         android:layout_height="@dimen/nearby_restaurant_cuisine_type_img_size"
                         android:layout_gravity="bottom"
                         android:layout_marginEnd="@dimen/nearby_restaurant_cuisine_type_image_margin"
-                        android:layout_marginRight="@dimen/nearby_restaurant_cuisine_type_image_margin"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_restoran_noactive" />
 
@@ -84,7 +83,6 @@
                         android:layout_height="@dimen/nearby_restaurant_cuisine_type_takeway_image_height"
                         android:layout_gravity="bottom"
                         android:layout_marginEnd="@dimen/nearby_restaurant_cuisine_type_image_margin"
-                        android:layout_marginRight="@dimen/nearby_restaurant_cuisine_type_image_margin"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_food_noactive" />
 
@@ -116,8 +114,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="3dp"
-                        android:layout_marginRight="3dp"
-                        android:text="Grosvenor House Dubai"
+                        tools:text="Grosvenor House Dubai"
                         android:textColor="@color/black"
                         android:textSize="@dimen/nearby_restaurant_street_text_size" />
 
@@ -126,7 +123,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="150 m"
+                        tools:text="150 m"
                         android:textColor="@color/brownish_grey"
                         android:textSize="@dimen/nearby_restaurant_distance_text_size" />
 

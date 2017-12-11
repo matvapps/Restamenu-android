@@ -45,8 +45,8 @@ public class RemoteRepository {
                 .map(ListResponce<Restaurant>::getData);
     }
 
-    public Flowable<Restaurant> getRestaurant(final @NonNull Integer id) {
-        return restaMenuService.getRestaurant(id, null)
+    public Flowable<Restaurant> getRestaurant(final @NonNull Integer id,final @NonNull Integer width) {
+        return restaMenuService.getRestaurant(id, width, null)
                 .map(Responce<Restaurant>::getItem);
     }
 

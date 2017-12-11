@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/order_type_title_margin"
-        android:text="At Restaurant"
+        tools:text="At Restaurant"
         android:textColor="@color/black"
         android:textSize="@dimen/order_type_title_text_size"
         app:layout_constraintBottom_toBottomOf="@+id/order_type_image"

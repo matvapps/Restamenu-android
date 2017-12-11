@@ -38,12 +38,13 @@ public class RestaurantsPresenter implements Presenter<RestaurantView> {
 
     }
 
-    public void loadData() {
+    public void loadData(int screenWidth) {
         view.showLoading(true);
-        RepositoryProvider.getAppRepository().getRestaurant(restaurantId)
+        RepositoryProvider.getAppRepository().getRestaurant(restaurantId, screenWidth)
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(restaurant -> {
+                    loadInstitutes();
                     view.setData(restaurant);
                     view.showLoading(false);
                     if (!ListUtils.isEmpty(restaurant.getServices()))
@@ -97,6 +98,18 @@ public class RestaurantsPresenter implements Presenter<RestaurantView> {
                 .observeOn(schedulerProvider.ui())
                 .subscribe(products -> {
                     Logger.log("Products: " + products.toString());
+                }, throwable -> view.showError());
+    }
+
+    private void loadInstitutes() {
+        RepositoryProvider.getAppRepository().getInstitutions()
+                .flatMap(Flowable::fromIterable)
+                .toList()
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(institutes -> {
+                    view.setInstitutions(institutes);
+                    view.showLoading(false);
                 }, throwable -> view.showError());
     }
 }

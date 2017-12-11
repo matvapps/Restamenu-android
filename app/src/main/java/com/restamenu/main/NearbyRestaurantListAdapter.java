@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.restamenu.R;
+import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.RestaurantActivity;
 import com.squareup.picasso.Picasso;
@@ -23,6 +24,7 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<NearbyRest
 
     private List<Restaurant> restaurants;
     private Context context;
+    private List<Institute> instituteList;
 
     public NearbyRestaurantListAdapter(Context context) {
         this.restaurants = new ArrayList<>();
@@ -75,6 +77,17 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<NearbyRest
             }
         }
 
+
+        StringBuilder institutions = new StringBuilder();
+        for (int i = 0; i < restaurant.getInstitutes().size(); i++) {
+            if (i < restaurant.getInstitutes().size() - 1)
+                institutions.append(getInstituteName(restaurant.getInstitutes().get(i))).append(", ");
+            else
+                institutions.append(getInstituteName(restaurant.getInstitutes().get(i))).append("");
+        }
+
+        holder.restaurantTypeTextView.setText(institutions.toString());
+
         holder.rootView.setOnClickListener(view -> {
             Intent intent = new Intent(context, RestaurantActivity.class);
             intent.putExtra(RestaurantActivity.KEY_RESTAURANT_ID, restaurant.getId());
@@ -84,9 +97,26 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<NearbyRest
 
     }
 
+
     @Override
     public int getItemCount() {
         return restaurants.size();
+    }
+
+    public List<Institute> getInstituteList() {
+        return instituteList;
+    }
+
+    public void setInstituteList(List<Institute> instituteList) {
+        this.instituteList = instituteList;
+    }
+
+    private String getInstituteName(int instituteId) {
+        for (int i = 0; i < instituteList.size(); i++) {
+            if (instituteList.get(i).getId() == instituteId)
+                return instituteList.get(i).getName();
+        }
+        return "";
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

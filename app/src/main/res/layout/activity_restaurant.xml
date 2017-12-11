@@ -1,42 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.restamenu.restaurant.RestaurantActivity">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <include
+        layout="@layout/include_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_gravity="top" />
 
-        <include
-            layout="@layout/fragment_restaurant_header"
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scroll_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <!--<include-->
+            <include
+                layout="@layout/fragment_restaurant_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!--<include-->
             <!--layout="@layorder_type_itemitem"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="70dp"/>-->
 
-        <Spinner
-            android:id="@+id/order_type_spinner"
-            android:layout_width="match_parent"
-            style="@style/Widget.AppCompat.Spinner"
-            android:spinnerMode="dropdown"
-            android:drawSelectorOnTop="true"
-            android:background="@android:color/transparent"
-            android:layout_height="70dp"/>
+            <Spinner
+                android:id="@+id/order_type_spinner"
+                style="@style/Widget.AppCompat.Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@android:color/transparent"
+                android:drawSelectorOnTop="true"
+                android:spinnerMode="dropdown" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
 
 
-    </LinearLayout>
+        </LinearLayout>
 
-</android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.restamenu.BuildConfig;
 import com.restamenu.R;
+import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.RestaurantActivity;
 import com.squareup.picasso.Picasso;
@@ -22,10 +24,12 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
     private Context context;
     private List<Restaurant> restaurants;
+    private List<Institute> instituteList;
     private RestaurantClickListener listener;
 
     public RestaurantListAdapter(Context context, RestaurantClickListener listener) {
         this.restaurants = new ArrayList<>();
+        this.instituteList = new ArrayList<>();
         this.context = context;
         this.listener = listener;
     }
@@ -73,7 +77,20 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
         holder.restaurantTitleTextView.setText(item.getName());
         holder.itemView.setOnClickListener(click -> listener.onRestaurantClicked(item.getId()));
-        Picasso.with(context).load(R.drawable.restaurants).into(holder.restaurantBackgroundImageView);
+
+//        WindowManager windowManager = (WindowManager) context
+//                .getSystemService(Context.WINDOW_SERVICE);
+
+//        Display display = windowManager.getDefaultDisplay();
+//        DisplayMetrics outMetrics = new DisplayMetrics ();
+//        display.getMetrics(outMetrics);
+//
+//        float density  = context.getResources().getDisplayMetrics().density;
+//        float dpWidth  = outMetrics.widthPixels / density;
+
+        String path = BuildConfig.BASE_URL + item.getImage();
+
+        Picasso.with(context).load(path).into(holder.restaurantBackgroundImageView);
 
         for (int i = 0; i < item.getServices().size(); i++) {
             switch (item.getServices().get(i)) {
@@ -89,11 +106,21 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
                 }
                 //delivery
                 case 3: {
-                    Picasso.with(context).load(R.drawable.ic_deliver_active).into(holder.foodTypeDeliveryImageView);
+                    Picasso.with(context).load(R.drawable.ic_delivery_active).into(holder.foodTypeDeliveryImageView);
                     break;
                 }
             }
         }
+
+        StringBuilder institutions = new StringBuilder();
+        for (int i = 0; i < item.getInstitutes().size(); i++) {
+            if (i < item.getInstitutes().size() - 1)
+                institutions.append(getInstituteName(item.getInstitutes().get(i))).append(", ");
+            else
+                institutions.append(getInstituteName(item.getInstitutes().get(i))).append("");
+        }
+
+        holder.restaurantTypeTextView.setText(institutions.toString());
 
         holder.rootView.setOnClickListener(view -> {
             Intent intent = new Intent(context, RestaurantActivity.class);
@@ -109,6 +136,24 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     public int getItemCount() {
         return restaurants.size();
     }
+
+    public List<Institute> getInstituteList() {
+        return instituteList;
+    }
+
+    public void setInstituteList(List<Institute> instituteList) {
+        this.instituteList = instituteList;
+    }
+
+
+    private String getInstituteName(int instituteId) {
+        for (int i = 0; i < instituteList.size(); i++) {
+            if (instituteList.get(i).getId() == instituteId)
+                return instituteList.get(i).getName();
+        }
+        return "";
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

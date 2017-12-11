@@ -71,6 +71,7 @@ public interface RestaurantService {
     @NonNull
     @GET("getRestaurant")
     Flowable<Responce<Restaurant>> getRestaurant(@NonNull @Query("restaurant_id") Integer restaurantId,
+                                                 @NonNull @Query("width") Integer width,
                                                  @Query("language_id") Integer languageId);
 
     @NonNull
@@ -94,7 +95,6 @@ public interface RestaurantService {
     @NonNull
     @GET("getPromotions")
     Flowable<ListResponce<Promotion>> getPromotions(@NonNull @Query("restaurant_id") Integer restaurantId);
-
 
 
 }

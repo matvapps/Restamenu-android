@@ -241,4 +241,7 @@
     <item type="integer" name="map_pos">7</item>
 
 
+    <item name="product_span_count" type="integer">1</item>
+
+
 </resources>

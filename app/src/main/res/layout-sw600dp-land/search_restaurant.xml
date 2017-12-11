@@ -17,7 +17,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_weight="8"
             android:text="Start typing the name..."
@@ -46,7 +45,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
             android:layout_weight="3"
             android:entries="@array/cuisineTypes"
             android:lineSpacingExtra="30sp"
@@ -66,7 +64,6 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
                 android:src="@drawable/ic_find" />
 
             <TextView

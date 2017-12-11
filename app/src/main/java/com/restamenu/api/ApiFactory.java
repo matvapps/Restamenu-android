@@ -6,14 +6,12 @@ import com.restamenu.BuildConfig;
 import com.restamenu.RestamenuApp;
 import com.restamenu.api.service.RestaurantService;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -58,7 +56,7 @@ public final class ApiFactory {
     @NonNull
     private static Retrofit buildRetrofit() {
         return new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(BASE_URL + "/api/")
                 .client(getClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -99,21 +97,18 @@ public final class ApiFactory {
     private static Interceptor keyInterceptor() {
         Interceptor intrceptor = null;
 
-        intrceptor = new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request original = chain.request();
+        intrceptor = chain -> {
+            Request original = chain.request();
 
-                Request request = original.newBuilder()
-                        //.header("Content-Type", "application/json")
-                        //.header("Accept", "application/json")
-                        .header("key", BuildConfig.AUTH_KEY)
-                        .header("Cache-Control", "max-age=30") // read from cache for 1/2 minute
-                        .method(original.method(), original.body())
-                        .build();
+            Request request = original.newBuilder()
+                    //.header("Content-Type", "application/json")
+                    //.header("Accept", "application/json")
+                    .header("key", BuildConfig.AUTH_KEY)
+                    .header("Cache-Control", "max-age=30") // read from cache for 1/2 minute
+                    .method(original.method(), original.body())
+                    .build();
 
-                return chain.proceed(request);
-            }
+            return chain.proceed(request);
         };
         return intrceptor;
     }
