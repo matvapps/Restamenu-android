@@ -78,7 +78,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/arrow2"
                 app:layout_constraintStart_toEndOf="@+id/currency"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="City" />
+                android:text="City" />
 
             <ImageView
                 android:id="@+id/arrow2"

@@ -56,7 +56,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/icon"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Back to categories" />
+                android:text="Back to categories" />
 
         </android.support.constraint.ConstraintLayout>
 
@@ -134,7 +134,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/FSElliotProBold"
+                android:fontFamily="@font/fs_eliot_pro_bold"
                 android:gravity="center"
                 android:text="Restaurant"
                 android:textColor="@color/charcoal_grey"
@@ -182,7 +182,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/currency"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Settings" />
+                android:text="Settings" />
 
         </android.support.constraint.ConstraintLayout>
 

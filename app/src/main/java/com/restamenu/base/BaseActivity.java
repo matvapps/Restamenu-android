@@ -39,7 +39,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         container = findViewById(R.id.container);
 
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(getToolbarIcon());
+//        toolbar.setNavigationIcon(getToolbarIcon());
         //toolbarTitle = findViewById(R.id.toolbar_title);
 
         appBarLayout = findViewById(R.id.appbar);

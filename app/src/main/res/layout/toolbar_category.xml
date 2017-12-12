@@ -81,7 +81,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/currency"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Settings" />
+                android:text="Settings" />
 
         </android.support.constraint.ConstraintLayout>
 
