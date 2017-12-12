@@ -271,9 +271,4 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         return -1;
     }
 
-    private boolean isTablet() {
-        return getResources().getBoolean(R.bool.isLargeLayout);
-    }
-
-
 }

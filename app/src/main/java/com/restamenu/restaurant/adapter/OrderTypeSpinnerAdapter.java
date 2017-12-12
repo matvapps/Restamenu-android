@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.restamenu.R;
+import com.restamenu.util.RestaurantUtils;
 
 import java.util.List;
 
@@ -23,10 +24,12 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
     private final LayoutInflater mInflater;
     private final List<ServiceType> items;
     private final List<Integer> usingServices;
+    private final int selectedItem;
 
-    public OrderTypeSpinnerAdapter(Context context, List<ServiceType> objects, List<Integer> usingServices) {
+    public OrderTypeSpinnerAdapter(Context context, List<ServiceType> objects, List<Integer> usingServices, int selectedItem) {
         super(context, 0, objects);
 
+        this.selectedItem = selectedItem;
         this.usingServices = usingServices;
         mInflater = LayoutInflater.from(context);
         items = objects;
@@ -50,7 +53,7 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         if (usingServices.size() > 0)
-            return createItemView(position, R.layout.order_type_item, parent);
+            return createItemView(position, R.layout.order_type_header_item, parent);
         else
             return createItemView(position, R.layout.order_type_dropdown_item, parent);
     }
@@ -59,10 +62,6 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
 
         View view = mInflater.inflate(viewId, parent, false);
 
-//        if (position == 0) {
-//            view = mInflater.inflate(R.layout.order_type_item, parent, false);
-//        }
-
         TextView titleText = view.findViewById(R.id.order_type_title);
         ImageView serviceImage = view.findViewById(R.id.order_type_image);
         TextView notAvailable = view.findViewById(R.id.order_type_not_available);
@@ -70,11 +69,10 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
 
         ServiceType service = items.get(position);
 
-        String serviceTitle;
+        String serviceTitle = RestaurantUtils.getServiceTitle(parent.getContext(), service.getType());
 
         switch (service.getType()) {
             case 1:
-                serviceTitle = parent.getContext().getResources().getString(R.string.service_restaurant);
                 if (usingServices.indexOf(1) == -1) {
                     view.setEnabled(false);
                     titleText.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.warm_grey_66));
@@ -84,7 +82,6 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
                     serviceImage.setImageResource(R.drawable.ic_restoran_noactive);
                 break;
             case 2:
-                serviceTitle = parent.getContext().getResources().getString(R.string.service_takeaway);
                 if (usingServices.indexOf(2) == -1) {
                     view.setEnabled(false);
                     titleText.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.warm_grey_66));
@@ -94,7 +91,6 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
                     serviceImage.setImageResource(R.drawable.ic_food_noactive);
                 break;
             case 3:
-                serviceTitle = parent.getContext().getResources().getString(R.string.service_delivery);
                 if (usingServices.indexOf(3) == -1) {
                     view.setEnabled(false);
                     titleText.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.warm_grey_66));

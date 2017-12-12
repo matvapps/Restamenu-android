@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginRight="@dimen/dish_category_item_margin_bottom"
     android:layout_marginLeft="@dimen/dish_category_item_margin_bottom"
-    android:layout_marginTop="@dimen/dish_category_item_margin_bottom">
+    android:layout_marginRight="@dimen/dish_category_item_margin_bottom"
+    android:layout_marginTop="@dimen/dish_category_item_margin_bottom"
+    android:background="?selectableItemBackground"
+    android:foreground="?selectableItemBackground">
 
 
     <com.makeramen.roundedimageview.RoundedImageView
@@ -24,8 +26,8 @@
         android:layout_gravity="bottom|start"
         android:layout_marginBottom="@dimen/dish_category_name_margin"
         android:layout_marginStart="@dimen/dish_category_name_margin"
-        tools:text="Appetizers"
         android:textColor="@color/white"
-        android:textSize="@dimen/dish_category_name_text_size" />
+        android:textSize="@dimen/dish_category_name_text_size"
+        tools:text="Appetizers" />
 
 </FrameLayout>

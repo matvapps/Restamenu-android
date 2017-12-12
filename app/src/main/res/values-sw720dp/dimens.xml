@@ -244,18 +244,19 @@
     <dimen name="restaurant_header_height">200dp</dimen>
 
 
-    <item type="integer" name="restaurant_content_list_size">11</item>
-    <item type="integer" name="menu_sections_title_pos">0</item>
-    <item type="integer" name="menu_sections_list_pos">1</item>
-    <item type="integer" name="restaurant_promotions_title_pos">2</item>
-    <item type="integer" name="restaurant_promotions_list_pos">3</item>
-    <item type="integer" name="gallery_title_pos">4</item>
-    <item type="integer" name="gallery_list_pos">5</item>
-    <item type="integer" name="about_title_pos">6</item>
-    <item type="integer" name="about_text_pos">7</item>
-    <item type="integer" name="contacts_title_pos">8</item>
-    <item type="integer" name="contacts_list_pos">9</item>
-    <item type="integer" name="map_pos">10</item>
+    <item name="restaurant_content_list_size" type="integer">12</item>
+    <item name="select_service_pos" type="integer">0</item>
+    <item name="menu_sections_title_pos" type="integer">1</item>
+    <item name="menu_sections_list_pos" type="integer">2</item>
+    <item name="restaurant_promotions_title_pos" type="integer">3</item>
+    <item name="restaurant_promotions_list_pos" type="integer">4</item>
+    <item name="gallery_title_pos" type="integer">5</item>
+    <item name="gallery_list_pos" type="integer">6</item>
+    <item name="about_title_pos" type="integer">7</item>
+    <item name="about_text_pos" type="integer">8</item>
+    <item name="contacts_title_pos" type="integer">9</item>
+    <item name="contacts_list_pos" type="integer">10</item>
+    <item name="map_pos" type="integer">11</item>
 
     <item name="product_span_count" type="integer">3</item>
 
