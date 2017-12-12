@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/white"
+    android:elevation="0dp"
+    android:gravity="center"
+    app:elevation="0dp"
+    app:navigationIcon="@drawable/ic_burger_menu"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--<ImageView-->
+        <!--android:layout_width="20dp"-->
+        <!--android:layout_height="20dp"-->
+        <!--android:layout_gravity="start|center_vertical"-->
+        <!--android:src="@drawable/ic_burger_menu"/>-->
+
+
+        <TextView
+            android:id="@+id/logo"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/open_sans_bold"
+            android:gravity="center"
+            android:text="Serafina Dubai"
+            android:textColor="@color/dusty_red"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/currency_container"
+            app:layout_constraintHorizontal_bias="0.58"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/currency_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#e6e6e6"
+            android:background="@drawable/round_rect_stroke_grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/currency"
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:layout_marginStart="9dp"
+                android:src="@drawable/ic_settings"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/currency_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/currency_title"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/currency_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_marginEnd="9dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="7dp"
+                android:gravity="center_horizontal"
+                android:textColor="#000000"
+                android:textSize="9sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/currency"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Settings" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <!--<Spinner-->
+        <!--android:layout_width="35dp"-->
+        <!--android:layout_height="20dp" />-->
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.v7.widget.Toolbar>

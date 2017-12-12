@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/white"
+    android:elevation="0dp"
+    android:gravity="center"
+    app:elevation="0dp"
+    app:navigationIcon="@drawable/ic_burger_menu"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/back_to_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/round_rect_stroke_grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:layout_marginStart="9dp"
+                android:src="@drawable/ic_back_arrow"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/back"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_marginEnd="11dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="7dp"
+                android:gravity="center_horizontal"
+                android:textColor="#000000"
+                android:textSize="9sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/icon"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Back to categories" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/order_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:background="@drawable/round_rect_stroke_grey"
+            android:backgroundTint="@color/dusty_red"
+            app:layout_constraintBottom_toBottomOf="@+id/back_to_category"
+            app:layout_constraintStart_toEndOf="@+id/back_to_category"
+            app:layout_constraintTop_toTopOf="@+id/back_to_category"
+            app:layout_constraintVertical_bias="0.521">
+
+            <ImageView
+                android:id="@+id/order_icon"
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:layout_marginStart="9dp"
+                android:src="@drawable/ic_mony"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/order_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/order_text"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/order_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_marginEnd="11dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="7dp"
+                android:gravity="center_horizontal"
+                android:text="Order: $510"
+                android:textColor="@color/white"
+                android:textSize="9sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/order_icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/currency_container"
+            app:layout_constraintHorizontal_bias="0.24"
+            app:layout_constraintStart_toEndOf="@+id/order_container"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:id="@+id/restaurant_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/open_sans_bold"
+                android:gravity="center"
+                android:text="Serafina Dubai"
+                android:textColor="@color/dusty_red"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/restaurant_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/FSElliotProBold"
+                android:gravity="center"
+                android:text="Restaurant"
+                android:textColor="@color/charcoal_grey"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/currency_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/round_rect_stroke_grey"
+            android:backgroundTint="#e6e6e6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/currency"
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:layout_marginStart="9dp"
+                android:src="@drawable/ic_settings"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/currency_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/currency_title"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/currency_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_marginEnd="9dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="7dp"
+                android:gravity="center_horizontal"
+                android:textColor="#000000"
+                android:textSize="9sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/currency"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Settings" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <!--<Spinner-->
+        <!--android:layout_width="35dp"-->
+        <!--android:layout_height="20dp" />-->
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.v7.widget.Toolbar>
