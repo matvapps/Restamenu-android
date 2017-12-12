@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/order_type_view"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/order_type_item_width"
-    android:background="@drawable/round_rect_stroke_grey"
+    android:id="@+id/order_type_view"
+    android:layout_width="match_parent"
     android:layout_height="@dimen/order_type_item_height"
-    android:layout_marginStart="16dp">
+    android:layout_marginStart="16dp"
+    android:background="@drawable/round_rect_stroke_grey">
 
     <ImageView
         android:id="@+id/order_type_image"
-        android:layout_width="@dimen/order_type_item_image_size"
-        android:layout_height="@dimen/order_type_item_image_size"
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="18dp"
         android:src="@drawable/ic_food_noact"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,13 +26,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/order_type_title_margin"
-        tools:text="At Restaurant"
         android:textColor="@color/black"
         android:textSize="@dimen/order_type_title_text_size"
         app:layout_constraintBottom_toBottomOf="@+id/order_type_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/order_type_image" />
+        app:layout_constraintTop_toTopOf="@+id/order_type_image"
+        tools:text="At Restaurant" />
 
 
     <LinearLayout
@@ -66,9 +68,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/order_type_not_available_margin"
         android:layout_marginEnd="@dimen/order_type_not_available_margin"
-        android:visibility="gone"
         android:text="Not available"
         android:textSize="@dimen/order_type_not_available_text_size"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

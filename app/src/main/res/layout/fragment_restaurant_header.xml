@@ -1,145 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/restaurant_background"
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@android:color/darker_gray"/>
+        android:layout_height="wrap_content">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/restaurant_header_margin">
-
-        <LinearLayout
-            android:id="@+id/restaurant_favourite_container"
+        <ImageView
+            android:id="@+id/restaurant_background"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/favourite_icon_image"
+            android:layout_width="@dimen/restaurant_header_favorite_icon_size"
+            android:layout_height="@dimen/restaurant_header_favorite_icon_size"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_favorite"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_marginStart="@dimen/restaurant_header_margin">
+            android:layout_marginStart="8dp"
+            android:text="Add to favorite"
+            android:textColor="@color/white"
+            android:textSize="@dimen/restaurant_header_favorite_text_size"
+            app:layout_constraintStart_toEndOf="@+id/favourite_icon_image"
+            app:layout_constraintTop_toTopOf="@+id/favourite_icon_image" />
 
-            <ImageView
-                android:id="@+id/favourite_icon_image"
-                android:layout_width="@dimen/restaurant_header_favorite_icon_size"
-                android:layout_height="@dimen/restaurant_header_favorite_icon_size"
-                android:layout_marginEnd="@dimen/restaurant_header_favorite_icon_margin"
-                android:src="@drawable/ic_favorite" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="In favorite"
-                android:textSize="@dimen/restaurant_header_favorite_text_size"
-                android:textColor="@color/white" />
-
-        </LinearLayout>
 
         <TextView
             android:id="@+id/restaurant_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Serafina Dubai"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
             android:textColor="@color/white"
             android:textSize="@dimen/restaurant_header_title_text_size"
             android:textStyle="bold"
-            android:layout_marginTop="@dimen/restaurant_header_title_margin_top"
-            android:layout_marginStart="@dimen/restaurant_header_margin"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            tools:text="Serafina Dubai" />
 
         <TextView
             android:id="@+id/restaurant_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Restaurant"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             android:textColor="@color/white"
             android:textSize="@dimen/restaurant_header_type_text_size"
-            android:layout_marginBottom="@dimen/restaurant_header_type_margin_bottom"
-            android:layout_marginStart="@dimen/restaurant_header_margin"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/restaurant_title"
+            tools:text="Restaurant" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <ImageView
+            android:id="@+id/location_image"
+            android:layout_width="@dimen/restaurant_header_icon_size"
+            android:layout_height="@dimen/restaurant_header_icon_size"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/ic_pin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/restaurant_type" />
+
+        <TextView
+            android:id="@+id/restaurant_address"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_marginTop="@dimen/restaurant_header_margin_top"
-            android:layout_marginStart="@dimen/restaurant_header_margin">
+            android:layout_marginStart="5dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/restaurant_header_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/time_image"
+            app:layout_constraintStart_toEndOf="@+id/time_image"
+            app:layout_constraintTop_toTopOf="@+id/time_image"
+            tools:text="52nd Level Dubai Marriott Harbour" />
 
-            <ImageView
-                android:layout_width="@dimen/restaurant_header_icon_size"
-                android:layout_height="@dimen/restaurant_header_icon_size"
-                android:layout_marginEnd="@dimen/restaurant_header_icon_margin"
-                android:src="@drawable/ic_pin" />
 
-            <TextView
-                android:id="@+id/restaurant_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="52nd Level Dubai Marriott Harbour"
-                android:textColor="@color/white"
-                android:textSize="@dimen/restaurant_header_text_size" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="@dimen/restaurant_header_icon_size"
+            android:layout_height="@dimen/restaurant_header_icon_size"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/ic_call"
+            app:layout_constraintStart_toStartOf="@+id/location_image"
+            app:layout_constraintTop_toBottomOf="@+id/location_image" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/restaurant_phone"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_marginTop="@dimen/restaurant_header_margin_top"
-            android:layout_marginStart="@dimen/restaurant_header_margin">
+            android:layout_marginStart="5dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/restaurant_header_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/location_image"
+            app:layout_constraintStart_toEndOf="@+id/location_image"
+            app:layout_constraintTop_toTopOf="@+id/location_image"
+            tools:text="8 800 640 00 10" />
 
-            <ImageView
-                android:layout_width="@dimen/restaurant_header_icon_size"
-                android:layout_height="@dimen/restaurant_header_icon_size"
-                android:layout_marginEnd="@dimen/restaurant_header_icon_margin"
-                android:src="@drawable/ic_call" />
 
-            <TextView
-                android:id="@+id/restaurant_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="8 800 640 00 10"
-                android:textColor="@color/white"
-                android:textSize="@dimen/restaurant_header_text_size" />
+        <ImageView
+            android:id="@+id/time_image"
+            android:layout_width="@dimen/restaurant_header_icon_size"
+            android:layout_height="@dimen/restaurant_header_icon_size"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/ic_time"
+            app:layout_constraintStart_toStartOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/restaurant_opening_hours" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/restaurant_opening_hours"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_marginTop="@dimen/restaurant_header_margin_top"
-            android:layout_marginStart="@dimen/restaurant_header_margin">
+            android:layout_marginStart="5dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/restaurant_header_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="@+id/imageView2"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Mon - Fri 12:00 - 24:00" />
 
-            <ImageView
-                android:layout_width="@dimen/restaurant_header_icon_size"
-                android:layout_height="@dimen/restaurant_header_icon_size"
-                android:layout_marginEnd="@dimen/restaurant_header_icon_margin"
-                android:src="@drawable/ic_time" />
-
-            <TextView
-                android:id="@+id/restaurant_opening_hours"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Mon - Fri 12:00 - 24:00"
-                android:textColor="@color/white"
-                android:textSize="@dimen/restaurant_header_text_size" />
-
-        </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/gallery_recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
             android:clipChildren="false"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="@dimen/restaurant_header_gallery_margin_top"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/restaurant_address" />
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
-</FrameLayout>
+
+</android.support.constraint.ConstraintLayout>

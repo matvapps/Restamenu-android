@@ -1,65 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.restamenu.main.MainActivity">
 
-    <LinearLayout
+
+    <include
+        layout="@layout/toolbar_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"/>
 
-        <include
-            android:id="@+id/nearby_list_container"
-            layout="@layout/fragment_nearby_restaurants"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/activity_main_fragment_nearby_height" />
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.restamenu.main.MainActivity">
 
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/grey"
-            android:paddingBottom="@dimen/activity_main_search_container_padding_top"
-            android:paddingTop="@dimen/activity_main_search_container_padding_top">
-
-
-            <include
-                layout="@layout/restaurant_search"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_main_search_restaurant_margin"
-                android:layout_marginRight="@dimen/activity_main_search_restaurant_margin" />
-
-
-        </FrameLayout>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/activity_main_restaurants_in_margin_bottom"
-            android:layout_marginTop="@dimen/activity_main_restaurants_in_margin_top"
-            android:text="Restaurants in Dubai"
-            android:textColor="@color/black"
-            android:textSize="@dimen/activity_main_restaurants_in_text_size"
-            android:textStyle="bold" />
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/restaurants_list"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_gravity="center"
-            android:nestedScrollingEnabled="false"/>
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/nearby_list_container"
+                layout="@layout/fragment_nearby_restaurants"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-    </LinearLayout>
+            <FrameLayout
+                android:id="@+id/search_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/grey"
+                android:paddingBottom="@dimen/activity_main_search_container_padding_top"
+                android:paddingTop="@dimen/activity_main_search_container_padding_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nearby_list_container">
 
 
-</android.support.v4.widget.NestedScrollView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@drawable/round_rect_stroke_grey"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="126dp"
+                    android:layout_marginRight="126dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="8"
+                        android:text="Start typing the name..."
+                        android:textColor="#80000000"
+                        android:textSize="16sp" />
+
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/greyish" />
+
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:entries="@array/cuisineTypes"
+                        android:lineSpacingExtra="30sp"
+                        android:textColor="#80000000"
+                        android:textSize="12sp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/greyish" />
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="3"
+                        android:entries="@array/cuisineTypes"
+                        android:lineSpacingExtra="30sp"
+                        android:textColor="#80000000"
+                        android:textSize="12sp" />
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:background="@drawable/left_round_red_rect"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/ic_find" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Search"
+                            android:textColor="#ffffff"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </FrameLayout>
+
+
+            <TextView
+                android:id="@+id/restaurants_in_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="27dp"
+                android:text="Restaurants in Dubai"
+                android:textColor="@color/black"
+                android:textSize="@dimen/activity_main_restaurants_in_text_size"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/search_container" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/restaurants_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="19dp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/restaurants_in_city" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

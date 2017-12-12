@@ -1,56 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/spinner_service_first_item_height"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:alpha="0.1"
-        android:background="@color/black" />
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-
-        <FrameLayout
-            android:layout_width="@dimen/spinner_service_image_container"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/order_type_not_available"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="invisible"
-                android:textColor="@color/warm_grey_66"
-                android:text="Not available"
-                android:textSize="@dimen/spinner_service_not_available_text_size"/>
-
-
-            <ImageView
-                android:id="@+id/order_type_image"
-                android:layout_width="@dimen/spinner_service_image_size"
-                android:layout_height="@dimen/spinner_service_image_size"
-                android:layout_marginStart="@dimen/spinner_service_image_margin_start"
-                android:src="@drawable/ic_food_noact" />
-
-        </FrameLayout>
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="13dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="13dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/order_type_title"
-            android:layout_width="match_parent"
+            android:id="@+id/order_type_not_available"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="At restaurant"
-            android:textColor="@color/black"
-            android:textSize="22sp" />
+            android:layout_gravity="center"
+            android:text="Not available"
+            android:textColor="@color/warm_grey_66"
+            android:textSize="@dimen/spinner_service_not_available_text_size"
+            android:visibility="invisible" />
 
-    </LinearLayout>
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/order_type_image"
+            android:layout_width="23dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_food_noact" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/order_type_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:text="At restaurant"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+        app:layout_constraintStart_toEndOf="@+id/frameLayout"
+        app:layout_constraintTop_toTopOf="@+id/frameLayout" />
+
+
+</android.support.constraint.ConstraintLayout>

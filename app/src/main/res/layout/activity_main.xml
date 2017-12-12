@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scroll_container"
@@ -10,10 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <!--<include layout="@layout/include_toolbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"/>-->
 
         <include
             android:id="@+id/nearby_list_container"
@@ -29,14 +26,60 @@
             android:paddingBottom="@dimen/activity_main_search_container_padding_top"
             android:paddingTop="@dimen/activity_main_search_container_padding_top">
 
-            <include
-                layout="@layout/restaurant_search"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_main_search_restaurant_margin"
-                android:layout_marginRight="@dimen/activity_main_search_restaurant_margin" />
 
-        </FrameLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/round_rect_stroke_grey"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="10"
+                        android:gravity="center_vertical"
+                        android:text="Start typing the name..."
+                        android:textColor="#80000000"
+                        android:textSize="12sp" />
+
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/greyish" />
+
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="4"
+                        android:entries="@array/cuisineTypes"
+                        android:textColor="#80000000"
+                        android:textSize="12sp" />
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:background="@drawable/left_round_red_rect"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_find" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </FrameLayout>
 
 
         <TextView
@@ -60,14 +103,14 @@
             android:nestedScrollingEnabled="false"/>
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/item_type"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:nestedScrollingEnabled="false"/>
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/item_type"-->
+            <!--android:layout_marginRight="16dp"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:nestedScrollingEnabled="false"/>-->
 
     </LinearLayout>
 

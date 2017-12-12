@@ -12,61 +12,61 @@
         android:background="@color/test_purple"
         android:scaleType="centerCrop" />
 
-
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
 
         <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/fragment_nearby_near_text_margin_bottom"
-            android:layout_marginTop="@dimen/fragment_nearby_near_text_margin_top"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="33dp"
             android:text="Restaurants by near you"
             android:textColor="#fefefe"
             android:textSize="@dimen/fragment_nearby_near_text_size"
             android:textStyle="bold"
-            android:layout_gravity="center_horizontal"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/fragment_nearby_content_container_margin_left"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="@dimen/fragment_nearby_scrollit_container_width"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="@dimen/fragment_nearby_scroll_image_width"
-                        android:layout_height="@dimen/fragment_nearby_scroll_image_width"
-                        android:layout_marginEnd="@dimen/fragment_nearby_scroll_image_margin_right"
-                        android:src="@drawable/ic_scroll" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" Scroll it"
-                        android:textColor="@color/white_70"
-                        android:textSize="@dimen/fragment_nearby_scroll_text_size" />
-
-                </LinearLayout>
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="25dp"
+            android:src="@drawable/ic_scroll"
+            app:layout_constraintBottom_toBottomOf="@+id/text1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text1" />
 
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/restaurant_list_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:text=" Scroll it"
+            android:textColor="@color/white_70"
+            android:textSize="5sp"
+            app:layout_constraintBottom_toBottomOf="@+id/restaurant_list_container"
+            app:layout_constraintStart_toEndOf="@+id/image1"
+            app:layout_constraintTop_toTopOf="@+id/restaurant_list_container" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/restaurant_list_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="26dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="19dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text1"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 
-            </LinearLayout>
-
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>

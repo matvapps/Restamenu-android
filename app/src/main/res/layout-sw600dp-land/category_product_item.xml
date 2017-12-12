@@ -55,8 +55,8 @@
                 android:id="@+id/product_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="21dp"
                 android:textColor="#000000"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,7 @@
                 android:id="@+id/product_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="36dp"
                 android:layout_marginTop="8dp"
                 android:textColor="#000000"
                 android:textSize="12sp"
@@ -80,7 +80,7 @@
                 android:id="@+id/product_mass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="9dp"
                 android:textColor="#80000000"
                 android:textSize="13sp"
                 app:layout_constraintStart_toStartOf="@+id/product_description"
@@ -112,11 +112,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:textColor="#000000"
                 android:textSize="30sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/product_mass"
                 app:layout_constraintTop_toBottomOf="@+id/product_mass"
                 tools:text="150₽" />
 
@@ -125,7 +125,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="5dp"
                 android:textColor="#b3000000"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/product_price"
@@ -135,11 +135,10 @@
             <LinearLayout
                 android:id="@+id/read_button"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="9dp"
                 android:background="@color/charcoal_grey"
                 android:gravity="center_vertical"
-                android:padding="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
@@ -147,13 +146,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_marginStart="13dp"
+                    android:text="Read more"
                     android:textColor="#ffffff"
-                    android:textSize="14sp"
-                    tools:text="Read more" />
+                    android:textSize="11.6sp" />
 
                 <ImageView
-                    android:layout_width="13dp"
-                    android:layout_height="13dp"
+                    android:layout_width="11dp"
+                    android:layout_height="11dp"
+                    android:layout_marginEnd="13dp"
                     android:src="@drawable/ic_read" />
 
             </LinearLayout>

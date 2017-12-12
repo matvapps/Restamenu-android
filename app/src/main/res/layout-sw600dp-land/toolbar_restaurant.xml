@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/white"
+    android:elevation="0dp"
+    android:gravity="center"
+    app:elevation="0dp"
+    app:navigationIcon="@drawable/ic_burger_menu"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--<ImageView-->
+        <!--android:layout_width="20dp"-->
+        <!--android:layout_height="20dp"-->
+        <!--android:layout_gravity="start|center_vertical"-->
+        <!--android:src="@drawable/ic_burger_menu"/>-->
+
+        <LinearLayout
+            android:id="@+id/logo_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/currency_container"
+            app:layout_constraintHorizontal_bias="0.58"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logo" />
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="5dp"
+                android:src="@drawable/electronicmenu" />
+
+
+        </LinearLayout>
+
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/lang_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/round_rect_stroke_grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/country_flag"
+                android:layout_width="11dp"
+                android:layout_height="8dp"
+                android:layout_marginBottom="9dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="9dp"
+                android:src="@color/test_purple"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/language_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="9dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="9dp"
+                android:gravity="center_horizontal"
+                android:textColor="#000000"
+                android:textSize="9sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/arrow"
+                app:layout_constraintStart_toEndOf="@+id/country_flag"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="ENG" />
+
+            <ImageView
+                android:id="@+id/arrow"
+                android:layout_width="6.5dp"
+                android:layout_height="4dp"
+                android:layout_marginEnd="7dp"
+                android:rotation="90"
+                android:src="@drawable/ic_arrow_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/currency_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="17dp"
+            android:background="@drawable/round_rect_stroke_grey"
+            app:layout_constraintBottom_toBottomOf="@+id/lang_container"
+            app:layout_constraintEnd_toStartOf="@+id/lang_container"
+            app:layout_constraintTop_toTopOf="@+id/lang_container">
+
+            <TextView
+                android:id="@+id/currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/black"                
+                android:text="$"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/currency_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="9dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="9dp"
+                android:gravity="center_horizontal"
+                android:textColor="#000000"
+                android:textSize="9sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/arrow2"
+                app:layout_constraintStart_toEndOf="@+id/currency"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="USD" />
+
+            <ImageView
+                android:id="@+id/arrow2"
+                android:layout_width="6.5dp"
+                android:layout_height="4dp"
+                android:layout_marginEnd="7dp"
+                android:rotation="90"
+                android:src="@drawable/ic_arrow_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <!--<Spinner-->
+        <!--android:layout_width="35dp"-->
+        <!--android:layout_height="20dp" />-->
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.v7.widget.Toolbar>

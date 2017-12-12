@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,33 +9,37 @@
         android:id="@+id/nearby_restaurants_container_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/test_purple"
+        android:src="@android:color/darker_gray"
         android:scaleType="centerCrop" />
 
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="27dp"
+        android:text="Restaurants by near you"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/fragment_nearby_near_text_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/restaurant_list_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/fragment_nearby_near_text_margin_bottom"
-            android:layout_marginTop="@dimen/fragment_nearby_near_text_margin_top"
-            android:text="Restaurants by near you"
-            android:textColor="#ffffff"
-            android:textSize="@dimen/fragment_nearby_near_text_size"
-            android:textStyle="bold" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/restaurant_list_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipChildren="false" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="19dp"
+        android:clipChildren="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text" />
 
 
-    </LinearLayout>
-
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>
