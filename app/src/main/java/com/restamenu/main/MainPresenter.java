@@ -16,7 +16,11 @@ public class MainPresenter implements Presenter<MainView> {
     private final BaseSchedulerProvider schedulerProvider;
     private MainView view;
 
-    public MainPresenter() {
+    private int width;
+
+    public MainPresenter(int width)
+    {
+        this.width = width;
         schedulerProvider = SchedulerProvider.getInstance();
     }
 
@@ -31,10 +35,10 @@ public class MainPresenter implements Presenter<MainView> {
     }
 
     public void init() {
-        loadData();
+        loadData(width);
     }
 
-    public void loadData() {
+    public void loadData(int width) {
         view.showLoading(true);
 
         RepositoryProvider.getAppRepository().getInstitutions()
@@ -57,7 +61,7 @@ public class MainPresenter implements Presenter<MainView> {
                     view.showLoading(false);
                 }, throwable -> view.showError());
 
-        RepositoryProvider.getAppRepository().getNearRestaurants(1, "56.8457373,60.5972259")
+        RepositoryProvider.getAppRepository().getNearRestaurants(1, "25.1948827,55.2738285", width)
                 .flatMap(Flowable::fromIterable)
                 .toList()
                 .subscribeOn(schedulerProvider.io())

@@ -5,12 +5,10 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.GridView;
 
 import com.exblr.dropdownmenu.DropdownListItem;
 import com.exblr.dropdownmenu.DropdownMenu;
 import com.restamenu.R;
-import com.restamenu.SpinnerGridViewAdapter;
 import com.restamenu.StartSnapHelper;
 import com.restamenu.base.BaseNavigationActivity;
 import com.restamenu.model.content.Institute;
@@ -40,16 +38,18 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         DropdownMenu searchSpinner = findViewById(R.id.dropdown_menu_filter);
         nearbyListContainer.setVisibility(View.GONE);
 
-        ArrayList list2 = createMockList(15, true);
-        SpinnerGridViewAdapter mGridViewAdapter = new SpinnerGridViewAdapter(this, list2);
-
-        View customContentView = getLayoutInflater().inflate(R.layout.spinner_content, null, false);
-        GridView gridView = customContentView.findViewById(R.id.content);
-        gridView.setAdapter(mGridViewAdapter);
-
-        searchSpinner.add("Menu 2", customContentView);
-
-
+//        if (!isTablet()) {
+//
+//            ArrayList list2 = createMockList(15, true);
+//            SpinnerGridViewAdapter mGridViewAdapter = new SpinnerGridViewAdapter(this, list2);
+//
+//            View customContentView = getLayoutInflater().inflate(R.layout.spinner_content, null, false);
+//            GridView gridView = customContentView.findViewById(R.id.content);
+//            gridView.setAdapter(mGridViewAdapter);
+//
+//            searchSpinner.add("Menu 2", customContentView);
+//
+//        }
 
         final StartSnapHelper startSnapHelper = new StartSnapHelper();
         startSnapHelper.attachToRecyclerView(nearbyRestaurantsRecycler);
@@ -85,6 +85,8 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         restaurantListAdapter = new RestaurantListAdapter(MainActivity.this, this);
         restaurantsRecycler.setAdapter(restaurantListAdapter);
 
+
+
     }
 
 
@@ -104,7 +106,9 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     protected void attachPresenter() {
         Logger.log("Attach");
         if (presenter == null) {
-            presenter = new MainPresenter();
+
+
+            presenter = new MainPresenter(200);
         }
         presenter.attachView(this);
         presenter.init();
@@ -128,6 +132,9 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
         nearbyListContainer.setVisibility(View.VISIBLE);
         nearbyRestaurantListAdapter.setData(data);
+
+
+
 
     }
 

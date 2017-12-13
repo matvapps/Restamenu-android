@@ -50,7 +50,8 @@ public interface RestaurantService {
     @NonNull
     @GET("getNearRestaurants")
     Flowable<ListResponce<Restaurant>> getNearRestaurants(@NonNull @Query("city_id") Integer cityId,
-                                                          @Query("geo") String geo,
+                                                          @NonNull @Query("geo") String geo,
+                                                          @NonNull @Query("width") Integer width,
                                                           @Query("details") boolean details);
 
     @NonNull

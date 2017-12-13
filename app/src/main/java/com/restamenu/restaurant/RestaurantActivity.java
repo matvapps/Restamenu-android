@@ -25,7 +25,6 @@ import com.restamenu.restaurant.adapter.AdapterItemType;
 import com.restamenu.restaurant.adapter.CategoryClickListener;
 import com.restamenu.restaurant.adapter.GalleryAdapter;
 import com.restamenu.restaurant.adapter.ItemType;
-import com.restamenu.restaurant.adapter.OrderTypeSpinnerAdapter;
 import com.restamenu.restaurant.adapter.RestaurantsAdapter;
 import com.restamenu.util.Logger;
 import com.squareup.picasso.Picasso;
@@ -40,9 +39,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     private Integer restaurantId;
 
     private RestaurantsAdapter adapter;
-    private List<AdapterItemType> items;
     private GalleryAdapter galleryAdapter;
-    private OrderTypeSpinnerAdapter orderTypeSpinnerAdapter;
     private Restaurant restaurant;
 
     private View favouriteContainer;
@@ -53,8 +50,10 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     private TextView restaurantOpeningHours;
     private ImageView restaurantImage;
     private ImageView restaurantBackground;
+    private ImageView mapImage;
     private RecyclerView recycler;
     private RecyclerView galleryRecycler;
+    private TextView toolbarRestaurantTitle;
     //private Spinner orderTypeSpinner;
 
 
@@ -77,8 +76,6 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
         restaurant = data;
         restaurantTitleView.setText(data.getName());
-
-        ////        restaurantTypeView;
         restaurantAddressView.setText(data.getAddress());
         restaurantPhoneView.setText(data.getPhones().get(0));
         restaurantOpeningHours.setText(data.getTiming().get(0));
@@ -92,13 +89,18 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         setContacts(data);
 
         //load restaurant background
-        //TODO:
-        String backgroundUrl = restaurant.getBackground().replace("width", "?width");
-        Picasso.with(this).load(BuildConfig.BASE_URL + backgroundUrl).into(restaurantBackground);
+        String backgroundUrl = restaurant.getBackground();
+        Picasso.with(this).load(BuildConfig.BASE_URL +
+                backgroundUrl.substring(1, backgroundUrl.length())).into(restaurantBackground);
 
         // add map
-        int mapPos = getResources().getInteger(R.integer.map_pos);
-        adapter.change(new AdapterItemType<Image>(restaurant.getLocation().getImage(), null, ItemType.MAP), mapPos);
+//        if (!isTablet()) {
+            int mapPos = getResources().getInteger(R.integer.map_pos);
+            adapter.change(new AdapterItemType<Image>(restaurant.getLocation().getImage(), null, ItemType.MAP), mapPos);
+//        } //else {
+//            String mapBackgroundUrl = data.getLocation().getImage().substring(1, data.getLocation().getImage().length());
+//            Picasso.with(RestaurantActivity.this).load(BuildConfig.BASE_URL + mapBackgroundUrl).into(mapImage);
+//        }
 
         ItemType itemType;
         int selectServicePos = getResources().getInteger(R.integer.select_service_pos);
@@ -122,7 +124,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             itemType = ItemType.CONTACTS_TABLET;
         }
         else {
-            stringDivider = ", ";
+            stringDivider = " ";
             itemType = ItemType.CONTACTS_PHONE;
         }
 
@@ -131,15 +133,23 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             openingHours.append(item).append(stringDivider);
         }
 
+        StringBuilder socialNetworks = new StringBuilder();
+        for (String item :data.getSocial())
+            socialNetworks.append(item).append(stringDivider);
+
         StringBuilder phones = new StringBuilder();
         for (String item :data.getPhones()) {
             phones.append(item).append(stringDivider);
         }
 
+        contacts.add(new Contact("Opening Hours", openingHours.toString()));
+        contacts.add(new Contact("Phones", phones.toString()));
 
-        contacts.add(new Contact("Opening hours", openingHours.toString()));
-        contacts.add(new Contact("Phone", phones.toString()));
-        contacts.add(new Contact("Address", data.getAddress()));
+        if (isTablet()) {
+            contacts.add(new Contact("Social Networks", socialNetworks.toString()));
+        } else {
+            contacts.add(new Contact("Address", data.getAddress()));
+        }
 
         int contactTitlePos = getResources().getInteger(R.integer.contacts_title_pos);
         int contactListPos = getResources().getInteger(R.integer.contacts_list_pos);
@@ -162,7 +172,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         } else {
             itemType = ItemType.MENU_PHONE;
         }
-        adapter.change(new AdapterItemType<>(null, categories, itemType), menuSectionListPos);
+        adapter.change(new AdapterItemType<>(restaurant.getName(), categories, itemType), menuSectionListPos);
     }
 
     @Override
@@ -174,7 +184,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             int galleryTitlePos = getResources().getInteger(R.integer.gallery_title_pos);
             int galleryListPos = getResources().getInteger(R.integer.gallery_list_pos);
 
-            adapter.change(new AdapterItemType<>("Gallery", null, ItemType.TITLE), galleryTitlePos);
+            adapter.change(new AdapterItemType<>("Gallery of Restaurant", null, ItemType.TITLE), galleryTitlePos);
             adapter.change(new AdapterItemType<>(null, images, ItemType.GALLERY), galleryListPos);
         } else {
             galleryAdapter.setItems(images);
@@ -199,7 +209,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         StringBuilder instituteText = new StringBuilder();
         for (int i = 0; i < restaurant.getInstitutes().size(); i++) {
             if (i < restaurant.getInstitutes().size() - 1)
-                instituteText.append(getInstituteName(institutions, restaurant.getInstitutes().get(i))).append(", ");
+                instituteText.append(getInstituteName(institutions, restaurant.getInstitutes().get(i))).append(" & ");
             else
                 instituteText.append(getInstituteName(institutions, restaurant.getInstitutes().get(i))).append("");
         }
@@ -246,6 +256,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         favouriteContainer = findViewById(R.id.restaurant_favourite_container);
         restaurantImage = findViewById(R.id.restaurant_image);
         restaurantBackground = findViewById(R.id.restaurant_background);
+        mapImage = findViewById(R.id.map_image);
 
 
         recycler = findViewById(R.id.recycler);

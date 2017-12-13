@@ -24,15 +24,15 @@ public class Restaurant {
     private String background;
     private String address;
     private Location location;
-    private int distance;
+    private float distance;
     private int type;  //тип показа карточки категории. Например, 0 - по-умолчанию.
 
     private String information;
     private List<String> timing;
     private List<String> phones;
     private List<String> social;
-    private List<Integer> currency;
-    private List<Integer> languages;
+    private List<String> currency;
+    private List<String> languages;
 
     private boolean detailsFetched = false;
 
@@ -79,7 +79,7 @@ public class Restaurant {
         return location;
     }
 
-    public int getDistance() {
+    public float getDistance() {
         return distance;
     }
 
@@ -103,11 +103,11 @@ public class Restaurant {
         return social;
     }
 
-    public List<Integer> getCurrency() {
+    public List<String> getCurrency() {
         return currency;
     }
 
-    public List<Integer> getLanguages() {
+    public List<String> getLanguages() {
         return languages;
     }
 

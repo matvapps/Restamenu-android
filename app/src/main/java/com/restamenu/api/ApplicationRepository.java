@@ -62,8 +62,8 @@ public class ApplicationRepository implements DataSource {
     }
 
     @Override
-    public Flowable<List<Restaurant>> getNearRestaurants(@NonNull Integer cityId, @NonNull String geo) {
-        return remoteRepository.getNearRestaurants(cityId, geo, true);
+    public Flowable<List<Restaurant>> getNearRestaurants(@NonNull Integer cityId, @NonNull String geo, @NonNull Integer width) {
+        return remoteRepository.getNearRestaurants(cityId, geo, width, true);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class ApplicationRepository implements DataSource {
         if (cached != null && cached.isDetailsFetched()) {
             return Flowable.just(cached);
         }
-        return remoteRepository.getRestaurant(id, width)
+        return remoteRepository.getRestaurant(id, width, 1)
                 //.map(restaurant -> restaurant.setDetailsFetched(true))
                 .doOnNext(restaurant -> {
                     restaurant.setDetailsFetched(true);

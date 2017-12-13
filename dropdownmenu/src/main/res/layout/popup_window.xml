@@ -7,7 +7,7 @@
         android:id="@+id/popup_window_content_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fff">
+        android:background="@android:color/transparent">
        <!-- <ListView
             android:id="@+id/popup_window_list_view"
             android:layout_width="match_parent"
@@ -20,6 +20,6 @@
         android:layout_below="@id/popup_window_content_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#70000000">
+        android:background="@android:color/transparent">
     </RelativeLayout>
 </RelativeLayout>

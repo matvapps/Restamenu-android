@@ -8,7 +8,7 @@
     android:layout_marginRight="@dimen/restaurant_item_text_margin"
     android:fontFamily="@font/open_sans"
     android:gravity="start"
-    android:lineSpacingExtra="14sp"
+    android:lineSpacingExtra="15sp"
     android:textColor="@color/black"
-    android:textSize="14sp"
+    android:textSize="19sp"
     tools:text="Details" />

@@ -18,6 +18,7 @@ import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Contact;
 import com.restamenu.model.content.Image;
 import com.restamenu.model.content.Promotion;
+import com.restamenu.util.DimensionUtil;
 import com.restamenu.util.Logger;
 import com.restamenu.views.custom.ServiceButton;
 import com.squareup.picasso.Picasso;
@@ -145,6 +146,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 OrderTypeSpinnerAdapter orderTypeSpinnerAdapter = new OrderTypeSpinnerAdapter(holder.itemView.getContext(),
                         serviceTypes, serviceItemType.getData(), selectedService);
                 viewHolder.spinner.setAdapter(orderTypeSpinnerAdapter);
+                viewHolder.spinner.setDropDownVerticalOffset((int) DimensionUtil.convertDpToPixel( -25 , holder.itemView.getContext()));
                 viewHolder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -229,6 +231,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 viewHolder.recycler.setLayoutManager(new LinearLayoutManager(viewHolder.itemView.getContext(), LinearLayoutManager.VERTICAL, false));
 
                 CategoriesAdapter categoriesAdapter = new CategoriesAdapter();
+                categoriesAdapter.setRestaurantTitle(item.getTitle());
                 categoriesAdapter.setItems(categoryItemType.getData());
 
                 viewHolder.recycler.setAdapter(categoriesAdapter);
@@ -243,6 +246,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 viewHolder.recycler.setLayoutManager(new GridLayoutManager(viewHolder.itemView.getContext(), 3));
 
                 CategoriesAdapter categoriesAdapter = new CategoriesAdapter();
+                categoriesAdapter.setRestaurantTitle(item.getTitle());
                 categoriesAdapter.setItems(categoryItemType.getData());
 
                 viewHolder.recycler.setAdapter(categoriesAdapter);
@@ -297,13 +301,10 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 break;
             }
             case 9: {
-                // TODO:
                 ImageViewHolder imageViewHolder = (ImageViewHolder) holder;
-//                imageViewHolder.image.setImageResource(R.drawable.test_map);
 
                 // load map
-                // TODO:
-                String backgroundUrl = item.getTitle().replace("width", "?width");
+                String backgroundUrl = item.getTitle().substring(1, item.getTitle().length());
                 Picasso.with(holder.itemView.getContext()).load(BuildConfig.BASE_URL + backgroundUrl).into(imageViewHolder.image);
 
                 break;

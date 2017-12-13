@@ -24,6 +24,7 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     public static final String KEY_RESTAURANT_ID = "key_rest_id";
     public static final String KEY_SERVICE_ID = "key_service_id";
     public static final String KEY_CATEGORY_ID = "key_category_id";
+    public static final String KEY_RESTAURANT_TITLE = "key_restaurant_title";
 
     private final int NEXT_CATEGORY = 1;
     private final int PREV_CATEGORY = -1;
@@ -45,16 +46,21 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     private TextView prevCategoryName;
     private TextView nextCategoryName;
     private NestedScrollView nestedScrollView;
+    private TextView toolbarRestaurantTitle;
+    private View toolbarBack;
+
+    private String restaurantTitle;
 
     private List<Category> categories;
 
 
     public static void start(@NonNull Context context, @NonNull Integer restaurantId,
-                             @NonNull Integer serviceId, @NonNull Integer categoryId) {
+                             @NonNull Integer serviceId, @NonNull Integer categoryId, String restaurantTitle) {
         Intent intent = new Intent(context, CategoryActivity.class);
         intent.putExtra(KEY_SERVICE_ID, serviceId);
         intent.putExtra(KEY_RESTAURANT_ID, restaurantId);
         intent.putExtra(KEY_CATEGORY_ID, categoryId);
+        intent.putExtra(KEY_RESTAURANT_TITLE, restaurantTitle);
         context.startActivity(intent);
     }
 
@@ -63,7 +69,11 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         restaurantId = getIntent().getIntExtra(KEY_RESTAURANT_ID, 1);
         serviceId = getIntent().getIntExtra(KEY_SERVICE_ID, 1);
         categoryId = getIntent().getIntExtra(KEY_CATEGORY_ID, 1);
+        restaurantTitle = getIntent().getStringExtra(KEY_RESTAURANT_TITLE);
+
         super.onCreate(savedInstanceState);
+
+        toolbarRestaurantTitle.setText(restaurantTitle);
 
     }
 
@@ -107,8 +117,8 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
         if (categoryIndex == (data.size() - 1)) {
 
-            btnTopCategoryNext.setEnabled(false);
-            btnTopCategoryNext.setVisibility(View.INVISIBLE);
+//            btnTopCategoryNext.setEnabled(false);
+//            btnTopCategoryNext.setVisibility(View.INVISIBLE);
 
             btnTopCategoryPrevious.setEnabled(true);
             btnTopCategoryPrevious.setVisibility(View.VISIBLE);
@@ -117,8 +127,10 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
             if (isTablet()) {
                 prevCategoryName.setText(data.get(categoryIndex + PREV_CATEGORY).getName());
 
-                btnBottomCategoryNext.setEnabled(false);
-                btnBottomCategoryNext.setVisibility(View.INVISIBLE);
+//                btnBottomCategoryNext.setEnabled(false);
+//                btnBottomCategoryNext.setVisibility(View.INVISIBLE);
+
+                nextCategoryName.setText("To First");
 
                 btnBottomCategoryPrevious.setVisibility(View.VISIBLE);
                 btnBottomCategoryPrevious.setEnabled(true);
@@ -127,8 +139,8 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
         } else if (categoryIndex == 0 && data.size() > 1) {
 
-            btnTopCategoryPrevious.setEnabled(false);
-            btnTopCategoryPrevious.setVisibility(View.INVISIBLE);
+//            btnTopCategoryPrevious.setEnabled(false);
+//            btnTopCategoryPrevious.setVisibility(View.INVISIBLE);
 
             btnTopCategoryNext.setEnabled(true);
             btnTopCategoryNext.setVisibility(View.VISIBLE);
@@ -137,8 +149,11 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
                 nextCategoryName.setText(data.get(categoryIndex + NEXT_CATEGORY).getName());
                 btnBottomCategoryNext.setOnClickListener(this);
 
-                btnBottomCategoryPrevious.setVisibility(View.INVISIBLE);
-                btnBottomCategoryPrevious.setEnabled(false);
+
+//                btnBottomCategoryPrevious.setVisibility(View.INVISIBLE);
+//                btnBottomCategoryPrevious.setEnabled(false);
+
+                prevCategoryName.setText("To Last");
 
                 btnBottomCategoryNext.setEnabled(true);
                 btnBottomCategoryNext.setVisibility(View.VISIBLE);
@@ -163,6 +178,7 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
         }
 
+        productAdapter.notifyDataSetChanged();
 
     }
 
@@ -181,6 +197,17 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         btnBottomCategoryNext = findViewById(R.id.next_category_button);
         prevCategoryName = findViewById(R.id.previous_category_title);
         nextCategoryName = findViewById(R.id.next_category_title);
+        toolbarRestaurantTitle = findViewById(R.id.toolbar_restaurant_title);
+        toolbarBack = findViewById(R.id.back_to_category);
+
+        if (isTablet())
+            toolbarBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
+
 
         productAdapter = new ProductAdapter();
         productsRecycler.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.product_span_count)));
@@ -219,14 +246,24 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         switch (view.getId()) {
             case R.id.category_arrow_left:
             case R.id.previous_category_button: {
-                categoryIndex += PREV_CATEGORY;
+
+                if (categoryIndex == 0)
+                    categoryIndex = categories.size() - 1;
+                else
+                    categoryIndex += PREV_CATEGORY;
+
                 categoryId = categories.get(categoryIndex).geId();
                 changeCategoryTo(categoryId);
                 break;
             }
             case R.id.category_arrow_right:
             case R.id.next_category_button: {
-                categoryIndex += NEXT_CATEGORY;
+
+                if (categoryIndex + 1 == categories.size())
+                    categoryIndex = 0;
+                else
+                    categoryIndex += NEXT_CATEGORY;
+
                 categoryId = categories.get(categoryIndex).geId();
                 changeCategoryTo(categoryId);
                 break;

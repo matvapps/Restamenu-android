@@ -121,7 +121,7 @@
 
 
             <TextView
-                android:id="@+id/restaurant_title"
+                android:id="@+id/toolbar_restaurant_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -130,17 +130,6 @@
                 android:text="Serafina Dubai"
                 android:textColor="@color/dusty_red"
                 android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/restaurant_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/fs_eliot_pro_bold"
-                android:gravity="center"
-                android:text="Restaurant"
-                android:textColor="@color/charcoal_grey"
-                android:textSize="12sp" />
 
         </LinearLayout>
 

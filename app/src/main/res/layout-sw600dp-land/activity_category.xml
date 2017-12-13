@@ -93,20 +93,24 @@
 
 
             <FrameLayout
+                android:id="@+id/frameLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/grey"
                 android:paddingBottom="@dimen/activity_main_search_container_padding_top"
-                android:paddingTop="@dimen/activity_main_search_container_padding_top">
+                android:paddingTop="@dimen/activity_main_search_container_padding_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/product_header">
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
+                    android:layout_marginEnd="250dp"
+                    android:layout_marginStart="250dp"
                     android:background="@drawable/round_rect_stroke_grey"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp">
+                    android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/search_edit_text"
@@ -116,6 +120,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_weight="8"
                         android:background="@android:color/transparent"
+                        android:focusable="false"
                         android:fontFamily="@font/open_sans"
                         android:hint="Start typing the name..."
                         android:textColor="#80000000"
@@ -132,8 +137,8 @@
                         android:id="@+id/dropdown_menu"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="2.5"
                         android:layout_margin="1dp"
+                        android:layout_weight="2.5"
                         app:ddmBorderColor="#EEEEEE"
                         app:ddmDividerColor="#DDDDDD"
                         app:ddmDividerPadding="13dp"
@@ -141,7 +146,7 @@
                         app:ddmTabIconSelected="@drawable/ic_arrow_down"
                         app:ddmTabTextColorNormal="@color/dusty_red"
                         app:ddmTabTextColorSelected="#a4272d"
-                        app:ddmTabTextSize="14sp"/>
+                        app:ddmTabTextSize="14sp" />
 
 
                     <LinearLayout
@@ -168,11 +173,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="25dp"
                 android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/product_search" />
+                app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
 
 
             <LinearLayout
@@ -232,7 +237,7 @@
                         android:textSize="9sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:text="Previous menu section" />
+                        android:text="Previous menu section" />
 
 
                 </android.support.constraint.ConstraintLayout>
@@ -286,7 +291,7 @@
                         android:textSize="9sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:text="Next menu section" />
+                        android:text="Next menu section" />
 
 
                 </android.support.constraint.ConstraintLayout>

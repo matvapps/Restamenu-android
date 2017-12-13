@@ -25,6 +25,16 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private CategoryClickListener onCategoryClickListener;
     private int restId = 1;
 
+    public String getRestaurantTitle() {
+        return restaurantTitle;
+    }
+
+    public void setRestaurantTitle(String restaurantTitle) {
+        this.restaurantTitle = restaurantTitle;
+    }
+
+    private String restaurantTitle;
+
     public CategoriesAdapter() {
         items = new ArrayList<>();
     }
@@ -71,7 +81,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         categoryViewHolder.itemView.setOnClickListener(view -> {
 
-            CategoryActivity.start(context, restId,1,  items.get(position).geId());
+            CategoryActivity.start(context, restId,1,  items.get(position).geId(), restaurantTitle);
 
 //                if (onCategoryClickListener != null)
 //                    onCategoryClickListener.onCategoryClicked(categoryViewHolder.getAdapterPosition());

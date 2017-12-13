@@ -25,13 +25,13 @@
 
 
         <TextView
-            android:id="@+id/logo"
+            android:id="@+id/toolbar_restaurant_title"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:fontFamily="@font/open_sans_bold"
             android:gravity="center"
-            android:text="Serafina Dubai"
+            tools:text="Serafina Dubai"
             android:textColor="@color/dusty_red"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
