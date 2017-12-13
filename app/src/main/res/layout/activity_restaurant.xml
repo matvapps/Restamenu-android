@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -28,19 +26,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!--<include-->
-            <!--layout="@layorder_type_itemitem"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="70dp"/>-->
-
-            <Spinner
+            <!--<Spinner
                 android:id="@+id/order_type_spinner"
                 style="@style/Widget.AppCompat.Spinner"
                 android:layout_width="match_parent"
                 android:layout_height="51dp"
                 android:background="@android:color/transparent"
                 android:drawSelectorOnTop="true"
-                android:spinnerMode="dropdown" />
+                android:spinnerMode="dropdown" />-->
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler"

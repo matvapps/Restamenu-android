@@ -8,4 +8,8 @@
     <string name="service_takeaway">Takeaway</string>
     <string name="service_restaurant">At restaurant</string>
 
+    <string name="service_selected">Selected</string>
+    <string name="service_not_available">Not available</string>
+
+
 </resources>

@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginEnd="16dp"
-    android:layout_marginBottom="16dp">
+    android:layout_marginBottom="@dimen/dish_category_item_margin_bottom"
+    android:layout_marginEnd="@dimen/dish_category_item_margin_bottom"
+    android:background="?selectableItemBackground"
+    android:foreground="?selectableItemBackground"
+    android:orientation="vertical">
 
 
     <com.makeramen.roundedimageview.RoundedImageView
@@ -15,17 +17,16 @@
         android:layout_height="@dimen/dish_category_item_background_height"
         android:scaleType="centerCrop"
         android:src="@drawable/restaurants"
-        app:riv_corner_radius="3dp" />
+        app:riv_corner_radius="@dimen/dish_category_item_background_radius" />
 
     <TextView
         android:id="@+id/category_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="17dp"
-        android:fontFamily="@font/gotham_pro"
+        android:layout_marginTop="@dimen/dish_category_name_margin"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="@dimen/dish_category_name_text_size"
         tools:text="Appetizers" />
 
 </LinearLayout>

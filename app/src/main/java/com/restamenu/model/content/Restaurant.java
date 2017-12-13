@@ -11,11 +11,14 @@ import java.util.List;
 public class Restaurant {
 
     @SerializedName("restaurant_id")
-    private int id;
+    private String id;
     private String name;
 
-    private List<Integer> cuisine; //массив значений для типов кухни данного ресторана
+    @SerializedName("cusine")
+    private List<Integer> cusine; //массив значений для типов кухни данного ресторана
+    @SerializedName("institute")
     private List<Integer> institute; //Mассив значений для типов заведения данного ресторана
+    @SerializedName("service")
     private List<Integer> service; //Массив с идентификаторами типов обслуживания данного ресторана
     private String image;
     private String background;
@@ -41,15 +44,15 @@ public class Restaurant {
     }
 
     public int getId() {
-        return id;
+        return Integer.valueOf(id);
     }
 
     public String getName() {
         return name;
     }
 
-    public List<Integer> getCuisines() {
-        return cuisine;
+    public List<Integer> getCusines() {
+        return cusine;
     }
 
     public List<Integer> getInstitutes() {

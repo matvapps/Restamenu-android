@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.restamenu.BuildConfig;
@@ -28,7 +27,6 @@ import com.restamenu.restaurant.adapter.GalleryAdapter;
 import com.restamenu.restaurant.adapter.ItemType;
 import com.restamenu.restaurant.adapter.OrderTypeSpinnerAdapter;
 import com.restamenu.restaurant.adapter.RestaurantsAdapter;
-import com.restamenu.restaurant.adapter.ServiceType;
 import com.restamenu.util.Logger;
 import com.squareup.picasso.Picasso;
 
@@ -36,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresenter, RestaurantView, Restaurant>
-        implements RestaurantView, CategoryClickListener {
+        implements RestaurantView, CategoryClickListener, RestaurantsAdapter.ChangeServiceListener {
 
     public static final String KEY_RESTAURANT_ID = "key_rest_id";
     private Integer restaurantId;
@@ -57,7 +55,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     private ImageView restaurantBackground;
     private RecyclerView recycler;
     private RecyclerView galleryRecycler;
-    private Spinner orderTypeSpinner;
+    //private Spinner orderTypeSpinner;
 
 
     public static void start(@NonNull Activity activity, @NonNull Integer restaurantId) {
@@ -102,20 +100,15 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         int mapPos = getResources().getInteger(R.integer.map_pos);
         adapter.change(new AdapterItemType<Image>(restaurant.getLocation().getImage(), null, ItemType.MAP), mapPos);
 
+        ItemType itemType;
+        int selectServicePos = getResources().getInteger(R.integer.select_service_pos);
         if (isTablet()) {
-            Picasso.with(this).load(BuildConfig.BASE_URL + restaurant.getImage()).into(restaurantImage);
+            itemType = ItemType.ORDER_TYPE_TABLET;
         } else {
-            ArrayList<ServiceType> serviceTypes = new ArrayList<>();
-            serviceTypes.add(ServiceType.DELIVERY);
-            serviceTypes.add(ServiceType.TAKEAWAY);
-            serviceTypes.add(ServiceType.RESTAURANT);
-
-            orderTypeSpinnerAdapter =
-                    new OrderTypeSpinnerAdapter(RestaurantActivity.this,
-                            serviceTypes, data.getServices());
-
-            orderTypeSpinner.setAdapter(orderTypeSpinnerAdapter);
+            itemType = ItemType.ORDER_TYPE_PHONE;
         }
+        adapter.setSelectedService(data.getServices().get(0));
+        adapter.change(new AdapterItemType<>("Select service", data.getServices(), itemType), selectServicePos);
     }
 
     private void setContacts(@NonNull Restaurant data) {
@@ -244,7 +237,6 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
     @Override
     protected void initViews() {
-        setContentView(R.layout.activity_restaurant);
 
         restaurantTitleView = findViewById(R.id.restaurant_title);
         restaurantTypeView = findViewById(R.id.restaurant_type);
@@ -252,19 +244,14 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         restaurantPhoneView = findViewById(R.id.restaurant_phone);
         restaurantOpeningHours = findViewById(R.id.restaurant_opening_hours);
         favouriteContainer = findViewById(R.id.restaurant_favourite_container);
-        orderTypeSpinner = findViewById(R.id.order_type_spinner);
         restaurantImage = findViewById(R.id.restaurant_image);
         restaurantBackground = findViewById(R.id.restaurant_background);
 
-        //TODO
-//        favouriteContainer.setVisibility(View.INVISIBLE);
 
         recycler = findViewById(R.id.recycler);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        if (isTablet()) {
-
-        } else {
+        if (!isTablet()) {
             galleryRecycler = findViewById(R.id.gallery_recycler);
             galleryRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
             galleryAdapter = new GalleryAdapter();
@@ -273,7 +260,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
         int restaurantContentListSize = getResources().getInteger(R.integer.restaurant_content_list_size);
 
-        adapter = new RestaurantsAdapter();
+        adapter = new RestaurantsAdapter(this);
         for (int i = 0; i < restaurantContentListSize; i++) {
             adapter.add(new AdapterItemType<>("", null, ItemType.TITLE));
         }
@@ -298,18 +285,9 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     }
 
     @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
-
-    private boolean isTablet() {
-        return getResources().getBoolean(R.bool.isLargeLayout);
-    }
-
-    @Override
     public void onCategoryClicked(int categoryId) {
         // TODO: start CategoryActivity
-//        CategoryActivity.start(this, restaurantId,1,  categoryId);
+        //CategoryActivity.start(this, restaurantId,1,  categoryId);
     }
 
     private String getInstituteName(List<Institute> instituteList, int instituteId) {
@@ -318,5 +296,10 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
                 return instituteList.get(i).getName();
         }
         return "";
+    }
+
+    @Override
+    public void onServiceChanged(int serviceId) {
+        presenter.changeCategories(serviceId);
     }
 }
