@@ -26,8 +26,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/order_type_title_margin"
+        android:fontFamily="@font/ghotam_pro_medium"
         android:textColor="@color/black"
-        android:textSize="@dimen/order_type_title_text_size"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/order_type_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,9 +52,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/order_type_selected_text_margin_end"
+            android:fontFamily="@font/open_sans_semibold"
             android:text="Selected"
             android:textColor="@color/white"
-            android:textSize="@dimen/order_type_selected_text_size" />
+            android:textSize="9sp" />
 
         <ImageView
             android:layout_width="@dimen/order_type_fav_image_size"
@@ -68,8 +70,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/order_type_not_available_margin"
         android:layout_marginEnd="@dimen/order_type_not_available_margin"
+        android:fontFamily="@font/open_sans"
         android:text="Not available"
-        android:textSize="@dimen/order_type_not_available_text_size"
+        android:textSize="8sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

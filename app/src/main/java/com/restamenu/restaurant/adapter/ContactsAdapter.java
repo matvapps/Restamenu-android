@@ -57,6 +57,27 @@ public class ContactsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (position == items.size() - 1)
             contactViewHolder.divider.setVisibility(View.INVISIBLE);
 
+        switch (contact.getContent()) {
+
+            case "Phone": {
+                contactViewHolder.icon.setImageResource(R.drawable.ic_phone);
+                break;
+            }
+            case "Opening hours": {
+                contactViewHolder.icon.setImageResource(R.drawable.ic_hours);
+                break;
+            }
+            case "Social Networks": {
+
+                break;
+            }
+            case "Address": {
+                contactViewHolder.icon.setImageResource(R.drawable.ic_pin_black);
+                break;
+            }
+
+        }
+
     }
 
     @Override

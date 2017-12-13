@@ -5,8 +5,12 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.GridView;
 
+import com.exblr.dropdownmenu.DropdownListItem;
+import com.exblr.dropdownmenu.DropdownMenu;
 import com.restamenu.R;
+import com.restamenu.SpinnerGridViewAdapter;
 import com.restamenu.StartSnapHelper;
 import com.restamenu.base.BaseNavigationActivity;
 import com.restamenu.model.content.Institute;
@@ -33,8 +37,19 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         nearbyRestaurantsRecycler = findViewById(R.id.restaurant_list_container);
         restaurantsRecycler = findViewById(R.id.restaurants_list);
         nearbyListContainer = findViewById(R.id.nearby_list_container);
-
+        DropdownMenu searchSpinner = findViewById(R.id.dropdown_menu_filter);
         nearbyListContainer.setVisibility(View.GONE);
+
+        ArrayList list2 = createMockList(15, true);
+        SpinnerGridViewAdapter mGridViewAdapter = new SpinnerGridViewAdapter(this, list2);
+
+        View customContentView = getLayoutInflater().inflate(R.layout.spinner_content, null, false);
+        GridView gridView = customContentView.findViewById(R.id.content);
+        gridView.setAdapter(mGridViewAdapter);
+
+        searchSpinner.add("Menu 2", customContentView);
+
+
 
         final StartSnapHelper startSnapHelper = new StartSnapHelper();
         startSnapHelper.attachToRecyclerView(nearbyRestaurantsRecycler);
@@ -70,7 +85,18 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         restaurantListAdapter = new RestaurantListAdapter(MainActivity.this, this);
         restaurantsRecycler.setAdapter(restaurantListAdapter);
 
+    }
 
+
+    private ArrayList createMockList(int count, boolean hasEmpty) {
+        ArrayList list = new ArrayList();
+        if (hasEmpty) {
+            list.add(new DropdownListItem(0, "Hello", true, true));
+        }
+        for (int i = 1; i <= count; i++) {
+            list.add(new DropdownListItem(10 + i, "Item-1-" + i));
+        }
+        return list;
     }
 
 

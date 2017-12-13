@@ -6,8 +6,9 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/restaurant_item_text_margin"
     android:layout_marginRight="@dimen/restaurant_item_text_margin"
+    android:fontFamily="@font/open_sans"
     android:gravity="start"
-    android:lineSpacingExtra="@dimen/restaurant_item_text_linespacing"
+    android:lineSpacingExtra="14sp"
     android:textColor="@color/black"
-    android:textSize="@dimen/restaurant_item_text_size"
+    android:textSize="14sp"
     tools:text="Details" />

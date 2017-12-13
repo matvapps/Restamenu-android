@@ -21,6 +21,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="27dp"
+        android:fontFamily="@font/open_sans_bold"
         android:text="Restaurants by near you"
         android:textColor="#ffffff"
         android:textSize="@dimen/fragment_nearby_near_text_size"

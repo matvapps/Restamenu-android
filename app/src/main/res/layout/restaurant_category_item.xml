@@ -19,13 +19,14 @@
 
     <TextView
         android:id="@+id/category_name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start"
         android:layout_marginBottom="@dimen/dish_category_name_margin"
         android:layout_marginStart="@dimen/dish_category_name_margin"
-        tools:text="Appetizers"
+        android:fontFamily="@font/open_sans_semibold"
         android:textColor="@color/white"
-        android:textSize="@dimen/dish_category_name_text_size" />
+        android:textSize="18sp"
+        tools:text="Appetizers" />
 
 </FrameLayout>
