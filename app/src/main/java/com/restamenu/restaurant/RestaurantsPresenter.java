@@ -54,6 +54,10 @@ public class RestaurantsPresenter implements Presenter<RestaurantView> {
                 }, throwable -> view.showError());
     }
 
+    public void changeCategories(int serviceId) {
+        loadCategories(restaurantId, serviceId);
+    }
+
 
     private void loadCategories(int restaurantId, int serviceId) {
         RepositoryProvider.getAppRepository().getCategories(restaurantId, serviceId)
@@ -63,8 +67,8 @@ public class RestaurantsPresenter implements Presenter<RestaurantView> {
                 .observeOn(schedulerProvider.ui())
                 .subscribe(categories -> {
                     view.setCategories(categories);
-                    if (!ListUtils.isEmpty(categories))
-                        loadProducts(restaurantId, serviceId, categories.get(0).geId());
+                    //if (!ListUtils.isEmpty(categories))
+                    //    loadProducts(restaurantId, serviceId, categories.get(0).geId());
                 }, throwable -> view.showError());
     }
 

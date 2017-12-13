@@ -7,7 +7,9 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.restamenu.BuildConfig;
@@ -17,6 +19,7 @@ import com.restamenu.model.content.Contact;
 import com.restamenu.model.content.Image;
 import com.restamenu.model.content.Promotion;
 import com.restamenu.util.Logger;
+import com.restamenu.views.custom.ServiceButton;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -28,9 +31,12 @@ import java.util.List;
 
 public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private final ChangeServiceListener listener;
     private List<AdapterItemType> items;
+    private int selectedService;
 
-    public RestaurantsAdapter() {
+    public RestaurantsAdapter(ChangeServiceListener listener) {
+        this.listener = listener;
         items = new ArrayList<>();
     }
 
@@ -46,12 +52,36 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
-    public int getItemViewType(int position) {
-//
-//        if (items.get(position).getType() == ItemType.TITLE
-//                && items.get(position).getTitle().equals(""))
-//            return -1;
+    public int getItemCount() {
+        return items.size();
+    }
 
+    public void add(AdapterItemType item) {
+        items.add(item);
+        notifyItemInserted(items.size() - 1);
+    }
+
+    public void change(AdapterItemType newItem, int position) {
+        if (position < 0 || position > items.size()) {
+            Logger.log("Position not valid: pos = " + position);
+            return;
+        }
+        items.set(position, newItem);
+        notifyItemChanged(position);
+    }
+
+    public void setSelectedService(int selectedService) {
+        this.selectedService = selectedService;
+    }
+
+    private void changeService(int selectedService) {
+        this.selectedService = selectedService;
+        Logger.log("Service changed to: " + this.selectedService);
+        listener.onServiceChanged(this.selectedService);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
         return items.get(position).getType().getType();
     }
 
@@ -60,10 +90,14 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         View rootView;
         switch (viewType) {
             case 0:
+                rootView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.order_type_item, parent, false);
+                return new OrderTypePhoneViewHolder(rootView);
+
             case 1:
                 rootView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.restaurant_card_nearby, parent, false);
-                return new OrderTypeViewHolder(rootView);
+                        .inflate(R.layout.order_type_item, parent, false);
+                return new OrderTypeTabletViewHolder(rootView);
             case 2:
                 rootView = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.restaurant_item_title, parent, false);
@@ -101,11 +135,84 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         final AdapterItemType item = items.get(position);
         switch (holder.getItemViewType()) {
             case 0: {
-                OrderTypeViewHolder viewHolder = (OrderTypeViewHolder) holder;
-                //TODO
+                AdapterItemType<List<Integer>> serviceItemType = (AdapterItemType<List<Integer>>) item;
+                OrderTypePhoneViewHolder viewHolder = (OrderTypePhoneViewHolder) holder;
+                ArrayList<ServiceType> serviceTypes = new ArrayList<>();
+                serviceTypes.add(ServiceType.DELIVERY);
+                serviceTypes.add(ServiceType.TAKEAWAY);
+                serviceTypes.add(ServiceType.RESTAURANT);
+
+                OrderTypeSpinnerAdapter orderTypeSpinnerAdapter = new OrderTypeSpinnerAdapter(holder.itemView.getContext(),
+                        serviceTypes, serviceItemType.getData(), selectedService);
+                viewHolder.spinner.setAdapter(orderTypeSpinnerAdapter);
+                viewHolder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        changeService((position + 1));
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
                 break;
             }
             case 1: {
+                AdapterItemType<List<Integer>> serviceItemType = (AdapterItemType<List<Integer>>) item;
+                OrderTypeTabletViewHolder viewHolder = (OrderTypeTabletViewHolder) holder;
+
+                switch (selectedService) {
+                    case 1:
+                        viewHolder.buttonAtRestaurant.setServiceSelected(true);
+                        viewHolder.buttonTakeAway.setServiceSelected(false);
+                        viewHolder.buttonDelivery.setServiceSelected(false);
+                        break;
+                    case 2:
+                        viewHolder.buttonTakeAway.setServiceSelected(true);
+                        viewHolder.buttonAtRestaurant.setServiceSelected(false);
+                        viewHolder.buttonDelivery.setServiceSelected(false);
+                        break;
+                    case 3:
+                        viewHolder.buttonDelivery.setServiceSelected(true);
+                        viewHolder.buttonAtRestaurant.setServiceSelected(false);
+                        viewHolder.buttonTakeAway.setServiceSelected(false);
+                        break;
+                }
+
+                if (serviceItemType.getData().size() < 3) {
+                    if (!serviceItemType.getData().contains(1)) {
+                        viewHolder.buttonAtRestaurant.setAvailable(false);
+                    }
+                    if (!serviceItemType.getData().contains(2)) {
+                        viewHolder.buttonTakeAway.setAvailable(false);
+                    }
+                    if (!serviceItemType.getData().contains(3)) {
+                        viewHolder.buttonDelivery.setAvailable(false);
+                    }
+                }
+
+                viewHolder.buttonDelivery.setOnClickListener(view -> {
+                    if (selectedService != 3) {
+                        changeService(3);
+                        notifyItemChanged(position);
+                    }
+                });
+
+                viewHolder.buttonTakeAway.setOnClickListener(view -> {
+                    if (selectedService != 2) {
+                        changeService(2);
+                        notifyItemChanged(position);
+                    }
+                });
+
+                viewHolder.buttonAtRestaurant.setOnClickListener(view -> {
+                    if (selectedService != 1) {
+                        changeService(1);
+                        notifyItemChanged(position);
+                    }
+                });
                 break;
             }
             case 2: {
@@ -216,23 +323,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return items.size();
-    }
-
-    public void add(AdapterItemType item) {
-        items.add(item);
-        notifyItemInserted(items.size() - 1);
-    }
-
-    public void change(AdapterItemType newItem, int position) {
-        if (position < 0 || position > items.size()) {
-            Logger.log("Position not valid: pos = " + position);
-            return;
-        }
-        items.set(position, newItem);
-        notifyItemChanged(position);
+    public interface ChangeServiceListener {
+        void onServiceChanged(int serviceId);
     }
 
     class TitleViewHolder extends RecyclerView.ViewHolder {
@@ -244,9 +336,35 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    class OrderTypeViewHolder extends RecyclerView.ViewHolder {
-        public OrderTypeViewHolder(View itemView) {
+    class OrderTypePhoneViewHolder extends RecyclerView.ViewHolder {
+
+        //private TextView title;
+        //private ImageView image;
+        private Spinner spinner;
+
+
+        public OrderTypePhoneViewHolder(View itemView) {
             super(itemView);
+
+            spinner = itemView.findViewById(R.id.order_type_spinner);
+            //image = itemView.findViewById(R.id.image);
+        }
+    }
+
+    class OrderTypeTabletViewHolder extends RecyclerView.ViewHolder {
+
+        //private LinearLayout layout;
+        private ServiceButton buttonDelivery;
+        private ServiceButton buttonTakeAway;
+        private ServiceButton buttonAtRestaurant;
+
+
+        public OrderTypeTabletViewHolder(View itemView) {
+            super(itemView);
+            //layout = itemView.findViewById(R.id)
+            buttonDelivery = itemView.findViewById(R.id.button_delivery);
+            buttonTakeAway = itemView.findViewById(R.id.button_takeaway);
+            buttonAtRestaurant = itemView.findViewById(R.id.button_at_restaurant);
         }
     }
 

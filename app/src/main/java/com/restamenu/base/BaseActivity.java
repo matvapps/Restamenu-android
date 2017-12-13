@@ -86,4 +86,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     public int getToolbarIcon() {
         return R.drawable.ic_burger_menu;
     }
+
+    protected boolean isTablet() {
+        return getResources().getBoolean(R.bool.isLargeLayout);
+    }
 }

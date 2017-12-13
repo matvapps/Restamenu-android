@@ -56,7 +56,7 @@ public final class ApiFactory {
     @NonNull
     private static Retrofit buildRetrofit() {
         return new Retrofit.Builder()
-                .baseUrl(BASE_URL + "/api/")
+                .baseUrl(BASE_URL)
                 .client(getClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -101,7 +101,7 @@ public final class ApiFactory {
             Request original = chain.request();
 
             Request request = original.newBuilder()
-                    //.header("Content-Type", "application/json")
+                    .header("Content-Type", "application/json")
                     //.header("Accept", "application/json")
                     .header("key", BuildConfig.AUTH_KEY)
                     .header("Cache-Control", "max-age=30") // read from cache for 1/2 minute
