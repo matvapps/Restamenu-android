@@ -76,6 +76,8 @@ public class ServiceButton extends RelativeLayout {
         setSelected(false);
         isServiceAvailable = true;
         //container.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
+        image.setScaleX(1);
+        image.setScaleY(1);
         title.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
         isAvailable.setVisibility(View.GONE);
         isAvailable.setText("");
@@ -86,6 +88,8 @@ public class ServiceButton extends RelativeLayout {
             setSelected(true);
             //container.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.golden));
             title.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
+            image.setScaleX(2.25f);
+            image.setScaleY(2.25f);
             isAvailable.setVisibility(View.VISIBLE);
             isAvailable.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
             isAvailable.setText(getContext().getString(R.string.service_selected));

@@ -14,7 +14,7 @@
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/category_background"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dish_category_item_background_height"
+        android:layout_height="175dp"
         android:scaleType="centerCrop"
         android:src="@drawable/restaurants"
         app:riv_corner_radius="@dimen/dish_category_item_background_radius" />
@@ -24,9 +24,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/dish_category_name_margin"
+        android:layout_marginTop="18.5dp"
+        android:fontFamily="@font/open_sans_semibold"
         android:textColor="@color/black"
-        android:textSize="@dimen/dish_category_name_text_size"
+        android:textSize="18sp"
         tools:text="Appetizers" />
 
 </LinearLayout>

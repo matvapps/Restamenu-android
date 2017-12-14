@@ -9,6 +9,6 @@
     android:fontFamily="@font/ghotam_pro_medium"
     android:gravity="start"
     android:textColor="@color/black"
-    android:textSize="19sp"
+    android:textSize="29sp"
     android:textStyle="bold"
     tools:text="Appetizers" />

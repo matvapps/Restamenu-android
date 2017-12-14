@@ -98,7 +98,7 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
                     notAvailable.setVisibility(View.VISIBLE);
 
                 } else
-                    serviceImage.setImageResource(R.drawable.ic_deliver_noactive);
+                    serviceImage.setImageResource(R.drawable.ic_delivery_noactive);
                 break;
             default:
                 serviceTitle = "";

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
@@ -25,10 +26,12 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<NearbyRest
     private List<Restaurant> restaurants;
     private Context context;
     private List<Institute> instituteList;
+    private View.OnClickListener clickListener;
 
     public NearbyRestaurantListAdapter(Context context) {
         this.restaurants = new ArrayList<>();
         this.context = context;
+        this.clickListener = null;
     }
 
     public void setData(List<Restaurant> data) {
@@ -54,8 +57,12 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<NearbyRest
 
         holder.restaurantTitleTextView.setText(restaurants.get(position).getName());
         holder.restaurantStreetTextView.setText(restaurants.get(position).getAddress());
-        holder.restaurantDistanceTextView.setText(restaurants.get(position).getDistance() + "m");
-        Picasso.with(context).load(R.drawable.restaurants).into(holder.restaurantBackgroundImageView);
+        holder.restaurantDistanceTextView.setText((int)(restaurants.get(position).getDistance()) + "m");
+
+        String path = BuildConfig.BASE_URL + restaurant.getImage().substring(1, restaurant.getImage().length());
+
+        Picasso.with(context).load(path).into(holder.restaurantBackgroundImageView);
+
 
         for (int i = 0; i < restaurant.getServices().size(); i++) {
             switch (restaurant.getServices().get(i)) {
@@ -71,7 +78,7 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<NearbyRest
                 }
                 //delivery
                 case 3: {
-                    Picasso.with(context).load(R.drawable.ic_deliver_active).into(holder.foodTypeDeliveryImageView);
+                    Picasso.with(context).load(R.drawable.ic_delivery_active).into(holder.foodTypeDeliveryImageView);
                     break;
                 }
             }
@@ -81,19 +88,27 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<NearbyRest
         StringBuilder institutions = new StringBuilder();
         for (int i = 0; i < restaurant.getInstitutes().size(); i++) {
             if (i < restaurant.getInstitutes().size() - 1)
-                institutions.append(getInstituteName(restaurant.getInstitutes().get(i))).append(", ");
+                institutions.append(getInstituteName(restaurant.getInstitutes().get(i))).append(" & ");
             else
                 institutions.append(getInstituteName(restaurant.getInstitutes().get(i))).append("");
         }
 
         holder.restaurantTypeTextView.setText(institutions.toString());
 
-        holder.rootView.setOnClickListener(view -> {
-            Intent intent = new Intent(context, RestaurantActivity.class);
-            intent.putExtra(RestaurantActivity.KEY_RESTAURANT_ID, restaurant.getId());
+        if (clickListener != null)
+            holder.rootView.setOnClickListener(clickListener);
+        else {
 
-            context.startActivity(intent);
-        });
+            holder.rootView.setOnClickListener(view -> {
+                Intent intent = new Intent(context, RestaurantActivity.class);
+                intent.putExtra(RestaurantActivity.KEY_RESTAURANT_ID, restaurant.getId());
+
+                context.startActivity(intent);
+            });
+
+        }
+
+
 
     }
 
@@ -117,6 +132,14 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<NearbyRest
                 return instituteList.get(i).getName();
         }
         return "";
+    }
+
+    public void setClickListener(View.OnClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    public View.OnClickListener getClickListener() {
+        return clickListener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

@@ -50,7 +50,7 @@
             android:text="order type"
             android:textColor="@color/white"
             android:textSize="9sp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintStart_toStartOf="@+id/order_type_title"
             app:layout_constraintTop_toBottomOf="@+id/order_type_title" />
 

@@ -1,39 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scroll_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.restamenu.main.MainActivity">
 
-    <LinearLayout
+
+    <include
+        layout="@layout/toolbar_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content" />
 
-        <include
-            android:id="@+id/nearby_list_container"
-            layout="@layout/fragment_nearby_restaurants"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/activity_main_fragment_nearby_height" />
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.restamenu.main.MainActivity">
 
-
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/grey"
-            android:paddingBottom="@dimen/activity_main_search_container_padding_top"
-            android:paddingTop="@dimen/activity_main_search_container_padding_top">
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/nearby_list_container"
+                layout="@layout/fragment_nearby_restaurants"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_main_fragment_nearby_height" />
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/grey"
+                android:paddingBottom="@dimen/activity_main_search_container_padding_top"
+                android:paddingTop="@dimen/activity_main_search_container_padding_top">
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:background="@drawable/round_rect_stroke_grey"
-                    android:orientation="horizontal"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp">
+                    android:background="@drawable/round_rect_stroke_grey"
+                    android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/search_edit_text"
@@ -59,8 +70,8 @@
                         android:id="@+id/dropdown_menu_filter"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="2.5"
                         android:layout_margin="1dp"
+                        android:layout_weight="2.5"
                         app:ddmBorderColor="#EEEEEE"
                         app:ddmDividerColor="#DDDDDD"
                         app:ddmDividerPadding="13dp"
@@ -68,7 +79,7 @@
                         app:ddmTabIconSelected="@drawable/ic_arrow_down"
                         app:ddmTabTextColorNormal="@color/dusty_red"
                         app:ddmTabTextColorSelected="#a4272d"
-                        app:ddmTabTextSize="14sp"/>
+                        app:ddmTabTextSize="14sp" />
 
 
                     <LinearLayout
@@ -90,28 +101,26 @@
             </FrameLayout>
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_main_restaurants_in_margin_top"
-            android:layout_marginBottom="@dimen/activity_main_restaurants_in_margin_bottom"
-            android:text="Restaurants in Dubai"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/black"
-            android:textSize="@dimen/activity_main_restaurants_in_text_size"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/activity_main_restaurants_in_margin_bottom"
+                android:layout_marginTop="@dimen/activity_main_restaurants_in_margin_top"
+                android:text="Restaurants in Dubai"
+                android:textColor="@color/black"
+                android:textSize="@dimen/activity_main_restaurants_in_text_size"
+                android:textStyle="bold" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/restaurants_list"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:nestedScrollingEnabled="false"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/restaurants_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:nestedScrollingEnabled="false" />
 
 
-        <!--<android.support.v7.widget.RecyclerView-->
+            <!--<android.support.v7.widget.RecyclerView-->
             <!--android:id="@+id/item_type"-->
             <!--android:layout_marginRight="16dp"-->
             <!--android:layout_marginLeft="16dp"-->
@@ -120,7 +129,8 @@
             <!--android:layout_gravity="center"-->
             <!--android:nestedScrollingEnabled="false"/>-->
 
-    </LinearLayout>
+        </LinearLayout>
 
 
-</android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>
