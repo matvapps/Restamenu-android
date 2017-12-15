@@ -88,7 +88,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 //        float density  = context.getResources().getDisplayMetrics().density;
 //        float dpWidth  = outMetrics.widthPixels / density;
 
-        String path = BuildConfig.BASE_URL + item.getImage();
+        String path = BuildConfig.BASE_URL + item.getImage().substring(1, item.getImage().length());
 
         Picasso.with(context).load(path).into(holder.restaurantBackgroundImageView);
 
@@ -115,7 +115,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         StringBuilder institutions = new StringBuilder();
         for (int i = 0; i < item.getInstitutes().size(); i++) {
             if (i < item.getInstitutes().size() - 1)
-                institutions.append(getInstituteName(item.getInstitutes().get(i))).append(", ");
+                institutions.append(getInstituteName(item.getInstitutes().get(i))).append(" & ");
             else
                 institutions.append(getInstituteName(item.getInstitutes().get(i))).append("");
         }

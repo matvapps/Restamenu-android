@@ -9,8 +9,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         app:cardElevation="2dp">
 
         <android.support.constraint.ConstraintLayout
@@ -53,7 +51,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
-                android:text="Salmon sandwich"
+                android:fontFamily="@font/open_sans_bold"
+                tools:text="Salmon sandwich"
                 android:textColor="#000000"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -63,11 +62,13 @@
                 android:id="@+id/product_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="72dp"
                 android:layout_marginTop="11dp"
-                android:textSize="14sp"
+                android:fontFamily="@font/open_sans"
                 android:textColor="#666666"
-                android:lineSpacingExtra="5sp"
+                android:textSize="14sp"
+                android:ellipsize="end"
+                android:maxLines="2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/product_name"
                 app:layout_constraintTop_toBottomOf="@+id/product_name"
@@ -94,6 +95,7 @@
                     android:layout_gravity="center"
                     android:background="@android:color/transparent"
                     android:focusable="false"
+                    android:fontFamily="@font/open_sans_semibold"
                     android:gravity="center"
                     android:inputType="numberDecimal"
                     android:text="1"
@@ -110,23 +112,25 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/open_sans_bold"
                 android:textColor="#000000"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/product_quantity_container"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/product_quantity_container"
-                tools:text="150₽" />
+                tools:text="$15" />
 
             <TextView
                 android:id="@+id/product_price_sub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
                 android:layout_marginStart="8dp"
                 android:textColor="#b3000000"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/product_price"
                 app:layout_constraintStart_toEndOf="@+id/product_price"
+                app:layout_constraintTop_toTopOf="@+id/product_price"
+                app:layout_constraintVertical_bias="0.74"
                 tools:text="$2" />
 
             <LinearLayout
@@ -149,6 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
+                    android:fontFamily="@font/open_sans_semibold"
                     android:text="Buy"
                     android:textColor="#ffffff"
                     android:textSize="14sp"

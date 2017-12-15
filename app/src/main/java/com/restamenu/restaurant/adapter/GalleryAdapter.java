@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.restamenu.R;
 import com.restamenu.model.content.Image;
@@ -37,8 +38,15 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rootView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.restaurant_gallery_item, parent, false);
+
+        View rootView;
+
+        if (viewType == 0)
+            rootView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.scroll_it_item, parent, false);
+        else
+            rootView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.restaurant_gallery_item, parent, false);
 
         return new ImageViewHolder(rootView);
     }
@@ -46,15 +54,30 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        ImageViewHolder promotionViewHolder = (ImageViewHolder) holder;
-
-        promotionViewHolder.photo.setImageResource(R.drawable.restaurants);
-
+        if (position != 0) {
+            ImageViewHolder imageViewHolder = (ImageViewHolder) holder;
+            imageViewHolder.photo.setImageResource(R.drawable.restaurants);
+        }
     }
 
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    class ScrollItViewHolder extends RecyclerView.ViewHolder {
+
+        ImageView image;
+        TextView text;
+
+        public ScrollItViewHolder(View itemView) {
+            super(itemView);
+
+            image = itemView.findViewById(R.id.scroll_it_image);
+            text = itemView.findViewById(R.id.scroll_it_text);
+
+        }
+
     }
 
     class ImageViewHolder extends RecyclerView.ViewHolder {

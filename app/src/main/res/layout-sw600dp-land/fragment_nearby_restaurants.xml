@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/nearby_restaurants_container_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/test_purple"
+        android:background="@android:color/darker_gray"
         android:scaleType="centerCrop" />
 
     <android.support.constraint.ConstraintLayout
@@ -22,48 +22,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="33dp"
+            android:layout_marginTop="55dp"
+            android:fontFamily="@font/open_sans_bold"
             android:text="Restaurants by near you"
             android:textColor="#fefefe"
-            android:textSize="@dimen/fragment_nearby_near_text_size"
+            android:textSize="38sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <ImageView
-            android:id="@+id/image1"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_marginStart="25dp"
-            android:src="@drawable/ic_scroll"
-            app:layout_constraintBottom_toBottomOf="@+id/text1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text1" />
-
-
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:text=" Scroll it"
-            android:textColor="@color/white_70"
-            android:textSize="5sp"
-            app:layout_constraintBottom_toBottomOf="@+id/restaurant_list_container"
-            app:layout_constraintStart_toEndOf="@+id/image1"
-            app:layout_constraintTop_toTopOf="@+id/restaurant_list_container" />
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/restaurant_list_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="26dp"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="19dp"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/text1"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 

@@ -40,13 +40,13 @@ public class RemoteRepository {
                 .map(ListResponce<Restaurant>::getData);
     }
 
-    public Flowable<List<Restaurant>> getNearRestaurants(@NonNull Integer cityId, String geo, boolean details) {
-        return restaMenuService.getNearRestaurants(cityId, geo, details)
+    public Flowable<List<Restaurant>> getNearRestaurants(@NonNull Integer cityId, String geo, Integer width, boolean details) {
+        return restaMenuService.getNearRestaurants(cityId, geo, width, details)
                 .map(ListResponce<Restaurant>::getData);
     }
 
-    public Flowable<Restaurant> getRestaurant(final @NonNull Integer id,final @NonNull Integer width) {
-        return restaMenuService.getRestaurant(id, width, null)
+    public Flowable<Restaurant> getRestaurant(final @NonNull Integer id,final @NonNull Integer width, int language_id) {
+        return restaMenuService.getRestaurant(id, width, language_id)
                 .map(Responce<Restaurant>::getItem);
     }
 

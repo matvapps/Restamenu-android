@@ -23,14 +23,15 @@
 
         <TextView
             android:id="@+id/specials_name"
-            tools:text="30% discount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:lineSpacingExtra="5sp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
+            android:fontFamily="@font/open_sans"
+            android:lineSpacingExtra="5sp"
             android:textColor="@color/black"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            tools:text="30% discount" />
 
     </LinearLayout>
 

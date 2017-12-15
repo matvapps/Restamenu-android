@@ -4,19 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/order_type_view"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/order_type_item_height"
+    android:layout_height="99dp"
     android:orientation="horizontal"
-    android:paddingBottom="11.5dp"
-    android:paddingLeft="14dp"
-    android:paddingRight="14dp">
+    android:paddingBottom="0dp">
 
     <com.restamenu.views.custom.ServiceButton
         android:id="@+id/button_at_restaurant"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        app:service_icon="@drawable/ic_eat_noactive"
-        app:service_title="@string/service_restaurant"></com.restamenu.views.custom.ServiceButton>
+        app:service_icon="@drawable/ic_restaur"
+        app:service_title="@string/service_restaurant"/>
 
     <Space
         android:layout_width="20dp"
@@ -27,8 +25,8 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        app:service_icon="@drawable/ic_drink_noactive"
-        app:service_title="@string/service_takeaway"></com.restamenu.views.custom.ServiceButton>
+        app:service_icon="@drawable/ic_take"
+        app:service_title="@string/service_takeaway"/>
 
     <Space
         android:layout_width="20dp"
@@ -40,7 +38,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         app:service_icon="@drawable/ic_delivery_noactive"
-        app:service_title="@string/service_delivery"></com.restamenu.views.custom.ServiceButton>
+        app:service_title="@string/service_delivery"/>
 
 
 </LinearLayout>

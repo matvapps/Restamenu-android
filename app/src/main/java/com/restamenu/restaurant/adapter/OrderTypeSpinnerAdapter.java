@@ -79,7 +79,7 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
                     serviceImage.setVisibility(View.INVISIBLE);
                     notAvailable.setVisibility(View.VISIBLE);
                 } else
-                    serviceImage.setImageResource(R.drawable.ic_restoran_noactive);
+                    serviceImage.setImageResource(R.drawable.ic_restaur);
                 break;
             case 2:
                 if (usingServices.indexOf(2) == -1) {
@@ -88,7 +88,7 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
                     serviceImage.setVisibility(View.INVISIBLE);
                     notAvailable.setVisibility(View.VISIBLE);
                 } else
-                    serviceImage.setImageResource(R.drawable.ic_food_noactive);
+                    serviceImage.setImageResource(R.drawable.ic_take);
                 break;
             case 3:
                 if (usingServices.indexOf(3) == -1) {
@@ -98,7 +98,7 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
                     notAvailable.setVisibility(View.VISIBLE);
 
                 } else
-                    serviceImage.setImageResource(R.drawable.ic_deliver_noactive);
+                    serviceImage.setImageResource(R.drawable.ic_delivery_noactive);
                 break;
             default:
                 serviceTitle = "";

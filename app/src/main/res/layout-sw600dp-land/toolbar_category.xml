@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/white"
-    android:elevation="0dp"
+    android:elevation="2dp"
     android:gravity="center"
-    app:elevation="0dp"
+    app:elevation="2dp"
     app:navigationIcon="@drawable/ic_burger_menu"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -19,44 +19,43 @@
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/back_to_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="65dp"
+            android:layout_height="32dp"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/round_rect_stroke_grey"
+            android:background="@drawable/rect_fill_stroke_grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/icon"
-                android:layout_width="11dp"
-                android:layout_height="11dp"
-                android:layout_marginStart="9dp"
-                android:src="@drawable/ic_back_arrow"
+                android:layout_width="3dp"
+                android:layout_height="6dp"
+                android:layout_marginStart="5dp"
+                android:rotation="-180"
+                android:src="@drawable/ic_arrow_small"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/back"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/back"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toTopOf="@+id/back" />
 
             <TextView
                 android:id="@+id/back"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:layout_marginEnd="11dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginStart="7dp"
-                android:layout_marginTop="7dp"
+                android:fontFamily="@font/open_sans"
                 android:gravity="center_horizontal"
+                android:text="Back"
                 android:textColor="#000000"
-                android:textSize="9sp"
+                android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/icon"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="Back to categories" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
 
@@ -64,7 +63,8 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/order_container"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
+            android:minWidth="95dp"
             android:layout_marginStart="18dp"
             android:background="@drawable/round_rect_stroke_grey"
             android:backgroundTint="@color/dusty_red"
@@ -75,10 +75,10 @@
 
             <ImageView
                 android:id="@+id/order_icon"
-                android:layout_width="11dp"
-                android:layout_height="11dp"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
                 android:layout_marginStart="9dp"
-                android:src="@drawable/ic_mony"
+                android:src="@drawable/ic_buy"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/order_text"
                 app:layout_constraintStart_toStartOf="parent"
@@ -89,14 +89,10 @@
                 android:id="@+id/order_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:layout_marginEnd="11dp"
-                android:layout_marginStart="7dp"
-                android:layout_marginTop="7dp"
                 android:gravity="center_horizontal"
-                android:text="Order: $510"
+                android:text="Order: $0"
                 android:textColor="@color/white"
-                android:textSize="9sp"
+                android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/order_icon"
@@ -111,15 +107,15 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:orientation="vertical"
+            android:layout_marginEnd="?attr/actionBarSize"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/currency_container"
-            app:layout_constraintHorizontal_bias="0.24"
-            app:layout_constraintStart_toEndOf="@+id/order_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
 
             <TextView
-                android:id="@+id/restaurant_title"
+                android:id="@+id/toolbar_restaurant_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -127,63 +123,110 @@
                 android:gravity="center"
                 android:text="Serafina Dubai"
                 android:textColor="@color/dusty_red"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/restaurant_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/fs_eliot_pro_bold"
-                android:gravity="center"
-                android:text="Restaurant"
-                android:textColor="@color/charcoal_grey"
-                android:textSize="12sp" />
+                android:textSize="24sp" />
 
         </LinearLayout>
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/currency_container"
+            android:id="@+id/lang_container"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/round_rect_stroke_grey"
-            android:backgroundTint="#e6e6e6"
+            android:layout_height="32dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/rect_fill_stroke_grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/currency"
+                android:id="@+id/country_flag"
                 android:layout_width="11dp"
-                android:layout_height="11dp"
-                android:layout_marginStart="9dp"
-                android:src="@drawable/ic_settings"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/currency_title"
+                android:layout_height="8dp"
+                android:layout_marginBottom="9dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="9dp"
+                android:src="@color/test_purple"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/currency_title"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/language_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="9dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="9dp"
+                android:gravity="center_horizontal"
+                android:textColor="#000000"
+                android:textSize="9sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/arrow"
+                app:layout_constraintStart_toEndOf="@+id/country_flag"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="ENG" />
+
+            <ImageView
+                android:id="@+id/arrow"
+                android:layout_width="6.5dp"
+                android:layout_height="4dp"
+                android:layout_marginEnd="7dp"
+                android:rotation="90"
+                android:src="@drawable/ic_arrow_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/currency_container"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginEnd="17dp"
+            android:background="@drawable/rect_fill_stroke_grey"
+            app:layout_constraintBottom_toBottomOf="@+id/lang_container"
+            app:layout_constraintEnd_toStartOf="@+id/lang_container"
+            app:layout_constraintTop_toTopOf="@+id/lang_container">
+
+            <TextView
+                android:id="@+id/currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="$"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/currency_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:layout_marginEnd="9dp"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="7dp"
+                android:layout_marginBottom="9dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="9dp"
                 android:gravity="center_horizontal"
+                android:text="USD"
                 android:textColor="#000000"
                 android:textSize="9sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/arrow2"
                 app:layout_constraintStart_toEndOf="@+id/currency"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="Settings" />
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/arrow2"
+                android:layout_width="6.5dp"
+                android:layout_height="4dp"
+                android:layout_marginEnd="7dp"
+                android:rotation="90"
+                android:src="@drawable/ic_arrow_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
         <!--<Spinner-->

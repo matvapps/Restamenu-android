@@ -8,10 +8,11 @@
 
         <ImageView
             android:id="@+id/restaurant_background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/greyish"
             android:scaleType="fitXY"
-            android:src="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -23,7 +24,7 @@
             android:layout_height="@dimen/restaurant_header_favorite_icon_size"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/ic_favorite"
+            android:src="@drawable/ic_fav_noact"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:fontFamily="@font/open_sans_semibold"
             android:text="Add to favorite"
             android:textColor="@color/white"
             android:textSize="@dimen/restaurant_header_favorite_text_size"
@@ -43,9 +45,10 @@
             android:id="@+id/restaurant_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/open_sans_bold"
             android:textColor="@color/white"
             android:textSize="@dimen/restaurant_header_title_text_size"
             android:textStyle="bold"
@@ -60,6 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
+            android:fontFamily="@font/open_sans_semibold"
             android:textColor="@color/white"
             android:textSize="@dimen/restaurant_header_type_text_size"
             app:layout_constraintEnd_toEndOf="parent"
@@ -69,12 +73,12 @@
 
 
         <ImageView
-            android:id="@+id/location_image"
+            android:id="@+id/phone_image_icon"
             android:layout_width="@dimen/restaurant_header_icon_size"
             android:layout_height="@dimen/restaurant_header_icon_size"
             android:layout_marginStart="16dp"
             android:layout_marginTop="6dp"
-            android:src="@drawable/ic_pin"
+            android:src="@drawable/ic_call"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/restaurant_type" />
 
@@ -83,11 +87,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            android:fontFamily="@font/open_sans"
             android:textColor="@color/white"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textSize="@dimen/restaurant_header_text_size"
-            app:layout_constraintBottom_toBottomOf="@+id/time_image"
-            app:layout_constraintStart_toEndOf="@+id/time_image"
-            app:layout_constraintTop_toTopOf="@+id/time_image"
+            app:layout_constraintBottom_toBottomOf="@+id/location_image_icon"
+            app:layout_constraintStart_toEndOf="@+id/location_image_icon"
+            app:layout_constraintTop_toTopOf="@+id/location_image_icon"
             tools:text="52nd Level Dubai Marriott Harbour" />
 
 
@@ -95,30 +102,31 @@
             android:id="@+id/imageView2"
             android:layout_width="@dimen/restaurant_header_icon_size"
             android:layout_height="@dimen/restaurant_header_icon_size"
-            android:layout_marginTop="6dp"
-            android:src="@drawable/ic_call"
-            app:layout_constraintStart_toStartOf="@+id/location_image"
-            app:layout_constraintTop_toBottomOf="@+id/location_image" />
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_time"
+            app:layout_constraintStart_toStartOf="@+id/phone_image_icon"
+            app:layout_constraintTop_toBottomOf="@+id/phone_image_icon" />
 
         <TextView
             android:id="@+id/restaurant_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            android:fontFamily="@font/open_sans"
             android:textColor="@color/white"
             android:textSize="@dimen/restaurant_header_text_size"
-            app:layout_constraintBottom_toBottomOf="@+id/location_image"
-            app:layout_constraintStart_toEndOf="@+id/location_image"
-            app:layout_constraintTop_toTopOf="@+id/location_image"
+            app:layout_constraintBottom_toBottomOf="@+id/phone_image_icon"
+            app:layout_constraintStart_toEndOf="@+id/phone_image_icon"
+            app:layout_constraintTop_toTopOf="@+id/phone_image_icon"
             tools:text="8 800 640 00 10" />
 
 
         <ImageView
-            android:id="@+id/time_image"
+            android:id="@+id/location_image_icon"
             android:layout_width="@dimen/restaurant_header_icon_size"
             android:layout_height="@dimen/restaurant_header_icon_size"
             android:layout_marginTop="6dp"
-            android:src="@drawable/ic_time"
+            android:src="@drawable/ic_pin"
             app:layout_constraintStart_toStartOf="@+id/imageView2"
             app:layout_constraintTop_toBottomOf="@+id/restaurant_opening_hours" />
 
@@ -127,12 +135,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            android:fontFamily="@font/open_sans"
             android:textColor="@color/white"
             android:textSize="@dimen/restaurant_header_text_size"
             app:layout_constraintBottom_toBottomOf="@+id/imageView2"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toTopOf="@+id/imageView2"
-            app:layout_constraintVertical_bias="0.0"
             tools:text="Mon - Fri 12:00 - 24:00" />
 
 
@@ -140,8 +148,10 @@
             android:id="@+id/gallery_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="23dp"
             android:layout_marginTop="21dp"
             android:clipChildren="false"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/restaurant_address" />

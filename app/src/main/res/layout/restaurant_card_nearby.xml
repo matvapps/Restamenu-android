@@ -10,26 +10,29 @@
         style="@style/CardViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        app:cardCornerRadius="2dp"
+        android:layout_margin="4dp"
+        app:cardCornerRadius="3dp"
         app:cardElevation="2dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true">
 
 
         <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/white">
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/restaurant_background"
-                android:layout_width="@dimen/nearby_restaurant_card_width"
-                android:layout_height="129dp"
+                android:layout_width="280dp"
+                android:layout_height="200dp"
                 android:background="@color/white_two"
                 android:scaleType="centerCrop"
-                app:riv_corner_radius_top_left="@dimen/nearby_restaurant_card_radius"
-                app:riv_corner_radius_top_right="@dimen/nearby_restaurant_card_radius" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_corner_radius_top_left="3dp"
+                app:riv_corner_radius_top_right="3dp" />
 
 
             <TextView
@@ -39,8 +42,11 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="14dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/open_sans_bold"
+                android:maxLines="1"
                 android:textColor="@color/black"
-                android:textSize="@dimen/nearby_restaurant_title_text_size"
+                android:textSize="19.5sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/restaurant_background"
@@ -51,9 +57,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="4dp"
+                android:fontFamily="@font/open_sans_semibold"
                 android:textColor="@color/black"
-                android:textSize="@dimen/nearby_restaurant_type_text_size"
+                android:textSize="12.3sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/restaurant_title"
                 app:layout_constraintTop_toBottomOf="@+id/restaurant_title"
@@ -62,8 +68,8 @@
 
             <ImageView
                 android:id="@+id/food_type_restaurant_img"
-                android:layout_width="11dp"
-                android:layout_height="10dp"
+                android:layout_width="14dp"
+                android:layout_height="13dp"
                 android:layout_gravity="bottom"
                 android:layout_marginTop="16dp"
                 android:scaleType="fitCenter"
@@ -73,8 +79,8 @@
 
             <ImageView
                 android:id="@+id/food_type_takeaway_img"
-                android:layout_width="11dp"
-                android:layout_height="10dp"
+                android:layout_width="14dp"
+                android:layout_height="13dp"
                 android:layout_gravity="bottom"
                 android:layout_marginStart="6dp"
                 android:scaleType="fitCenter"
@@ -85,8 +91,8 @@
 
             <ImageView
                 android:id="@+id/food_type_delivery_img"
-                android:layout_width="15dp"
-                android:layout_height="9dp"
+                android:layout_width="20dp"
+                android:layout_height="13dp"
                 android:layout_gravity="bottom"
                 android:layout_marginStart="6dp"
                 android:scaleType="fitCenter"
@@ -108,35 +114,46 @@
                 app:layout_constraintStart_toStartOf="@+id/food_type_restaurant_img"
                 app:layout_constraintTop_toBottomOf="@+id/food_type_restaurant_img" />
 
-            <TextView
-                android:id="@+id/restaurant_street"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/layout_distance"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/nearby_restaurant_street_text_size"
+                android:layout_marginStart="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
-                app:layout_constraintTop_toTopOf="@+id/imageView3"
-                tools:text="Grosvenor House Dubai" />
+                app:layout_constraintTop_toTopOf="@+id/imageView3">
 
-            <TextView
-                android:id="@+id/distance_to_restaurant"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="6dp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/nearby_restaurant_distance_text_size"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/restaurant_street"
-                app:layout_constraintStart_toEndOf="@+id/restaurant_street"
-                app:layout_constraintTop_toTopOf="@+id/restaurant_street"
-                tools:text="150 m" />
-
+                <TextView
+                    android:id="@+id/restaurant_street"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="4dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/open_sans"
+                    android:maxLines="1"
+                    android:maxWidth="135dp"
+                    android:textColor="@color/black"
+                    android:textSize="11sp"
+                    tools:text="Grosvenor House Dubai" />
 
 
+                <TextView
+                    android:id="@+id/distance_to_restaurant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="32dp"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:textSize="11sp"
+                    tools:text="0m" />
+
+            </LinearLayout>
 
         </android.support.constraint.ConstraintLayout>
 

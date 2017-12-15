@@ -1,4 +1,4 @@
-package com.restamenu;
+package com.restamenu.main;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.restamenu.util.Logger;
 
 
 public class StartSnapHelper extends LinearSnapHelper {
@@ -54,6 +56,8 @@ public class StartSnapHelper extends LinearSnapHelper {
             }
         }
 
+        Logger.log("findSnapView");
+
         return super.findSnapView(layoutManager);
     }
 
@@ -89,6 +93,8 @@ public class StartSnapHelper extends LinearSnapHelper {
                 }
             }
         }
+
+        Logger.log("getStartView");
 
         return super.findSnapView(layoutManager);
     }
