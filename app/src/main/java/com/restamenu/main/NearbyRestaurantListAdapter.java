@@ -62,11 +62,7 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerVi
 
         Logger.log(viewType + "");
 
-            rootView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.restaurant_card_nearby, parent, false);
-
-
-        if (viewType == 0) {
+        if (viewType == 0 && useScrollIt) {
             rootView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.scroll_it_item_white, parent, false);
 
@@ -74,6 +70,9 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerVi
             useScrollIt = false;
 
             return new ScrollItViewHolder(rootView);
+        } else {
+            rootView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.restaurant_card_nearby, parent, false);
         }
 
         return new ViewHolder(rootView);

@@ -22,12 +22,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:id="@+id/dropdown_content_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_rect"
-        app:layout_constraintTop_toBottomOf="@+id/view2"
+        android:orientation="vertical"
         tools:layout_editor_absoluteX="59dp">
 
 
@@ -36,16 +36,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="38dp"
             android:fontFamily="@font/open_sans_bold"
-            android:text="Select type of cuisine"
+            tools:text="Select type of cuisine"
             android:textColor="@color/black"
             android:textSize="18sp"
+            android:layout_gravity="start"
+            android:layout_marginTop="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:layout_editor_absoluteY="16dp" />
 
 
         <android.support.v7.widget.RecyclerView
@@ -56,12 +57,13 @@
             android:layout_marginEnd="38dp"
             android:layout_marginStart="38dp"
             android:layout_marginTop="8dp"
+            android:layout_gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dropdown_content_title" />
 
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 
 
 </LinearLayout>

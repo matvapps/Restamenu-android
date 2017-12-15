@@ -20,9 +20,11 @@ import java.util.List;
 public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Image> items;
+    private boolean useScrollIt;
 
     public GalleryAdapter() {
         items = new ArrayList<>();
+        useScrollIt = false;
     }
 
     public void addItems(List<Image> data) {
@@ -37,11 +39,16 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View rootView;
 
-        if (viewType == 0)
+        if (viewType == 0 && useScrollIt)
             rootView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.scroll_it_item, parent, false);
         else
@@ -78,6 +85,14 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         }
 
+    }
+
+    public boolean isUseScrollIt() {
+        return useScrollIt;
+    }
+
+    public void setUseScrollIt(boolean useScrollIt) {
+        this.useScrollIt = useScrollIt;
     }
 
     class ImageViewHolder extends RecyclerView.ViewHolder {

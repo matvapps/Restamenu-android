@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -12,9 +13,7 @@ import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.emilsjolander.components.StickyScrollViewItems.StickyScrollView;
 import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.base.BasePresenterActivity;
@@ -25,9 +24,12 @@ import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Promotion;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.adapter.AdapterItemType;
+import com.restamenu.restaurant.adapter.CategoriesAdapter;
 import com.restamenu.restaurant.adapter.CategoryClickListener;
+import com.restamenu.restaurant.adapter.ContactsAdapter;
 import com.restamenu.restaurant.adapter.GalleryAdapter;
 import com.restamenu.restaurant.adapter.ItemType;
+import com.restamenu.restaurant.adapter.PromotionsAdapter;
 import com.restamenu.restaurant.adapter.RestaurantsAdapter;
 import com.restamenu.util.Logger;
 import com.restamenu.views.custom.NavMenuButton;
@@ -37,7 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresenter, RestaurantView, Restaurant>
-        implements RestaurantView, CategoryClickListener, RestaurantsAdapter.ChangeServiceListener, NavMenuButton.OnNavMenuItemClick{
+        implements RestaurantView, CategoryClickListener, RestaurantsAdapter.ChangeServiceListener, NavMenuButton.OnNavMenuItemClick {
 
     public static final String KEY_RESTAURANT_ID = "key_rest_id";
 
@@ -52,7 +54,6 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     private Integer restaurantId;
 
     private RestaurantsAdapter adapter;
-    private GalleryAdapter galleryAdapter;
     private Restaurant restaurant;
 
     private View favouriteContainer;
@@ -63,12 +64,23 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     private TextView restaurantOpeningHours;
     private ImageView restaurantImage;
     private ImageView restaurantBackground;
-    private ImageView mapImage;
     private RecyclerView recycler;
-    private RecyclerView galleryRecycler;
-    private RecyclerView navigationMenu;
-    private TextView toolbarRestaurantTitle;
-    private StickyScrollView nestedScrollView;
+
+    // phone and tablet item
+    private GalleryAdapter galleryAdapter;
+
+    // tablet item's
+    private RecyclerView categoriesListRecycle;
+    private RecyclerView promotionsListRecycle;
+    private RecyclerView galleryListRecycle;
+    private RecyclerView contactsListRecycle;
+    private TextView aboutContentText;
+    private ImageView mapImageView;
+
+    private CategoriesAdapter categoriesAdapter;
+    private PromotionsAdapter promotionsAdapter;
+    private ContactsAdapter contactsAdapter;
+
 
     private NavMenuButton toMenuBtn;
     private NavMenuButton toPhotoBtn;
@@ -99,37 +111,44 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         restaurantPhoneView.setText(data.getPhones().get(0));
         restaurantOpeningHours.setText(data.getTiming().get(0));
 
-        int aboutTitlePos = getResources().getInteger(R.integer.about_title_pos);
-        int aboutTextPos = getResources().getInteger(R.integer.about_text_pos);
+        if (!isTablet()) {
 
-        adapter.change(new AdapterItemType<>("About Restaurant", null, ItemType.TITLE), aboutTitlePos);
-        adapter.change(new AdapterItemType<>(data.getInformation(), null, ItemType.ABOUT), aboutTextPos);
+            int aboutTitlePos = getResources().getInteger(R.integer.about_title_pos);
+            int aboutTextPos = getResources().getInteger(R.integer.about_text_pos);
 
-        setContacts(data);
+            //add about
+            adapter.change(new AdapterItemType<>("About Restaurant", null, ItemType.TITLE), aboutTitlePos);
+            adapter.change(new AdapterItemType<>(data.getInformation(), null, ItemType.ABOUT), aboutTextPos);
+
+            // add map
+            int mapPos = getResources().getInteger(R.integer.map_pos);
+            adapter.change(new AdapterItemType<Image>(restaurant.getLocation().getImage(), null, ItemType.MAP), mapPos);
+
+            // add order
+            int selectServicePos = getResources().getInteger(R.integer.select_service_pos);
+            adapter.setSelectedService(data.getServices().get(0));
+            adapter.change(new AdapterItemType<>("Select service", data.getServices(), ItemType.ORDER_TYPE_PHONE), selectServicePos);
+        } else {
+
+            // add about
+            aboutContentText.setText(Html.fromHtml(data.getInformation()));
+
+            //add map
+            String backgroundUrl = restaurant.getLocation().getImage();
+            Picasso.with(this).load(BuildConfig.BASE_URL +
+                    backgroundUrl.substring(1, backgroundUrl.length())).into(mapImageView);
+
+
+        }
 
         //load restaurant background
         String backgroundUrl = restaurant.getBackground();
         Picasso.with(this).load(BuildConfig.BASE_URL +
                 backgroundUrl.substring(1, backgroundUrl.length())).into(restaurantBackground);
 
-        // add map
-//        if (!isTablet()) {
-        int mapPos = getResources().getInteger(R.integer.map_pos);
-        adapter.change(new AdapterItemType<Image>(restaurant.getLocation().getImage(), null, ItemType.MAP), mapPos);
-//        } //else {
-//            String mapBackgroundUrl = data.getLocation().getImage().substring(1, data.getLocation().getImage().length());
-//            Picasso.with(RestaurantActivity.this).load(BuildConfig.BASE_URL + mapBackgroundUrl).into(mapImage);
-//        }
 
-        ItemType itemType;
-        int selectServicePos = getResources().getInteger(R.integer.select_service_pos);
-        if (isTablet()) {
-            itemType = ItemType.ORDER_TYPE_TABLET;
-        } else {
-            itemType = ItemType.ORDER_TYPE_PHONE;
-        }
-        adapter.setSelectedService(data.getServices().get(0));
-        adapter.change(new AdapterItemType<>("Select service", data.getServices(), itemType), selectServicePos);
+        setContacts(data);
+
     }
 
     private void setContacts(@NonNull Restaurant data) {
@@ -146,11 +165,11 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             itemType = ItemType.CONTACTS_PHONE;
         }
 
+        // format hours
         StringBuilder openingHours = new StringBuilder();
         for (String item : data.getTiming()) {
             openingHours.append(item).append(stringDivider);
         }
-
 
         // format contacts
         StringBuilder socialNetworks = new StringBuilder();
@@ -168,10 +187,9 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
             item = Html.fromHtml(String.format(HYPERLINK_PATTERN, item, hyperText)).toString();
             socialNetworks.append(socialTitle).append(item).append(stringDivider);
-
         }
 
-
+        // format phones
         StringBuilder phones = new StringBuilder();
         for (String item : data.getPhones()) {
             phones.append(item).append(stringDivider);
@@ -182,60 +200,49 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
         if (isTablet()) {
             contacts.add(new Contact("Social Networks", socialNetworks.toString()));
+            contactsAdapter.setItems(contacts);
         } else {
             contacts.add(new Contact("Address", data.getAddress()));
+
+            int contactTitlePos = getResources().getInteger(R.integer.contacts_title_pos);
+            int contactListPos = getResources().getInteger(R.integer.contacts_list_pos);
+
+            adapter.change(new AdapterItemType<>("Contacts", null, ItemType.TITLE), contactTitlePos);
+            adapter.change(new AdapterItemType<>(null, contacts, itemType), contactListPos);
         }
-
-        int contactTitlePos = getResources().getInteger(R.integer.contacts_title_pos);
-        int contactListPos = getResources().getInteger(R.integer.contacts_list_pos);
-
-        adapter.change(new AdapterItemType<>("Contacts", null, ItemType.TITLE), contactTitlePos);
-        adapter.change(new AdapterItemType<>(null, contacts, itemType), contactListPos);
     }
 
     @Override
     public void setCategories(@NonNull List<Category> categories) {
         Logger.log("Categories: " + categories.toString());
-        ItemType itemType;
 
-        int menuSectionTitlePos = getResources().getInteger(R.integer.menu_sections_title_pos);
-        int menuSectionListPos = getResources().getInteger(R.integer.menu_sections_list_pos);
-
-        if (isTablet()) {
-            adapter.change(new AdapterItemType<>("Menu Sections", null, ItemType.TITLE), menuSectionTitlePos);
-            itemType = ItemType.MENU_TABLET;
+        if (!isTablet()) {
+            int menuSectionListPos = getResources().getInteger(R.integer.menu_sections_list_pos);
+            adapter.change(new AdapterItemType<>(restaurant.getName(), categories, ItemType.MENU_PHONE), menuSectionListPos);
         } else {
-            itemType = ItemType.MENU_PHONE;
+            categoriesAdapter.setItems(categories);
         }
-        adapter.change(new AdapterItemType<>(restaurant.getName(), categories, itemType), menuSectionListPos);
     }
 
     @Override
     public void setGallery(@NonNull List<Image> images) {
         Logger.log("Gallery: " + images.toString());
-
-        if (isTablet()) {
-
-            int galleryTitlePos = getResources().getInteger(R.integer.gallery_title_pos);
-            int galleryListPos = getResources().getInteger(R.integer.gallery_list_pos);
-
-//            adapter.change(new AdapterItemType<>("Gallery of Restaurant", null, ItemType.TITLE), galleryTitlePos);
-//            adapter.change(new AdapterItemType<>(null, images, ItemType.GALLERY), galleryListPos);
-        } else {
-            galleryAdapter.setItems(images);
-        }
-
+        galleryAdapter.setItems(images);
     }
 
     @Override
     public void setPromotions(@NonNull List<Promotion> promotions) {
         Logger.log("Promotions: " + promotions.toString());
 
-        int promotionsTitlePos = getResources().getInteger(R.integer.restaurant_promotions_title_pos);
-        int promotionsListPos = getResources().getInteger(R.integer.restaurant_promotions_list_pos);
+        if (isTablet()) {
+            promotionsAdapter.setItems(promotions);
+        } else {
+            int promotionsTitlePos = getResources().getInteger(R.integer.restaurant_promotions_title_pos);
+            int promotionsListPos = getResources().getInteger(R.integer.restaurant_promotions_list_pos);
 
-        adapter.change(new AdapterItemType<>("Restaurant promotions", null, ItemType.TITLE), promotionsTitlePos);
-        adapter.change(new AdapterItemType<>(null, promotions, ItemType.PROMOTIONS), promotionsListPos);
+            adapter.change(new AdapterItemType<>("Restaurant promotions", null, ItemType.TITLE), promotionsTitlePos);
+            adapter.change(new AdapterItemType<>(null, promotions, ItemType.PROMOTIONS), promotionsListPos);
+        }
 
     }
 
@@ -280,7 +287,6 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
     }
 
-
     private void initNavigationMenu() {
         toMenuBtn = findViewById(R.id.nav_btn_menu);
         toPhotoBtn = findViewById(R.id.nav_btn_photo);
@@ -296,7 +302,6 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
     @Override
     protected void initViews() {
-        nestedScrollView = findViewById(R.id.scroll_container);
         restaurantTitleView = findViewById(R.id.restaurant_title);
         restaurantTypeView = findViewById(R.id.restaurant_type);
         restaurantAddressView = findViewById(R.id.restaurant_address);
@@ -305,34 +310,57 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         favouriteContainer = findViewById(R.id.restaurant_favourite_container);
         restaurantImage = findViewById(R.id.restaurant_image);
         restaurantBackground = findViewById(R.id.restaurant_background);
-        mapImage = findViewById(R.id.map_image);
         recycler = findViewById(R.id.recycler);
+        galleryListRecycle = findViewById(R.id.item_recycler_gallery_list);
 
 
-        restaurantImage.setOnClickListener(view -> {
-            Toast.makeText(RestaurantActivity.this, "Hello", Toast.LENGTH_LONG).show();
-        });
+        galleryListRecycle.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        galleryAdapter = new GalleryAdapter();
+        galleryListRecycle.setAdapter(galleryAdapter);
 
-        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        if (!isTablet()) {
-            galleryRecycler = findViewById(R.id.gallery_recycler);
-            galleryRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-            galleryAdapter = new GalleryAdapter();
-            galleryRecycler.setAdapter(galleryAdapter);
+        if (isTablet()) {
 
-        } else {
+            categoriesListRecycle = findViewById(R.id.item_recycler_categories_list);
+            promotionsListRecycle = findViewById(R.id.item_recycler_promotions_list);
+            contactsListRecycle = findViewById(R.id.item_recycler_contacts_list);
+            aboutContentText = findViewById(R.id.about_text_content);
+            mapImageView = findViewById(R.id.map_image_view);
+
+            categoriesListRecycle.setHasFixedSize(true);
+            categoriesListRecycle.setLayoutManager(new GridLayoutManager(RestaurantActivity.this, 3));
+
+            promotionsListRecycle.setHasFixedSize(true);
+            promotionsListRecycle.setLayoutManager(new LinearLayoutManager(RestaurantActivity.this, LinearLayoutManager.HORIZONTAL, false));
+
+            contactsListRecycle.setHasFixedSize(true);
+            contactsListRecycle.setLayoutManager(new LinearLayoutManager(RestaurantActivity.this, LinearLayoutManager.HORIZONTAL, false));
+
+
+            categoriesAdapter = new CategoriesAdapter();
+            promotionsAdapter = new PromotionsAdapter();
+            contactsAdapter = new ContactsAdapter();
+
+
+            categoriesListRecycle.setAdapter(categoriesAdapter);
+            promotionsListRecycle.setAdapter(promotionsAdapter);
+            contactsListRecycle.setAdapter(contactsAdapter);
+
+            galleryAdapter.setUseScrollIt(true);
+
+
             initNavigationMenu();
-        }
+        } else {
+            recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        int restaurantContentListSize = getResources().getInteger(R.integer.restaurant_content_list_size);
-
-        // push to adapter fake data
-        adapter = new RestaurantsAdapter(this);
-        for (int i = 0; i < restaurantContentListSize; i++) {
-            adapter.add(new AdapterItemType<>("", null, ItemType.TITLE));
+            int restaurantContentListSize = getResources().getInteger(R.integer.restaurant_content_list_size);
+            // push to adapter fake data
+            adapter = new RestaurantsAdapter(this);
+            for (int i = 0; i < restaurantContentListSize; i++) {
+                adapter.add(new AdapterItemType<>("", null, ItemType.TITLE));
+            }
+            recycler.setAdapter(adapter);
         }
-        recycler.setAdapter(adapter);
 
 
     }
@@ -344,12 +372,10 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
     @Override
     public void showEmptyView() {
-
     }
 
     @Override
     public void hideEmptyView() {
-
     }
 
     @Override
@@ -370,7 +396,6 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     public void onServiceChanged(int serviceId) {
         presenter.changeCategories(serviceId);
     }
-
 
     @Override
     public void onNavMenuItemClick(String title) {

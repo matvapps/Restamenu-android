@@ -14,306 +14,405 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top" />
 
-    <android.support.constraint.ConstraintLayout
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scroll_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context="com.restamenu.restaurant.RestaurantActivity">
 
 
-        <com.emilsjolander.components.StickyScrollViewItems.StickyScrollView
-            android:id="@+id/scroll_container"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:context="com.restamenu.restaurant.RestaurantActivity">
+            android:layout_height="wrap_content">
 
-
-
-
-            <FrameLayout
+            <ImageView
+                android:id="@+id/restaurant_background"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="214dp"
+                android:background="@android:color/darker_gray"
+                android:focusableInTouchMode="true"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/restaurant_favourite_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="18dp"
+                android:layout_marginEnd="53dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="6dp"
+                app:layout_constraintBottom_toBottomOf="@+id/restaurant_background"
+                app:layout_constraintEnd_toEndOf="parent">
 
-                    <ImageView
-                        android:id="@+id/restaurant_background"
-                        android:layout_width="match_parent"
-                        android:layout_height="214dp"
-                        android:background="@android:color/darker_gray"
-                        android:focusableInTouchMode="true"
-                        android:scaleType="fitXY"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/favourite_icon_image"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="4dp"
+                    android:src="@drawable/ic_fav_noact" />
 
-                    <LinearLayout
-                        android:id="@+id/restaurant_favourite_container"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="18dp"
-                        android:layout_marginEnd="36dp"
-                        android:background="@color/white"
-                        android:orientation="horizontal"
-                        android:padding="6dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/restaurant_background"
-                        app:layout_constraintEnd_toEndOf="parent">
-
-                        <ImageView
-                            android:id="@+id/favourite_icon_image"
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:layout_gravity="center"
-                            android:layout_marginEnd="4dp"
-                            android:src="@drawable/ic_fav_noact" />
-
-                        <TextView
-                            android:id="@+id/textView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:fontFamily="@font/open_sans_semibold"
-                            android:text="Add to favorite"
-                            android:textColor="@color/black"
-                            android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:text="Add to favorite"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
 
 
-                    </LinearLayout>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycler"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="349dp"
-                        android:nestedScrollingEnabled="false"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
-
-                    </android.support.v7.widget.RecyclerView>
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraintLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+            </LinearLayout>
 
 
-                        <TextView
-                            android:id="@+id/restaurant_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:layout_marginTop="63dp"
-                            android:fontFamily="@font/open_sans_bold"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/white"
-                            android:textSize="33sp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toEndOf="@+id/restaurant_image"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:text="Serafina Dubai" />
+            <TextView
+                android:id="@+id/restaurant_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="55dp"
+                android:fontFamily="@font/open_sans_bold"
+                android:text="Serafina Dubai"
+                android:textAlignment="viewStart"
+                android:textColor="@color/white"
+                android:textSize="33sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/restaurant_image"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/restaurant_type"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/open_sans_semibold"
-                            android:gravity="top"
-                            android:textColor="@color/white"
-                            android:textSize="19sp"
-                            app:layout_constraintStart_toStartOf="@+id/restaurant_title"
-                            app:layout_constraintTop_toBottomOf="@+id/restaurant_title"
-                            tools:text="Restaurant" />
+            <TextView
+                android:id="@+id/restaurant_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_semibold"
+                android:gravity="top"
+                android:text="Restaurant"
+                android:textColor="@color/white"
+                android:textSize="19sp"
+                app:layout_constraintStart_toStartOf="@+id/restaurant_title"
+                app:layout_constraintTop_toBottomOf="@+id/restaurant_title" />
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="10dp"
+                android:layout_height="14dp"
+                android:layout_marginTop="12dp"
+                android:src="@drawable/ic_pin"
+                app:layout_constraintStart_toStartOf="@+id/restaurant_type"
+                app:layout_constraintTop_toBottomOf="@+id/restaurant_type" />
 
-                        <android.support.constraint.ConstraintLayout
-                            android:id="@+id/restaurant_content_layout"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="220dp"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="12dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toEndOf="@+id/restaurant_image"
-                            app:layout_constraintTop_toBottomOf="@+id/restaurant_type">
-
-                            <ImageView
-                                android:id="@+id/imageView"
-                                android:layout_width="10dp"
-                                android:layout_height="14dp"
-                                android:layout_marginStart="8dp"
-                                android:src="@drawable/ic_pin"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <TextView
-                                android:id="@+id/restaurant_address"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="3dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:textColor="@color/white"
-                                android:textSize="12.5sp"
-                                app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                                app:layout_constraintStart_toEndOf="@+id/imageView"
-                                app:layout_constraintTop_toTopOf="@+id/imageView"
-                                tools:text="52nd Level Dubai Marriott Harbour 52nd Level Dubai" />
+            <TextView
+                android:id="@+id/restaurant_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="52nd Level Dubai Marriott Harbour 52nd Level Dubai"
+                android:textColor="@color/white"
+                android:textSize="12.5sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@+id/imageView" />
 
 
-                            <ImageView
-                                android:id="@+id/imageView4"
-                                android:layout_width="13dp"
-                                android:layout_height="13dp"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginTop="4dp"
-                                android:src="@drawable/ic_call"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_call"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-                            <TextView
-                                android:id="@+id/restaurant_phone"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="3dp"
-                                android:textColor="@color/white"
-                                android:textSize="12.5sp"
-                                app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-                                app:layout_constraintStart_toEndOf="@+id/imageView4"
-                                app:layout_constraintTop_toTopOf="@+id/imageView4"
-                                tools:text="8 800 640 00 10" />
-
-
-                            <LinearLayout
-                                android:id="@+id/timing_container"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:background="@drawable/rounded_rectangle_gold"
-                                android:gravity="center"
-                                android:orientation="horizontal"
-                                android:paddingBottom="2dp"
-                                android:paddingLeft="8dp"
-                                android:paddingRight="8dp"
-                                android:paddingTop="2dp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/imageView4">
-
-                                <ImageView
-                                    android:layout_width="14dp"
-                                    android:layout_height="14dp"
-                                    android:src="@drawable/ic_time" />
-
-                                <TextView
-                                    android:id="@+id/restaurant_opening_hours"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginStart="3dp"
-                                    android:textColor="@color/white"
-                                    android:textSize="12.5sp"
-                                    tools:text="24 hours" />
-
-                            </LinearLayout>
+            <TextView
+                android:id="@+id/restaurant_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:text="8 800 640 00 10"
+                android:textColor="@color/white"
+                android:textSize="12.5sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                app:layout_constraintStart_toEndOf="@+id/imageView4"
+                app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
 
-                        </android.support.constraint.ConstraintLayout>
+            <LinearLayout
+                android:id="@+id/timing_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/rounded_rectangle_gold"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="2dp"
+                app:layout_constraintStart_toEndOf="@+id/restaurant_image"
+                app:layout_constraintTop_toBottomOf="@+id/imageView4">
 
-                        <ImageView
-                            android:id="@+id/restaurant_image"
-                            android:layout_width="276dp"
-                            android:layout_height="175dp"
-                            android:layout_marginStart="47dp"
-                            android:layout_marginTop="63dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/restaurants"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:src="@drawable/ic_time" />
+
+                <TextView
+                    android:id="@+id/restaurant_opening_hours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="3dp"
+                    android:text="24 hours"
+                    android:textColor="@color/white"
+                    android:textSize="12.5sp" />
+
+            </LinearLayout>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/restaurant_image"
+                android:layout_width="276dp"
+                android:layout_height="175dp"
+                android:layout_marginStart="47dp"
+                android:layout_marginTop="62dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/restaurants"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_corner_radius="3dp" />
+
+            <include
+                android:id="@+id/item_recycler_order_list"
+                layout="@layout/order_type_item"
+                android:layout_width="0dp"
+                android:layout_height="99dp"
+                android:layout_marginEnd="53dp"
+                android:layout_marginStart="348dp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/restaurant_image" />
+
+            <TextView
+                android:id="@+id/categories_list_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="67dp"
+                android:fontFamily="@font/gotham_pro_medium"
+                android:gravity="start"
+                android:text="Menu sections"
+                android:textColor="@color/black"
+                android:textSize="29sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/item_recycler_order_list"
+                app:layout_constraintStart_toStartOf="@+id/item_recycler_order_list"
+                app:layout_constraintTop_toBottomOf="@+id/item_recycler_order_list" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/item_recycler_categories_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintEnd_toEndOf="@+id/item_recycler_order_list"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/categories_list_title"
+                app:layout_constraintTop_toBottomOf="@+id/categories_list_title" />
+
+            <TextView
+                android:id="@+id/promotions_list_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:fontFamily="@font/gotham_pro_medium"
+                android:gravity="start"
+                android:text="Restaurant promotions"
+                android:textColor="@color/black"
+                android:textSize="29sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/item_recycler_categories_list"
+                app:layout_constraintStart_toStartOf="@+id/item_recycler_categories_list"
+                app:layout_constraintTop_toBottomOf="@+id/item_recycler_categories_list" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/item_recycler_promotions_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="31dp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintEnd_toEndOf="@+id/item_recycler_categories_list"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/promotions_list_title"
+                app:layout_constraintTop_toBottomOf="@+id/promotions_list_title" />
+
+            <TextView
+                android:id="@+id/gallery_list_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="97dp"
+                android:fontFamily="@font/gotham_pro_medium"
+                android:gravity="start"
+                android:text="Gallery of restaurant"
+                android:textColor="@color/black"
+                android:textSize="29sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/item_recycler_promotions_list"
+                app:layout_constraintStart_toStartOf="@+id/item_recycler_promotions_list"
+                app:layout_constraintTop_toBottomOf="@+id/item_recycler_promotions_list" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/item_recycler_gallery_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintEnd_toEndOf="@+id/gallery_list_title"
+                app:layout_constraintHorizontal_bias="0.045"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gallery_list_title" />
 
 
-                        <!--<ImageView-->
-                        <!--android:id="@+id/map"-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="266dp"-->
-                        <!--android:layout_marginTop="8dp"-->
-                        <!--android:visibility="visible"-->
-                        <!--app:layout_constraintEnd_toEndOf="parent"-->
-                        <!--app:layout_constraintHorizontal_bias="0.0"-->
-                        <!--app:layout_constraintStart_toStartOf="parent"-->
-                        <!--app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />-->
+            <TextView
+                android:id="@+id/about_text_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/gotham_pro_medium"
+                android:gravity="start"
+                android:text="About restaurant"
+                android:textColor="@color/black"
+                android:textSize="29sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/item_recycler_gallery_list"
+                app:layout_constraintStart_toStartOf="@+id/gallery_list_title"
+                app:layout_constraintTop_toBottomOf="@+id/item_recycler_gallery_list" />
 
-                    </android.support.constraint.ConstraintLayout>
-
-                </android.support.constraint.ConstraintLayout>
-
-            </FrameLayout>
-
-
-
-        </com.emilsjolander.components.StickyScrollViewItems.StickyScrollView>
-
-        <LinearLayout
-            android:id="@+id/nav_container"
-            android:layout_width="276dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="47dp"
-            android:layout_marginTop="255dp"
-            android:orientation="vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <com.restamenu.views.custom.NavMenuButton
-                android:id="@+id/nav_btn_menu"
-                android:layout_width="match_parent"
-                android:layout_height="51dp"
-                android:clickable="true"
-                android:focusable="true"
-                app:menu_title="Menu"/>
-
-            <com.restamenu.views.custom.NavMenuButton
-                android:id="@+id/nav_btn_photo"
-                android:layout_width="match_parent"
-                android:layout_height="51dp"
-                android:clickable="true"
-                android:focusable="true"
-                app:menu_title="Photo" />
-
-            <com.restamenu.views.custom.NavMenuButton
-                android:id="@+id/nav_btn_about"
-                android:layout_width="match_parent"
-                android:layout_height="51dp"
-                android:clickable="true"
-                android:focusable="true"
-                app:menu_title="About" />
-
-            <com.restamenu.views.custom.NavMenuButton
-                android:id="@+id/nav_btn_contacts"
-                android:layout_width="match_parent"
-                android:layout_height="51dp"
-                android:clickable="true"
-                android:focusable="true"
-                app:menu_title="Contacts" />
-
-        </LinearLayout>
+            <TextView
+                android:id="@+id/about_text_content"
+                android:layout_width="0dp"
+                android:layout_height="31dp"
+                android:layout_marginTop="21dp"
+                android:fontFamily="@font/open_sans"
+                android:gravity="start"
+                android:lineSpacingExtra="15sp"
+                android:text="Details"
+                android:textColor="@color/black"
+                android:textSize="19sp"
+                app:layout_constraintEnd_toEndOf="@+id/about_text_title"
+                app:layout_constraintStart_toStartOf="@+id/about_text_title"
+                app:layout_constraintTop_toBottomOf="@+id/about_text_title" />
 
 
-        <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/nav_list"-->
-        <!--android:layout_width="184dp"-->
-        <!--android:layout_height="34dp"-->
-        <!--android:layout_marginStart="32dp"-->
-        <!--android:layout_marginTop="180dp"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent" />-->
+            <TextView
+                android:id="@+id/contact_list_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="81dp"
+                android:fontFamily="@font/gotham_pro_medium"
+                android:gravity="start"
+                android:text="Contacts"
+                android:textColor="@color/black"
+                android:textSize="29sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/about_text_content"
+                app:layout_constraintStart_toStartOf="@+id/about_text_content"
+                app:layout_constraintTop_toBottomOf="@+id/about_text_content" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/item_recycler_contacts_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/contact_list_title"
+                app:layout_constraintTop_toBottomOf="@+id/contact_list_title" />
 
 
-    </android.support.constraint.ConstraintLayout>
+            <ImageView
+                android:id="@+id/map_image_view"
+                android:layout_width="0dp"
+                android:layout_height="525dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_recycler_contacts_list" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/nav_container"
+        android:layout_width="276dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="255dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.restamenu.views.custom.NavMenuButton
+            android:id="@+id/nav_btn_menu"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:menu_title="Menu" />
+
+        <com.restamenu.views.custom.NavMenuButton
+            android:id="@+id/nav_btn_photo"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:menu_title="Photo" />
+
+        <com.restamenu.views.custom.NavMenuButton
+            android:id="@+id/nav_btn_about"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:menu_title="About" />
+
+        <com.restamenu.views.custom.NavMenuButton
+            android:id="@+id/nav_btn_contacts"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:menu_title="Contacts" />
+
+    </LinearLayout>
+
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/nav_list"-->
+    <!--android:layout_width="184dp"-->
+    <!--android:layout_height="34dp"-->
+    <!--android:layout_marginStart="32dp"-->
+    <!--android:layout_marginTop="180dp"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent" />-->
 
 </LinearLayout>

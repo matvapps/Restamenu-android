@@ -6,13 +6,16 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.github.florent37.viewanimator.ViewAnimator;
+import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.restamenu.BuildConfig;
 import com.restamenu.PopupDropDownAdapter;
 import com.restamenu.PopupFilterItem;
@@ -32,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView, List<Restaurant>>
-        implements MainView, RestaurantClickListener, DiscreteScrollView.OnItemChangedListener {
+        implements MainView, RestaurantClickListener, DiscreteScrollView.OnItemChangedListener, GravitySnapHelper.SnapListener {
 
     private View nearbyListContainer;
     private RecyclerView nearbyRestaurantsRecycler;
@@ -47,6 +50,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     private PopupDropDownAdapter institutePopupDropdownAdapter;
     private PopupWindow cuisinePopup;
     private PopupWindow institutePopup;
+    private PopupWindow popupWindow;
 
     @Override
     protected void initViews() {
@@ -55,13 +59,13 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         restaurantsRecycler = findViewById(R.id.restaurants_list);
         nearbyListContainer = findViewById(R.id.nearby_list_container);
         nearbyListContainer.setVisibility(View.GONE);
-
+        nearbyContainerBackground = findViewById(R.id.nearby_restaurants_container_background);
         dropDownMenuCuisine = findViewById(R.id.dropdown_menu_cuisine);
         dropDownMenuInstitute = findViewById(R.id.dropdown_menu_institute);
 
+        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter(MainActivity.this);
 
         if (!isTablet()) {
-            nearbyContainerBackground = findViewById(R.id.nearby_restaurants_container_background);
             nearbyRestaurantPicker = findViewById(R.id.nearby_restaurant_picker);
             nearbyRestaurantPicker.setOrientation(Orientation.HORIZONTAL);
             nearbyRestaurantPicker.addOnItemChangedListener(this);
@@ -71,11 +75,6 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
             nearbyRestaurantPicker.setItemTransformer(new ScaleTransformer.Builder()
                     .setMinScale(0.85f)
                     .build());
-            StartSnapHelper startSnapHelper = new StartSnapHelper();
-
-            startSnapHelper.attachToRecyclerView(nearbyRestaurantsRecycler);
-//            nearbyRestaurantsRecycler.addOnScrollListener();
-
 
         } else {
             cuisinePopupDropdownAdapter = new PopupDropDownAdapter();
@@ -84,11 +83,13 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
             dropDownMenuCuisine.setOnClickListener(this::displayCuisinePopupWindow);
             dropDownMenuInstitute.setOnClickListener(this::displayInstitutePopupWindow);
 
+            new GravitySnapHelper(Gravity.START, false, this)
+                    .attachToRecyclerView(nearbyRestaurantsRecycler);
+
+            nearbyRestaurantsRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            nearbyRestaurantsRecycler.setAdapter(nearbyRestaurantListAdapter);
         }
 
-
-        final StartSnapHelper startSnapHelper = new StartSnapHelper();
-        startSnapHelper.attachToRecyclerView(nearbyRestaurantsRecycler);
         final int span_count = getResources().getInteger(R.integer.restaurant_span_count);
 
 
@@ -113,11 +114,6 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         });
 
         restaurantsRecycler.setLayoutManager(gridLayoutManager);
-        nearbyRestaurantsRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter(MainActivity.this);
-        nearbyRestaurantListAdapter.setData(new ArrayList<>());
-        nearbyRestaurantsRecycler.setAdapter(nearbyRestaurantListAdapter);
-
         restaurantListAdapter = new RestaurantListAdapter(MainActivity.this, this);
         restaurantsRecycler.setAdapter(restaurantListAdapter);
 
@@ -160,22 +156,25 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     public void setNearRestaurants(List<Restaurant> data) {
         Logger.log("Near: " + data.toString());
 
+        nearbyListContainer.setVisibility(View.VISIBLE);
+
         if (isTablet()) {
             List<Restaurant> restaurants = new ArrayList<>();
+            nearbyRestaurantListAdapter.setUseScrollIt(true);
             restaurants.add(new Restaurant());
             restaurants.addAll(data);
-            nearbyRestaurantListAdapter.setUseScrollIt(true);
             data = restaurants;
+
         }
 
-        nearbyListContainer.setVisibility(View.VISIBLE);
         nearbyRestaurantListAdapter.setData(data);
 
-//        infiniteAdapter = InfiniteScrollAdapter.wrap(nearbyRestaurantListAdapter);
 
         if (!isTablet()) {
             nearbyRestaurantPicker.setAdapter(nearbyRestaurantListAdapter);
             onItemChanged(nearbyRestaurantListAdapter.getItem(0));
+        } else {
+            onItemChanged(nearbyRestaurantListAdapter.getItem(1));
         }
     }
 
@@ -187,11 +186,16 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         if (isTablet()) {
 
             institutePopup = new PopupWindow(MainActivity.this);
-            View layout = getLayoutInflater().inflate(R.layout.filter_popup_content, null);
+            View layout = getLayoutInflater().inflate(R.layout.popup_content, null);
 
+            TextView textView = layout.findViewById(R.id.dropdown_content_title);
             RecyclerView recyclerView = layout.findViewById(R.id.dropdown_content_grid);
+
             recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
             recyclerView.setAdapter(institutePopupDropdownAdapter);
+
+            String titlePattern = getResources().getString(R.string.popup_dropdown_title);
+            textView.setText(String.format(titlePattern, "institutions"));
 
             for (int i = 0; i < data.size(); i++) {
                 institutePopupDropdownAdapter.addItem(new PopupFilterItem<>(data.get(i), false));
@@ -214,11 +218,16 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         if (isTablet()) {
 
             cuisinePopup = new PopupWindow(MainActivity.this);
-            View layout = getLayoutInflater().inflate(R.layout.filter_popup_content, null);
+            View layout = getLayoutInflater().inflate(R.layout.popup_content, null);
 
+            TextView textView = layout.findViewById(R.id.dropdown_content_title);
             RecyclerView recyclerView = layout.findViewById(R.id.dropdown_content_grid);
+
             recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
             recyclerView.setAdapter(cuisinePopupDropdownAdapter);
+
+            String titlePattern = getResources().getString(R.string.popup_dropdown_title);
+            textView.setText(String.format(titlePattern, "cuisine"));
 
             for (int i = 0; i < cusines.size(); i++) {
                 cuisinePopupDropdownAdapter.addItem(new PopupFilterItem<>(cusines.get(i), false));
@@ -233,6 +242,24 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
         }
     }
+
+//    public void initPopup(List<Object> data) {
+//        popupWindow = new PopupWindow(MainActivity.this);
+//        View popupLayout;
+//        View layout = getLayoutInflater().inflate(R.layout.popup_content, null);
+//
+//        TextView textView = layout.findViewById(R.id.dropdown_content_title);
+//        RecyclerView recyclerView = layout.findViewById(R.id.dropdown_content_grid);
+//
+//        recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
+//
+//
+//        if (isTablet()) {
+//        } else {
+//
+//        }
+//
+//    }
 
     @Override
     public void showError() {
@@ -291,6 +318,19 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
                 .start();
 
         onItemChanged(nearbyRestaurantListAdapter.getItem(adapterPosition));
+
+    }
+
+    @Override
+    public void onSnap(int position) {
+        Logger.log("snapped item: " + position);
+        //load restaurant background
+
+        // if  'scroll it' item
+        if (position == 0)
+            position = 1;
+
+        onItemChanged(nearbyRestaurantListAdapter.getItem(position));
 
     }
 }
