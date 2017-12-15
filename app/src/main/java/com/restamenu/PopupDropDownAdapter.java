@@ -79,12 +79,12 @@ public class PopupDropDownAdapter extends RecyclerView.Adapter<RecyclerView.View
 
                 Logger.log(String.valueOf(items.get(position).isChecked()));
 
-
             }
         });
 
         if (items.get(position).getItem() instanceof Cusine) {
             popupViewHolder.title.setText(((Cusine) items.get(position).getItem()).getName());
+
         } else if (items.get(position).getItem() instanceof Institute) {
             popupViewHolder.title.setText(((Institute) items.get(position).getItem()).getName());
         }

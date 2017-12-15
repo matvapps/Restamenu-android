@@ -4,8 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Restamenu.iml" filepath="$PROJECT_DIR$/Restamenu.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dropdownmenu/dropdownmenu.iml" filepath="$PROJECT_DIR$/dropdownmenu/dropdownmenu.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/discretescrollview/library.iml" filepath="$PROJECT_DIR$/discretescrollview/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gravitysnaphelper/gravitysnaphelper.iml" filepath="$PROJECT_DIR$/gravitysnaphelper/gravitysnaphelper.iml" />
     </modules>
   </component>
 </project>

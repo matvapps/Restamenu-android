@@ -48,8 +48,8 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation project(':dropdownmenu')
-    implementation project(':library')
+    implementation project(':discretescrollview')
+    implementation project(':gravitysnaphelper')
 
     implementation "com.android.support:appcompat-v7:$rootProject.supportVersion"
     implementation "com.android.support:cardview-v7:$rootProject.supportVersion"

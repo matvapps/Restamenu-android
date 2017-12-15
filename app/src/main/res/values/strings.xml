@@ -14,4 +14,6 @@
     <string name="facebook_title">facebook</string>
     <string name="instagram_title">instagram</string>
 
+    <string name="popup_dropdown_title">Select type of %s:</string>
+
 </resources>

@@ -1,1 +1,1 @@
-include ':app', ':dropdownmenu', ':library'
+include ':app', ':gravitysnaphelper', ':discretescrollview'

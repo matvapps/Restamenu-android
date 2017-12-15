@@ -27,8 +27,8 @@
                 android:scaleType="centerCrop"
                 app:riv_corner_radius_bottom_left="0dp"
                 app:riv_corner_radius_bottom_right="0dp"
-                app:riv_corner_radius_top_left="@dimen/nearby_restaurant_card_radius"
-                app:riv_corner_radius_top_right="@dimen/nearby_restaurant_card_radius" />
+                app:riv_corner_radius_top_left="2dp"
+                app:riv_corner_radius_top_right="2dp" />
 
 
             <TextView

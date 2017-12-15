@@ -300,6 +300,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 viewHolder.recycler.setAdapter(contactsAdapter);
                 break;
             }
+            // Map
             case 9: {
                 ImageViewHolder imageViewHolder = (ImageViewHolder) holder;
 
