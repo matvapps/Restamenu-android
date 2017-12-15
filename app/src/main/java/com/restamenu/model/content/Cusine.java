@@ -6,11 +6,11 @@ package com.restamenu.model.content;
 
 public class Cusine {
 
-    private int cusine_id;
+    private int cuisine_id;
     private String name;
 
     public int getId() {
-        return cusine_id;
+        return cuisine_id;
     }
 
     public String getName() {

@@ -59,7 +59,7 @@ public interface RestaurantService {
     Flowable<ListResponce<Institute>> getInstitutions();
 
     @NonNull
-    @GET("getCusines")
+    @GET("getCuisines")
     Flowable<ListResponce<Cusine>> getCuisines();
 
     /**

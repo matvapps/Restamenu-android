@@ -7,11 +7,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.emilsjolander.components.StickyScrollViewItems.StickyScrollView;
 import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.base.BasePresenterActivity;
@@ -27,15 +30,25 @@ import com.restamenu.restaurant.adapter.GalleryAdapter;
 import com.restamenu.restaurant.adapter.ItemType;
 import com.restamenu.restaurant.adapter.RestaurantsAdapter;
 import com.restamenu.util.Logger;
+import com.restamenu.views.custom.NavMenuButton;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresenter, RestaurantView, Restaurant>
-        implements RestaurantView, CategoryClickListener, RestaurantsAdapter.ChangeServiceListener {
+        implements RestaurantView, CategoryClickListener, RestaurantsAdapter.ChangeServiceListener, NavMenuButton.OnNavMenuItemClick{
 
     public static final String KEY_RESTAURANT_ID = "key_rest_id";
+
+    private final String CONTACT_FB = "fb.com";
+    private final String CONTACT_INSTAGRAM = "instagram";
+
+    private final String HYPERLINK_PATTERN = "<a href='%s'> %s </a>";
+
+    private final String FACEBOOK_TITLE = "facebook";
+    private final String INSTAGRAM_TITLE = "instagram";
+
     private Integer restaurantId;
 
     private RestaurantsAdapter adapter;
@@ -53,8 +66,14 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     private ImageView mapImage;
     private RecyclerView recycler;
     private RecyclerView galleryRecycler;
+    private RecyclerView navigationMenu;
     private TextView toolbarRestaurantTitle;
-    //private Spinner orderTypeSpinner;
+    private StickyScrollView nestedScrollView;
+
+    private NavMenuButton toMenuBtn;
+    private NavMenuButton toPhotoBtn;
+    private NavMenuButton toAboutBtn;
+    private NavMenuButton toContactsBtn;
 
 
     public static void start(@NonNull Activity activity, @NonNull Integer restaurantId) {
@@ -95,8 +114,8 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
         // add map
 //        if (!isTablet()) {
-            int mapPos = getResources().getInteger(R.integer.map_pos);
-            adapter.change(new AdapterItemType<Image>(restaurant.getLocation().getImage(), null, ItemType.MAP), mapPos);
+        int mapPos = getResources().getInteger(R.integer.map_pos);
+        adapter.change(new AdapterItemType<Image>(restaurant.getLocation().getImage(), null, ItemType.MAP), mapPos);
 //        } //else {
 //            String mapBackgroundUrl = data.getLocation().getImage().substring(1, data.getLocation().getImage().length());
 //            Picasso.with(RestaurantActivity.this).load(BuildConfig.BASE_URL + mapBackgroundUrl).into(mapImage);
@@ -122,23 +141,39 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         if (isTablet()) {
             stringDivider = "\n";
             itemType = ItemType.CONTACTS_TABLET;
-        }
-        else {
+        } else {
             stringDivider = " ";
             itemType = ItemType.CONTACTS_PHONE;
         }
 
         StringBuilder openingHours = new StringBuilder();
-        for (String item :data.getTiming()) {
+        for (String item : data.getTiming()) {
             openingHours.append(item).append(stringDivider);
         }
 
+
+        // format contacts
         StringBuilder socialNetworks = new StringBuilder();
-        for (String item :data.getSocial())
-            socialNetworks.append(item).append(stringDivider);
+        String socialTitle = "";
+        String hyperText = "";
+        for (String item : data.getSocial()) {
+            if (item.contains(CONTACT_FB)) {
+                hyperText = item.substring(item.lastIndexOf("/"));
+                hyperText = hyperText.replace("/", "@");
+                socialTitle = FACEBOOK_TITLE + ": ";
+            } else if (item.contains(CONTACT_INSTAGRAM)) {
+                hyperText = item.substring(item.lastIndexOf("/"));
+                socialTitle = INSTAGRAM_TITLE + ": ";
+            }
+
+            item = Html.fromHtml(String.format(HYPERLINK_PATTERN, item, hyperText)).toString();
+            socialNetworks.append(socialTitle).append(item).append(stringDivider);
+
+        }
+
 
         StringBuilder phones = new StringBuilder();
-        for (String item :data.getPhones()) {
+        for (String item : data.getPhones()) {
             phones.append(item).append(stringDivider);
         }
 
@@ -184,8 +219,8 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             int galleryTitlePos = getResources().getInteger(R.integer.gallery_title_pos);
             int galleryListPos = getResources().getInteger(R.integer.gallery_list_pos);
 
-            adapter.change(new AdapterItemType<>("Gallery of Restaurant", null, ItemType.TITLE), galleryTitlePos);
-            adapter.change(new AdapterItemType<>(null, images, ItemType.GALLERY), galleryListPos);
+//            adapter.change(new AdapterItemType<>("Gallery of Restaurant", null, ItemType.TITLE), galleryTitlePos);
+//            adapter.change(new AdapterItemType<>(null, images, ItemType.GALLERY), galleryListPos);
         } else {
             galleryAdapter.setItems(images);
         }
@@ -245,9 +280,23 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
     }
 
+
+    private void initNavigationMenu() {
+        toMenuBtn = findViewById(R.id.nav_btn_menu);
+        toPhotoBtn = findViewById(R.id.nav_btn_photo);
+        toAboutBtn = findViewById(R.id.nav_btn_about);
+        toContactsBtn = findViewById(R.id.nav_btn_contacts);
+
+
+        toMenuBtn.setNavMenuItemClick(this);
+        toPhotoBtn.setNavMenuItemClick(this);
+        toAboutBtn.setNavMenuItemClick(this);
+        toContactsBtn.setNavMenuItemClick(this);
+    }
+
     @Override
     protected void initViews() {
-
+        nestedScrollView = findViewById(R.id.scroll_container);
         restaurantTitleView = findViewById(R.id.restaurant_title);
         restaurantTypeView = findViewById(R.id.restaurant_type);
         restaurantAddressView = findViewById(R.id.restaurant_address);
@@ -257,9 +306,13 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         restaurantImage = findViewById(R.id.restaurant_image);
         restaurantBackground = findViewById(R.id.restaurant_background);
         mapImage = findViewById(R.id.map_image);
-
-
         recycler = findViewById(R.id.recycler);
+
+
+        restaurantImage.setOnClickListener(view -> {
+            Toast.makeText(RestaurantActivity.this, "Hello", Toast.LENGTH_LONG).show();
+        });
+
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         if (!isTablet()) {
@@ -267,16 +320,20 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             galleryRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
             galleryAdapter = new GalleryAdapter();
             galleryRecycler.setAdapter(galleryAdapter);
+
+        } else {
+            initNavigationMenu();
         }
 
         int restaurantContentListSize = getResources().getInteger(R.integer.restaurant_content_list_size);
 
+        // push to adapter fake data
         adapter = new RestaurantsAdapter(this);
         for (int i = 0; i < restaurantContentListSize; i++) {
             adapter.add(new AdapterItemType<>("", null, ItemType.TITLE));
         }
-
         recycler.setAdapter(adapter);
+
 
     }
 
@@ -313,4 +370,49 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     public void onServiceChanged(int serviceId) {
         presenter.changeCategories(serviceId);
     }
+
+
+    @Override
+    public void onNavMenuItemClick(String title) {
+
+        switch (title) {
+            case "Menu": {
+                toMenuBtn.setMenuItemSelected(true);
+                toPhotoBtn.setMenuItemSelected(false);
+                toAboutBtn.setMenuItemSelected(false);
+                toContactsBtn.setMenuItemSelected(false);
+
+                break;
+            }
+            case "Photo": {
+                toMenuBtn.setMenuItemSelected(false);
+                toPhotoBtn.setMenuItemSelected(true);
+                toAboutBtn.setMenuItemSelected(false);
+                toContactsBtn.setMenuItemSelected(false);
+
+                recycler.setNestedScrollingEnabled(true);
+                recycler.smoothScrollToPosition(4);
+
+
+                break;
+            }
+            case "About": {
+                toMenuBtn.setMenuItemSelected(false);
+                toPhotoBtn.setMenuItemSelected(false);
+                toAboutBtn.setMenuItemSelected(true);
+                toContactsBtn.setMenuItemSelected(false);
+
+
+                break;
+            }
+            case "Contacts": {
+                toMenuBtn.setMenuItemSelected(false);
+                toPhotoBtn.setMenuItemSelected(false);
+                toAboutBtn.setMenuItemSelected(false);
+                toContactsBtn.setMenuItemSelected(true);
+                break;
+            }
+        }
+    }
+
 }

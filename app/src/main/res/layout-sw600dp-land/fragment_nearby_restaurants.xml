@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="61dp"
+            android:layout_marginTop="55dp"
             android:fontFamily="@font/open_sans_bold"
             android:text="Restaurants by near you"
             android:textColor="#fefefe"
@@ -33,39 +33,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <ImageView
-            android:id="@+id/image1"
-            android:layout_width="23dp"
-            android:layout_height="23dp"
-            android:layout_marginStart="50dp"
-            android:src="@drawable/ic_scroll"
-            app:layout_constraintBottom_toBottomOf="@+id/text1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text1" />
-
-
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:fontFamily="@font/open_sans"
-            android:text=" Scroll it"
-            android:textColor="@color/white_70"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/restaurant_list_container"
-            app:layout_constraintStart_toEndOf="@+id/image1"
-            app:layout_constraintTop_toTopOf="@+id/restaurant_list_container" />
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/restaurant_list_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="57dp"
-            android:layout_marginStart="37dp"
-            android:layout_marginTop="19dp"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/text1"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 

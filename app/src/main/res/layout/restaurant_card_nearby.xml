@@ -10,26 +10,29 @@
         style="@style/CardViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        app:cardCornerRadius="2dp"
+        android:layout_margin="4dp"
+        app:cardCornerRadius="3dp"
         app:cardElevation="2dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true">
 
 
         <android.support.constraint.ConstraintLayout
-            android:layout_width="212dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/white">
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/restaurant_background"
-                android:layout_width="212dp"
-                android:layout_height="129dp"
+                android:layout_width="280dp"
+                android:layout_height="200dp"
                 android:background="@color/white_two"
                 android:scaleType="centerCrop"
-                app:riv_corner_radius_top_left="@dimen/nearby_restaurant_card_radius"
-                app:riv_corner_radius_top_right="@dimen/nearby_restaurant_card_radius" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_corner_radius_top_left="3dp"
+                app:riv_corner_radius_top_right="3dp" />
 
 
             <TextView
@@ -43,7 +46,7 @@
                 android:fontFamily="@font/open_sans_bold"
                 android:maxLines="1"
                 android:textColor="@color/black"
-                android:textSize="14sp"
+                android:textSize="19.5sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/restaurant_background"
@@ -54,10 +57,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="4dp"
                 android:fontFamily="@font/open_sans_semibold"
                 android:textColor="@color/black"
-                android:textSize="9sp"
+                android:textSize="12.3sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/restaurant_title"
                 app:layout_constraintTop_toBottomOf="@+id/restaurant_title"
@@ -66,8 +68,8 @@
 
             <ImageView
                 android:id="@+id/food_type_restaurant_img"
-                android:layout_width="11dp"
-                android:layout_height="10dp"
+                android:layout_width="14dp"
+                android:layout_height="13dp"
                 android:layout_gravity="bottom"
                 android:layout_marginTop="16dp"
                 android:scaleType="fitCenter"
@@ -77,8 +79,8 @@
 
             <ImageView
                 android:id="@+id/food_type_takeaway_img"
-                android:layout_width="11dp"
-                android:layout_height="10dp"
+                android:layout_width="14dp"
+                android:layout_height="13dp"
                 android:layout_gravity="bottom"
                 android:layout_marginStart="6dp"
                 android:scaleType="fitCenter"
@@ -89,8 +91,8 @@
 
             <ImageView
                 android:id="@+id/food_type_delivery_img"
-                android:layout_width="15dp"
-                android:layout_height="9dp"
+                android:layout_width="20dp"
+                android:layout_height="13dp"
                 android:layout_gravity="bottom"
                 android:layout_marginStart="6dp"
                 android:scaleType="fitCenter"
@@ -130,13 +132,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="4dp"
-                    android:layout_marginStart="4dp"
-                    android:maxWidth="135dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/open_sans"
                     android:maxLines="1"
+                    android:maxWidth="135dp"
                     android:textColor="@color/black"
-                    android:textSize="8sp"
+                    android:textSize="11sp"
                     tools:text="Grosvenor House Dubai" />
 
 
@@ -146,10 +147,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="32dp"
-                    android:maxLines="1"
                     android:fontFamily="@font/open_sans_semibold"
+                    android:maxLines="1"
                     android:textColor="@color/black"
-                    android:textSize="8sp"
+                    android:textSize="11sp"
                     tools:text="0m" />
 
             </LinearLayout>

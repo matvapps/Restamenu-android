@@ -146,7 +146,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 OrderTypeSpinnerAdapter orderTypeSpinnerAdapter = new OrderTypeSpinnerAdapter(holder.itemView.getContext(),
                         serviceTypes, serviceItemType.getData(), selectedService);
                 viewHolder.spinner.setAdapter(orderTypeSpinnerAdapter);
-                viewHolder.spinner.setDropDownVerticalOffset((int) DimensionUtil.convertDpToPixel( -25 , holder.itemView.getContext()));
+                viewHolder.spinner.setDropDownVerticalOffset((int) DimensionUtil.convertDpToPixel( 50 , holder.itemView.getContext()));
                 viewHolder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

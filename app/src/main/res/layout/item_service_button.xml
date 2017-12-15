@@ -7,7 +7,7 @@
     <RelativeLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/order_type_item_height"
+        android:layout_height="99dp"
         android:background="@drawable/round_rect_stroke_grey"
         android:paddingBottom="14dp"
         android:paddingLeft="14dp"
@@ -15,8 +15,8 @@
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="41dp"
-            android:layout_height="41dp"
+            android:layout_width="74dp"
+            android:layout_height="72dp"
             android:layout_centerInParent="true"
             android:src="@drawable/ic_food_noact" />
 
@@ -26,8 +26,9 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_margin="@dimen/order_type_title_margin"
+            android:fontFamily="@font/open_sans_bold"
             android:textColor="@color/black"
-            android:textSize="@dimen/order_type_title_text_size"
+            android:textSize="22sp"
             tools:text="At Restaurant" />
 
         <TextView

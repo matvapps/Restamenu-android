@@ -72,5 +72,14 @@ public class MainPresenter implements Presenter<MainView> {
                 }, throwable -> view.showError());
 
 
+        RepositoryProvider.getAppRepository().getCusines()
+                .flatMap(Flowable::fromIterable)
+                .toList()
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(cusines -> {
+                    view.setCusines(cusines);
+                    view.showLoading(false);
+                }, throwable -> view.showError());
     }
 }

@@ -22,6 +22,7 @@
     <color name="warm_grey_66">#a8999999</color>
 
     <color name="charcoal_grey">#3d4253</color>
+    <color name="cerulean">#0070c9</color>
 
-
+    <color name="warm_grey">#999999</color>
 </resources>
