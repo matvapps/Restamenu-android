@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,10 +16,14 @@ import com.restamenu.util.TextUtils;
  * Created by Alexandr
  */
 
+
+/**
+ * NOT USED, should be deleted
+ */
 public class NavMenuButton extends LinearLayout {
 
     private TextView title;
-    private View container;
+    //private View container;
     private OnNavMenuItemClick navMenuItemClick;
     private String titleText;
 
@@ -38,7 +41,7 @@ public class NavMenuButton extends LinearLayout {
 
         LayoutInflater.from(context).inflate(R.layout.nav_list_item, this, true);
 
-        container = findViewById(R.id.nav_list_text_container);
+        //container = findViewById(R.id.nav_list_text_container);
         title = findViewById(R.id.nav_list_text);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.NavMenuButton);
@@ -61,7 +64,7 @@ public class NavMenuButton extends LinearLayout {
     public void setNavMenuItemClick(OnNavMenuItemClick navMenuItemClick) {
         this.navMenuItemClick = navMenuItemClick;
 
-        container.setOnClickListener(view -> navMenuItemClick.onNavMenuItemClick(titleText));
+        this.setOnClickListener(view -> navMenuItemClick.onNavMenuItemClick(titleText));
 
     }
 
@@ -71,7 +74,7 @@ public class NavMenuButton extends LinearLayout {
 
     private void setDefaults() {
         setSelected(false);
-        container.setBackgroundColor(Color.TRANSPARENT);
+        //container.setBackgroundColor(Color.TRANSPARENT);
         title.setTextColor(ContextCompat.getColor(getContext(), R.color.warm_grey));
         setBackgroundResource(0);
     }
@@ -79,7 +82,7 @@ public class NavMenuButton extends LinearLayout {
     public void setMenuItemSelected(boolean selected) {
         if (selected) {
             setSelected(true);
-            container.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.greyish));
+            //container.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.greyish));
             title.setTextColor(ContextCompat.getColor(getContext(), R.color.cerulean));
             setBackgroundColor(Color.TRANSPARENT);
             setBackgroundResource(R.drawable.rect_stroke_grey);

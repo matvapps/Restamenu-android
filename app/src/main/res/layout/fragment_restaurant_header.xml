@@ -87,10 +87,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:fontFamily="@font/open_sans"
-            android:textColor="@color/white"
-            android:maxLines="1"
             android:ellipsize="end"
+            android:fontFamily="@font/open_sans"
+            android:maxLines="1"
+            android:textColor="@color/white"
             android:textSize="@dimen/restaurant_header_text_size"
             app:layout_constraintBottom_toBottomOf="@+id/location_image_icon"
             app:layout_constraintStart_toEndOf="@+id/location_image_icon"
@@ -145,7 +145,7 @@
 
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/item_recycler_gallery_list"
+            android:id="@+id/recycler_gallery_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="23dp"

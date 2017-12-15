@@ -15,7 +15,7 @@
         android:layout_gravity="top" />
 
 
-    <android.support.v4.widget.NestedScrollView
+    <com.restamenu.views.custom.StickyScrollView
         android:id="@+id/scroll_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -193,6 +193,40 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:riv_corner_radius="3dp" />
 
+            <RadioGroup
+                android:id="@+id/nav_container"
+                android:layout_width="276dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="47dp"
+                android:layout_marginTop="255dp"
+                android:orientation="vertical"
+                android:tag="sticky"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RadioButton
+                    android:id="@+id/nav_menu"
+                    style="@style/RadioButtonTreeMenu"
+                    android:checked="true"
+                    android:text="Menu" />
+
+                <RadioButton
+                    android:id="@+id/nav_photo"
+                    style="@style/RadioButtonTreeMenu"
+                    android:text="Photo" />
+
+                <RadioButton
+                    android:id="@+id/nav_about"
+                    style="@style/RadioButtonTreeMenu"
+                    android:text="About" />
+
+                <RadioButton
+                    android:id="@+id/nav_contacts"
+                    style="@style/RadioButtonTreeMenu"
+                    android:layout_width="match_parent"
+                    android:text="Contact" />
+            </RadioGroup>
+
             <include
                 android:id="@+id/item_recycler_order_list"
                 layout="@layout/order_type_item"
@@ -222,7 +256,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/item_recycler_order_list" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/item_recycler_categories_list"
+                android:id="@+id/recycler_categories_list"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
@@ -243,17 +277,17 @@
                 android:textColor="@color/black"
                 android:textSize="29sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/item_recycler_categories_list"
-                app:layout_constraintStart_toStartOf="@+id/item_recycler_categories_list"
-                app:layout_constraintTop_toBottomOf="@+id/item_recycler_categories_list" />
+                app:layout_constraintEnd_toEndOf="@+id/recycler_categories_list"
+                app:layout_constraintStart_toStartOf="@+id/recycler_categories_list"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_categories_list" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/item_recycler_promotions_list"
+                android:id="@+id/recycler_promotions_list"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="31dp"
                 android:nestedScrollingEnabled="false"
-                app:layout_constraintEnd_toEndOf="@+id/item_recycler_categories_list"
+                app:layout_constraintEnd_toEndOf="@+id/recycler_categories_list"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/promotions_list_title"
                 app:layout_constraintTop_toBottomOf="@+id/promotions_list_title" />
@@ -269,12 +303,12 @@
                 android:textColor="@color/black"
                 android:textSize="29sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/item_recycler_promotions_list"
-                app:layout_constraintStart_toStartOf="@+id/item_recycler_promotions_list"
-                app:layout_constraintTop_toBottomOf="@+id/item_recycler_promotions_list" />
+                app:layout_constraintEnd_toEndOf="@+id/recycler_promotions_list"
+                app:layout_constraintStart_toStartOf="@+id/recycler_promotions_list"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_promotions_list" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/item_recycler_gallery_list"
+                android:id="@+id/recycler_gallery_list"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
@@ -284,6 +318,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/gallery_list_title" />
 
+            <View
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+                android:background="@android:color/transparent"
+                android:tag="sticky"
+                app:layout_constraintLeft_toLeftOf="@+id/gallery_list_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_promotions_list"></View>
 
             <TextView
                 android:id="@+id/about_text_title"
@@ -296,9 +338,9 @@
                 android:textColor="@color/black"
                 android:textSize="29sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/item_recycler_gallery_list"
+                app:layout_constraintEnd_toEndOf="@+id/recycler_gallery_list"
                 app:layout_constraintStart_toStartOf="@+id/gallery_list_title"
-                app:layout_constraintTop_toBottomOf="@+id/item_recycler_gallery_list" />
+                app:layout_constraintTop_toBottomOf="@+id/recycler_gallery_list" />
 
             <TextView
                 android:id="@+id/about_text_content"
@@ -332,7 +374,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/about_text_content" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/item_recycler_contacts_list"
+                android:id="@+id/recycler_contacts_list"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
@@ -353,57 +395,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/item_recycler_contacts_list" />
+                app:layout_constraintTop_toBottomOf="@+id/recycler_contacts_list" />
 
         </android.support.constraint.ConstraintLayout>
 
 
-    </android.support.v4.widget.NestedScrollView>
-
-    <LinearLayout
-        android:id="@+id/nav_container"
-        android:layout_width="276dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="47dp"
-        android:layout_marginTop="255dp"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <com.restamenu.views.custom.NavMenuButton
-            android:id="@+id/nav_btn_menu"
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:menu_title="Menu" />
-
-        <com.restamenu.views.custom.NavMenuButton
-            android:id="@+id/nav_btn_photo"
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:menu_title="Photo" />
-
-        <com.restamenu.views.custom.NavMenuButton
-            android:id="@+id/nav_btn_about"
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:menu_title="About" />
-
-        <com.restamenu.views.custom.NavMenuButton
-            android:id="@+id/nav_btn_contacts"
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:menu_title="Contacts" />
-
-    </LinearLayout>
+    </com.restamenu.views.custom.StickyScrollView>
 
 
     <!--<android.support.v7.widget.RecyclerView-->

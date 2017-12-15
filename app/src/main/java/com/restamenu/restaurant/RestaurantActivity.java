@@ -3,15 +3,20 @@ package com.restamenu.restaurant;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.Display;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.restamenu.BuildConfig;
@@ -31,15 +36,17 @@ import com.restamenu.restaurant.adapter.GalleryAdapter;
 import com.restamenu.restaurant.adapter.ItemType;
 import com.restamenu.restaurant.adapter.PromotionsAdapter;
 import com.restamenu.restaurant.adapter.RestaurantsAdapter;
+import com.restamenu.util.ListUtils;
 import com.restamenu.util.Logger;
-import com.restamenu.views.custom.NavMenuButton;
+import com.restamenu.views.custom.ServiceButton;
+import com.restamenu.views.custom.StickyScrollView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresenter, RestaurantView, Restaurant>
-        implements RestaurantView, CategoryClickListener, RestaurantsAdapter.ChangeServiceListener, NavMenuButton.OnNavMenuItemClick {
+        implements RestaurantView, CategoryClickListener, RestaurantsAdapter.ChangeServiceListener, CompoundButton.OnCheckedChangeListener {
 
     public static final String KEY_RESTAURANT_ID = "key_rest_id";
 
@@ -53,8 +60,13 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
     private Integer restaurantId;
 
+    //Only for tablet
+    private int selectedService;
+
     private RestaurantsAdapter adapter;
     private Restaurant restaurant;
+
+    private StickyScrollView scrollView;
 
     private View favouriteContainer;
     private TextView restaurantTitleView;
@@ -82,10 +94,18 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     private ContactsAdapter contactsAdapter;
 
 
-    private NavMenuButton toMenuBtn;
-    private NavMenuButton toPhotoBtn;
-    private NavMenuButton toAboutBtn;
-    private NavMenuButton toContactsBtn;
+    private RadioGroup navigationTree;
+    private RadioButton toMenuBtn;
+    private RadioButton toPhotoBtn;
+    private RadioButton toAboutBtn;
+    private RadioButton toContactsBtn;
+
+    private ServiceButton serviceAtRestaurant;
+    private ServiceButton serviceTakeAway;
+    private ServiceButton serviceDelivery;
+
+    private Rect scrollBounds = new Rect();
+    private int checkedTreeItem;
 
 
     public static void start(@NonNull Activity activity, @NonNull Integer restaurantId) {
@@ -98,6 +118,168 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     protected void onCreate(Bundle savedInstanceState) {
         restaurantId = getIntent().getIntExtra(KEY_RESTAURANT_ID, 1);
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected int getContentViewLayoutId() {
+        return R.layout.activity_restaurant;
+    }
+
+    @Override
+    protected void initViews() {
+        scrollView = findViewById(R.id.scroll_container);
+        scrollBounds = new Rect();
+
+        restaurantTitleView = findViewById(R.id.restaurant_title);
+        restaurantTypeView = findViewById(R.id.restaurant_type);
+        restaurantAddressView = findViewById(R.id.restaurant_address);
+        restaurantPhoneView = findViewById(R.id.restaurant_phone);
+        restaurantOpeningHours = findViewById(R.id.restaurant_opening_hours);
+        favouriteContainer = findViewById(R.id.restaurant_favourite_container);
+        restaurantImage = findViewById(R.id.restaurant_image);
+        restaurantBackground = findViewById(R.id.restaurant_background);
+        recycler = findViewById(R.id.recycler);
+        galleryListRecycle = findViewById(R.id.recycler_gallery_list);
+
+
+        galleryListRecycle.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        galleryAdapter = new GalleryAdapter();
+        galleryListRecycle.setAdapter(galleryAdapter);
+
+
+        if (isTablet()) {
+
+            categoriesListRecycle = findViewById(R.id.recycler_categories_list);
+            promotionsListRecycle = findViewById(R.id.recycler_promotions_list);
+            contactsListRecycle = findViewById(R.id.recycler_contacts_list);
+            aboutContentText = findViewById(R.id.about_text_content);
+            mapImageView = findViewById(R.id.map_image_view);
+
+            categoriesListRecycle.setHasFixedSize(true);
+            categoriesListRecycle.setLayoutManager(new GridLayoutManager(RestaurantActivity.this, 3));
+
+            promotionsListRecycle.setHasFixedSize(true);
+            promotionsListRecycle.setLayoutManager(new LinearLayoutManager(RestaurantActivity.this, LinearLayoutManager.HORIZONTAL, false));
+
+            contactsListRecycle.setHasFixedSize(true);
+            contactsListRecycle.setLayoutManager(new LinearLayoutManager(RestaurantActivity.this, LinearLayoutManager.HORIZONTAL, false));
+
+
+            categoriesAdapter = new CategoriesAdapter();
+            promotionsAdapter = new PromotionsAdapter();
+            contactsAdapter = new ContactsAdapter();
+
+
+            categoriesListRecycle.setAdapter(categoriesAdapter);
+            promotionsListRecycle.setAdapter(promotionsAdapter);
+            contactsListRecycle.setAdapter(contactsAdapter);
+
+            galleryAdapter.setUseScrollIt(true);
+
+            serviceAtRestaurant = findViewById(R.id.button_at_restaurant);
+            serviceTakeAway = findViewById(R.id.button_takeaway);
+            serviceDelivery = findViewById(R.id.button_delivery);
+
+            serviceDelivery.setOnClickListener(view -> changeService(3));
+
+            serviceTakeAway.setOnClickListener(view -> changeService(2));
+
+            serviceAtRestaurant.setOnClickListener(view -> changeService(1));
+
+            initNavigationMenu();
+
+            scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    Logger.log("Y: " + scrollY + " Old Y: " + oldScrollY);
+                    //Check for categories recycler is being visible
+                    if (categoriesListRecycle.getLocalVisibleRect(scrollBounds)) {
+                        if (!categoriesListRecycle.getLocalVisibleRect(scrollBounds)
+                                || scrollBounds.height() < categoriesListRecycle.getHeight()) {
+                            //Logger.log("Categories appear parcialy");
+                        } else {
+                            Logger.log("Categories appeared");
+                            //Scrolling to top
+                            if (scrollY < oldScrollY && checkedTreeItem != 0) {
+                                checkedTreeItem = 0;
+                                navigationTree.check(R.id.nav_menu);
+                            }
+                        }
+                    } else {
+                        //Logger.log("Categories not visible");
+                    }
+
+                    //Check for gallery recycler is being visible
+                    if (galleryListRecycle.getLocalVisibleRect(scrollBounds)) {
+                        if (!galleryListRecycle.getLocalVisibleRect(scrollBounds)
+                                || scrollBounds.height() < galleryListRecycle.getHeight()) {
+                            //Logger.log("Gallery appear parcialy");
+                        } else {
+                            if (scrollY > oldScrollY && checkedTreeItem != 1) {
+                                checkedTreeItem = 1;
+                                navigationTree.check(R.id.nav_photo);
+                                Logger.log("Gallery appeared fully");
+                            }
+                        }
+                    } else {
+                        //Logger.log("Gallery not visible");
+                    }
+
+                }
+            });
+        } else {
+            recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+            int restaurantContentListSize = getResources().getInteger(R.integer.restaurant_content_list_size);
+            // push to adapter fake data
+            adapter = new RestaurantsAdapter(this);
+            for (int i = 0; i < restaurantContentListSize; i++) {
+                adapter.add(new AdapterItemType<>("", null, ItemType.TITLE));
+            }
+            recycler.setAdapter(adapter);
+        }
+    }
+
+    private void changeService(int selectedService) {
+        if (this.selectedService == selectedService)
+            return;
+
+        this.selectedService = selectedService;
+        Logger.log("Service changed to: " + this.selectedService);
+
+        switch (selectedService) {
+            case 1:
+                serviceAtRestaurant.setServiceSelected(true);
+                serviceTakeAway.setServiceSelected(false);
+                serviceDelivery.setServiceSelected(false);
+                break;
+            case 2:
+                serviceTakeAway.setServiceSelected(true);
+                serviceAtRestaurant.setServiceSelected(false);
+                serviceDelivery.setServiceSelected(false);
+                break;
+            case 3:
+                serviceDelivery.setServiceSelected(true);
+                serviceAtRestaurant.setServiceSelected(false);
+                serviceTakeAway.setServiceSelected(false);
+                break;
+        }
+
+        presenter.changeCategories(this.selectedService);
+    }
+
+
+    private void initNavigationMenu() {
+        navigationTree = findViewById(R.id.nav_container);
+        toMenuBtn = findViewById(R.id.nav_menu);
+        toPhotoBtn = findViewById(R.id.nav_photo);
+        toAboutBtn = findViewById(R.id.nav_about);
+        toContactsBtn = findViewById(R.id.nav_contacts);
+
+        toMenuBtn.setOnCheckedChangeListener(this);
+        toPhotoBtn.setOnCheckedChangeListener(this);
+        toAboutBtn.setOnCheckedChangeListener(this);
+        toContactsBtn.setOnCheckedChangeListener(this);
 
     }
 
@@ -129,7 +311,6 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             adapter.setSelectedService(data.getServices().get(0));
             adapter.change(new AdapterItemType<>("Select service", data.getServices(), ItemType.ORDER_TYPE_PHONE), selectServicePos);
         } else {
-
             // add about
             aboutContentText.setText(Html.fromHtml(data.getInformation()));
 
@@ -138,7 +319,46 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             Picasso.with(this).load(BuildConfig.BASE_URL +
                     backgroundUrl.substring(1, backgroundUrl.length())).into(mapImageView);
 
+            if (ListUtils.isEmpty(data.getServices()))
+                return;
+            selectedService = data.getServices().get(0);
+            //Set up select service buttons
 
+            if (data.getServices().size() < 3) {
+                if (!data.getServices().contains(1)) {
+                    serviceAtRestaurant.setAvailable(false);
+                }
+                if (!data.getServices().contains(2)) {
+                    serviceTakeAway.setAvailable(false);
+                }
+                if (!data.getServices().contains(3)) {
+                    serviceDelivery.setAvailable(false);
+                }
+
+            }
+
+            switch (selectedService) {
+                case 1:
+                    serviceAtRestaurant.setServiceSelected(true);
+                    serviceTakeAway.setServiceSelected(false);
+                    serviceDelivery.setServiceSelected(false);
+                    break;
+                case 2:
+                    serviceTakeAway.setServiceSelected(true);
+                    serviceAtRestaurant.setServiceSelected(false);
+                    serviceDelivery.setServiceSelected(false);
+                    break;
+                case 3:
+                    serviceDelivery.setServiceSelected(true);
+                    serviceAtRestaurant.setServiceSelected(false);
+                    serviceTakeAway.setServiceSelected(false);
+                    break;
+                default:
+                    serviceTakeAway.setServiceSelected(false);
+                    serviceAtRestaurant.setServiceSelected(false);
+                    serviceDelivery.setServiceSelected(false);
+                    break;
+            }
         }
 
         //load restaurant background
@@ -148,6 +368,8 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
 
         setContacts(data);
+
+        scrollView.getHitRect(scrollBounds);
 
     }
 
@@ -222,12 +444,14 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         } else {
             categoriesAdapter.setItems(categories);
         }
+        scrollView.getHitRect(scrollBounds);
     }
 
     @Override
     public void setGallery(@NonNull List<Image> images) {
         Logger.log("Gallery: " + images.toString());
         galleryAdapter.setItems(images);
+        scrollView.getHitRect(scrollBounds);
     }
 
     @Override
@@ -243,6 +467,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             adapter.change(new AdapterItemType<>("Restaurant promotions", null, ItemType.TITLE), promotionsTitlePos);
             adapter.change(new AdapterItemType<>(null, promotions, ItemType.PROMOTIONS), promotionsListPos);
         }
+        scrollView.getHitRect(scrollBounds);
 
     }
 
@@ -257,6 +482,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         }
 
         restaurantTypeView.setText(instituteText.toString());
+        scrollView.getHitRect(scrollBounds);
     }
 
     @Override
@@ -287,89 +513,6 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
     }
 
-    private void initNavigationMenu() {
-        toMenuBtn = findViewById(R.id.nav_btn_menu);
-        toPhotoBtn = findViewById(R.id.nav_btn_photo);
-        toAboutBtn = findViewById(R.id.nav_btn_about);
-        toContactsBtn = findViewById(R.id.nav_btn_contacts);
-
-
-        toMenuBtn.setNavMenuItemClick(this);
-        toPhotoBtn.setNavMenuItemClick(this);
-        toAboutBtn.setNavMenuItemClick(this);
-        toContactsBtn.setNavMenuItemClick(this);
-    }
-
-    @Override
-    protected void initViews() {
-        restaurantTitleView = findViewById(R.id.restaurant_title);
-        restaurantTypeView = findViewById(R.id.restaurant_type);
-        restaurantAddressView = findViewById(R.id.restaurant_address);
-        restaurantPhoneView = findViewById(R.id.restaurant_phone);
-        restaurantOpeningHours = findViewById(R.id.restaurant_opening_hours);
-        favouriteContainer = findViewById(R.id.restaurant_favourite_container);
-        restaurantImage = findViewById(R.id.restaurant_image);
-        restaurantBackground = findViewById(R.id.restaurant_background);
-        recycler = findViewById(R.id.recycler);
-        galleryListRecycle = findViewById(R.id.item_recycler_gallery_list);
-
-
-        galleryListRecycle.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        galleryAdapter = new GalleryAdapter();
-        galleryListRecycle.setAdapter(galleryAdapter);
-
-
-        if (isTablet()) {
-
-            categoriesListRecycle = findViewById(R.id.item_recycler_categories_list);
-            promotionsListRecycle = findViewById(R.id.item_recycler_promotions_list);
-            contactsListRecycle = findViewById(R.id.item_recycler_contacts_list);
-            aboutContentText = findViewById(R.id.about_text_content);
-            mapImageView = findViewById(R.id.map_image_view);
-
-            categoriesListRecycle.setHasFixedSize(true);
-            categoriesListRecycle.setLayoutManager(new GridLayoutManager(RestaurantActivity.this, 3));
-
-            promotionsListRecycle.setHasFixedSize(true);
-            promotionsListRecycle.setLayoutManager(new LinearLayoutManager(RestaurantActivity.this, LinearLayoutManager.HORIZONTAL, false));
-
-            contactsListRecycle.setHasFixedSize(true);
-            contactsListRecycle.setLayoutManager(new LinearLayoutManager(RestaurantActivity.this, LinearLayoutManager.HORIZONTAL, false));
-
-
-            categoriesAdapter = new CategoriesAdapter();
-            promotionsAdapter = new PromotionsAdapter();
-            contactsAdapter = new ContactsAdapter();
-
-
-            categoriesListRecycle.setAdapter(categoriesAdapter);
-            promotionsListRecycle.setAdapter(promotionsAdapter);
-            contactsListRecycle.setAdapter(contactsAdapter);
-
-            galleryAdapter.setUseScrollIt(true);
-
-
-            initNavigationMenu();
-        } else {
-            recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
-            int restaurantContentListSize = getResources().getInteger(R.integer.restaurant_content_list_size);
-            // push to adapter fake data
-            adapter = new RestaurantsAdapter(this);
-            for (int i = 0; i < restaurantContentListSize; i++) {
-                adapter.add(new AdapterItemType<>("", null, ItemType.TITLE));
-            }
-            recycler.setAdapter(adapter);
-        }
-
-
-    }
-
-    @Override
-    protected int getContentViewLayoutId() {
-        return R.layout.activity_restaurant;
-    }
-
     @Override
     public void showEmptyView() {
     }
@@ -398,46 +541,36 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     }
 
     @Override
-    public void onNavMenuItemClick(String title) {
-
-        switch (title) {
-            case "Menu": {
-                toMenuBtn.setMenuItemSelected(true);
-                toPhotoBtn.setMenuItemSelected(false);
-                toAboutBtn.setMenuItemSelected(false);
-                toContactsBtn.setMenuItemSelected(false);
-
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (!isChecked)
+            return;
+        switch (buttonView.getId()) {
+            case R.id.nav_menu:
+                if (checkedTreeItem == 0)
+                    return;
+                checkedTreeItem = 0;
+                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.categories_list_title).getTop() - 20));
                 break;
-            }
-            case "Photo": {
-                toMenuBtn.setMenuItemSelected(false);
-                toPhotoBtn.setMenuItemSelected(true);
-                toAboutBtn.setMenuItemSelected(false);
-                toContactsBtn.setMenuItemSelected(false);
-
-                recycler.setNestedScrollingEnabled(true);
-                recycler.smoothScrollToPosition(4);
-
-
+            case R.id.nav_about:
+                if (checkedTreeItem == 2)
+                    return;
+                checkedTreeItem = 2;
+                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.about_text_title).getTop() - 20));
                 break;
-            }
-            case "About": {
-                toMenuBtn.setMenuItemSelected(false);
-                toPhotoBtn.setMenuItemSelected(false);
-                toAboutBtn.setMenuItemSelected(true);
-                toContactsBtn.setMenuItemSelected(false);
-
-
+            case R.id.nav_photo:
+                if (checkedTreeItem == 1)
+                    return;
+                checkedTreeItem = 1;
+                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.gallery_list_title).getTop() - 20));
                 break;
-            }
-            case "Contacts": {
-                toMenuBtn.setMenuItemSelected(false);
-                toPhotoBtn.setMenuItemSelected(false);
-                toAboutBtn.setMenuItemSelected(false);
-                toContactsBtn.setMenuItemSelected(true);
+            case R.id.nav_contacts:
+                if (checkedTreeItem == 3)
+                    return;
+                checkedTreeItem = 3;
+                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.contact_list_title).getTop() - 20));
                 break;
-            }
         }
     }
+
 
 }

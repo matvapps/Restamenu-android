@@ -19,4 +19,19 @@
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 
+    <style name="RadioButtonTreeMenu">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@drawable/tree_item_textcolor_selector</item>
+        <item name="android:gravity">left</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:background">@drawable/tree_item_selector</item>
+        <item name="android:button">@null</item>
+        <item name="android:checked">false</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:clickable">true</item>
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
+    </style>
+
 </resources>

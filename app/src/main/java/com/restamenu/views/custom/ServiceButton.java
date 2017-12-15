@@ -25,7 +25,7 @@ public class ServiceButton extends RelativeLayout {
     private final TextView title;
     private final ImageView image;
     private final TextView isAvailable;
-    private final View container;
+    //private final View container;
 
     private boolean isServiceAvailable;
 
@@ -42,7 +42,7 @@ public class ServiceButton extends RelativeLayout {
 
         LayoutInflater.from(context).inflate(R.layout.item_service_button, this, true);
 
-        container = findViewById(R.id.container);
+        //container = findViewById(R.id.container);
         title = findViewById(R.id.title);
         image = findViewById(R.id.image);
         isAvailable = findViewById(R.id.is_available);
@@ -75,7 +75,6 @@ public class ServiceButton extends RelativeLayout {
     private void setDefaults() {
         setSelected(false);
         isServiceAvailable = true;
-        //container.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
         image.setScaleX(1);
         image.setScaleY(1);
         title.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
@@ -86,7 +85,6 @@ public class ServiceButton extends RelativeLayout {
     public void setServiceSelected(boolean selected) {
         if (selected) {
             setSelected(true);
-            //container.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.golden));
             title.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
             image.setScaleX(1.35f);
             image.setScaleY(1.35f);
@@ -111,22 +109,17 @@ public class ServiceButton extends RelativeLayout {
 
     }
 
-    /*@Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        Logger.log("Event: " + ev.toString() + " return: " + super.dispatchTouchEvent(ev));
-        return super.dispatchTouchEvent(ev);
-        //return isServiceAvailable ? true : false;
-    }*/
 
+    /**
+     * If flag not available - disable all touch events.
+     *
+     * @param event
+     * @return
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Logger.log("Event: return: " + super.onTouchEvent(event));
         return isServiceAvailable ? true : false;
     }
 
-    /*@Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        Logger.log("Event: " + ev.toString());
-        return isServiceAvailable ? super.onInterceptTouchEvent(ev) : false;
-    }*/
 }

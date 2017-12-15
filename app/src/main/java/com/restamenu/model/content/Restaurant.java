@@ -2,6 +2,7 @@ package com.restamenu.model.content;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,6 +61,8 @@ public class Restaurant {
     }
 
     public List<Integer> getServices() {
+        if (service == null)
+            service = new ArrayList<>();
         return service;
     }
 

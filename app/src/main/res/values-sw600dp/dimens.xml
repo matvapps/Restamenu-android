@@ -248,7 +248,7 @@
     <dimen name="restaurant_header_height">150dp</dimen>
 
 
-    <item name="restaurant_content_list_size" type="integer">12</item>
+    <item name="restaurant_content_list_size" type="integer">5</item>
     <item name="select_service_pos" type="integer">0</item>
     <item name="menu_sections_title_pos" type="integer">1</item>
     <item name="menu_sections_list_pos" type="integer">2</item>
