@@ -2,9 +2,9 @@
 <com.makeramen.roundedimageview.RoundedImageView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/promotion_background"
-    android:layout_width="@dimen/restaurant_promotion_width"
-    android:layout_height="@dimen/restaurant_promotions_height"
+    android:layout_width="@dimen/restaurant_promotion_item_width"
+    android:layout_height="@dimen/restaurant_promotion_item_height"
     android:scaleType="centerCrop"
-    android:layout_marginStart="@dimen/restaurant_promotion_item_margin_start"
+    android:layout_marginStart="@dimen/restaurant_promotion_item_margin_end"
     android:background="@color/greyish"
-    app:riv_corner_radius="@dimen/restaurant_promotions_radius" />
+    app:riv_corner_radius="@dimen/restaurant_promotion_item_radius" />

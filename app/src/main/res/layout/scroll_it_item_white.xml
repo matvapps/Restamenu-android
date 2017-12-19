@@ -5,16 +5,16 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:layout_marginStart="48dp">
+    android:layout_marginStart="@dimen/scroll_it_margin_start">
 
     <ImageView
         android:id="@+id/scroll_it_image"
-        android:layout_width="23dp"
-        android:layout_height="23dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="@dimen/scroll_it_arrow_size"
+        android:layout_height="@dimen/scroll_it_arrow_size"
+        android:layout_marginBottom="@dimen/scroll_it_margin"
+        android:layout_marginEnd="@dimen/scroll_it_margin"
+        android:layout_marginStart="@dimen/scroll_it_margin"
+        android:layout_marginTop="@dimen/scroll_it_margin"
         android:src="@drawable/ic_scroll"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/scroll_it_text"
@@ -26,11 +26,11 @@
         android:id="@+id/scroll_it_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
+        android:layout_marginEnd="@dimen/scroll_it_text_margin_end"
         android:fontFamily="@font/open_sans"
-        android:text="Scroll it"
+        android:text="@string/scroll_it_text"
         android:textColor="#80ffffff"
-        android:textSize="10sp"
+        android:textSize="@dimen/scroll_it_text_size"
         app:layout_constraintBottom_toBottomOf="@+id/scroll_it_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/scroll_it_image" />

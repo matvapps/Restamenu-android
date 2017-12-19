@@ -15,5 +15,6 @@
     <string name="instagram_title">instagram</string>
 
     <string name="popup_dropdown_title">Select type of %s:</string>
+    <string name="scroll_it_text">Scroll it</string>
 
 </resources>

@@ -6,9 +6,9 @@
     android:orientation="vertical">
 
     <include
-        layout="@layout/toolbar_main"
+        layout="@layout/toolbar_restaurant"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?actionBarSize"
         android:layout_gravity="top" />
 
     <android.support.v4.widget.NestedScrollView
@@ -25,15 +25,6 @@
                 layout="@layout/fragment_restaurant_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
-            <!--<Spinner
-                android:id="@+id/order_type_spinner"
-                style="@style/Widget.AppCompat.Spinner"
-                android:layout_width="match_parent"
-                android:layout_height="51dp"
-                android:background="@android:color/transparent"
-                android:drawSelectorOnTop="true"
-                android:spinnerMode="dropdown" />-->
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler"

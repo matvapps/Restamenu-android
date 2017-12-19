@@ -8,8 +8,8 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:cardElevation="2dp">
+        android:layout_marginBottom="@dimen/category_product_item_margin_bottom"
+        app:cardElevation="@dimen/category_product_item_radius">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/background"
                 android:layout_width="match_parent"
-                android:layout_height="255dp">
+                android:layout_height="@dimen/category_product_item_image_height">
 
                 <ImageView
                     android:id="@+id/product_image"
@@ -37,8 +37,8 @@
                     android:id="@+id/service_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="@dimen/category_product_item_service_list_margin_start"
+                    android:layout_marginTop="@dimen/category_product_item_service_list_margin_top"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
@@ -49,12 +49,12 @@
                 android:id="@+id/product_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="@dimen/category_product_item_name_margin_start"
+                android:layout_marginTop="@dimen/category_product_item_name_margin_top"
                 android:fontFamily="@font/open_sans_bold"
                 tools:text="Salmon sandwich"
-                android:textColor="#000000"
-                android:textSize="22sp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/category_product_item_name_text_size"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/background" />
 
@@ -62,13 +62,13 @@
                 android:id="@+id/product_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="72dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginEnd="@dimen/category_product_item_description_margin_end"
+                android:layout_marginTop="@dimen/category_product_item_description_margin_top"
                 android:ellipsize="end"
                 android:fontFamily="@font/open_sans"
                 android:maxLines="2"
                 android:textColor="#666666"
-                android:textSize="14sp"
+                android:textSize="@dimen/category_product_item_description_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/product_name"
                 app:layout_constraintTop_toBottomOf="@+id/product_name"
@@ -78,12 +78,12 @@
                 android:id="@+id/product_quantity_container"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="@dimen/category_product_item_quantity_container_margin_end"
                 android:background="@drawable/round_rect_stroke_grey"
-                android:paddingBottom="10dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="10dp"
+                android:paddingBottom="@dimen/category_product_item_quantity_container_padding_vertical"
+                android:paddingLeft="@dimen/category_product_item_quantity_container_padding_horizontal"
+                android:paddingRight="@dimen/category_product_item_quantity_container_padding_horizontal"
+                android:paddingTop="@dimen/category_product_item_quantity_container_padding_vertical"
                 app:layout_constraintBottom_toBottomOf="@+id/buy_container"
                 app:layout_constraintEnd_toStartOf="@+id/buy_container"
                 app:layout_constraintTop_toTopOf="@+id/buy_container">
@@ -99,8 +99,9 @@
                     android:gravity="center"
                     android:inputType="numberDecimal"
                     android:text="1"
+                    android:textAlignment="center"
                     android:textColor="#999999"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/category_product_item_quantity_text_size" />
 
             </FrameLayout>
 
@@ -109,12 +110,12 @@
                 android:id="@+id/product_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginBottom="@dimen/category_product_item_price_margin_vertical"
+                android:layout_marginStart="@dimen/category_product_item_price_margin_start"
+                android:layout_marginTop="@dimen/category_product_item_price_margin_vertical"
                 android:fontFamily="@font/open_sans_bold"
-                android:textColor="#000000"
-                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/category_product_item_price_text_size"
                 app:layout_constraintBottom_toBottomOf="@+id/product_quantity_container"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/product_quantity_container"
@@ -124,9 +125,9 @@
                 android:id="@+id/product_price_sub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="@dimen/category_product_item_price_sub_margin_start"
                 android:textColor="#b3000000"
-                android:textSize="12sp"
+                android:textSize="@dimen/category_product_item_price_sub_text_size"
                 app:layout_constraintBottom_toBottomOf="@+id/product_price"
                 app:layout_constraintStart_toEndOf="@+id/product_price"
                 app:layout_constraintTop_toTopOf="@+id/product_price"
@@ -137,14 +138,14 @@
                 android:id="@+id/buy_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="18dp"
+                android:layout_marginBottom="@dimen/category_product_item_buy_container_margin_bottom"
+                android:layout_marginTop="@dimen/category_product_item_buy_container_margin_top"
                 android:background="@color/dusty_red"
-                android:gravity="center_vertical"
-                android:paddingBottom="10dp"
-                android:paddingLeft="24dp"
-                android:paddingRight="24dp"
-                android:paddingTop="10dp"
+                android:gravity="center"
+                android:paddingBottom="@dimen/category_product_item_buy_container_padding_vertical"
+                android:paddingLeft="@dimen/category_product_item_buy_container_padding_horizontal"
+                android:paddingRight="@dimen/category_product_item_buy_container_padding_horizontal"
+                android:paddingTop="@dimen/category_product_item_buy_container_padding_vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/product_description">
@@ -152,16 +153,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
+                    android:layout_marginEnd="@dimen/category_product_item_buy_text_margin_end"
                     android:fontFamily="@font/open_sans_semibold"
                     android:text="Buy"
-                    android:textColor="#ffffff"
-                    android:textSize="14sp"
+                    android:layout_marginBottom="2dp"
+                    android:gravity="top"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/category_product_item_buy_text_size"
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:layout_width="17dp"
-                    android:layout_height="17dp"
+                    android:layout_width="@dimen/category_product_item_buy_icon_size"
+                    android:layout_height="@dimen/category_product_item_buy_icon_size"
                     android:src="@drawable/ic_buy" />
 
             </LinearLayout>

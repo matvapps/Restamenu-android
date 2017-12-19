@@ -21,36 +21,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="27dp"
+        android:layout_marginEnd="@dimen/fragment_nearby_restaurants_near_text_margin_horizontal"
+        android:layout_marginStart="@dimen/fragment_nearby_restaurants_near_text_margin_horizontal"
+        android:layout_marginTop="@dimen/fragment_nearby_restaurants_near_text_margin_top"
         android:fontFamily="@font/open_sans_bold"
         android:text="Restaurants by near you"
-        android:textColor="#ffffff"
-        android:textSize="25sp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/fragment_nearby_restaurants_near_text_size"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/restaurant_list_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
-        android:clipChildren="false"
-        app:layout_constraintBottom_toBottomOf="@+id/nearby_restaurants_container_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text" />
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/restaurant_list_container"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="19dp"-->
+        <!--android:clipChildren="false"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/nearby_restaurants_container_background"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--android:visibility="invisible"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/text" />-->
 
     <com.yarolegovich.discretescrollview.DiscreteScrollView
         android:id="@+id/nearby_restaurant_picker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="45dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="@dimen/fragment_nearby_restaurants_picker_margin_bottom"
+        android:layout_marginTop="@dimen/fragment_nearby_restaurants_picker_margin_top"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

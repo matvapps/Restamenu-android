@@ -8,10 +8,10 @@
 
         <ImageView
             android:id="@+id/specials_icon"
-            android:layout_width="31dp"
-            android:layout_height="31dp"
+            android:layout_width="@dimen/special_item_size"
+            android:layout_height="@dimen/special_item_size"
             android:layout_gravity="center"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="@dimen/special_item_margin_end"
             android:src="@drawable/ic_hot_full"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

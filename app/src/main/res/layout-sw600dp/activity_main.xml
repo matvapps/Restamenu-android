@@ -12,7 +12,7 @@
     <include
         layout="@layout/toolbar_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="?actionBarSize" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -39,8 +39,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/grey"
-                android:paddingBottom="@dimen/activity_main_search_container_padding_top"
-                android:paddingTop="@dimen/activity_main_search_container_padding_top"
+                android:paddingBottom="35dp"
+                android:paddingTop="35dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/nearby_list_container">
@@ -72,7 +72,7 @@
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray" />
+                        android:background="#e6e6e6" />
 
 
                     <LinearLayout
@@ -106,7 +106,7 @@
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray" />
+                        android:background="#e6e6e6" />
 
                     <LinearLayout
                         android:id="@+id/dropdown_menu_cuisine"

@@ -18,7 +18,6 @@ import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Contact;
 import com.restamenu.model.content.Image;
 import com.restamenu.model.content.Promotion;
-import com.restamenu.util.DimensionUtil;
 import com.restamenu.util.Logger;
 import com.restamenu.views.custom.ServiceButton;
 import com.squareup.picasso.Picasso;
@@ -146,7 +145,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 OrderTypeSpinnerAdapter orderTypeSpinnerAdapter = new OrderTypeSpinnerAdapter(holder.itemView.getContext(),
                         serviceTypes, serviceItemType.getData(), selectedService);
                 viewHolder.spinner.setAdapter(orderTypeSpinnerAdapter);
-                viewHolder.spinner.setDropDownVerticalOffset((int) DimensionUtil.convertDpToPixel( 76 , holder.itemView.getContext()));
+                viewHolder.spinner.setDropDownVerticalOffset((int) viewHolder.itemView.getContext().getResources().getDimension(R.dimen.order_type_item_height));
                 viewHolder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

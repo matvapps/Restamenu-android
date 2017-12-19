@@ -48,12 +48,10 @@
 
                 <ImageView
                     android:id="@+id/category_arrow_left"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="24dp"
-                    android:padding="16dp"
+                    android:layout_width="@dimen/activity_category_arrow_left_size"
+                    android:layout_height="@dimen/activity_category_arrow_left_size"
+                    android:layout_marginStart="@dimen/activity_category_arrow_left_margin_start"
+                    android:padding="@dimen/activity_category_arrow_left_padding"
                     android:src="@drawable/ic_rounded_arrow_white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -63,13 +61,10 @@
                     android:id="@+id/category_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_margin="@dimen/activity_category_title_margin"
                     android:fontFamily="@font/gotham_pro_bold"
                     android:textColor="@color/white"
-                    android:textSize="28sp"
+                    android:textSize="@dimen/activity_category_title_text_size"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/category_arrow_right"
@@ -79,12 +74,12 @@
 
                 <ImageView
                     android:id="@+id/category_arrow_right"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginTop="24dp"
-                    android:padding="16dp"
+                    android:layout_width="@dimen/activity_category_arrow_left_size"
+                    android:layout_height="@dimen/activity_category_arrow_left_size"
+                    android:layout_marginBottom="@dimen/activity_category_arrow_left_margin_bottom"
+                    android:layout_marginEnd="@dimen/activity_category_arrow_left_margin_start"
+                    android:layout_marginTop="@dimen/activity_category_arrow_left_margin_top"
+                    android:padding="@dimen/activity_category_arrow_left_padding"
                     android:rotation="180"
                     android:src="@drawable/ic_rounded_arrow_white"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -105,8 +100,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_margin="16dp"
+                    android:layout_height="@dimen/activity_category_search_edit_height"
+                    android:layout_margin="@dimen/activity_category_search_edit_margin"
                     android:background="@drawable/round_rect_stroke_grey"
                     android:orientation="horizontal">
 
@@ -115,14 +110,13 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="@dimen/activity_category_edit_text_margin_start"
                         android:layout_weight="8"
                         android:background="@android:color/transparent"
-                        android:focusableInTouchMode="false"
                         android:fontFamily="@font/open_sans"
                         android:hint="Start typing the name..."
-                        android:textColor="#80000000"
-                        android:textSize="14sp" />
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/activity_category_edit_text_size" />
 
 
                     <View
@@ -131,23 +125,8 @@
                         android:background="@android:color/darker_gray" />
 
 
-                    <!--<com.exblr.dropdownmenu.DropdownMenu-->
-                        <!--android:id="@+id/dropdown_menu"-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:layout_margin="1dp"-->
-                        <!--android:layout_weight="2.5"-->
-                        <!--app:ddmBorderColor="#EEEEEE"-->
-                        <!--app:ddmDividerColor="#DDDDDD"-->
-                        <!--app:ddmDividerPadding="13dp"-->
-                        <!--app:ddmTabIconNormal="@drawable/ic_arrow_down"-->
-                        <!--app:ddmTabIconSelected="@drawable/ic_arrow_down"-->
-                        <!--app:ddmTabTextColorNormal="@color/dusty_red"-->
-                        <!--app:ddmTabTextColorSelected="#a4272d"-->
-                        <!--app:ddmTabTextSize="14sp" />-->
-
-
                     <LinearLayout
+                        android:id="@+id/button_find"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
@@ -156,8 +135,8 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
+                            android:layout_width="@dimen/activity_category_search_icon_size"
+                            android:layout_height="@dimen/activity_category_search_icon_size"
                             android:src="@drawable/ic_find" />
 
                     </LinearLayout>
@@ -170,9 +149,9 @@
                 android:id="@+id/product_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginEnd="@dimen/activity_category_product_list_margin"
+                android:layout_marginStart="@dimen/activity_category_product_list_margin"
+                android:layout_marginTop="@dimen/activity_category_product_list_margin"
                 android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

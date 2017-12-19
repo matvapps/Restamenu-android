@@ -8,6 +8,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,6 +48,8 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     private TextView nextCategoryName;
     private NestedScrollView nestedScrollView;
     private TextView toolbarRestaurantTitle;
+    private EditText findEditText;
+    private View buttonFind;
     private View toolbarBack;
 
     private String restaurantTitle;
@@ -83,6 +86,7 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         Logger.log("Products : " + products.toString());
 
         productAdapter.setItems(products);
+
     }
 
     public void changeCategoryTo(int categoryId) {
@@ -192,6 +196,10 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         btnTopCategoryNext = findViewById(R.id.category_arrow_right);
         txtCategoryName = findViewById(R.id.category_title);
         productsRecycler = findViewById(R.id.product_list);
+
+        buttonFind = findViewById(R.id.button_find);
+        findEditText = findViewById(R.id.search_edit_text);
+
         // For tablet
         btnBottomCategoryPrevious = findViewById(R.id.previous_category_button);
         btnBottomCategoryNext = findViewById(R.id.next_category_button);
@@ -201,17 +209,19 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         toolbarBack = findViewById(R.id.back_to_category);
 
         if (isTablet())
-            toolbarBack.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    finish();
-                }
-            });
+            toolbarBack.setOnClickListener(view -> finish());
 
 
         productAdapter = new ProductAdapter();
         productsRecycler.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.product_span_count)));
         productsRecycler.setAdapter(productAdapter);
+
+
+        buttonFind.setOnClickListener(view -> {
+            if (!findEditText.getText().toString().equals(""))
+                productAdapter.findProductBy(findEditText.getText().toString());
+        });
+
 
         if (isTablet()) {
             btnBottomCategoryNext.setOnClickListener(this);

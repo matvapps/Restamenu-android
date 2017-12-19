@@ -4,4 +4,4 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:scaleType="centerCrop"
-    android:layout_height="380dp"/>
+    android:layout_height="@dimen/restaurant_item_image_height"/>

@@ -305,6 +305,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         restaurantPhoneView.setText(data.getPhones().get(0));
         restaurantOpeningHours.setText(data.getTiming().get(0));
 
+
         if (!isTablet()) {
 
             int aboutTitlePos = getResources().getInteger(R.integer.about_title_pos);
@@ -341,20 +342,6 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
                 return;
             selectedService = data.getServices().get(0);
             //Set up select service buttons
-
-            if (data.getServices().size() < 3) {
-                if (!data.getServices().contains(1)) {
-                    serviceAtRestaurant.setAvailable(false);
-                }
-                if (!data.getServices().contains(2)) {
-                    serviceTakeAway.setAvailable(false);
-                }
-                if (!data.getServices().contains(3)) {
-                    serviceDelivery.setAvailable(false);
-                }
-
-            }
-
             switch (selectedService) {
                 case 1:
                     serviceAtRestaurant.setServiceSelected(true);
@@ -377,6 +364,22 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
                     serviceDelivery.setServiceSelected(false);
                     break;
             }
+
+
+            if (data.getServices().size() < 3) {
+                if (!data.getServices().contains(1)) {
+                    serviceAtRestaurant.setAvailable(false);
+                }
+                if (!data.getServices().contains(2)) {
+                    serviceTakeAway.setAvailable(false);
+                }
+                if (!data.getServices().contains(3)) {
+                    serviceDelivery.setAvailable(false);
+                }
+
+            }
+
+
         }
 
         //load restaurant background

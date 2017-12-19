@@ -17,17 +17,95 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--<ImageView-->
-        <!--android:layout_width="20dp"-->
-        <!--android:layout_height="20dp"-->
-        <!--android:layout_gravity="start|center_vertical"-->
-        <!--android:src="@drawable/ic_burger_menu"/>-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/back_to_category"
+            android:layout_width="65dp"
+            android:layout_height="32dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rect_fill_stroke_grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="3dp"
+                android:layout_height="6dp"
+                android:layout_marginStart="5dp"
+                android:rotation="-180"
+                android:src="@drawable/ic_arrow_small"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/back" />
+
+            <TextView
+                android:id="@+id/back"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="7dp"
+                android:fontFamily="@font/open_sans"
+                android:gravity="center_horizontal"
+                android:text="Back"
+                android:textColor="#000000"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/order_container"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:minWidth="95dp"
+            android:layout_marginStart="18dp"
+            android:background="@drawable/round_rect_stroke_grey"
+            android:backgroundTint="@color/dusty_red"
+            app:layout_constraintBottom_toBottomOf="@+id/back_to_category"
+            app:layout_constraintStart_toEndOf="@+id/back_to_category"
+            app:layout_constraintTop_toTopOf="@+id/back_to_category"
+            app:layout_constraintVertical_bias="0.521">
+
+            <ImageView
+                android:id="@+id/order_icon"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginStart="9dp"
+                android:src="@drawable/ic_buy"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/order_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/order_text"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/order_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Order: $0"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/order_icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
 
         <LinearLayout
-            android:id="@+id/logo_container"
+            android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_marginStart="8dp"
             android:orientation="vertical"
             android:layout_marginEnd="?attr/actionBarSize"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -35,16 +113,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/logo"
-                android:layout_width="170dp"
-                android:layout_height="40dp"
+
+            <TextView
+                android:id="@+id/toolbar_restaurant_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/logo" />
+                android:maxWidth="500dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:fontFamily="@font/open_sans_bold"
+                android:gravity="center"
+                tools:text="Serafina Dubai"
+                android:textColor="@color/dusty_red"
+                android:textSize="24sp" />
 
         </LinearLayout>
-
-
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/lang_container"

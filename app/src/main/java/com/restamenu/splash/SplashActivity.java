@@ -124,12 +124,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 .thenAnimate(splashCursorImage)
                 .duration(250)
-                .onStop(new AnimationListener.Stop() {
-                    @Override
-                    public void onStop() {
-                        splashCursorImage.setImageResource(R.drawable.circle_red_shape);
-                    }
-                })
+                .onStop(() -> splashCursorImage.setImageResource(R.drawable.circle_red_shape))
                 .scaleY(5f, 5f)
 
                 // from line to dot
@@ -160,12 +155,7 @@ public class SplashActivity extends AppCompatActivity {
                 .translationY(0, getResources().getDimension(R.dimen.title_shift_margin))
                 .alpha(0, 1)
 
-                .onStop(new AnimationListener.Stop() {
-                    @Override
-                    public void onStop() {
-                        showMainScreen();
-                    }
-                })
+                .onStop(() -> showMainScreen())
                 .start();
 
 

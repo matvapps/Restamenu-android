@@ -231,7 +231,7 @@
                 android:id="@+id/item_recycler_order_list"
                 layout="@layout/order_type_item"
                 android:layout_width="0dp"
-                android:layout_height="99dp"
+                android:layout_height="110dp"
                 android:layout_marginEnd="53dp"
                 android:layout_marginStart="348dp"
                 android:nestedScrollingEnabled="false"
@@ -325,7 +325,7 @@
                 android:tag="sticky"
                 app:layout_constraintLeft_toLeftOf="@+id/gallery_list_title"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recycler_promotions_list"></View>
+                app:layout_constraintTop_toBottomOf="@+id/recycler_promotions_list"/>
 
             <TextView
                 android:id="@+id/about_text_title"

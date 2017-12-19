@@ -11,12 +11,11 @@
     <include
         layout="@layout/toolbar_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="?attr/actionBarSize" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.restamenu.main.MainActivity">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,15 +33,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/grey"
-                android:paddingBottom="24dp"
-                android:paddingTop="24dp">
+                android:paddingBottom="@dimen/activity_main_search_container_padding_vertical"
+                android:paddingTop="@dimen/activity_main_search_container_padding_vertical">
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginStart="24dp"
+                    android:layout_height="@dimen/activity_main_search_container_height"
+                    android:layout_marginEnd="@dimen/activity_main_search_container_margin_horizontal"
+                    android:layout_marginStart="@dimen/activity_main_search_container_margin_horizontal"
                     android:background="@drawable/round_rect_stroke_grey"
                     android:orientation="horizontal">
 
@@ -51,19 +50,19 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="@dimen/activity_main_search_edit_text_margin_start"
                         android:layout_weight="8"
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/open_sans"
                         android:hint="Start typing the name..."
-                        android:textColor="#80000000"
-                        android:textSize="15sp" />
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/activity_main_search_edit_text_size" />
 
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray" />
+                        android:background="#e6e6e6" />
 
 
                     <LinearLayout
@@ -78,16 +77,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Filter"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginEnd="6dp"
+                            android:layout_marginStart="@dimen/activity_main_dropdown_institute_text_margin_start"
+                            android:layout_marginEnd="@dimen/activity_main_dropdown_institute_margin_end"
                             android:layout_gravity="center"
-                            android:textColor="#c33c43"
-                            android:textSize="15sp"/>
+                            android:textColor="@color/dusty_red"
+                            android:textSize="@dimen/activity_main_dropdown_institute_text_size"/>
 
                         
                         <ImageView
-                            android:layout_width="9dp"
-                            android:layout_height="6dp"
+                            android:layout_width="@dimen/activity_main_dropdown_arrow_width"
+                            android:layout_height="@dimen/activity_main_dropdown_arrow_height"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_arrow"/>
 
@@ -103,8 +102,8 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
+                            android:layout_width="@dimen/activity_main_search_icon_size"
+                            android:layout_height="@dimen/activity_main_search_icon_size"
                             android:src="@drawable/ic_find" />
 
                     </LinearLayout>
@@ -117,11 +116,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/activity_main_restaurants_in_margin_bottom"
-                android:layout_marginTop="@dimen/activity_main_restaurants_in_margin_top"
+                android:layout_marginBottom="@dimen/activity_main_title_margin_bottom"
+                android:layout_marginTop="@dimen/activity_main_title_margin_top"
                 android:text="Restaurants in Dubai"
                 android:textColor="@color/black"
-                android:textSize="19.5sp"
+                android:textSize="@dimen/activity_main_title_text_size"
                 android:textStyle="bold" />
 
             <android.support.v7.widget.RecyclerView
@@ -130,16 +129,6 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:nestedScrollingEnabled="false" />
-
-
-            <!--<android.support.v7.widget.RecyclerView-->
-            <!--android:id="@+id/item_type"-->
-            <!--android:layout_marginRight="16dp"-->
-            <!--android:layout_marginLeft="16dp"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:nestedScrollingEnabled="false"/>-->
 
         </LinearLayout>
 

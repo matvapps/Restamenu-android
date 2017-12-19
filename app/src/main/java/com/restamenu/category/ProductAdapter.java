@@ -26,21 +26,34 @@ import static android.widget.LinearLayout.HORIZONTAL;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     private List<Product> items;
+    private List<Product> defaultList;
 
     ProductAdapter() {
         items = new ArrayList<>();
+        defaultList = new ArrayList<>();
     }
 
     public void addItems(List<Product> data) {
+        defaultList.addAll(data);
         items.addAll(data);
         notifyDataSetChanged();
     }
 
     public void setItems(List<Product> data) {
         items.clear();
+        defaultList.clear();
+
+        defaultList.addAll(data);
         items.addAll(data);
         notifyDataSetChanged();
     }
+
+    public void updateItems(List<Product> data) {
+        items.clear();
+        items.addAll(data);
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public ProductAdapter.ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -84,6 +97,24 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+
+    public void findProductBy(String characters) {
+        List<Product> result = new ArrayList<>();
+
+        for(int i = 0; i < defaultList.size(); i++) {
+            Product product = defaultList.get(i);
+
+            if (product.getName().toLowerCase()
+                    .contains(characters.toLowerCase())) {
+
+                result.add(product);
+
+            }
+        }
+
+        updateItems(result);
     }
 
 

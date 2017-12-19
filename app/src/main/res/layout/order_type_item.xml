@@ -3,7 +3,7 @@
     android:id="@+id/order_type_spinner"
     style="@style/Widget.AppCompat.Spinner"
     android:layout_width="match_parent"
-    android:layout_height="76dp"
+    android:layout_height="@dimen/order_type_item_height"
     android:background="@android:color/transparent"
     android:drawSelectorOnTop="true"
     android:spinnerMode="dropdown" />

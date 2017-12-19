@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="348dp"
-    android:layout_height="@dimen/restaurant_gallery_item_height">
+    android:layout_height="295dp">
 
     <ImageView
         android:id="@+id/scroll_it_image"

@@ -3,21 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginRight="8dp">
+    android:layout_marginEnd="@dimen/special_item_big_margin_end">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="@dimen/special_item_big_margin_vertical"
+        android:layout_marginEnd="@dimen/special_item_big_margin_vertical"
         android:background="@drawable/rounded_rect_white"
         android:gravity="center_vertical"
-        android:padding="8dp">
+        android:padding="@dimen/special_item_big_padding">
 
         <ImageView
             android:id="@+id/specials_icon"
-            android:layout_width="17dp"
-            android:layout_height="17dp"
+            android:layout_width="@dimen/special_item_big_icon_size"
+            android:layout_height="@dimen/special_item_big_icon_size"
             android:layout_gravity="center"
             android:src="@drawable/ic_hot" />
 
@@ -25,12 +25,11 @@
             android:id="@+id/specials_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
+            android:layout_marginLeft="@dimen/special_item_big_text_margin_horizontal"
+            android:layout_marginRight="@dimen/special_item_big_text_margin_horizontal"
             android:fontFamily="@font/open_sans"
-            android:lineSpacingExtra="5sp"
             android:textColor="@color/black"
-            android:textSize="10sp"
+            android:textSize="@dimen/special_item_big_text_size"
             tools:text="30% discount" />
 
     </LinearLayout>
