@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,12 +22,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.ViewHolder> {
+public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.ViewHolder> implements Filterable {
 
     private Context context;
     private List<Restaurant> restaurants;
     private List<Institute> instituteList;
     private RestaurantClickListener listener;
+    private RestaurantFilter filter;
 
     public RestaurantListAdapter(Context context, RestaurantClickListener listener) {
         this.restaurants = new ArrayList<>();
@@ -37,6 +40,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     public void setData(List<Restaurant> data) {
         this.restaurants.clear();
         this.restaurants.addAll(data);
+        this.filter = new RestaurantFilter(this, data);
         notifyDataSetChanged();
     }
 
@@ -69,24 +73,16 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         return new ViewHolder(rootView);
     }
 
+
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         final Restaurant item = restaurants.get(position);
-//        Restaurant restaurant = restaurants.get(position);
 
         holder.restaurantTitleTextView.setText(item.getName());
         holder.itemView.setOnClickListener(click -> listener.onRestaurantClicked(item.getId()));
 
-//        WindowManager windowManager = (WindowManager) context
-//                .getSystemService(Context.WINDOW_SERVICE);
-
-//        Display display = windowManager.getDefaultDisplay();
-//        DisplayMetrics outMetrics = new DisplayMetrics ();
-//        display.getMetrics(outMetrics);
-//
-//        float density  = context.getResources().getDisplayMetrics().density;
-//        float dpWidth  = outMetrics.widthPixels / density;
 
         String path = BuildConfig.BASE_URL + item.getImage().substring(1, item.getImage().length());
 
@@ -154,6 +150,49 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         return "";
     }
 
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+
+    public class RestaurantFilter extends Filter {
+        private RestaurantListAdapter restaurantListAdapter;
+        private List<Restaurant> dictionaryWords;
+        private List<Restaurant> filteredList;
+
+        RestaurantFilter(RestaurantListAdapter restaurantListAdapter, List<Restaurant> dictionaryWords) {
+            super();
+            this.restaurantListAdapter = restaurantListAdapter;
+            this.dictionaryWords = dictionaryWords;
+            filteredList = dictionaryWords;
+        }
+
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            filteredList.clear();
+            final FilterResults results = new FilterResults();
+            if (charSequence.length() == 0) {
+                filteredList.addAll(dictionaryWords);
+            } else {
+                final String filterPattern = charSequence.toString().toLowerCase().trim();
+                for (Restaurant restaurant: dictionaryWords) {
+                    if (restaurant.getName().startsWith(filterPattern)) {
+                        filteredList.add(restaurant);
+                    }
+                }
+            }
+            System.out.println("Count Number " + filteredList.size());
+            results.values = filteredList;
+            results.count = filteredList.size();
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            this.restaurantListAdapter.notifyDataSetChanged();
+        }
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

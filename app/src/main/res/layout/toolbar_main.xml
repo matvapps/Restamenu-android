@@ -9,6 +9,7 @@
     android:elevation="0dp"
     android:gravity="center"
     app:elevation="0dp"
+    app:layout_collapseMode="pin"
     app:navigationIcon="@drawable/ic_burger_menu"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -30,7 +31,6 @@
             android:layout_height="25dp"
             android:layout_gravity="center"
             android:layout_marginEnd="?attr/actionBarSize"
-            android:gravity="center"
             android:src="@drawable/logo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -52,12 +52,14 @@
 
             <ImageView
                 android:id="@+id/currency"
-                android:layout_width="11dp"
-                android:layout_height="11dp"
-                android:layout_marginStart="9dp"
+                android:layout_width="12dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="13dp"
                 android:src="@drawable/ic_pin_red"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/currency_title"
+                app:layout_constraintEnd_toStartOf="@+id/currency_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/currency_title" />
 
@@ -65,24 +67,23 @@
                 android:id="@+id/currency_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center_horizontal"
                 android:text="City"
                 android:textColor="#000000"
-                android:textSize="11sp"
+                android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/arrow2"
-                app:layout_constraintStart_toEndOf="@+id/currency"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
             <ImageView
                 android:id="@+id/arrow2"
-                android:layout_width="6.5dp"
-                android:layout_height="4dp"
-                android:layout_marginEnd="7dp"
+                android:layout_width="5dp"
+                android:layout_height="7dp"
+                android:layout_marginEnd="12dp"
                 android:src="@drawable/ic_arrow_small"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

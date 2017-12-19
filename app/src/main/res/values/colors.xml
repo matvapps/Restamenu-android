@@ -11,12 +11,12 @@
     <color name="brownish_grey">#666666</color>
     <color name="black">#000000</color>
     <color name="semi_grey">#33000000</color>
-    <color name="dusty_red">#c33c43</color>
     <color name="greyish">#e6e6e6</color>
     <color name="white_70">#b3ffffff</color>
     <color name="grey">#f0f0f0</color>
+    <color name="dusty_red">#c33c43</color>
+    <color name="sick_green">#99cc33</color>
     <color name="golden">#f8c700</color>
-
     <color name="test_purple">#350b3d</color>
     <color name="test_rose">#681d60</color>
     <color name="warm_grey_66">#a8999999</color>

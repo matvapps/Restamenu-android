@@ -48,7 +48,8 @@ public class PromotionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         PromotionViewHolder promotionViewHolder = (PromotionViewHolder) holder;
 
-        promotionViewHolder.background.setImageResource(R.drawable.restaurants);
+        //TODO:
+//        promotionViewHolder.background.setImageResource(R.drawable.restaurants);
 
     }
 

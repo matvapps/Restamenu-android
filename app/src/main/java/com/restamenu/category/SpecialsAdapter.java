@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.restamenu.R;
+import com.restamenu.util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,7 @@ public class SpecialsAdapter extends RecyclerView.Adapter<SpecialsAdapter.Specia
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.special_item_layout, parent, false);
 
+
         return new SpecialViewHolder(view);
     }
 
@@ -58,8 +60,17 @@ public class SpecialsAdapter extends RecyclerView.Adapter<SpecialsAdapter.Specia
 
         if (items.size() < 2)
             holder.name.setText(items.get(position));
-
-
+        else {
+            String name = items.get(position).toLowerCase();
+            Logger.log(name);
+            if (name.contains(Specials.DISCOUNT.getType())) {
+                holder.icon.setImageResource(R.drawable.ic_love_full);
+            } else if (name.contains(Specials.SPICY.getType())) {
+                holder.icon.setImageResource(R.drawable.ic_hot_full);
+            } else if (name.contains(Specials.VEGETARIAN.getType())) {
+                holder.icon.setImageResource(R.drawable.ic_list_full);
+            }
+        }
 
     }
 

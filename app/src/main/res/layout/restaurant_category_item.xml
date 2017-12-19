@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dish_category_item_background_height"
         android:scaleType="centerCrop"
-        android:src="@drawable/restaurants"
+        android:background="@color/greyish"
         app:riv_corner_radius="@dimen/dish_category_item_background_radius" />
 
     <TextView

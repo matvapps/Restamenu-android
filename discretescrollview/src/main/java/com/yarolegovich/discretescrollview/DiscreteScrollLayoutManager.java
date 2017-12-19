@@ -146,7 +146,7 @@ class DiscreteScrollLayoutManager extends RecyclerView.LayoutManager {
     }
 
     private void updateRecyclerDimensions() {
-        recyclerCenter.set(childHalfWidth + childHalfWidth / 10, getHeight() / 2);
+        recyclerCenter.set(childHalfWidth, getHeight() / 2);
     }
 
     private void fill(RecyclerView.Recycler recycler) {

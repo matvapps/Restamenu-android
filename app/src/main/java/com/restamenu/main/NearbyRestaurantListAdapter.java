@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Restaurant> restaurants;
@@ -83,14 +82,14 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerVi
 
         Restaurant restaurant = restaurants.get(position);
 
-        if(holder instanceof ScrollItViewHolder)
+        if (holder instanceof ScrollItViewHolder)
             return;
 
         ViewHolder cardHolder = (ViewHolder) holder;
 
         cardHolder.restaurantTitleTextView.setText(restaurants.get(position).getName());
         cardHolder.restaurantStreetTextView.setText(restaurants.get(position).getAddress());
-        cardHolder.restaurantDistanceTextView.setText((int)(restaurants.get(position).getDistance()) + "m");
+        cardHolder.restaurantDistanceTextView.setText((int) (restaurants.get(position).getDistance()) + "m");
 
         String path = BuildConfig.BASE_URL + restaurant.getImage().substring(1, restaurant.getImage().length());
 
@@ -142,7 +141,6 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerVi
         }
 
 
-
     }
 
 
@@ -185,7 +183,7 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerVi
         this.useScrollIt = useScrollIt;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         View rootView;
         ImageView restaurantBackgroundImageView;

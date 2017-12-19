@@ -121,7 +121,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/open_sans_bold"
                 android:gravity="center"
-                android:text="Serafina Dubai"
+                tools:text="Serafina Dubai"
                 android:textColor="@color/dusty_red"
                 android:textSize="24sp" />
 

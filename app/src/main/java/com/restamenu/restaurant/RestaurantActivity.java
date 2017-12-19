@@ -41,6 +41,9 @@ import com.restamenu.util.Logger;
 import com.restamenu.views.custom.ServiceButton;
 import com.restamenu.views.custom.StickyScrollView;
 import com.squareup.picasso.Picasso;
+import com.yarolegovich.discretescrollview.DiscreteScrollView;
+import com.yarolegovich.discretescrollview.Orientation;
+import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +88,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     private RecyclerView categoriesListRecycle;
     private RecyclerView promotionsListRecycle;
     private RecyclerView galleryListRecycle;
+    private DiscreteScrollView galleryList;
     private RecyclerView contactsListRecycle;
     private TextView aboutContentText;
     private ImageView mapImageView;
@@ -127,9 +131,9 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
     @Override
     protected void initViews() {
-        scrollView = findViewById(R.id.scroll_container);
         scrollBounds = new Rect();
 
+        galleryList = findViewById(R.id.recycler_gallery);
         restaurantTitleView = findViewById(R.id.restaurant_title);
         restaurantTypeView = findViewById(R.id.restaurant_type);
         restaurantAddressView = findViewById(R.id.restaurant_address);
@@ -139,16 +143,15 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         restaurantImage = findViewById(R.id.restaurant_image);
         restaurantBackground = findViewById(R.id.restaurant_background);
         recycler = findViewById(R.id.recycler);
-        galleryListRecycle = findViewById(R.id.recycler_gallery_list);
 
 
-        galleryListRecycle.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         galleryAdapter = new GalleryAdapter();
-        galleryListRecycle.setAdapter(galleryAdapter);
 
 
         if (isTablet()) {
+            scrollView = findViewById(R.id.scroll_container);
 
+            galleryListRecycle = findViewById(R.id.recycler_gallery_list);
             categoriesListRecycle = findViewById(R.id.recycler_categories_list);
             promotionsListRecycle = findViewById(R.id.recycler_promotions_list);
             contactsListRecycle = findViewById(R.id.recycler_contacts_list);
@@ -164,11 +167,12 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             contactsListRecycle.setHasFixedSize(true);
             contactsListRecycle.setLayoutManager(new LinearLayoutManager(RestaurantActivity.this, LinearLayoutManager.HORIZONTAL, false));
 
+            galleryListRecycle.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            galleryListRecycle.setAdapter(galleryAdapter);
 
             categoriesAdapter = new CategoriesAdapter();
             promotionsAdapter = new PromotionsAdapter();
             contactsAdapter = new ContactsAdapter();
-
 
             categoriesListRecycle.setAdapter(categoriesAdapter);
             promotionsListRecycle.setAdapter(promotionsAdapter);
@@ -188,44 +192,41 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
             initNavigationMenu();
 
-            scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-                @Override
-                public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    Logger.log("Y: " + scrollY + " Old Y: " + oldScrollY);
-                    //Check for categories recycler is being visible
-                    if (categoriesListRecycle.getLocalVisibleRect(scrollBounds)) {
-                        if (!categoriesListRecycle.getLocalVisibleRect(scrollBounds)
-                                || scrollBounds.height() < categoriesListRecycle.getHeight()) {
-                            //Logger.log("Categories appear parcialy");
-                        } else {
-                            Logger.log("Categories appeared");
-                            //Scrolling to top
-                            if (scrollY < oldScrollY && checkedTreeItem != 0) {
-                                checkedTreeItem = 0;
-                                navigationTree.check(R.id.nav_menu);
-                            }
-                        }
+            scrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+                Logger.log("Y: " + scrollY + " Old Y: " + oldScrollY);
+                //Check for categories recycler is being visible
+                if (categoriesListRecycle.getLocalVisibleRect(scrollBounds)) {
+                    if (!categoriesListRecycle.getLocalVisibleRect(scrollBounds)
+                            || scrollBounds.height() < categoriesListRecycle.getHeight()) {
+                        //Logger.log("Categories appear parcialy");
                     } else {
-                        //Logger.log("Categories not visible");
-                    }
-
-                    //Check for gallery recycler is being visible
-                    if (galleryListRecycle.getLocalVisibleRect(scrollBounds)) {
-                        if (!galleryListRecycle.getLocalVisibleRect(scrollBounds)
-                                || scrollBounds.height() < galleryListRecycle.getHeight()) {
-                            //Logger.log("Gallery appear parcialy");
-                        } else {
-                            if (scrollY > oldScrollY && checkedTreeItem != 1) {
-                                checkedTreeItem = 1;
-                                navigationTree.check(R.id.nav_photo);
-                                Logger.log("Gallery appeared fully");
-                            }
+                        Logger.log("Categories appeared");
+                        //Scrolling to top
+                        if (scrollY < oldScrollY && checkedTreeItem != 0) {
+                            checkedTreeItem = 0;
+                            navigationTree.check(R.id.nav_menu);
                         }
-                    } else {
-                        //Logger.log("Gallery not visible");
                     }
-
+                } else {
+                    //Logger.log("Categories not visible");
                 }
+
+                //Check for gallery recycler is being visible
+                if (galleryListRecycle.getLocalVisibleRect(scrollBounds)) {
+                    if (!galleryListRecycle.getLocalVisibleRect(scrollBounds)
+                            || scrollBounds.height() < galleryListRecycle.getHeight()) {
+                        //Logger.log("Gallery appear parcialy");
+                    } else {
+                        if (scrollY > oldScrollY && checkedTreeItem != 1) {
+                            checkedTreeItem = 1;
+                            navigationTree.check(R.id.nav_photo);
+                            Logger.log("Gallery appeared fully");
+                        }
+                    }
+                } else {
+                    Logger.log("Gallery not visible");
+                }
+
             });
         } else {
             recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -237,7 +238,19 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
                 adapter.add(new AdapterItemType<>("", null, ItemType.TITLE));
             }
             recycler.setAdapter(adapter);
+            galleryList.setAdapter(galleryAdapter);
+
+            galleryList.setOrientation(Orientation.HORIZONTAL);
+            galleryList.setSlideOnFling(true);
+            galleryList.setItemTransitionTimeMillis(430);
+            galleryList.setItemTransformer(new ScaleTransformer.Builder()
+                    .setMinScale(0.85f)
+                    .build());
         }
+
+
+
+
     }
 
     private void changeService(int selectedService) {
@@ -268,7 +281,6 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         presenter.changeCategories(this.selectedService);
     }
 
-
     private void initNavigationMenu() {
         navigationTree = findViewById(R.id.nav_container);
         toMenuBtn = findViewById(R.id.nav_menu);
@@ -285,7 +297,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
     @Override
     public void setData(@NonNull Restaurant data) {
-        Logger.log("Rest: " + data.toString());
+        Logger.log("Restaurant: " + data.toString());
 
         restaurant = data;
         restaurantTitleView.setText(data.getName());
@@ -311,6 +323,12 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             adapter.setSelectedService(data.getServices().get(0));
             adapter.change(new AdapterItemType<>("Select service", data.getServices(), ItemType.ORDER_TYPE_PHONE), selectServicePos);
         } else {
+
+            // add restaurant image
+            String restaurantImageUrl = restaurant.getImage();
+            Picasso.with(this).load(BuildConfig.BASE_URL +
+                    restaurantImageUrl.substring(1, restaurantImageUrl.length())).into(restaurantImage);
+
             // add about
             aboutContentText.setText(Html.fromHtml(data.getInformation()));
 
@@ -369,12 +387,12 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
         setContacts(data);
 
-        scrollView.getHitRect(scrollBounds);
+        if (isTablet())
+            scrollView.getHitRect(scrollBounds);
 
     }
 
     private void setContacts(@NonNull Restaurant data) {
-
         ArrayList<Contact> contacts = new ArrayList<>();
         String stringDivider;
         ItemType itemType;
@@ -443,15 +461,19 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             adapter.change(new AdapterItemType<>(restaurant.getName(), categories, ItemType.MENU_PHONE), menuSectionListPos);
         } else {
             categoriesAdapter.setItems(categories);
+            scrollView.getHitRect(scrollBounds);
+
         }
-        scrollView.getHitRect(scrollBounds);
     }
 
     @Override
     public void setGallery(@NonNull List<Image> images) {
         Logger.log("Gallery: " + images.toString());
         galleryAdapter.setItems(images);
-        scrollView.getHitRect(scrollBounds);
+
+        if (isTablet())
+            scrollView.getHitRect(scrollBounds);
+
     }
 
     @Override
@@ -467,7 +489,8 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             adapter.change(new AdapterItemType<>("Restaurant promotions", null, ItemType.TITLE), promotionsTitlePos);
             adapter.change(new AdapterItemType<>(null, promotions, ItemType.PROMOTIONS), promotionsListPos);
         }
-        scrollView.getHitRect(scrollBounds);
+        if (isTablet())
+            scrollView.getHitRect(scrollBounds);
 
     }
 
@@ -482,7 +505,9 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         }
 
         restaurantTypeView.setText(instituteText.toString());
-        scrollView.getHitRect(scrollBounds);
+
+        if (isTablet())
+            scrollView.getHitRect(scrollBounds);
     }
 
     @Override

@@ -6,5 +6,5 @@
     android:layout_height="294dp"
     android:layout_marginEnd="@dimen/restaurant_gallery_item_margin_start"
     android:scaleType="centerCrop"
-    android:src="@drawable/restaurants"
+    android:background="@color/greyish"
     app:riv_corner_radius="@dimen/restaurant_gallery_item_radius" />

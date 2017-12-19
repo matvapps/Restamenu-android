@@ -54,7 +54,7 @@
             <ImageView
                 android:id="@+id/currency"
                 android:layout_width="11dp"
-                android:layout_height="11dp"
+                android:layout_height="15dp"
                 android:layout_marginStart="9dp"
                 android:src="@drawable/ic_pin_red"
                 android:textColor="@color/black"
@@ -73,7 +73,7 @@
                 android:gravity="center_horizontal"
                 android:text="City"
                 android:textColor="#000000"
-                android:textSize="11sp"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/arrow2"
                 app:layout_constraintStart_toEndOf="@+id/currency"

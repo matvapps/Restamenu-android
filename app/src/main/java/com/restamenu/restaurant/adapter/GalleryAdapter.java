@@ -60,10 +60,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        ImageViewHolder imageViewHolder = (ImageViewHolder) holder;
+        if (!useScrollIt) {
+            //TODO:
+//            imageViewHolder.photo.setImageResource(R.drawable.restaurants);
+        } else if (position > 0 && useScrollIt) {
 
-        if (position != 0) {
-            ImageViewHolder imageViewHolder = (ImageViewHolder) holder;
-            imageViewHolder.photo.setImageResource(R.drawable.restaurants);
         }
     }
 

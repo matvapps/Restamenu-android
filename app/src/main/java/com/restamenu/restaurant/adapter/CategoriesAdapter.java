@@ -76,7 +76,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         Category category = items.get(position);
 
         // TODO: load image
-        categoryViewHolder.background.setImageResource(R.drawable.restaurants);
+//        categoryViewHolder.background.setImageResource(R.drawable.restaurants);
         categoryViewHolder.name.setText(category.getName());
 
         categoryViewHolder.itemView.setOnClickListener(view -> {

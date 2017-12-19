@@ -6,9 +6,9 @@ package com.restamenu.category;
 
 public enum Specials {
 
-    SPICY("Spicy"),
-    DISCOUNT("Discount"),
-    VEGETARIAN("Vegetarian");
+    SPICY("spicy"),
+    DISCOUNT("discount"),
+    VEGETARIAN("vegetarian");
 
     private final String name;
 

@@ -70,7 +70,6 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
             nearbyRestaurantPicker.setOrientation(Orientation.HORIZONTAL);
             nearbyRestaurantPicker.addOnItemChangedListener(this);
             nearbyRestaurantPicker.setSlideOnFling(true);
-            nearbyRestaurantPicker.setOffscreenItems(2);
             nearbyRestaurantPicker.setItemTransitionTimeMillis(430);
             nearbyRestaurantPicker.setItemTransformer(new ScaleTransformer.Builder()
                     .setMinScale(0.85f)

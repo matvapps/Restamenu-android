@@ -1,6 +1,7 @@
 package com.restamenu.category;
 
 import android.annotation.SuppressLint;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +12,12 @@ import android.widget.TextView;
 
 import com.restamenu.R;
 import com.restamenu.model.content.Product;
+import com.restamenu.util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.widget.LinearLayout.HORIZONTAL;
 
 /**
  * Created by Alexandr
@@ -63,6 +67,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             holder.productPriceSub.setText(String.format("%d", product.getPriceOriginal()));
         }
 
+        for (int i = 0; i < items.get(position).getSpecial().size(); i++)
+            Logger.log(items.get(position).getSpecial().get(i));
+
+        SpecialsAdapter specialsAdapter = new SpecialsAdapter();
+        holder.serviceList.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext(), HORIZONTAL, false));
+        holder.serviceList.setAdapter(specialsAdapter);
+
+        specialsAdapter.setItems(items.get(position).getSpecial());
+
+
         holder.productPrice.setText(String.format("%s%d", "$", product.getPrice()));
 
     }
@@ -75,24 +89,24 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
 
-        private View rootView;
         private ImageView productImage;
         private TextView productName;
         private TextView productDescription;
 //        private TextView productMass;
         private TextView productPrice;
         private TextView productPriceSub;
+        private RecyclerView serviceList;
         private EditText productQuantity;
         private View buyContainerView;
 
         public ProductViewHolder(View itemView) {
             super(itemView);
 
-            rootView = itemView;
             productImage = itemView.findViewById(R.id.product_image);
             productName = itemView.findViewById(R.id.product_name);
             productDescription = itemView.findViewById(R.id.product_description);
 //            productMass = itemView.findViewById(R.id.product_mass);
+            serviceList = itemView.findViewById(R.id.service_list);
             productPrice = itemView.findViewById(R.id.product_price);
             productPriceSub = itemView.findViewById(R.id.product_price_sub);
             productQuantity = itemView.findViewById(R.id.product_quantity);

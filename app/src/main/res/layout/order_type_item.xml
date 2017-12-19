@@ -2,8 +2,8 @@
 <Spinner xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/order_type_spinner"
     style="@style/Widget.AppCompat.Spinner"
-        android:layout_width="match_parent"
-    android:layout_height="51dp"
+    android:layout_width="match_parent"
+    android:layout_height="76dp"
     android:background="@android:color/transparent"
     android:drawSelectorOnTop="true"
     android:spinnerMode="dropdown" />
