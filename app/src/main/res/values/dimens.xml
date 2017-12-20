@@ -288,4 +288,9 @@
 	<dimen name="restaurant_category_item_margin">9.4dp</dimen>
 	<dimen name="restaurant_gallery_item_margin_start">8.9dp</dimen>
 	<dimen name="restaurant_nearby_card_margin_start">8.9dp</dimen>
+
+    <!--SearchViews-->
+    <dimen name="search_icon_padding">12dp</dimen>
+    <dimen name="search_view_text_padding">65dp</dimen>
+
 </resources>

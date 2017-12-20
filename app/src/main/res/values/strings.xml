@@ -17,4 +17,6 @@
     <string name="popup_dropdown_title">Select type of %s:</string>
     <string name="scroll_it_text">Scroll it</string>
 
+    <string name="search_hint">Start typing the name...</string>
+
 </resources>

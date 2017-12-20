@@ -1,7 +1,6 @@
 package com.restamenu.main;
 
 import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,17 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 
 import com.github.florent37.viewanimator.ViewAnimator;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.restamenu.BuildConfig;
-import com.restamenu.PopupDropDownAdapter;
-import com.restamenu.PopupFilterItem;
 import com.restamenu.R;
 import com.restamenu.base.BaseNavigationActivity;
 import com.restamenu.model.content.Cusine;
@@ -28,6 +22,7 @@ import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.RestaurantActivity;
 import com.restamenu.util.Logger;
+import com.restamenu.views.search.RestaurantsSearchView;
 import com.squareup.picasso.Picasso;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.Orientation;
@@ -37,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView, List<Restaurant>>
-        implements MainView, RestaurantClickListener, DiscreteScrollView.OnItemChangedListener, GravitySnapHelper.SnapListener {
+        implements MainView, RestaurantClickListener, DiscreteScrollView.OnItemChangedListener, GravitySnapHelper.SnapListener, RestaurantsSearchView.SearchListener {
 
     private View nearbyListContainer;
     private RecyclerView nearbyRestaurantsRecycler;
@@ -46,12 +41,8 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     private RestaurantListAdapter restaurantListAdapter;
     private DiscreteScrollView nearbyRestaurantPicker;
     private ImageView nearbyContainerBackground;
-    private View dropDownMenuCuisine;
-    private View dropDownMenuInstitute;
-    private PopupDropDownAdapter cuisinePopupDropdownAdapter;
-    private PopupDropDownAdapter institutePopupDropdownAdapter;
-    private PopupWindow cuisinePopup;
-    private PopupWindow institutePopup;
+    private RestaurantsSearchView searchView;
+
 
     @Override
     protected void initViews() {
@@ -61,8 +52,6 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         nearbyListContainer = findViewById(R.id.nearby_list_container);
         nearbyListContainer.setVisibility(View.GONE);
         nearbyContainerBackground = findViewById(R.id.nearby_restaurants_container_background);
-        dropDownMenuCuisine = findViewById(R.id.dropdown_menu_cuisine);
-        dropDownMenuInstitute = findViewById(R.id.dropdown_menu_institute);
 
         nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter(MainActivity.this);
 
@@ -77,11 +66,9 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
                     .build());
 
         } else {
-            cuisinePopupDropdownAdapter = new PopupDropDownAdapter();
-            institutePopupDropdownAdapter = new PopupDropDownAdapter();
-
-            dropDownMenuCuisine.setOnClickListener(this::displayCuisinePopupWindow);
-            dropDownMenuInstitute.setOnClickListener(this::displayInstitutePopupWindow);
+            searchView = findViewById(R.id.search_view);
+            searchView.setSearchListener(this);
+            searchView.showSearch(false);
 
             new GravitySnapHelper(Gravity.START, false, this)
                     .attachToRecyclerView(nearbyRestaurantsRecycler);
@@ -120,14 +107,6 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     }
 
-    private void displayCuisinePopupWindow(View anchorView) {
-        cuisinePopup.showAsDropDown(anchorView);
-    }
-
-    private void displayInstitutePopupWindow(View anchorView) {
-        institutePopup.showAsDropDown(anchorView);
-    }
-
     @Override
     protected void attachPresenter() {
         Logger.log("Attach");
@@ -155,6 +134,11 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     public void setData(@NonNull List<Restaurant> data) {
         Logger.log("Amount: " + data.size());
         restaurantListAdapter.setData(data);
+    }
+
+    @Override
+    public void setSuggestion(List<Restaurant> data) {
+        searchView.setSuggestions(data);
     }
 
     @Override
@@ -189,29 +173,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         restaurantListAdapter.setInstituteList(data);
 
         if (isTablet()) {
-
-            institutePopup = new PopupWindow(MainActivity.this);
-            View layout = getLayoutInflater().inflate(R.layout.popup_content, null);
-
-            TextView textView = layout.findViewById(R.id.dropdown_content_title);
-            RecyclerView recyclerView = layout.findViewById(R.id.dropdown_content_grid);
-
-            recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
-            recyclerView.setAdapter(institutePopupDropdownAdapter);
-
-            String titlePattern = getResources().getString(R.string.popup_dropdown_title);
-            textView.setText(String.format(titlePattern, "institutions"));
-
-            for (int i = 0; i < data.size(); i++) {
-                institutePopupDropdownAdapter.addItem(new PopupFilterItem<>(data.get(i), false));
-            }
-
-            institutePopup.setContentView(layout);
-            institutePopup.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-            institutePopup.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
-            institutePopup.setOutsideTouchable(true);
-            institutePopup.setFocusable(true);
-            institutePopup.setBackgroundDrawable(new BitmapDrawable());
+            searchView.setInstitutions(data);
         }
     }
 
@@ -221,30 +183,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
             Logger.log(cusines.get(i).getName());
 
         if (isTablet()) {
-
-            cuisinePopup = new PopupWindow(MainActivity.this);
-            View layout = getLayoutInflater().inflate(R.layout.popup_content, null);
-
-            TextView textView = layout.findViewById(R.id.dropdown_content_title);
-            RecyclerView recyclerView = layout.findViewById(R.id.dropdown_content_grid);
-
-            recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
-            recyclerView.setAdapter(cuisinePopupDropdownAdapter);
-
-            String titlePattern = getResources().getString(R.string.popup_dropdown_title);
-            textView.setText(String.format(titlePattern, "cuisine"));
-
-            for (int i = 0; i < cusines.size(); i++) {
-                cuisinePopupDropdownAdapter.addItem(new PopupFilterItem<>(cusines.get(i), false));
-            }
-
-            cuisinePopup.setContentView(layout);
-            cuisinePopup.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-            cuisinePopup.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
-            cuisinePopup.setOutsideTouchable(true);
-            cuisinePopup.setFocusable(true);
-            cuisinePopup.setBackgroundDrawable(new BitmapDrawable());
-
+            searchView.setCuisines(cusines);
         }
     }
 
@@ -336,6 +275,25 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
             position = 1;
 
         onItemChanged(nearbyRestaurantListAdapter.getItem(position));
+    }
+
+    /**
+     * SearchListener
+     */
+    @Override
+    public void onPerformSearch(CharSequence searchString) {
+        presenter.performSearch(searchString.toString());
+    }
+
+    @Override
+    public void onInstituteChanged(int instituteId) {
 
     }
+
+    @Override
+    public void inCuisineChanged(int cuisineId) {
+    }
+    /**
+     * SearchListener
+     */
 }

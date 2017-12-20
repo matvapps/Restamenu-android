@@ -46,123 +46,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/nearby_list_container">
 
 
-                <LinearLayout
+                <com.restamenu.views.search.RestaurantsSearchView
+                    android:id="@+id/search_view"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="240dp"
                     android:layout_marginRight="240dp"
                     android:background="@drawable/round_rect_stroke_grey"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/search_edit_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="10"
-                        android:background="@android:color/transparent"
-                        android:fontFamily="@font/open_sans"
-                        android:hint="Start typing the name..."
-                        android:textColor="#80000000"
-                        android:textSize="14sp" />
-
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="#e6e6e6" />
-
-
-                    <LinearLayout
-                        android:id="@+id/dropdown_menu_institute"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_margin="1dp"
-                        android:layout_weight="2.2"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginEnd="6dp"
-                            android:layout_marginStart="16dp"
-                            android:text="Institute"
-                            android:textColor="#c33c43"
-                            android:textSize="15sp" />
-
-
-                        <ImageView
-                            android:layout_width="9dp"
-                            android:layout_height="6dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_arrow" />
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="#e6e6e6" />
-
-                    <LinearLayout
-                        android:id="@+id/dropdown_menu_cuisine"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_margin="1dp"
-                        android:layout_weight="2.1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginEnd="6dp"
-                            android:layout_marginStart="16dp"
-                            android:text="Cuisine"
-                            android:textColor="#c33c43"
-                            android:textSize="15sp" />
-
-
-                        <ImageView
-                            android:layout_width="9dp"
-                            android:layout_height="6dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_arrow" />
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:background="@drawable/left_round_red_rect"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_marginEnd="8dp"
-                            android:src="@drawable/ic_find" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:fontFamily="@font/open_sans_semibold"
-                            android:gravity="center_vertical"
-                            android:text="Search"
-                            android:textColor="#ffffff"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
+                    android:gravity="center_vertical"></com.restamenu.views.search.RestaurantsSearchView>
 
 
             </FrameLayout>

@@ -38,6 +38,10 @@ public class MainPresenter implements Presenter<MainView> {
         loadData(width);
     }
 
+    public void performSearch(String keyword) {
+        //TODO
+    }
+
     public void loadData(int width) {
         view.showLoading(true);
 

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="invisible">
+
+    <View
+        android:id="@+id/transparent_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/search_layover_bg"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/search_top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@android:color/white"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10">
+
+                <EditText
+                    android:id="@+id/searchTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="@string/search_hint"
+                    android:imeOptions="actionSearch"
+                    android:inputType="textNoSuggestions"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="@dimen/search_view_text_padding"
+                    android:singleLine="true"
+                    android:textColor="#212121"
+                    android:textColorHint="#727272"
+                    android:textSize="16sp"
+                    tools:text="hih" />
+
+                <ImageButton
+                    android:id="@+id/action_empty_btn"
+                    style="@style/MSV_ImageButton"
+                    android:layout_gravity="right"
+                    android:src="@drawable/ic_action_navigation_close"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#e6e6e6" />
+
+            <LinearLayout
+                android:id="@+id/action_choose_institute"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="1dp"
+                android:layout_weight="2.2"
+                android:background="?selectableItemBackground"
+                android:foreground="?selectableItemBackground"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginStart="16dp"
+                    android:text="Institute"
+                    android:textColor="#c33c43"
+                    android:textSize="15sp" />
+
+
+                <ImageView
+                    android:layout_width="9dp"
+                    android:layout_height="6dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#e6e6e6" />
+
+            <LinearLayout
+                android:id="@+id/action_choose_cuisine"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="1dp"
+                android:layout_weight="2.1"
+                android:background="?selectableItemBackground"
+                android:foreground="?selectableItemBackground"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginStart="16dp"
+                    android:text="Cuisine"
+                    android:textColor="#c33c43"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="9dp"
+                    android:layout_height="6dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/action_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@drawable/left_round_red_rect"
+                android:foreground="?selectableItemBackground"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_find" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:gravity="center_vertical"
+                    android:text="Search"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="#fff"
+            android:backgroundTint="#10000000" />
+
+
+        <ListView
+            android:id="@+id/suggestion_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:divider="@android:color/transparent" />
+    </LinearLayout>
+</FrameLayout>
