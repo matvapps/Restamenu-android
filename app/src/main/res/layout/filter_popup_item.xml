@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:id="@+id/popup_item_chbx"
+        android:layout_width="@dimen/filter_popup_item_chbx_size"
+        android:layout_height="@dimen/filter_popup_item_chbx_size"
+        android:layout_marginBottom="@dimen/filter_popup_item_item_chbx_margin_bottom"
+        android:layout_marginTop="@dimen/filter_popup_item_chbx_margin_top"
+        android:background="@drawable/ic_checkbox_before"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/popup_item_chbx_checked"
+            android:layout_width="@dimen/filter_popup_item_chbx_icon_width"
+            android:layout_height="@dimen/filter_popup_item_chbx_icon_height"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_checkmark_active"
+            android:visibility="invisible" />
+
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/popup_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/filter_popup_item_title_margin_horiz"
+        android:layout_marginStart="@dimen/filter_popup_item_title_margin_horiz"
+        android:ellipsize="end"
+        android:fontFamily="@font/open_sans"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/filter_popup_item_title_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/popup_item_chbx"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/popup_item_chbx"
+        app:layout_constraintTop_toTopOf="@+id/popup_item_chbx"
+        tools:text="Restaurant" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#F1F2F3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>

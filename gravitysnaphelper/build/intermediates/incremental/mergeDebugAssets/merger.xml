@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="D:\Apps\Restamenu\gravitysnaphelper\src\main\assets"/><source path="D:\Apps\Restamenu\gravitysnaphelper\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\Apps\Restamenu\gravitysnaphelper\src\debug\assets"/></dataSet></merger>

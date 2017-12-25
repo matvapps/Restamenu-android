@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible">
+
+    <View
+        android:id="@+id/transparent_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/search_layover_bg"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/search_top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/land_search_view_height"
+            android:background="@android:color/white"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10">
+
+                <EditText
+                    android:id="@+id/searchTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="@string/search_hint"
+                    android:imeOptions="actionSearch"
+                    android:inputType="textNoSuggestions"
+                    android:paddingLeft="@dimen/land_search_view_edit_padding_left"
+                    android:paddingRight="@dimen/search_view_text_padding"
+                    android:singleLine="true"
+                    android:textColor="#212121"
+                    android:textColorHint="#727272"
+                    android:textSize="@dimen/land_search_view_edit_text_size"
+                    tools:text="hih" />
+
+                <ImageButton
+                    android:id="@+id/action_empty_btn"
+                    style="@style/MSV_ImageButton"
+                    android:layout_gravity="right"
+                    android:src="@drawable/ic_action_navigation_close"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#e6e6e6" />
+
+            <LinearLayout
+                android:id="@+id/action_choose_institute"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="1dp"
+                android:layout_weight="2.65"
+                android:background="?selectableItemBackground"
+                android:foreground="?selectableItemBackground"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/land_search_view_inst_text_margin_end"
+                    android:layout_marginRight="@dimen/land_search_view_inst_text_margin_end"
+                    android:layout_marginLeft="@dimen/land_search_view_inst_text_margin_start"
+                    android:layout_marginStart="@dimen/land_search_view_inst_text_margin_start"
+                    android:fontFamily="@font/open_sans"
+                    android:text="Institution"
+                    android:textColor="#c33c43"
+                    android:textSize="@dimen/land_search_view_inst_text_size"
+                    android:typeface="normal" />
+
+
+                <ImageView
+                    android:layout_width="@dimen/land_search_view_arrow_width"
+                    android:layout_height="@dimen/land_search_view_arrow_height"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/land_search_view_arrow_margin_top"
+                    android:layout_marginEnd="@dimen/land_search_view_arro_margin_end"
+                    android:layout_marginRight="@dimen/land_search_view_arro_margin_end"
+                    android:src="@drawable/ic_arrow" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#e6e6e6" />
+
+            <LinearLayout
+                android:id="@+id/action_choose_cuisine"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="1dp"
+                android:layout_weight="2.3"
+                android:background="?selectableItemBackground"
+                android:foreground="?selectableItemBackground"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/land_search_view_cuisine_margin_end"
+                    android:layout_marginRight="@dimen/land_search_view_cuisine_margin_end"
+                    android:layout_marginLeft="@dimen/land_search_view_cuisine_margin_start"
+                    android:layout_marginStart="@dimen/land_search_view_cuisine_margin_start"
+                    android:fontFamily="@font/open_sans"
+                    android:text="Cuisine"
+                    android:textColor="#c33c43"
+                    android:textSize="@dimen/land_search_view_cuisine_text_size"
+                    android:typeface="normal" />
+
+
+                <ImageView
+                    android:layout_width="@dimen/land_search_view_arrow_width"
+                    android:layout_height="@dimen/land_search_view_arrow_height"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/land_search_view_arrow_margin_top"
+                    android:layout_marginEnd="@dimen/land_search_view_arro_margin_end"
+                    android:layout_marginRight="@dimen/land_search_view_arro_margin_end"
+                    android:src="@drawable/ic_arrow" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/action_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@drawable/left_round_red_rect"
+                android:foreground="?selectableItemBackground"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/land_search_view_icon_size"
+                    android:layout_height="@dimen/land_search_view_icon_size"
+                    android:layout_marginEnd="@dimen/land_search_view_icon_margin_end"
+                    android:layout_marginRight="@dimen/land_search_view_icon_margin_end"
+                    android:src="@drawable/ic_search" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:gravity="center_vertical"
+                    android:text="Search"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/land_search_view_search_text_size" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="#fff"
+            android:backgroundTint="#10000000" />
+
+
+        <ListView
+            android:id="@+id/suggestion_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:divider="@android:color/transparent" />
+    </LinearLayout>
+</FrameLayout>

@@ -17,6 +17,9 @@
     <string name="popup_dropdown_title">Select type of %s:</string>
     <string name="scroll_it_text">Scroll it</string>
 
-    <string name="search_hint">Start typing the name...</string>
+    <string name="search_hint">Start typing the name…</string>
+    <string name="as_advertising">as advertising</string>
+    <string name="select_menu_language">Select menu language:</string>
+    <string name="restaurants_by_near_you">Restaurants by near you</string>
 
 </resources>

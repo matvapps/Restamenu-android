@@ -4,7 +4,7 @@
     android:id="@+id/search_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:visibility="invisible">
+    android:visibility="visible">
 
     <View
         android:id="@+id/transparent_view"
@@ -21,30 +21,31 @@
         <LinearLayout
             android:id="@+id/search_top_bar"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/search_view_height"
             android:background="@android:color/white"
             android:orientation="horizontal">
 
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="10">
+                android:layout_weight="10"
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/searchTextView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
+                    android:fontFamily="@font/open_sans"
                     android:hint="@string/search_hint"
                     android:imeOptions="actionSearch"
                     android:inputType="textNoSuggestions"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="@dimen/search_view_text_padding"
+                    android:paddingLeft="@dimen/search_text_view_padding_left"
+                    android:paddingRight="@dimen/search_text_view_padding_right"
                     android:singleLine="true"
                     android:textColor="#212121"
-                    android:textColorHint="#727272"
-                    android:textSize="16sp"
-                    tools:text="hih" />
+                    android:textColorHint="#999999"
+                    android:textSize="@dimen/search_text_view_size" />
 
                 <ImageButton
                     android:id="@+id/action_empty_btn"
@@ -59,37 +60,8 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
+                android:alpha="0.1"
                 android:background="#e6e6e6" />
-
-            <LinearLayout
-                android:id="@+id/action_choose_institute"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="1dp"
-                android:layout_weight="2.2"
-                android:background="?selectableItemBackground"
-                android:foreground="?selectableItemBackground"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="6dp"
-                    android:layout_marginStart="16dp"
-                    android:text="Institute"
-                    android:textColor="#c33c43"
-                    android:textSize="15sp" />
-
-
-                <ImageView
-                    android:layout_width="9dp"
-                    android:layout_height="6dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_arrow" />
-
-            </LinearLayout>
 
             <View
                 android:layout_width="1dp"
@@ -97,12 +69,11 @@
                 android:background="#e6e6e6" />
 
             <LinearLayout
-                android:id="@+id/action_choose_cuisine"
-                android:layout_width="0dp"
+                android:id="@+id/action_choose_filter"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_margin="1dp"
-                android:layout_weight="2.1"
                 android:background="?selectableItemBackground"
                 android:foreground="?selectableItemBackground"
                 android:orientation="horizontal">
@@ -111,15 +82,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="6dp"
-                    android:layout_marginStart="16dp"
-                    android:text="Cuisine"
+                    android:layout_marginEnd="@dimen/search_view_filter_text_margin_end"
+                    android:layout_marginRight="@dimen/search_view_filter_text_margin_end"
+                    android:layout_marginLeft="@dimen/search_view_filter_text_margin_start"
+                    android:layout_marginStart="@dimen/search_view_filter_text_margin_start"
+                    android:text="Filter"
                     android:textColor="#c33c43"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/search_view_filter_text_size" />
 
                 <ImageView
-                    android:layout_width="9dp"
-                    android:layout_height="6dp"
+                    android:layout_width="@dimen/search_view_arrow_width"
+                    android:layout_height="@dimen/search_view_arrow_height"
+                    android:layout_marginTop="@dimen/search_view_arrow_margin_top"
+                    android:layout_marginRight="@dimen/search_view_arrow_margin_right"
+                    android:layout_marginEnd="@dimen/search_view_arrow_margin_right"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_arrow" />
 
@@ -129,26 +105,16 @@
                 android:id="@+id/action_search"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
+                android:layout_weight="2.65"
                 android:background="@drawable/left_round_red_rect"
                 android:foreground="?selectableItemBackground"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/ic_find" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/open_sans_semibold"
-                    android:gravity="center_vertical"
-                    android:text="Search"
-                    android:textColor="#ffffff"
-                    android:textSize="12sp" />
+                    android:layout_width="@dimen/search_view_icon_size"
+                    android:layout_height="@dimen/search_view_icon_size"
+                    android:src="@drawable/ic_search" />
 
             </LinearLayout>
 

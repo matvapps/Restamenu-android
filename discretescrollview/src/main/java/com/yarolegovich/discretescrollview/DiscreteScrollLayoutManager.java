@@ -197,8 +197,8 @@ class DiscreteScrollLayoutManager extends RecyclerView.LayoutManager {
         if (v == null) {
             v = recycler.getViewForPosition(position);
             addView(v);
-            measureChildWithMargins(v, 0, 0);
-            layoutDecoratedWithMargins(v,
+            measureChild(v, 0, 0);
+            layoutDecorated(v,
                     viewCenter.x - childHalfWidth, viewCenter.y - childHalfHeight,
                     viewCenter.x + childHalfWidth, viewCenter.y + childHalfHeight);
         } else {

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/filter_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/action_cancel"
+                android:layout_width="@dimen/filter_popup_content_action_cancel_size"
+                android:layout_height="@dimen/filter_popup_content_action_cancel_size"
+                android:layout_marginLeft="@dimen/filter_popup_content_action_cancel_margin"
+                android:layout_marginStart="@dimen/filter_popup_content_action_cancel_margin"
+                android:layout_marginTop="@dimen/filter_popup_content_action_cancel_margin"
+                android:src="@drawable/ic_close"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/filter_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_bold"
+                android:text="Filter"
+                android:textColor="@color/black"
+                android:textSize="@dimen/filter_popup_content_filter_text_size"
+                app:layout_constraintBottom_toBottomOf="@+id/divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/filter_popup_content_divider_margin_top"
+                android:background="#E6E6E6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/action_cancel" />
+
+            <TextView
+                android:id="@+id/filter_cuisine_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/filter_popup_content_action_cancel_margin"
+                android:layout_marginRight="@dimen/filter_popup_content_action_cancel_margin"
+                android:layout_marginTop="@dimen/filter_popup_content_action_cancel_margin"
+                android:fontFamily="@font/open_sans_bold"
+                android:text="Select type of cuisine: "
+                android:textColor="@color/black"
+                android:textSize="@dimen/filter_popup_content_title_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/action_cancel"
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/filter_cuisine_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/filter_popup_content_cuisine_list_margin_top"
+                android:focusable="false"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintEnd_toEndOf="@+id/filter_cuisine_title"
+                app:layout_constraintStart_toStartOf="@+id/filter_cuisine_title"
+                app:layout_constraintTop_toBottomOf="@+id/filter_cuisine_title" />
+
+
+            <TextView
+                android:id="@+id/filter_institute_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/filter_popup_content_institute_title_margin_top"
+                android:fontFamily="@font/open_sans_bold"
+                android:text="Select type of institution: "
+                android:textColor="@color/black"
+                android:textSize="@dimen/filter_popup_content_institute_title_text_size"
+                app:layout_constraintEnd_toEndOf="@+id/filter_cuisine_list"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/filter_cuisine_title"
+                app:layout_constraintTop_toBottomOf="@+id/filter_cuisine_list" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/filter_institute_list"
+                android:layout_width="0dp"
+                android:focusable="false"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/filter_popup_content_institute_list_margin_top"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintEnd_toEndOf="@+id/filter_institute_title"
+                app:layout_constraintStart_toStartOf="@+id/filter_institute_title"
+                app:layout_constraintTop_toBottomOf="@+id/filter_institute_title" />
+
+
+            <FrameLayout
+                android:id="@+id/button_save"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/filter_popup_content_button_save_height"
+                android:layout_marginTop="@dimen/filter_popup_content_button_save_margin_top"
+                android:background="@color/dusty_red"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/filter_institute_list">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/open_sans_bold"
+                    android:text="Save"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/filter_popup_content_save_text_size" />
+
+
+            </FrameLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</FrameLayout>

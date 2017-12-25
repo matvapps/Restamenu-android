@@ -404,7 +404,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             stringDivider = "\n";
             itemType = ItemType.CONTACTS_TABLET;
         } else {
-            stringDivider = " ";
+            stringDivider = ", ";
             itemType = ItemType.CONTACTS_PHONE;
         }
 

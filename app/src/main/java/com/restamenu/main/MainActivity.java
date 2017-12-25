@@ -9,10 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
-import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 
-import com.github.florent37.viewanimator.ViewAnimator;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.restamenu.BuildConfig;
 import com.restamenu.R;
@@ -26,6 +25,7 @@ import com.restamenu.views.search.RestaurantsSearchView;
 import com.squareup.picasso.Picasso;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.Orientation;
+import com.yarolegovich.discretescrollview.transform.Pivot;
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 
 import java.util.ArrayList;
@@ -42,6 +42,9 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     private DiscreteScrollView nearbyRestaurantPicker;
     private ImageView nearbyContainerBackground;
     private RestaurantsSearchView searchView;
+    private PopupDropDownAdapter cityPopupAdapter;
+    private PopupWindow cityPopupWindow;
+    private View selectCityBtn;
 
 
     @Override
@@ -55,6 +58,10 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
         nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter(MainActivity.this);
 
+        searchView = findViewById(R.id.search_view);
+        searchView.setSearchListener(this);
+        searchView.showSearch(false);
+
         if (!isTablet()) {
             nearbyRestaurantPicker = findViewById(R.id.nearby_restaurant_picker);
             nearbyRestaurantPicker.setOrientation(Orientation.HORIZONTAL);
@@ -63,13 +70,11 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
             nearbyRestaurantPicker.setItemTransitionTimeMillis(430);
             nearbyRestaurantPicker.setItemTransformer(new ScaleTransformer.Builder()
                     .setMinScale(0.85f)
+                    .setPivotX(Pivot.X.LEFT)
+                    .setPivotY(Pivot.Y.CENTER)
                     .build());
 
         } else {
-            searchView = findViewById(R.id.search_view);
-            searchView.setSearchListener(this);
-            searchView.showSearch(false);
-
             new GravitySnapHelper(Gravity.START, false, this)
                     .attachToRecyclerView(nearbyRestaurantsRecycler);
 
@@ -101,6 +106,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         });
 
         restaurantsRecycler.setLayoutManager(gridLayoutManager);
+        restaurantsRecycler.setNestedScrollingEnabled(false);
         restaurantListAdapter = new RestaurantListAdapter(MainActivity.this, this);
         restaurantsRecycler.setAdapter(restaurantListAdapter);
 
@@ -145,7 +151,6 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     public void setNearRestaurants(List<Restaurant> data) {
         Logger.log("Near: " + data.toString());
 
-        nearbyListContainer.setVisibility(View.VISIBLE);
 
         if (isTablet()) {
             List<Restaurant> restaurants = new ArrayList<>();
@@ -165,6 +170,9 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         } else {
             onItemChanged(nearbyRestaurantListAdapter.getItem(1));
         }
+
+        nearbyListContainer.setVisibility(View.VISIBLE);
+
     }
 
     @Override
@@ -172,9 +180,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         nearbyRestaurantListAdapter.setInstituteList(data);
         restaurantListAdapter.setInstituteList(data);
 
-        if (isTablet()) {
-            searchView.setInstitutions(data);
-        }
+        searchView.setInstitutions(data);
     }
 
     @Override
@@ -182,28 +188,8 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         for (int i = 0; i < cusines.size(); i++)
             Logger.log(cusines.get(i).getName());
 
-        if (isTablet()) {
-            searchView.setCuisines(cusines);
-        }
+        searchView.setCuisines(cusines);
     }
-
-//    public void initPopup(List<Object> data) {
-//        popupWindow = new PopupWindow(MainActivity.this);
-//        View popupLayout;
-//        View layout = getLayoutInflater().inflate(R.layout.popup_content, null);
-//
-//        TextView textView = layout.findViewById(R.id.dropdown_content_title);
-//        RecyclerView recyclerView = layout.findViewById(R.id.dropdown_content_grid);
-//
-//        recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
-//
-//
-//        if (isTablet()) {
-//        } else {
-//
-//        }
-//
-//    }
 
     @Override
     public void showError() {
@@ -227,24 +213,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         Picasso.with(this)
                 .load(BuildConfig.BASE_URL +
                         backgroundUrl.substring(1, backgroundUrl.length()))
-                .into(nearbyContainerBackground, new com.squareup.picasso.Callback() {
-                    @Override
-                    public void onSuccess() {
-                        ViewAnimator
-                                // Splash alpha animation
-                                .animate(nearbyContainerBackground)
-                                .startDelay(0)
-                                .duration(2000)
-                                .interpolator(new LinearInterpolator())
-                                .alpha(0.2f, 1)
-                                .start();
-                    }
-
-                    @Override
-                    public void onError() {
-                        //do smth when there is picture loading error
-                    }
-                });
+                .into(nearbyContainerBackground);
 
 
     }
@@ -252,29 +221,11 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     @Override
     public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {
 
-        ViewAnimator
-                // Splash alpha animation
-                .animate(nearbyContainerBackground)
-                .startDelay(0)
-                .duration(700)
-                .interpolator(new LinearInterpolator())
-                .alpha(1f, 0)
-                .start();
-
-        onItemChanged(nearbyRestaurantListAdapter.getItem(adapterPosition));
-
     }
 
     @Override
     public void onSnap(int position) {
         Logger.log("snapped item: " + position);
-        //load restaurant background
-
-        // if  'scroll it' item
-        if (position == 0)
-            position = 1;
-
-        onItemChanged(nearbyRestaurantListAdapter.getItem(position));
     }
 
     /**

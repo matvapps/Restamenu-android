@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/scroll_it_image"
+        android:layout_width="@dimen/scroll_it_white_image_size"
+        android:layout_height="@dimen/scroll_it_white_image_size"
+        android:layout_marginEnd="@dimen/scroll_it_white_image_margin_end"
+        android:layout_marginStart="@dimen/scroll_it_white_image_margin_start"
+        android:layout_marginRight="@dimen/scroll_it_white_image_margin_end"
+        android:layout_marginLeft="@dimen/scroll_it_white_image_margin_start"
+        android:src="@drawable/ic_scroll"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/scroll_it_text"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/scroll_it_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/scroll_it_white_text_margin_end"
+        android:layout_marginRight="@dimen/scroll_it_white_text_margin_end"
+        android:fontFamily="@font/open_sans"
+        android:text="@string/scroll_it_text"
+        android:textColor="@color/white"
+        android:textSize="@dimen/scroll_it_white_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/scroll_it_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/scroll_it_image" />
+
+
+</android.support.constraint.ConstraintLayout>

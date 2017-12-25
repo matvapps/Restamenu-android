@@ -46,10 +46,10 @@
             ]
         },
         {
-            "outputFile": "D:\\Apps\\Restamenu\\gravitysnaphelper\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-ml_values-ml.arsc.flat",
+            "outputFile": "D:\\Apps\\Restamenu\\gravitysnaphelper\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-si_values-si.arsc.flat",
             "map": [
                 {
-                    "source": "C:\\Users\\Alexandr\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\4310fb0372a91bc09e37b790d6a1663f\\res\\values-ml\\values-ml.xml",
+                    "source": "C:\\Users\\Alexandr\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\4310fb0372a91bc09e37b790d6a1663f\\res\\values-si\\values-si.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -61,10 +61,10 @@
             ]
         },
         {
-            "outputFile": "D:\\Apps\\Restamenu\\gravitysnaphelper\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-si_values-si.arsc.flat",
+            "outputFile": "D:\\Apps\\Restamenu\\gravitysnaphelper\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-ml_values-ml.arsc.flat",
             "map": [
                 {
-                    "source": "C:\\Users\\Alexandr\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\4310fb0372a91bc09e37b790d6a1663f\\res\\values-si\\values-si.xml",
+                    "source": "C:\\Users\\Alexandr\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\4310fb0372a91bc09e37b790d6a1663f\\res\\values-ml\\values-ml.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

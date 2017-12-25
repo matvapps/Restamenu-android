@@ -9,13 +9,14 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.KeyEvent;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,12 +35,13 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.restamenu.PopupDropDownAdapter;
-import com.restamenu.PopupFilterItem;
 import com.restamenu.R;
+import com.restamenu.main.PopupDropDownAdapter;
+import com.restamenu.main.PopupFilterItem;
 import com.restamenu.model.content.Cusine;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
+import com.restamenu.util.Logger;
 import com.restamenu.views.search.utils.AnimationUtil;
 
 import java.lang.reflect.Field;
@@ -63,6 +65,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
     private EditText mSearchSrcTextView;
     private LinearLayout selectInstituteView;
     private LinearLayout selectCuisineView;
+    private View selectFilterView;
     private LinearLayout searchBtn;
     //private ImageButton mBackBtn;
     //private ImageButton mVoiceBtn;
@@ -76,6 +79,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
     private PopupDropDownAdapter institutePopupDropdownAdapter;
     private PopupWindow cuisinePopup;
     private PopupWindow institutePopup;
+    private PopupWindow filterPopup;
     private ListAdapter mAdapter;
     private final OnClickListener mOnClickListener = new OnClickListener() {
 
@@ -92,6 +96,9 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
                 showSuggestions();
             } else if (v == mTintView) {
                 closeSearch();
+            } else if (v == selectFilterView) {
+                Logger.log("Select filter view");
+                displayFilterPopupWindow(v);
             }
         }
     };
@@ -172,6 +179,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
         mSearchSrcTextView = (EditText) mSearchLayout.findViewById(R.id.searchTextView);
         selectCuisineView = (LinearLayout) mSearchLayout.findViewById(R.id.action_choose_cuisine);
         selectInstituteView = (LinearLayout) mSearchLayout.findViewById(R.id.action_choose_institute);
+        selectFilterView = mSearchLayout.findViewById(R.id.action_choose_filter);
         searchBtn = (LinearLayout) mSearchLayout.findViewById(R.id.action_search);
         mEmptyBtn = (ImageButton) mSearchLayout.findViewById(R.id.action_empty_btn);
         mTintView = mSearchLayout.findViewById(R.id.transparent_view);
@@ -179,11 +187,33 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
 
         allowVoiceSearch = false;
 
+        if (!isTablet()) {
+            filterPopup = new PopupWindow(getContext());
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            View layout = inflater.inflate(R.layout.filter_popup_content, null);
+            View actionCancel = layout.findViewById(R.id.action_cancel);
+
+            actionCancel.setOnClickListener(view -> filterPopup.dismiss());
+
+            filterPopup.setContentView(layout);
+            filterPopup.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+            filterPopup.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+            filterPopup.setOutsideTouchable(false);
+            filterPopup.setFocusable(false);
+            filterPopup.setBackgroundDrawable(new BitmapDrawable());
+        }
+
         initSearchView();
 
+        if (isTablet()) {
+            selectInstituteView.setOnClickListener(mOnClickListener);
+            selectCuisineView.setOnClickListener(mOnClickListener);
+        } else {
+            selectFilterView.setOnClickListener(mOnClickListener);
+        }
+
         mSearchSrcTextView.setOnClickListener(mOnClickListener);
-        selectInstituteView.setOnClickListener(mOnClickListener);
-        selectCuisineView.setOnClickListener(mOnClickListener);
         searchBtn.setOnClickListener(mOnClickListener);
 
         mEmptyBtn.setOnClickListener(mOnClickListener);
@@ -198,13 +228,10 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
         cuisinePopupDropdownAdapter = new PopupDropDownAdapter();
         institutePopupDropdownAdapter = new PopupDropDownAdapter();
 
-        mSearchSrcTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                //Removed only on pressing on button
-                //onSubmitQuery();
-                return true;
-            }
+        mSearchSrcTextView.setOnEditorActionListener((v, actionId, event) -> {
+            //Removed only on pressing on button
+            //onSubmitQuery();
+            return true;
         });
 
         mSearchSrcTextView.addTextChangedListener(new TextWatcher() {
@@ -247,9 +274,16 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
         this.searchListener = searchListener;
     }
 
+    private void displayFilterPopupWindow(View anchorView) {
+        if (filterPopup != null) {
+            filterPopup.showAtLocation(anchorView, Gravity.CENTER, 0, 0);
+        }
+    }
+
     private void displayCuisinePopupWindow(View anchorView) {
-        if (cuisinePopup != null)
+        if (cuisinePopup != null) {
             cuisinePopup.showAsDropDown(anchorView);
+        }
     }
 
     private void displayInstitutePopupWindow(View anchorView) {
@@ -258,58 +292,97 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
     }
 
     public void setCuisines(List<Cusine> cusines) {
-        cuisinePopup = new PopupWindow(getContext());
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        View layout = inflater.inflate(R.layout.popup_content, null);
-
-        TextView textView = layout.findViewById(R.id.dropdown_content_title);
-        RecyclerView recyclerView = layout.findViewById(R.id.dropdown_content_grid);
-
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        recyclerView.setAdapter(cuisinePopupDropdownAdapter);
-
-        String titlePattern = getResources().getString(R.string.popup_dropdown_title);
-        textView.setText(String.format(titlePattern, "cuisine"));
 
         for (int i = 0; i < cusines.size(); i++) {
             cuisinePopupDropdownAdapter.addItem(new PopupFilterItem<>(cusines.get(i), false));
         }
 
-        cuisinePopup.setContentView(layout);
-        cuisinePopup.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-        cuisinePopup.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
-        cuisinePopup.setOutsideTouchable(true);
-        cuisinePopup.setFocusable(true);
-        cuisinePopup.setBackgroundDrawable(new BitmapDrawable());
+        if (isTablet()) {
+            cuisinePopup = new PopupWindow(getContext());
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+            View layout = inflater.inflate(R.layout.popup_content, null);
+
+            TextView textView = layout.findViewById(R.id.dropdown_content_title);
+            RecyclerView recyclerView = layout.findViewById(R.id.dropdown_content_grid);
+
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            recyclerView.setAdapter(cuisinePopupDropdownAdapter);
+
+            String titlePattern = getResources().getString(R.string.popup_dropdown_title);
+            textView.setText(String.format(titlePattern, "cuisine"));
+
+            cuisinePopup.setContentView(layout);
+            cuisinePopup.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+            cuisinePopup.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
+            cuisinePopup.setOutsideTouchable(true);
+            cuisinePopup.setFocusable(true);
+            cuisinePopup.setBackgroundDrawable(new BitmapDrawable());
+        } else {
+            View layout = filterPopup.getContentView();
+            TextView cuisineTitle = layout.findViewById(R.id.filter_cuisine_title);
+            RecyclerView cuisineList = layout.findViewById(R.id.filter_cuisine_list);
+
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
+                    LinearLayoutManager.VERTICAL, false);
+
+            cuisineList.setFocusable(false);
+            layout.findViewById(R.id.filter_text).requestFocus();
+
+            String titlePattern = getResources().getString(R.string.popup_dropdown_title);
+            cuisineTitle.setText(String.format(titlePattern, "cuisine"));
+
+            cuisineList.setNestedScrollingEnabled(false);
+            cuisineList.setLayoutManager(layoutManager);
+            cuisineList.setAdapter(cuisinePopupDropdownAdapter);
+
+        }
     }
 
     public void setInstitutions(List<Institute> data) {
-        institutePopup = new PopupWindow(getContext());
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        View layout = inflater.inflate(R.layout.popup_content, null);
-
-        TextView textView = layout.findViewById(R.id.dropdown_content_title);
-        RecyclerView recyclerView = layout.findViewById(R.id.dropdown_content_grid);
-
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        recyclerView.setAdapter(institutePopupDropdownAdapter);
-
-        String titlePattern = getResources().getString(R.string.popup_dropdown_title);
-        textView.setText(String.format(titlePattern, "institutions"));
-
         for (int i = 0; i < data.size(); i++) {
             institutePopupDropdownAdapter.addItem(new PopupFilterItem<>(data.get(i), false));
         }
 
-        institutePopup.setContentView(layout);
-        institutePopup.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-        institutePopup.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
-        institutePopup.setOutsideTouchable(true);
-        institutePopup.setFocusable(true);
-        institutePopup.setBackgroundDrawable(new BitmapDrawable());
+        if (isTablet()) {
+            institutePopup = new PopupWindow(getContext());
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            View layout = inflater.inflate(R.layout.popup_content, null);
+
+            TextView textView = layout.findViewById(R.id.dropdown_content_title);
+            RecyclerView recyclerView = layout.findViewById(R.id.dropdown_content_grid);
+
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            recyclerView.setAdapter(institutePopupDropdownAdapter);
+
+            String titlePattern = getResources().getString(R.string.popup_dropdown_title);
+            textView.setText(String.format(titlePattern, "institution"));
+
+            institutePopup.setContentView(layout);
+            institutePopup.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+            institutePopup.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
+            institutePopup.setOutsideTouchable(true);
+            institutePopup.setFocusable(true);
+            institutePopup.setBackgroundDrawable(new BitmapDrawable());
+        } else {
+            View layout = filterPopup.getContentView();
+            TextView instituteTitle = layout.findViewById(R.id.filter_institute_title);
+            RecyclerView instituteList = layout.findViewById(R.id.filter_institute_list);
+
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
+                    LinearLayoutManager.VERTICAL, false);
+
+            instituteList.setFocusable(false);
+            layout.findViewById(R.id.filter_text).requestFocus();
+
+            String titlePattern = getResources().getString(R.string.popup_dropdown_title);
+            instituteTitle.setText(String.format(titlePattern, "institution"));
+
+            instituteList.setNestedScrollingEnabled(false);
+            instituteList.setLayoutManager(layoutManager);
+            instituteList.setAdapter(institutePopupDropdownAdapter);
+        }
     }
 
     private void onTextChanged(CharSequence newText) {
@@ -785,5 +858,8 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
         }
     }
 
+    protected boolean isTablet() {
+        return getResources().getBoolean(R.bool.isLargeLayout);
+    }
 
 }
