@@ -92,17 +92,17 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
             switch (item.getServices().get(i)) {
                 //restaurant
                 case 1: {
-                    Picasso.with(context).load(R.drawable.ic_restoran_active).into(holder.foodTypeRestaurantImageView);
+                    holder.foodTypeRestaurantImageView.setImageResource(R.drawable.ic_restaurant_link);
                     break;
                 }
                 //takeaway
                 case 2: {
-                    Picasso.with(context).load(R.drawable.ic_food_active).into(holder.foodTypeTakeawayImageView);
+                    holder.foodTypeTakeawayImageView.setImageResource(R.drawable.ic_takeaway_link);
                     break;
                 }
                 //delivery
                 case 3: {
-                    Picasso.with(context).load(R.drawable.ic_delivery_active).into(holder.foodTypeDeliveryImageView);
+                    holder.foodTypeDeliveryImageView.setImageResource(R.drawable.ic_delivery_link);
                     break;
                 }
             }

@@ -10,7 +10,6 @@
         android:id="@+id/transparent_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/search_layover_bg"
         android:visibility="gone" />
 
     <LinearLayout
@@ -22,7 +21,8 @@
             android:id="@+id/search_top_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/search_view_height"
-            android:background="@android:color/white"
+            android:padding="1dp"
+            android:background="@drawable/round_rect_stroke_grey"
             android:orientation="horizontal">
 
             <FrameLayout
@@ -60,12 +60,6 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:alpha="0.1"
-                android:background="#e6e6e6" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
                 android:background="#e6e6e6" />
 
             <LinearLayout
@@ -93,11 +87,10 @@
                 <ImageView
                     android:layout_width="@dimen/search_view_arrow_width"
                     android:layout_height="@dimen/search_view_arrow_height"
-                    android:layout_marginTop="@dimen/search_view_arrow_margin_top"
                     android:layout_marginRight="@dimen/search_view_arrow_margin_right"
                     android:layout_marginEnd="@dimen/search_view_arrow_margin_right"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_arrow" />
+                    android:src="@drawable/ic_arrow_down" />
 
             </LinearLayout>
 
@@ -120,14 +113,14 @@
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dip"
-            android:background="#fff"
-            android:backgroundTint="#10000000" />
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dip"-->
+            <!--android:background="#fff"-->
+            <!--android:backgroundTint="#10000000" />-->
 
 
-        <ListView
+        <com.restamenu.views.custom.ExpandedListView
             android:id="@+id/suggestion_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

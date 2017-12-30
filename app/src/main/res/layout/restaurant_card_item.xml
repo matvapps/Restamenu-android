@@ -7,7 +7,6 @@
 
 
     <android.support.v7.widget.CardView
-        style="@style/CardViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/restaurant_card_item_margin"
@@ -31,16 +30,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:riv_corner_radius_top_right="@dimen/restaurant_card_item_margin"
-                app:riv_corner_radius_top_left="@dimen/restaurant_card_item_margin"/>
+                app:riv_corner_radius_top_right="@dimen/restaurant_card_item_radius"
+                app:riv_corner_radius_top_left="@dimen/restaurant_card_item_radius"/>
 
 
             <TextView
                 android:id="@+id/restaurant_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/restaurant_card_item_title_margin_end"
-                android:layout_marginRight="@dimen/restaurant_card_item_title_margin_end"
+                android:layout_marginEnd="@dimen/restaurant_card_item_title_margin_start"
+                android:layout_marginRight="@dimen/restaurant_card_item_title_margin_start"
                 android:layout_marginLeft="@dimen/restaurant_card_item_title_margin_start"
                 android:layout_marginStart="@dimen/restaurant_card_item_title_margin_start"
                 android:layout_marginTop="@dimen/restaurant_card_item_title_margin_top"
@@ -58,15 +57,13 @@
                 android:id="@+id/restaurant_type"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/restaurant_card_item_type_margin_end"
-                android:layout_marginRight="@dimen/restaurant_card_item_type_margin_end"
                 android:layout_marginTop="@dimen/restaurant_card_item_type_margin_top"
                 android:ellipsize="end"
                 android:fontFamily="@font/open_sans_semibold"
                 android:maxLines="1"
                 android:textColor="@color/black"
                 android:textSize="@dimen/restaurant_card_item_type_text_size"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/restaurant_title"
                 app:layout_constraintStart_toStartOf="@+id/restaurant_title"
                 app:layout_constraintTop_toBottomOf="@+id/restaurant_title"
                 tools:text="Order a table in advance to enjoy the performance of the artist performing your favorite hits." />

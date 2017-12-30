@@ -10,7 +10,6 @@
         android:id="@+id/transparent_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/search_layover_bg"
         android:visibility="gone" />
 
     <LinearLayout
@@ -22,13 +21,13 @@
             android:id="@+id/search_top_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/land_search_view_height"
-            android:background="@android:color/white"
+            android:background="@drawable/round_rect_stroke_grey"
             android:orientation="horizontal">
 
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="10">
+                android:layout_weight="8">
 
                 <EditText
                     android:id="@+id/searchTextView"
@@ -63,11 +62,10 @@
 
             <LinearLayout
                 android:id="@+id/action_choose_institute"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_margin="1dp"
-                android:layout_weight="2.65"
                 android:background="?selectableItemBackground"
                 android:foreground="?selectableItemBackground"
                 android:orientation="horizontal">
@@ -94,7 +92,7 @@
                     android:layout_marginTop="@dimen/land_search_view_arrow_margin_top"
                     android:layout_marginEnd="@dimen/land_search_view_arro_margin_end"
                     android:layout_marginRight="@dimen/land_search_view_arro_margin_end"
-                    android:src="@drawable/ic_arrow" />
+                    android:src="@drawable/ic_arrow_down" />
 
             </LinearLayout>
 
@@ -105,11 +103,10 @@
 
             <LinearLayout
                 android:id="@+id/action_choose_cuisine"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_margin="1dp"
-                android:layout_weight="2.3"
                 android:background="?selectableItemBackground"
                 android:foreground="?selectableItemBackground"
                 android:orientation="horizontal">
@@ -173,11 +170,10 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dip"
-            android:background="#fff"
-            android:backgroundTint="#10000000" />
+            android:background="#e6e6e6" />
 
 
-        <ListView
+        <com.restamenu.views.custom.ExpandedListView
             android:id="@+id/suggestion_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

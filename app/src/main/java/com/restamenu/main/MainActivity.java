@@ -69,7 +69,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
             nearbyRestaurantPicker.setSlideOnFling(true);
             nearbyRestaurantPicker.setItemTransitionTimeMillis(430);
             nearbyRestaurantPicker.setItemTransformer(new ScaleTransformer.Builder()
-                    .setMinScale(0.85f)
+                    .setMinScale(0.86f)
                     .setPivotX(Pivot.X.LEFT)
                     .setPivotY(Pivot.Y.CENTER)
                     .build());
@@ -139,6 +139,21 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     @Override
     public void setData(@NonNull List<Restaurant> data) {
         Logger.log("Amount: " + data.size());
+        restaurantListAdapter.setData(data);
+
+        ArrayList<String> restNames = new ArrayList<>();
+
+        for (Restaurant restaurant: data) {
+            restNames.add(restaurant.getName());
+        }
+
+        searchView.setSuggestions(restNames);
+
+    }
+
+    @Override
+    public void setFoundedRestaurants(List<Restaurant> data) {
+        Logger.log("Found: " + data.size() + " restaurant('s)");
         restaurantListAdapter.setData(data);
     }
 

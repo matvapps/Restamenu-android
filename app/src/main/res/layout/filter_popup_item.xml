@@ -31,6 +31,8 @@
         android:id="@+id/popup_item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/filter_popup_item_title_margin_horiz"
+        android:layout_marginRight="@dimen/filter_popup_item_title_margin_horiz"
         android:layout_marginEnd="@dimen/filter_popup_item_title_margin_horiz"
         android:layout_marginStart="@dimen/filter_popup_item_title_margin_horiz"
         android:ellipsize="end"

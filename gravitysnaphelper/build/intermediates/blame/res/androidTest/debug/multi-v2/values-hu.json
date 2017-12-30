@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\Apps\\Restamenu\\gravitysnaphelper\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-hu\\values-hu.xml",
+            "outputFile": "D:\\Apps\\Restamenu-android\\gravitysnaphelper\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-hu\\values-hu.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Alexandr\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\4310fb0372a91bc09e37b790d6a1663f\\res\\values-hu\\values-hu.xml",

@@ -41,6 +41,8 @@
                 android:id="@+id/restaurant_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/land_rest_card_title_margin_end"
+                android:layout_marginLeft="@dimen/land_rest_card_title_margin_end"
                 android:layout_marginEnd="@dimen/land_rest_card_title_margin_end"
                 android:layout_marginStart="@dimen/land_rest_card_title_margin_end"
                 android:layout_marginTop="@dimen/land_rest_card_title_margin_top"

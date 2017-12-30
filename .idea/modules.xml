@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Restamenu.iml" filepath="$PROJECT_DIR$/Restamenu.iml" />
+      <module fileurl="file://D:\Apps\Restamenu-android\Restamenu.iml" filepath="D:\Apps\Restamenu-android\Restamenu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Restamenu-android.iml" filepath="$PROJECT_DIR$/Restamenu-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/discretescrollview/discretescrollview.iml" filepath="$PROJECT_DIR$/discretescrollview/discretescrollview.iml" />
       <module fileurl="file://$PROJECT_DIR$/gravitysnaphelper/gravitysnaphelper.iml" filepath="$PROJECT_DIR$/gravitysnaphelper/gravitysnaphelper.iml" />

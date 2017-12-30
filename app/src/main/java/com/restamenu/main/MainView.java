@@ -15,6 +15,8 @@ public interface MainView extends BaseView<List<Restaurant>> {
 
     void setSuggestion(List<Restaurant> data);
 
+    void setFoundedRestaurants(List<Restaurant> data);
+
     void setNearRestaurants(List<Restaurant> data);
 
     void setInstitutions(List<Institute> data);

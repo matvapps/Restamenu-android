@@ -39,8 +39,18 @@ public class MainPresenter implements Presenter<MainView> {
     }
 
     public void performSearch(String keyword) {
-        //TODO
+        RepositoryProvider.getAppRepository()
+                .getRestaurants(1, keyword, null, null, 1, true)
+                .flatMap(Flowable::fromIterable)
+                .toList()
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(restaurants -> {
+                    view.setFoundedRestaurants(restaurants);
+                    view.showLoading(false);
+                }, throwable -> view.showError());
     }
+
 
     public void loadData(int width) {
         view.showLoading(true);

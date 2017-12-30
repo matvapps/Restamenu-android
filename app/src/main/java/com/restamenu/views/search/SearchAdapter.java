@@ -24,18 +24,18 @@ import java.util.List;
 public class SearchAdapter extends BaseAdapter implements Filterable {
 
     private ArrayList<String> data;
-    private String[] suggestions;
+    private ArrayList<String> suggestions;
     private Drawable suggestionIcon;
     private LayoutInflater inflater;
     private boolean ellipsize;
 
-    public SearchAdapter(Context context, String[] suggestions) {
+    public SearchAdapter(Context context, ArrayList<String> suggestions) {
         inflater = LayoutInflater.from(context);
         data = new ArrayList<>();
         this.suggestions = suggestions;
     }
 
-    public SearchAdapter(Context context, String[] suggestions, Drawable suggestionIcon, boolean ellipsize) {
+    public SearchAdapter(Context context, ArrayList<String> suggestions, Drawable suggestionIcon, boolean ellipsize) {
         inflater = LayoutInflater.from(context);
         data = new ArrayList<>();
         this.suggestions = suggestions;

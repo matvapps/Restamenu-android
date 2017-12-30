@@ -22,11 +22,14 @@ public interface DataSource {
 
     Flowable<List<Restaurant>> getRestaurants(@NonNull Integer cityId, int page);
 
+    Flowable<List<Restaurant>> getRestaurants(@NonNull Integer cityId, String keyword, Integer cusineId, Integer instituteId, Integer page, boolean details);
+
     Flowable<List<Category>> getCategories(@NonNull Integer restaurantId, @NonNull Integer serviceId);
 
     Flowable<List<Promotion>> getPromotions(@NonNull Integer restaurantId);
 
     Flowable<Restaurant> getRestaurant(@NonNull Integer id, @NonNull Integer width);
+
 
     Flowable<List<Restaurant>> getNearRestaurants(@NonNull Integer cityId, @NonNull String geo, @NonNull Integer width);
 

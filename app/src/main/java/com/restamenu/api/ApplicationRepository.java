@@ -62,6 +62,11 @@ public class ApplicationRepository implements DataSource {
     }
 
     @Override
+    public Flowable<List<Restaurant>> getRestaurants(@NonNull Integer cityId, String keyword, Integer cusineId, Integer instituteId, Integer page, boolean details) {
+        return remoteRepository.getRestaurants(cityId, keyword, cusineId, instituteId, page, details);
+    }
+
+    @Override
     public Flowable<List<Restaurant>> getNearRestaurants(@NonNull Integer cityId, @NonNull String geo, @NonNull Integer width) {
         return remoteRepository.getNearRestaurants(cityId, geo, width, true);
     }

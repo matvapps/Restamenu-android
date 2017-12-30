@@ -31,7 +31,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -42,9 +41,11 @@ import com.restamenu.model.content.Cusine;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.util.Logger;
+import com.restamenu.views.custom.ExpandedListView;
 import com.restamenu.views.search.utils.AnimationUtil;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,7 +62,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
     //Views
     private View mSearchLayout;
     private View mTintView;
-    private ListView mSuggestionsListView;
+    private ExpandedListView mSuggestionsListView;
     private EditText mSearchSrcTextView;
     private LinearLayout selectInstituteView;
     private LinearLayout selectCuisineView;
@@ -175,7 +176,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
         mSearchLayout = findViewById(R.id.search_layout);
 
         mSearchTopBar = (LinearLayout) mSearchLayout.findViewById(R.id.search_top_bar);
-        mSuggestionsListView = (ListView) mSearchLayout.findViewById(R.id.suggestion_list);
+        mSuggestionsListView = (ExpandedListView) mSearchLayout.findViewById(R.id.suggestion_list);
         mSearchSrcTextView = (EditText) mSearchLayout.findViewById(R.id.searchTextView);
         selectCuisineView = (LinearLayout) mSearchLayout.findViewById(R.id.action_choose_cuisine);
         selectInstituteView = (LinearLayout) mSearchLayout.findViewById(R.id.action_choose_institute);
@@ -405,7 +406,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
         CharSequence query = mSearchSrcTextView.getText();
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
             if (mOnQueryChangeListener == null || !mOnQueryChangeListener.onQueryTextSubmit(query.toString())) {
-                closeSearch();
+//                closeSearch();
                 mSearchSrcTextView.setText(null);
             }
             searchListener.onPerformSearch(query);
@@ -534,8 +535,8 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
      *
      * @param suggestions array of suggestions
      */
-    public void setSuggestions(String[] suggestions) {
-        if (suggestions != null && suggestions.length > 0) {
+    public void setSuggestions(ArrayList<String> suggestions) {
+        if (suggestions != null && suggestions.size() > 0) {
             mTintView.setVisibility(VISIBLE);
             final SearchAdapter adapter = new SearchAdapter(mContext, suggestions, suggestionIcon, ellipsize);
             setAdapter(adapter);

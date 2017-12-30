@@ -21,8 +21,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginEnd="@dimen/fragment_nearby_restaurants_near_text_margin_horizontal"
-        android:layout_marginStart="@dimen/fragment_nearby_restaurants_near_text_margin_horizontal"
         android:layout_marginTop="@dimen/fragment_nearby_restaurants_near_text_margin_top"
         android:fontFamily="@font/open_sans_bold"
         android:text="@string/restaurants_by_near_you"

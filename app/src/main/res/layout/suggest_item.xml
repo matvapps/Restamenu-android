@@ -12,7 +12,7 @@
         android:paddingLeft="@dimen/search_view_text_padding"
         android:paddingRight="@dimen/search_view_text_padding"
         android:textColor="#727272"
-        android:textSize="16sp" />
+        android:textSize="@dimen/search_text_view_size" />
 
     <ImageView
         android:id="@+id/suggestion_icon"
