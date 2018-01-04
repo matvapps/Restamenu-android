@@ -38,7 +38,7 @@
                     android:imeOptions="actionSearch"
                     android:inputType="textNoSuggestions"
                     android:paddingLeft="@dimen/land_search_view_edit_padding_left"
-                    android:paddingRight="@dimen/search_view_text_padding"
+                    android:paddingRight="@dimen/land_search_view_edit_padding_left"
                     android:singleLine="true"
                     android:textColor="#212121"
                     android:textColorHint="#727272"
@@ -79,7 +79,7 @@
                     android:layout_marginLeft="@dimen/land_search_view_inst_text_margin_start"
                     android:layout_marginStart="@dimen/land_search_view_inst_text_margin_start"
                     android:fontFamily="@font/open_sans"
-                    android:text="Institution"
+                    android:text="@string/institution_string"
                     android:textColor="#c33c43"
                     android:textSize="@dimen/land_search_view_inst_text_size"
                     android:typeface="normal" />

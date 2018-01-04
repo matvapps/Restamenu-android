@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.restamenu.BuildConfig;
@@ -42,10 +43,6 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     private DiscreteScrollView nearbyRestaurantPicker;
     private ImageView nearbyContainerBackground;
     private RestaurantsSearchView searchView;
-    private PopupDropDownAdapter cityPopupAdapter;
-    private PopupWindow cityPopupWindow;
-    private View selectCityBtn;
-
 
     @Override
     protected void initViews() {
@@ -159,6 +156,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     @Override
     public void setSuggestion(List<Restaurant> data) {
+        Logger.log("Found: " + data.size() + " suggestion('s)");
         searchView.setSuggestions(data);
     }
 
@@ -208,7 +206,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     @Override
     public void showError() {
-//        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
         //TODO
     }
 
@@ -252,12 +250,13 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     }
 
     @Override
-    public void onInstituteChanged(int instituteId) {
+    public void onInstituteChanged(PopupFilterItem institute) {
 
     }
 
     @Override
-    public void inCuisineChanged(int cuisineId) {
+    public void onCuisineChanged(PopupFilterItem cuisine) {
+
     }
     /**
      * SearchListener

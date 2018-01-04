@@ -30,6 +30,7 @@
             android:gravity="center"
             android:orientation="vertical"
             android:layout_marginEnd="?attr/actionBarSize"
+            android:layout_marginRight="?attr/actionBarSize"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,6 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="39dp"
             android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
             android:background="@drawable/rect_fill_stroke_grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +63,9 @@
                 android:layout_height="10dp"
                 android:layout_marginBottom="9dp"
                 android:layout_marginEnd="13dp"
+                android:layout_marginRight="13dp"
                 android:layout_marginStart="19dp"
+                android:layout_marginLeft="19dp"
                 android:layout_marginTop="9dp"
                 android:src="@drawable/flag_uk"
                 android:scaleType="fitXY"
@@ -76,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="9dp"
                 android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
                 android:layout_marginTop="9dp"
                 android:gravity="center_horizontal"
                 android:text="ENG"
@@ -109,7 +114,7 @@
             app:layout_constraintTop_toTopOf="@+id/lang_container">
 
             <TextView
-                android:id="@+id/currency"
+                android:id="@+id/image_icon_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="9dp"

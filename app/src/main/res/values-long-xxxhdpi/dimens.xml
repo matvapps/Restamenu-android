@@ -472,5 +472,7 @@
     <dimen name="filter_popup_item_title_margin_horiz">11.5dp</dimen>
     <dimen name="filter_popup_item_title_text_size">13.5sp</dimen>
     <dimen name="filter_popup_content_title_text_size">20.25sp</dimen>
+    <dimen name="toolbar_main_height">45dp</dimen>
+    <dimen name="toolbar_main_city_container_height">25.25dp</dimen>
 
 </resources>

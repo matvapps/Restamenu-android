@@ -21,5 +21,6 @@
     <string name="as_advertising">as advertising</string>
     <string name="select_menu_language">Select menu language:</string>
     <string name="restaurants_by_near_you">Restaurants by near you</string>
+    <string name="institution_string">Institution</string>
 
 </resources>
