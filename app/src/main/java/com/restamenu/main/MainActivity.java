@@ -10,7 +10,6 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
@@ -62,6 +61,13 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         if (!isTablet()) {
             nearbyRestaurantPicker = findViewById(R.id.nearby_restaurant_picker);
             nearbyRestaurantPicker.setOrientation(Orientation.HORIZONTAL);
+
+            //DividerItemDecoration itemDecorator = new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL);
+            //itemDecorator.setDrawable(ContextCompat.getDrawable(this, R.drawable.nearby_list_divider));
+            //nearbyRestaurantPicker.addItemDecoration(itemDecorator);
+
+            //nearbyRestaurantPicker.addItemDecoration(new SimpleListDividerDecorator(ContextCompat.getDrawable(this, R.drawable.nearby_list_divider), true));
+
             nearbyRestaurantPicker.addOnItemChangedListener(this);
             nearbyRestaurantPicker.setSlideOnFling(true);
             nearbyRestaurantPicker.setItemTransitionTimeMillis(430);

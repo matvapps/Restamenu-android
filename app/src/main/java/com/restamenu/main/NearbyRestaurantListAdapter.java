@@ -31,16 +31,16 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerVi
     private boolean usedFirstElement;
 
 
-    public Restaurant getItem(int position) {
-        return restaurants.get(position);
-    }
-
     public NearbyRestaurantListAdapter(Context context) {
         this.restaurants = new ArrayList<>();
         this.context = context;
         this.clickListener = null;
         this.useScrollIt = false;
         this.usedFirstElement = false;
+    }
+
+    public Restaurant getItem(int position) {
+        return restaurants.get(position);
     }
 
     public void setData(List<Restaurant> data) {
@@ -93,7 +93,9 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerVi
 
         String path = BuildConfig.BASE_URL + restaurant.getImage().substring(1, restaurant.getImage().length());
 
-        Picasso.with(context).load(path).into(cardHolder.restaurantBackgroundImageView);
+        Picasso.with(context)
+                .load(path)
+                .into(cardHolder.restaurantBackgroundImageView);
 
 
         for (int i = 0; i < restaurant.getServices().size(); i++) {
@@ -167,12 +169,12 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerVi
         return "";
     }
 
-    public void setClickListener(View.OnClickListener clickListener) {
-        this.clickListener = clickListener;
-    }
-
     public View.OnClickListener getClickListener() {
         return clickListener;
+    }
+
+    public void setClickListener(View.OnClickListener clickListener) {
+        this.clickListener = clickListener;
     }
 
     public boolean isUseScrollIt() {

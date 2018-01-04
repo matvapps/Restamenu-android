@@ -1,166 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-
-
-    <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/restaurant_nearby_card_margin_start"
-        android:layout_marginStart="@dimen/restaurant_nearby_card_margin_start"
-        app:cardCornerRadius="@dimen/restaurant_nearby_card_radius"
-        app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="true">
+    android:background="@drawable/bg_restaurant_card"
+    android:paddingLeft="@dimen/restaurant_nearby_card_margin_start">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/restaurant_background"
+        android:layout_width="@dimen/restaurant_nearby_card_background_width"
+        android:layout_height="@dimen/restaurant_nearby_card_background_height"
+        android:background="@color/white_two"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius_top_left="@dimen/restaurant_nearby_card_radius"
+        app:riv_corner_radius_top_right="@dimen/restaurant_nearby_card_radius"
+        app:riv_mutate_background="true" />
 
 
-        <android.support.constraint.ConstraintLayout
+    <TextView
+        android:id="@+id/restaurant_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/restaurant_nearby_card_title_margin_start"
+        android:layout_marginLeft="@dimen/restaurant_nearby_card_title_margin_start"
+        android:layout_marginRight="@dimen/restaurant_nearby_card_title_margin_start"
+        android:layout_marginStart="@dimen/restaurant_nearby_card_title_margin_start"
+        android:layout_marginTop="@dimen/restaurant_nearby_card_title_margin_top"
+        android:ellipsize="end"
+        android:fontFamily="@font/open_sans_bold"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/restaurant_nearby_card_title_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_background"
+        tools:text="Indego by Vineet" />
+
+    <TextView
+        android:id="@+id/restaurant_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans_semibold"
+        android:textColor="@color/black"
+        android:textSize="@dimen/restaurant_nearby_card_type_text_size"
+        app:layout_constraintEnd_toEndOf="@+id/restaurant_title"
+        app:layout_constraintStart_toStartOf="@+id/restaurant_title"
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_title"
+        tools:text="Restaurant" />
+
+
+    <ImageView
+        android:id="@+id/food_type_restaurant_img"
+        android:layout_width="@dimen/restaurant_nearby_card_rest_img_width"
+        android:layout_height="@dimen/restaurant_nearby_card_rest_img_height"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="@dimen/restaurant_nearby_card_rest_img_margin_top"
+        android:src="@drawable/ic_restaurant_disabled"
+        app:layout_constraintStart_toStartOf="@+id/restaurant_type"
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_type" />
+
+    <ImageView
+        android:id="@+id/food_type_takeaway_img"
+        android:layout_width="@dimen/restaurant_nearby_card_take_img_width"
+        android:layout_height="@dimen/restaurant_nearby_card_take_img_height"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="@dimen/restaurant_nearby_card_take_img_margin_start"
+        android:layout_marginStart="@dimen/restaurant_nearby_card_take_img_margin_start"
+        android:src="@drawable/ic_takeaway_disabled"
+        app:layout_constraintBottom_toBottomOf="@+id/food_type_restaurant_img"
+        app:layout_constraintStart_toEndOf="@+id/food_type_restaurant_img"
+        app:layout_constraintTop_toTopOf="@+id/food_type_restaurant_img" />
+
+    <ImageView
+        android:id="@+id/food_type_delivery_img"
+        android:layout_width="@dimen/restaurant_card_item_deliv_img_width"
+        android:layout_height="@dimen/restaurant_card_item_deliv_img_height"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/restaurant_card_item_deliv_img_margin_start"
+        android:layout_marginStart="@dimen/restaurant_card_item_deliv_img_margin_start"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_delivery_disabled"
+        app:layout_constraintBottom_toBottomOf="@+id/food_type_takeaway_img"
+        app:layout_constraintStart_toEndOf="@+id/food_type_takeaway_img"
+        app:layout_constraintTop_toTopOf="@+id/food_type_takeaway_img" />
+
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="@dimen/restaurant_nearby_card_pin_width"
+        android:layout_height="@dimen/restaurant_nearby_card_pin_height"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/restaurant_nearby_card_pin_margin_bottom"
+        android:layout_marginTop="@dimen/restaurant_nearby_card_pin_margin_top"
+        android:src="@drawable/ic_place_black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/food_type_restaurant_img"
+        app:layout_constraintTop_toBottomOf="@+id/food_type_restaurant_img" />
+
+    <LinearLayout
+        android:id="@+id/layout_distance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/restaurant_nearby_card_distance_margin_start"
+        android:layout_marginStart="@dimen/restaurant_nearby_card_distance_margin_start"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/imageView3">
+
+        <TextView
+            android:id="@+id/restaurant_street"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white">
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/restaurant_background"
-                android:layout_width="@dimen/restaurant_nearby_card_background_width"
-                android:layout_height="@dimen/restaurant_nearby_card_background_height"
-                android:background="@color/white_two"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:riv_corner_radius_top_left="@dimen/restaurant_nearby_card_radius"
-                app:riv_corner_radius_top_right="@dimen/restaurant_nearby_card_radius"/>
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/restaurant_nearby_card_street_margin_end"
+            android:layout_marginRight="@dimen/restaurant_nearby_card_street_margin_end"
+            android:ellipsize="end"
+            android:fontFamily="@font/open_sans"
+            android:maxLines="1"
+            android:maxWidth="@dimen/restaurant_nearby_card_street_max_width"
+            android:textColor="@color/black"
+            android:textSize="@dimen/restaurant_nearby_card_street_text_size"
+            tools:text="Grosvenor House Dubai" />
 
 
-            <TextView
-                android:id="@+id/restaurant_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/restaurant_nearby_card_title_margin_start"
-                android:layout_marginStart="@dimen/restaurant_nearby_card_title_margin_start"
-                android:layout_marginRight="@dimen/restaurant_nearby_card_title_margin_start"
-                android:layout_marginLeft="@dimen/restaurant_nearby_card_title_margin_start"
-                android:layout_marginTop="@dimen/restaurant_nearby_card_title_margin_top"
-                android:ellipsize="end"
-                android:fontFamily="@font/open_sans_bold"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="@dimen/restaurant_nearby_card_title_text_size"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/restaurant_background"
-                tools:text="Indego by Vineet" />
+        <TextView
+            android:id="@+id/distance_to_restaurant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/restaurant_nearby_card_distance_margin_start"
+            android:layout_marginRight="@dimen/restaurant_nearby_card_distance_margin_start"
+            android:fontFamily="@font/open_sans_semibold"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/restaurant_nearby_card_distance_text_size"
+            tools:text="0m" />
 
-            <TextView
-                android:id="@+id/restaurant_type"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/open_sans_semibold"
-                android:textColor="@color/black"
-                android:textSize="@dimen/restaurant_nearby_card_type_text_size"
-                app:layout_constraintEnd_toEndOf="@+id/restaurant_title"
-                app:layout_constraintStart_toStartOf="@+id/restaurant_title"
-                app:layout_constraintTop_toBottomOf="@+id/restaurant_title"
-                tools:text="Restaurant" />
+    </LinearLayout>
 
-
-            <ImageView
-                android:id="@+id/food_type_restaurant_img"
-                android:layout_width="@dimen/restaurant_nearby_card_rest_img_width"
-                android:layout_height="@dimen/restaurant_nearby_card_rest_img_height"
-                android:layout_gravity="bottom"
-                android:layout_marginTop="@dimen/restaurant_nearby_card_rest_img_margin_top"
-                android:src="@drawable/ic_restaurant_disabled"
-                app:layout_constraintStart_toStartOf="@+id/restaurant_type"
-                app:layout_constraintTop_toBottomOf="@+id/restaurant_type" />
-
-            <ImageView
-                android:id="@+id/food_type_takeaway_img"
-                android:layout_width="@dimen/restaurant_nearby_card_take_img_width"
-                android:layout_height="@dimen/restaurant_nearby_card_take_img_height"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="@dimen/restaurant_nearby_card_take_img_margin_start"
-                android:layout_marginLeft="@dimen/restaurant_nearby_card_take_img_margin_start"
-                android:src="@drawable/ic_takeaway_disabled"
-                app:layout_constraintBottom_toBottomOf="@+id/food_type_restaurant_img"
-                app:layout_constraintStart_toEndOf="@+id/food_type_restaurant_img"
-                app:layout_constraintTop_toTopOf="@+id/food_type_restaurant_img" />
-
-            <ImageView
-                android:id="@+id/food_type_delivery_img"
-                android:layout_width="@dimen/restaurant_card_item_deliv_img_width"
-                android:layout_height="@dimen/restaurant_card_item_deliv_img_height"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/restaurant_card_item_deliv_img_margin_start"
-                android:layout_marginLeft="@dimen/restaurant_card_item_deliv_img_margin_start"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_delivery_disabled"
-                app:layout_constraintBottom_toBottomOf="@+id/food_type_takeaway_img"
-                app:layout_constraintStart_toEndOf="@+id/food_type_takeaway_img"
-                app:layout_constraintTop_toTopOf="@+id/food_type_takeaway_img" />
-
-
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="@dimen/restaurant_nearby_card_pin_width"
-                android:layout_height="@dimen/restaurant_nearby_card_pin_height"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/restaurant_nearby_card_pin_margin_bottom"
-                android:layout_marginTop="@dimen/restaurant_nearby_card_pin_margin_top"
-                android:src="@drawable/ic_place_black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/food_type_restaurant_img"
-                app:layout_constraintTop_toBottomOf="@+id/food_type_restaurant_img" />
-
-            <LinearLayout
-                android:id="@+id/layout_distance"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/restaurant_nearby_card_distance_margin_start"
-                android:layout_marginLeft="@dimen/restaurant_nearby_card_distance_margin_start"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView3"
-                app:layout_constraintTop_toTopOf="@+id/imageView3">
-
-                <TextView
-                    android:id="@+id/restaurant_street"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="@dimen/restaurant_nearby_card_street_margin_end"
-                    android:layout_marginRight="@dimen/restaurant_nearby_card_street_margin_end"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/open_sans"
-                    android:maxLines="1"
-                    android:maxWidth="@dimen/restaurant_nearby_card_street_max_width"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/restaurant_nearby_card_street_text_size"
-                    tools:text="Grosvenor House Dubai" />
-
-
-                <TextView
-                    android:id="@+id/distance_to_restaurant"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="@dimen/restaurant_nearby_card_distance_margin_start"
-                    android:layout_marginRight="@dimen/restaurant_nearby_card_distance_margin_start"
-                    android:fontFamily="@font/open_sans_semibold"
-                    android:maxLines="1"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/restaurant_nearby_card_distance_text_size"
-                    tools:text="0m" />
-
-            </LinearLayout>
-
-        </android.support.constraint.ConstraintLayout>
-
-
-    </android.support.v7.widget.CardView>
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>

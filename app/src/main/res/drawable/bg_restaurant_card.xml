@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:bottom="0dp"
+        android:left="0dp"
+        android:right="0dp"
+        android:top="0dp">
+        <shape>
+            <solid android:color="#00000918" />
+        </shape>
+    </item>
+    <item
+        android:bottom="0dp"
+        android:left="@dimen/restaurant_nearby_card_margin_start"
+        android:right="0dp"
+        android:top="@dimen/restaurant_nearby_card_background_height">
+        <shape>
+            <solid android:color="#FFFFFF" />
+            <corners
+                android:bottomLeftRadius="@dimen/restaurant_nearby_card_radius"
+                android:bottomRightRadius="@dimen/restaurant_nearby_card_radius"
+                android:topLeftRadius="0dp"
+                android:topRightRadius="0dp" />
+        </shape>
+    </item>
+</layer-list>
