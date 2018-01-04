@@ -1,10 +1,8 @@
-*.iml
-.gradle
-/local.properties
-.idea
+
+
 /idea
 .DS_Store
-/build
+
 /captures
 .externalNativeBuild
 libs/
@@ -12,3 +10,26 @@ sampledata/
 src/main/java/com/restamenu/views/
 src/main/MaterialSearchView-develop (1).zip
 src/main/MaterialSearchView-develop (1)/
+app/build
+app/app.iml
+app/release
+/gravitysnaphelper/build
+/gravitysnaphelper/test
+/gravitysnaphelper/R.java
+/gravitysnaphelper/gravitysnaphelper.iml
+/discretescrollview/build
+/discretescrollview/test
+/discretescrollview/discretescrollview.iml
+/discretescrollview/R.java
+gradlew
+settings.gradle
+restamenu.iml
+local.properties
+.gradle
+*.iml
+/local.properties
+.idea
+/build
+build
+gradle.properties
+gradlew.bat
