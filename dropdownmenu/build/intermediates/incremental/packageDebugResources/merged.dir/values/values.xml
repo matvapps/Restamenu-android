@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DropdownMenu"><attr format="dimension" name="ddmTabTextSize"/><attr format="color" name="ddmTabTextColorNormal"/><attr format="color" name="ddmTabTextColorSelected"/><attr format="reference" name="ddmTabIconNormal"/><attr format="reference" name="ddmTabIconSelected"/><attr format="color" name="ddmBorderColor"/><attr format="color" name="ddmDividerColor"/><attr format="dimension" name="ddmDividerPadding"/></declare-styleable>
+    <string name="app_name">Dropdown Menu</string>
+</resources>

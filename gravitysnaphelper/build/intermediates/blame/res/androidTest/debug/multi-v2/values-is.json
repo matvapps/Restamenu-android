@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\restamenu-android\\gravitysnaphelper\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-is\\values-is.xml",
+            "outputFile": "C:\\Users\\alessio\\Projects\\restamenu\\gravitysnaphelper\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-is\\values-is.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\DEV\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\4c5f23770406a36a85b9bd65ce171a2b\\res\\values-is\\values-is.xml",
+                    "source": "C:\\Users\\alessio\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\5fa012e6d899e4557299f83dd9e264d4\\res\\values-is\\values-is.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

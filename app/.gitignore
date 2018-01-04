@@ -6,5 +6,8 @@
 /idea
 .DS_Store
 /build
+/release
+app.iml
+*.idea
 /captures
 .externalNativeBuild

@@ -1,35 +1,35 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml:1:1-63
-INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml:1:1-63
-INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml:1:1-63
-INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml:1:1-63
-INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml:1:1-63
-INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml:1:1-63
-INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml:1:1-63
+ADDED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml:1:1-63
+INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml:1:1-63
+INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml:1:1-63
+INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml:1:1-63
+INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml:1:1-63
+INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml:1:1-63
+INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml:1:1-63
 	package
-		ADDED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml:1:11-60
-		INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml
-		INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml
+		ADDED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml:1:11-60
+		INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml
-		ADDED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml:1:1-63
-		INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml
+		ADDED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml:1:1-63
+		INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml
 	android:versionCode
-		INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml
-		ADDED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml:1:1-63
-		INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml
+		ADDED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml:1:1-63
+		INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml
 uses-sdk
-INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml
-INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml
-INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml
-INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml
+INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml
+INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml
+INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml
+INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml
-		ADDED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml
-		INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml
+		ADDED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml
-		ADDED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml
-		INJECTED from D:\restamenu-android\gravitysnaphelper\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml
+		ADDED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\alessio\Projects\restamenu\gravitysnaphelper\src\main\AndroidManifest.xml

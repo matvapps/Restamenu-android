@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\restamenu-android\\gravitysnaphelper\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+            "outputFile": "C:\\Users\\alessio\\Projects\\restamenu\\gravitysnaphelper\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\DEV\\.gradle\\caches\\transforms-1\\files-1.1\\recyclerview-v7-26.1.0.aar\\a68fe9b3ee986af30c87ac8c2f172247\\res\\values\\values.xml",
+                    "source": "C:\\Users\\alessio\\.gradle\\caches\\transforms-1\\files-1.1\\recyclerview-v7-26.1.0.aar\\023506c80522e540c69fad9ed5b5cae6\\res\\values\\values.xml",
                     "from": {
                         "startLines": "3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\DEV\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\4c5f23770406a36a85b9bd65ce171a2b\\res\\values\\values.xml",
+                    "source": "C:\\Users\\alessio\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\5fa012e6d899e4557299f83dd9e264d4\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,3,4,5,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,53,54,58,59,60",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
