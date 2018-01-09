@@ -78,13 +78,13 @@ public interface RestaurantService {
     @NonNull
     @GET("getCategories")
     Flowable<ListResponce<Category>> getCategories(@NonNull @Query("restaurant_id") Integer restaurantId,
-                                                   @NonNull @Query("service_id") Integer serviceId,
+                                                   @Query("service_id") Integer serviceId,
                                                    @Query("language_id") Integer languageId);
 
     @NonNull
     @GET("getCategory")
     Flowable<ListResponce<Product>> getCategory(@NonNull @Query("restaurant_id") Integer restaurantId,
-                                                @NonNull @Query("service_id") Integer serviceId,
+                                                @Query("service_id") Integer serviceId,
                                                 @NonNull @Query("category_id") Integer categoryId,
                                                 @Query("language_id") Integer languageId,
                                                 @Query("currency_id") Integer currencyId);

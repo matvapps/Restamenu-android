@@ -18,10 +18,12 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.base.BasePresenterActivity;
+import com.restamenu.category.CategoryActivity;
 import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Contact;
 import com.restamenu.model.content.Image;
@@ -43,6 +45,7 @@ import com.restamenu.views.custom.StickyScrollView;
 import com.squareup.picasso.Picasso;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.Orientation;
+import com.yarolegovich.discretescrollview.transform.Pivot;
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 
 import java.util.ArrayList;
@@ -245,6 +248,8 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             galleryList.setItemTransitionTimeMillis(430);
             galleryList.setItemTransformer(new ScaleTransformer.Builder()
                     .setMinScale(0.85f)
+                    .setPivotX(Pivot.X.LEFT)
+                    .setPivotY(Pivot.Y.CENTER)
                     .build());
         }
 
@@ -303,7 +308,9 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         restaurantTitleView.setText(data.getName());
         restaurantAddressView.setText(data.getAddress());
         restaurantPhoneView.setText(data.getPhones().get(0));
-        restaurantOpeningHours.setText(data.getTiming().get(0));
+        //TODO: uncomment
+        //        restaurantOpeningHours.setText(data.getTiming().get(0));
+
 
 
         if (!isTablet()) {
@@ -312,7 +319,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             int aboutTextPos = getResources().getInteger(R.integer.about_text_pos);
 
             //add about
-            adapter.change(new AdapterItemType<>("About Restaurant", null, ItemType.TITLE), aboutTitlePos);
+            adapter.change(new AdapterItemType<>(getString(R.string.about_restaurant_text), null, ItemType.TITLE), aboutTitlePos);
             adapter.change(new AdapterItemType<>(data.getInformation(), null, ItemType.ABOUT), aboutTextPos);
 
             // add map
@@ -322,8 +329,11 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             // add order
             int selectServicePos = getResources().getInteger(R.integer.select_service_pos);
             adapter.setSelectedService(data.getServices().get(0));
-            adapter.change(new AdapterItemType<>("Select service", data.getServices(), ItemType.ORDER_TYPE_PHONE), selectServicePos);
+            adapter.change(new AdapterItemType<>(getString(R.string.select_service_text), data.getServices(), ItemType.ORDER_TYPE_PHONE), selectServicePos);
         } else {
+//            categoriesAdapter.setRestaurantId(restaurant.getId());
+
+            categoriesAdapter.setOnCategoryClickListener(this);
 
             // add restaurant image
             String restaurantImageUrl = restaurant.getImage();
@@ -408,11 +418,12 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             itemType = ItemType.CONTACTS_PHONE;
         }
 
-        // format hours
-        StringBuilder openingHours = new StringBuilder();
-        for (String item : data.getTiming()) {
-            openingHours.append(item).append(stringDivider);
-        }
+        //TODO:
+//        // format hours
+//        StringBuilder openingHours = new StringBuilder();
+//        for (String item : data.getTiming()) {
+//            openingHours.append(item).append(stringDivider);
+//        }
 
         // format contacts
         StringBuilder socialNetworks = new StringBuilder();
@@ -438,19 +449,19 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             phones.append(item).append(stringDivider);
         }
 
-        contacts.add(new Contact("Opening Hours", openingHours.toString()));
-        contacts.add(new Contact("Phones", phones.toString()));
+//        contacts.add(new Contact("Opening Hours", openingHours.toString()));
+        contacts.add(new Contact(getString(R.string.phones_text), phones.toString()));
 
         if (isTablet()) {
-            contacts.add(new Contact("Social Networks", socialNetworks.toString()));
+            contacts.add(new Contact(getString(R.string.social_networks_text), socialNetworks.toString()));
             contactsAdapter.setItems(contacts);
         } else {
-            contacts.add(new Contact("Address", data.getAddress()));
+            contacts.add(new Contact(getString(R.string.adress_text), data.getAddress()));
 
             int contactTitlePos = getResources().getInteger(R.integer.contacts_title_pos);
             int contactListPos = getResources().getInteger(R.integer.contacts_list_pos);
 
-            adapter.change(new AdapterItemType<>("Contacts", null, ItemType.TITLE), contactTitlePos);
+            adapter.change(new AdapterItemType<>(getString(R.string.contact_restaurant_text), null, ItemType.TITLE), contactTitlePos);
             adapter.change(new AdapterItemType<>(null, contacts, itemType), contactListPos);
         }
     }
@@ -461,7 +472,8 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
         if (!isTablet()) {
             int menuSectionListPos = getResources().getInteger(R.integer.menu_sections_list_pos);
-            adapter.change(new AdapterItemType<>(restaurant.getName(), categories, ItemType.MENU_PHONE), menuSectionListPos);
+            adapter.setCategoryClickListener(this);
+            adapter.change(new AdapterItemType<>("", categories, ItemType.MENU_PHONE), menuSectionListPos);
         } else {
             categoriesAdapter.setItems(categories);
             scrollView.getHitRect(scrollBounds);
@@ -515,7 +527,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
     @Override
     public void showError() {
-
+        Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -551,8 +563,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
     @Override
     public void onCategoryClicked(int categoryId) {
-        // TODO: start CategoryActivity
-        //CategoryActivity.start(this, restaurantId,1,  categoryId);
+        CategoryActivity.start(RestaurantActivity.this, restaurant.getId(),1,  categoryId, restaurant.getName());
     }
 
     private String getInstituteName(List<Institute> instituteList, int instituteId) {

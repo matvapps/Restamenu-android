@@ -51,7 +51,7 @@ public class RestaurantsPresenter implements Presenter<RestaurantView> {
                         loadCategories(restaurantId, restaurant.getServices().get(0));
                     loadGallery(restaurantId);
                     loadPromotions(restaurantId);
-                }, throwable -> view.showError());
+                });
     }
 
     public void changeCategories(int serviceId) {
@@ -95,7 +95,7 @@ public class RestaurantsPresenter implements Presenter<RestaurantView> {
     }
 
     private void loadProducts(int restaurantId, int serviceId, int categoryId) {
-        RepositoryProvider.getAppRepository().getCategoryProducts(restaurantId, serviceId, categoryId)
+        RepositoryProvider.getAppRepository().getCategoryProducts(restaurantId, categoryId)
                 .flatMap(Flowable::fromIterable)
                 .toList()
                 .subscribeOn(schedulerProvider.io())

@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.model.content.Image;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,8 +64,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ImageViewHolder imageViewHolder = (ImageViewHolder) holder;
         if (!useScrollIt) {
-            //TODO:
-//            imageViewHolder.photo.setImageResource(R.drawable.restaurants);
+
+            String image = items.get(position).getImage();
+            String backgroundUrl = image.substring(1, image.length());
+            Picasso.with(holder.itemView.getContext())
+                    .load(BuildConfig.BASE_URL + backgroundUrl).into(imageViewHolder.photo);
+
+
         } else if (position > 0 && useScrollIt) {
 
         }

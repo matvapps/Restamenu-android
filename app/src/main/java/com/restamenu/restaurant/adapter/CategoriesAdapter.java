@@ -8,9 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.restamenu.BuildConfig;
 import com.restamenu.R;
-import com.restamenu.category.CategoryActivity;
 import com.restamenu.model.content.Category;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private List<Category> items;
     private CategoryClickListener onCategoryClickListener;
-    private int restId = 1;
+    private int restId;
+    private String restaurantTitle;
 
     public String getRestaurantTitle() {
         return restaurantTitle;
@@ -33,7 +35,6 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.restaurantTitle = restaurantTitle;
     }
 
-    private String restaurantTitle;
 
     public CategoriesAdapter() {
         items = new ArrayList<>();
@@ -75,16 +76,22 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         CategoryViewHolder categoryViewHolder = (CategoryViewHolder) holder;
         Category category = items.get(position);
 
-        // TODO: load image
-//        categoryViewHolder.background.setImageResource(R.drawable.restaurants);
+        if (items.get(position).getImage() != null && !items.get(position).getImage().equals("")) {
+
+            String image = items.get(position).getImage();
+            String backgroundUrl = image.substring(1, image.length());
+            Picasso.with(holder.itemView.getContext())
+                    .load(BuildConfig.BASE_URL + backgroundUrl).into(categoryViewHolder.background);
+        }
+
         categoryViewHolder.name.setText(category.getName());
 
         categoryViewHolder.itemView.setOnClickListener(view -> {
 
-            CategoryActivity.start(context, restId,1,  items.get(position).geId(), restaurantTitle);
+//            CategoryActivity.start(context, restId,1,  items.get(position).geId(), restaurantTitle);
 
-//                if (onCategoryClickListener != null)
-//                    onCategoryClickListener.onCategoryClicked(categoryViewHolder.getAdapterPosition());
+                if (onCategoryClickListener != null)
+                    onCategoryClickListener.onCategoryClicked(items.get(position).geId());
         });
 
 

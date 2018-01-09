@@ -10,7 +10,7 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.restamenu.BuildConfig;
@@ -42,10 +42,6 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     private DiscreteScrollView nearbyRestaurantPicker;
     private ImageView nearbyContainerBackground;
     private RestaurantsSearchView searchView;
-    private PopupDropDownAdapter cityPopupAdapter;
-    private PopupWindow cityPopupWindow;
-    private View selectCityBtn;
-
 
     @Override
     protected void initViews() {
@@ -87,23 +83,26 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, span_count);
         gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                switch (restaurantListAdapter.getItem(position).getType()) {
-                    case 0:
-                        return 1;
-                    case 1:
-                        return 1;
-                    case 2:
-                        return 2;
-                    case 3:
-                        return 3;
-                    default:
-                        return -1;
+
+        if(isTablet()) {
+            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    switch (restaurantListAdapter.getItem(position).getType()) {
+                        case 0:
+                            return 1;
+                        case 1:
+                            return 1;
+                        case 2:
+                            return 2;
+                        case 3:
+                            return 3;
+                        default:
+                            return -1;
+                    }
                 }
-            }
-        });
+            });
+        }
 
         restaurantsRecycler.setLayoutManager(gridLayoutManager);
         restaurantsRecycler.setNestedScrollingEnabled(false);
@@ -140,6 +139,19 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     public void setData(@NonNull List<Restaurant> data) {
         Logger.log("Amount: " + data.size());
         restaurantListAdapter.setData(data);
+    }
+
+    @Override
+    public void setFoundedRestaurants(List<Restaurant> data) {
+        Logger.log("Found: " + data.size() + " restaurant('s)");
+        restaurantListAdapter = new RestaurantListAdapter(MainActivity.this, this);
+        restaurantListAdapter.setData(data);
+        restaurantsRecycler.setAdapter(restaurantListAdapter);
+    }
+
+    @Override
+    public void setSuggestion(List<Restaurant> data) {
+        Logger.log("Found: " + data.toString());
 
         ArrayList<String> restNames = new ArrayList<>();
 
@@ -149,17 +161,6 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
         searchView.setSuggestions(restNames);
 
-    }
-
-    @Override
-    public void setFoundedRestaurants(List<Restaurant> data) {
-        Logger.log("Found: " + data.size() + " restaurant('s)");
-        restaurantListAdapter.setData(data);
-    }
-
-    @Override
-    public void setSuggestion(List<Restaurant> data) {
-        searchView.setSuggestions(data);
     }
 
     @Override
@@ -208,7 +209,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     @Override
     public void showError() {
-//        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
         //TODO
     }
 
@@ -225,9 +226,12 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     private void onItemChanged(Restaurant restaurant) {
         //load restaurant background
         String backgroundUrl = restaurant.getBackground();
+
+        Logger.log(backgroundUrl);
+
         Picasso.with(this)
                 .load(BuildConfig.BASE_URL +
-                        backgroundUrl.substring(1, backgroundUrl.length()))
+                        backgroundUrl)
                 .into(nearbyContainerBackground);
 
 
@@ -243,6 +247,21 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         Logger.log("snapped item: " + position);
     }
 
+
+
+    @Override
+    public void finish() {
+        // dismiss filter popup window if it's showing
+        if (searchView.getFilterPopup().isShowing()) {
+            searchView.getFilterPopup().dismiss();
+
+            return;
+        }
+
+        super.finish();
+    }
+
+
     /**
      * SearchListener
      */
@@ -252,13 +271,37 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     }
 
     @Override
-    public void onInstituteChanged(int instituteId) {
+    public void onInputDataChanged(List<PopupFilterItem> filterList, String keyword) {
 
+        List<Cusine> cuisineFilterList = new ArrayList<>();
+        List<Institute> instituteFilterList = new ArrayList<>();
+
+        for (PopupFilterItem item :filterList) {
+            Object obj = item.getItem();
+
+            if (obj instanceof Cusine) {
+                cuisineFilterList.add((Cusine) obj);
+            } else if (obj instanceof Institute) {
+                instituteFilterList.add((Institute) (obj));
+            }
+        }
+
+
+        // TODO: use cuisineFilterLIst and instituteFilterList in loadSuggestions
+        if (!keyword.equals("")) {
+            presenter.loadSuggestions(keyword, 1, 1);
+        }
     }
 
-    @Override
-    public void inCuisineChanged(int cuisineId) {
-    }
+    //    @Override
+//    public void onInstituteChanged(PopupFilterItem institute) {
+//
+//    }
+//
+//    @Override
+//    public void onCuisineChanged(PopupFilterItem cuisine) {
+//
+//    }
     /**
      * SearchListener
      */

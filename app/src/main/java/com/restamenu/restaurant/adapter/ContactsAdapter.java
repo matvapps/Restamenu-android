@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.restamenu.R;
 import com.restamenu.model.content.Contact;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,19 +60,19 @@ public class ContactsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         switch (contact.getTitle()) {
 
             case "Phones": {
-                Picasso.with(holder.itemView.getContext()).load(R.drawable.ic_phone).into(contactViewHolder.icon);
+                contactViewHolder.icon.setImageResource(R.drawable.ic_calldown);
                 break;
             }
             case "Opening Hours": {
-                Picasso.with(holder.itemView.getContext()).load(R.drawable.ic_hours).into(contactViewHolder.icon);
+                contactViewHolder.icon.setImageResource(R.drawable.ic_timedown);
                 break;
             }
             case "Social Networks": {
-                Picasso.with(holder.itemView.getContext()).load(R.drawable.ic_share).into(contactViewHolder.icon);
+                contactViewHolder.icon.setImageResource(R.drawable.ic_soc_networks);
                 break;
             }
             case "Address": {
-                Picasso.with(holder.itemView.getContext()).load(R.drawable.ic_pin_black).into(contactViewHolder.icon);
+                contactViewHolder.icon.setImageResource(R.drawable.ic_place_black);
                 break;
             }
 

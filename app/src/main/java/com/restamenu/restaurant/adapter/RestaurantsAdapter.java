@@ -35,6 +35,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private List<AdapterItemType> items;
     private int selectedService;
 
+    private CategoryClickListener categoryClickListener;
+
     public RestaurantsAdapter(ChangeServiceListener listener) {
         this.listener = listener;
         items = new ArrayList<>();
@@ -145,7 +147,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 OrderTypeSpinnerAdapter orderTypeSpinnerAdapter = new OrderTypeSpinnerAdapter(holder.itemView.getContext(),
                         serviceTypes, serviceItemType.getData(), selectedService);
                 viewHolder.spinner.setAdapter(orderTypeSpinnerAdapter);
-                viewHolder.spinner.setDropDownVerticalOffset((int) viewHolder.itemView.getContext().getResources().getDimension(R.dimen.order_type_item_height));
+                viewHolder.spinner.setDropDownVerticalOffset((int) viewHolder.itemView.getContext().getResources().getDimension(R.dimen.order_type_header_item_height));
                 viewHolder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -230,8 +232,11 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 viewHolder.recycler.setLayoutManager(new LinearLayoutManager(viewHolder.itemView.getContext(), LinearLayoutManager.VERTICAL, false));
 
                 CategoriesAdapter categoriesAdapter = new CategoriesAdapter();
-                categoriesAdapter.setRestaurantTitle(item.getTitle());
+                categoriesAdapter.setOnCategoryClickListener(categoryClickListener);
+//                categoriesAdapter.setRestaurantId(Integer.parseInt(item.getTitle()));
                 categoriesAdapter.setItems(categoryItemType.getData());
+
+
 
                 viewHolder.recycler.setAdapter(categoriesAdapter);
                 break;
@@ -306,7 +311,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 // load map
                 String backgroundUrl = item.getTitle().substring(1, item.getTitle().length());
                 Picasso.with(holder.itemView.getContext()).load(BuildConfig.BASE_URL + backgroundUrl).into(imageViewHolder.image);
-
+                imageViewHolder.image.setVisibility(View.VISIBLE);
                 break;
             }
             case 10: {
@@ -322,6 +327,14 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 viewHolder.recycler.setAdapter(contactsAdapter);
             }
         }
+    }
+
+    public CategoryClickListener getCategoryClickListener() {
+        return categoryClickListener;
+    }
+
+    public void setCategoryClickListener(CategoryClickListener categoryClickListener) {
+        this.categoryClickListener = categoryClickListener;
     }
 
     public interface ChangeServiceListener {

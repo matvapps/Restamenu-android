@@ -12,6 +12,7 @@
         android:layout_marginLeft="@dimen/restaurant_nearby_card_margin_start"
         android:layout_marginStart="@dimen/restaurant_nearby_card_margin_start"
         app:cardCornerRadius="@dimen/restaurant_nearby_card_radius"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true">
 

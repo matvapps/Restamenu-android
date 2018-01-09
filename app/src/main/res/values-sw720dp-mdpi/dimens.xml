@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="splash_cursor_margin_left">190dp</dimen>
+    <dimen name="splash_title_width">175dp</dimen>
+    <dimen name="splash_title_height">75dp</dimen>
+    <dimen name="splash_cursor_width">15dp</dimen>
+    <dimen name="splash_rest_text_width">130dp</dimen>
+    <dimen name="splash_rest_text_height">95dp</dimen>
+    <dimen name="splash_title_container_height">150dp</dimen>
+
+    <item name="isLargeLayout" type="bool">true</item>
+    <item name="restaurant_span_count" type="integer">3</item>
+    <item name="product_span_count" type="integer">4</item>
+
+
+    <item name="restaurant_content_list_size" type="integer">5</item>
+    <item name="select_service_pos" type="integer">0</item>
+    <item name="menu_sections_title_pos" type="integer">1</item>
+    <item name="menu_sections_list_pos" type="integer">2</item>
+    <item name="restaurant_promotions_title_pos" type="integer">3</item>
+    <item name="restaurant_promotions_list_pos" type="integer">4</item>
+    <item name="gallery_title_pos" type="integer">5</item>
+    <item name="gallery_list_pos" type="integer">6</item>
+    <item name="about_title_pos" type="integer">7</item>
+    <item name="about_text_pos" type="integer">8</item>
+    <item name="contacts_title_pos" type="integer">9</item>
+    <item name="contacts_list_pos" type="integer">10</item>
+    <item name="map_pos" type="integer">11</item>
+
+    <dimen name="land_popup_item_chbx_size">23dp</dimen>
+    <dimen name="land_popup_item_chbx_icon_height">9dp</dimen>
+    <dimen name="land_popup_item_chbx_margin">18dp</dimen>
+    <dimen name="land_popup_item_chbx_icon_width">11dp</dimen>
+    <dimen name="land_popup_item_title_text_size">15sp</dimen>
+    <dimen name="land_popup_item_title_margin_start">14dp</dimen>
+    <dimen name="land_popup_item_title_margin_end">40dp</dimen>
+
+    <dimen name="land_popup_content_triangle_size">11.1dp</dimen>
+    <dimen name="land_popup_content_title_margin_end">8.9dp</dimen>
+    <dimen name="land_popup_content_title_margin_start">37dp</dimen>
+    <dimen name="land_popup_content_title_text_size">19sp</dimen>
+    <dimen name="land_popup_content_title_margin_top">37dp</dimen>
+    <dimen name="land_popup_content_grid_margin_top">20dp</dimen>
+    <dimen name="land_popup_content_grid_margin_end">38dp</dimen>
+    <dimen name="land_popup_content_grid_margin_bottom">32dp</dimen>
+
+
+    <dimen name="land_scroll_it_white_text_margin_end">36dp</dimen>
+    <dimen name="land_scroll_it_white_image_size">22dp</dimen>
+    <dimen name="land_scroll_it_white_image_margin_start">50dp</dimen>
+    <dimen name="land_scroll_it_white_image_margin_end">7dp</dimen>
+    <dimen name="land_scroll_it_white_text_size">10sp</dimen>
+    <dimen name="land_toolbar_burger_menu_width">31dp</dimen>
+    <dimen name="land_toolbar_burger_menu_height">19dp</dimen>
+    <dimen name="land_toolbar_burger_menu_margin_start">49dp</dimen>
+    <dimen name="land_activity_main_padding_bottom">35dp</dimen>
+    <dimen name="land_activity_main_margin">251dp</dimen>
+    <dimen name="land_activity_main_rest_list_margin_horiz">37dp</dimen>
+    <dimen name="land_activity_main_rest_list_margin_top">25dp</dimen>
+    <dimen name="land_frag_nearby_text_margin_top">62dp</dimen>
+    <dimen name="land_frag_nearby_text_size">38sp</dimen>
+    <dimen name="land_frag_list_margin_bottom">58dp</dimen>
+    <dimen name="land_frag_list_margin_top">37dp</dimen>
+    <dimen name="land_rest_adv_card_padding">12dp</dimen>
+    <dimen name="land_rest_adv_card_radius">4dp</dimen>
+    <dimen name="land_rest_adv_back_height">231dp</dimen>
+    <dimen name="land_rest_adv_card_title_margin_horiz">17dp</dimen>
+    <dimen name="land_rest_adv_card_title_margin_top">16dp</dimen>
+    <dimen name="land_rest_adv_card_title_text_size">19sp</dimen>
+    <dimen name="land_rest_adv_card_type_margin_top">4.9dp</dimen>
+    <dimen name="land_rest_adv_restaurant_img_size">13.9dp</dimen>
+    <dimen name="land_rest_adv_restaurant_img_margin_bottom">20dp</dimen>
+    <dimen name="land_rest_adv_restaurant_img_margin_top">25dp</dimen>
+    <dimen name="land_rest_adv_takeway_img_width">15dp</dimen>
+    <dimen name="land_rest_adv_takeway_img_height">13.9dp</dimen>
+    <dimen name="land_rest_adv_takeway_img_margin_start">7dp</dimen>
+    <dimen name="land_rest_adv_delivery_img_width">21dp</dimen>
+    <dimen name="land_rest_adv_delivery_img_height">13dp</dimen>
+    <dimen name="land_rest_adv_delivery_img_marigin_start">6dp</dimen>
+    <dimen name="land_rest_adv_text_margin_bottom">18dp</dimen>
+    <dimen name="land_rest_adv_text_margin_end">21dp</dimen>
+    <dimen name="land_rest_adv_text_size">13sp</dimen>
+    <dimen name="land_rest_card_padding">12dp</dimen>
+    <dimen name="land_rest_card_radius">4dp</dimen>
+    <dimen name="land_rest_card_background_height">234dp</dimen>
+    <dimen name="land_rest_card_title_margin_end">17dp</dimen>
+    <dimen name="land_rest_card_title_margin_top">16dp</dimen>
+    <dimen name="land_rest_card_title_text_size">19sp</dimen>
+    <dimen name="land_rest_card_type_margin_top">4.9dp</dimen>
+    <dimen name="land_rest_card_type_text_size">13sp</dimen>
+    <dimen name="land_rest_card_rest_img_size">13.9dp</dimen>
+    <dimen name="land_rest_card_rest_img_margin_bottom">20dp</dimen>
+    <dimen name="land_rest_card_rest_img_margin_top">25dp</dimen>
+    <dimen name="land_rest_card_takeway_img_width">15dp</dimen>
+    <dimen name="land_rest_card_takeway_img_height">13.9dp</dimen>
+    <dimen name="land_rest_card_takeway_img_margin_start">7dp</dimen>
+    <dimen name="land_rest_card_delivery_img_width">21dp</dimen>
+    <dimen name="land_rest_card_delivery_img_height">13dp</dimen>
+    <dimen name="land_rest_card_delivery_img_margin_start">6dp</dimen>
+    <dimen name="land_rest_card_nearby_width">277dp</dimen>
+    <dimen name="land_rest_card_nearby_radius">2dp</dimen>
+    <dimen name="land_rest_card_nearby_margin_end">24dp</dimen>
+    <dimen name="land_rest_card_nearby_background_height">171dp</dimen>
+    <dimen name="land_rest_card_nearby_backround_radius">2dp</dimen>
+    <dimen name="land_rest_card_nearby_title_margin_horiz">17dp</dimen>
+    <dimen name="land_rest_card_nearby_title_margin_top">16dp</dimen>
+    <dimen name="land_rest_card_nearby_title_text_size">19sp</dimen>
+    <dimen name="land_rest_card_nearby_type_margin_top">4.9dp</dimen>
+    <dimen name="land_rest_card_nearby_type_text_size">13sp</dimen>
+    <dimen name="land_rest_card_nearby_rest_img_size">13.9dp</dimen>
+    <dimen name="land_rest_card_nearby_rest_img_margin_top">24dp</dimen>
+    <dimen name="land_rest_card_nearby_takeway_img_width">15dp</dimen>
+    <dimen name="land_rest_card_nearby_takeway_img_height">13.9dp</dimen>
+    <dimen name="land_rest_card_nearby_takeway_img_margin_start">7dp</dimen>
+    <dimen name="land_rest_card_nearby_delivery_img_width">21dp</dimen>
+    <dimen name="land_rest_card_nearby_delivery_img_height">13dp</dimen>
+    <dimen name="land_rest_card_nearby_delivery_img_margin_start">6dp</dimen>
+    <dimen name="land_rest_card_nearby_pin_width">9dp</dimen>
+    <dimen name="land_rest_card_nearby_pin_height">13dp</dimen>
+    <dimen name="land_rest_card_nearby_pin_margin_bottom">18dp</dimen>
+    <dimen name="land_rest_card_nearby_pin_margin_top">10dp</dimen>
+    <dimen name="land_rest_card_nearby_distance_margin_start">4.9dp</dimen>
+    <dimen name="land_rest_card_nearby_street_margin_end">4dp</dimen>
+    <dimen name="land_rest_card_nearby_street_max_width">135dp</dimen>
+    <dimen name="land_rest_card_nearby_street_text_size">11sp</dimen>
+    <dimen name="land_rest_card_nearby_distance_text_margin_end">17dp</dimen>
+    <dimen name="land_rest_card_nearby_distance_text_size">11sp</dimen>
+    <dimen name="land_search_view_height">49.9dp</dimen>
+    <dimen name="land_search_view_edit_padding_left">16dp</dimen>
+    <dimen name="land_search_view_edit_text_size">16sp</dimen>
+    <dimen name="land_search_view_inst_text_margin_end">6dp</dimen>
+    <dimen name="land_search_view_inst_text_margin_start">16dp</dimen>
+    <dimen name="land_search_view_inst_text_size">15sp</dimen>
+    <dimen name="land_search_view_arrow_width">5dp</dimen>
+    <dimen name="land_search_view_arrow_height">3dp</dimen>
+    <dimen name="land_search_view_arrow_margin_top">2dp</dimen>
+    <dimen name="land_search_view_arro_margin_end">27dp</dimen>
+    <dimen name="land_search_view_cuisine_margin_end">6dp</dimen>
+    <dimen name="land_search_view_cuisine_margin_start">16dp</dimen>
+    <dimen name="land_search_view_cuisine_text_size">15sp</dimen>
+    <dimen name="land_search_view_icon_size">17dp</dimen>
+    <dimen name="land_search_view_icon_margin_end">8dp</dimen>
+    <dimen name="land_search_view_search_text_size">18sp</dimen>
+    <dimen name="land_toolbar_main_logo_width">168dp</dimen>
+    <dimen name="land_toolbar_main_logo_height">40dp</dimen>
+    <dimen name="land_toolbar_main_city_margin_end">49dp</dimen>
+    <dimen name="land_toolbar_main_pin_width">10dp</dimen>
+    <dimen name="land_toolbar_main_pin_height">13.9dp</dimen>
+    <dimen name="land_toolbar_main_pin_margin_end">9dp</dimen>
+    <dimen name="land_toolbar_main_pin_margin_start">13dp</dimen>
+    <dimen name="land_toolbar_main_city_title_margin_bottom">12dp</dimen>
+    <dimen name="land_toolbar_main_city_title_margin_end">53dp</dimen>
+    <dimen name="land_toolbar_main_city_title_margin_top">12dp</dimen>
+    <dimen name="land_toolbar_main_city_title_text_size">15sp</dimen>
+    <dimen name="land_toolbar_main_arrow_width">4dp</dimen>
+    <dimen name="land_toolbar_main_arrow_height">6dp</dimen>
+    <dimen name="land_toolbar_main_arrow_margin_end">13dp</dimen>
+    <dimen name="land_activity_main_restaurants_in_city_margin_top">40dp</dimen>
+    <dimen name="land_activity_main_restaurants_in_city_text_size">28sp</dimen>
+    <dimen name="land_toolbar_height">75dp</dimen>
+    <dimen name="land_toolbar_restaurant_container_height">38dp</dimen>
+    <dimen name="land_toolbar_restaurant_margin_horizontal">51dp</dimen>
+    <dimen name="land_toolbar_restaurant_flag_width">15dp</dimen>
+    <dimen name="land_toolbar_restaurant_flag_height">10dp</dimen>
+    <dimen name="land_toolbar_flag_margin_start">19dp</dimen>
+    <dimen name="land_toolbar_flag_margin_end">13dp</dimen>
+    <dimen name="land_toolbar_lang_title_margin_end">15dp</dimen>
+    <dimen name="land_toolbar_lang_title_text_size">15sp</dimen>
+    <dimen name="land_toolbar_restaurant_arrow_width">7dp</dimen>
+    <dimen name="land_toolbar_restaurant_arrow_height">5dp</dimen>
+    <dimen name="land_toolbar_restaurant_arrow_margin_end">7dp</dimen>
+    <dimen name="land_toolbar_restaurant_currency_container_margin_end">18dp</dimen>
+    <dimen name="land_toolbar_restaurant_icon_place_">10dp</dimen>
+    <dimen name="land_toolbar_restaurant_icon_place_height">16dp</dimen>
+    <dimen name="land_toolbar_restaurant_currency_icon_margin_end">9dp</dimen>
+    <dimen name="land_toolbar_restaurant_currency_icon_margin_left">16dp</dimen>
+    <dimen name="land_toolbar_restaurant_currency_title_margin_end">13dp</dimen>
+    <dimen name="land_toolbar_restaurant_currency_title_text_size">15sp</dimen>
+    <dimen name="land_activity_restaurant_background_height">214dp</dimen>
+    <dimen name="land_activity_restaurant_favorite_container_margin_bottom">21dp</dimen>
+    <dimen name="land_activity_restaurant_favorite_container_margin_end">50dp</dimen>
+    <dimen name="land_activity_restaurant_favorite_container_height">38dp</dimen>
+    <dimen name="land_activity_restaurant_favorite_icon_width">14dp</dimen>
+    <dimen name="land_activity_restaurant_favorite_icon_margin_end">11dp</dimen>
+    <dimen name="land_activity_restaurant_favorite_icon_margin_start">13dp</dimen>
+    <dimen name="land_activity_restaurant_addtofav_text_size">15sp</dimen>
+    <dimen name="land_activity_restaurant_title_margin_start">23dp</dimen>
+    <dimen name="land_activity_restaurant_title_margin_top">55dp</dimen>
+    <dimen name="land_activity_restaurant_title_text_size">33sp</dimen>
+    <dimen name="land_activity_restaurant_type_text_size">19sp</dimen>
+    <dimen name="land_activity_restaurant_pin_width">9dp</dimen>
+    <dimen name="land_activity_restaurant_pin_height">13dp</dimen>
+    <dimen name="land_activity_restaurant_pin_margin_top">20dp</dimen>
+    <dimen name="land_activity_restaurant_adress_margin_start">7dp</dimen>
+    <dimen name="land_activity_restaurant_adress_text_size">13sp</dimen>
+    <dimen name="land_activity_restaurant_timing_container">22dp</dimen>
+    <dimen name="land_activity_restaurant_timing_container_padding">8dp</dimen>
+    <dimen name="land_activity_restaurant_timing_icon_size">13dp</dimen>
+    <dimen name="land_activity_restaurant_image_width">277dp</dimen>
+    <dimen name="land_activity_restaurant_image_height">176dp</dimen>
+    <dimen name="land_activity_restaurant_timing_container_margin_left">17dp</dimen>
+    <dimen name="land_activity_restaurant_timing_container_margin_top">5dp</dimen>
+    <dimen name="land_activity_restaurant_margin_horizontal">51dp</dimen>
+    <dimen name="land_activity_restaurant_image_margin_top">63dp</dimen>
+    <dimen name="land_activity_restaurant_nav_container_margin_top">17dp</dimen>
+    <dimen name="land_activity_restaurant_order_list_height">110dp</dimen>
+    <dimen name="land_activity_restaurant_addtofav_tex_margin_end">17dp</dimen>
+    <dimen name="land_activity_restaurant_call_icon_size">13dp</dimen>
+    <dimen name="land_activity_restauran_call_icon_margin_top">10dp</dimen>
+
+</resources>

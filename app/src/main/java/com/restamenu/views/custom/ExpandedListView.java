@@ -19,7 +19,7 @@ public class ExpandedListView extends ListView
     @Override
     protected void onDraw(Canvas canvas)
     {
-        if (getCount() != oldCount)
+        if (getCount() != oldCount && getCount() != 0)
         {
             int height = getChildAt(0).getHeight() + 1 ;
             oldCount = getCount();

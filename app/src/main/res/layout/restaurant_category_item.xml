@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/restaurant_category_item_margin"
-    android:layout_marginRight="@dimen/restaurant_category_item_margin"
     android:layout_marginTop="@dimen/restaurant_category_item_margin"
+    android:paddingLeft="@dimen/activity_restaurant_margin_start"
+    android:paddingRight="@dimen/activity_restaurant_margin_start"
     android:background="?selectableItemBackground"
     android:foreground="?selectableItemBackground">
 
@@ -25,7 +25,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start"
         android:layout_marginBottom="@dimen/restaurant_category_item_name_margin_bottom"
+        android:layout_marginLeft="@dimen/restaurant_category_item_name_margin_start"
         android:layout_marginStart="@dimen/restaurant_category_item_name_margin_start"
+        android:layout_marginEnd="@dimen/restaurant_category_item_name_margin_start"
+        android:layout_marginRight="@dimen/restaurant_category_item_name_margin_start"
+        android:fontFamily="@font/open_sans_semibold"
         android:textColor="@color/white"
         android:textSize="@dimen/restaurant_category_item_height_name_text_size"
         tools:text="Appetizers" />

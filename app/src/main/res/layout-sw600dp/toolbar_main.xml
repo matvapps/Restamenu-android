@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
+    android:layout_height="@dimen/land_toolbar_height"
     android:background="@color/white"
     android:elevation="0dp"
     android:gravity="center"
@@ -17,7 +17,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="@dimen/toolbar_main_height"
         android:background="@color/white"
         android:elevation="0dp"
         android:gravity="center"
@@ -48,8 +48,8 @@
                 android:id="@+id/burger_menu"
                 android:layout_width="@dimen/land_toolbar_burger_menu_width"
                 android:layout_height="@dimen/land_toolbar_burger_menu_height"
-                android:layout_marginStart="@dimen/land_toolbar_burger_menu_margin_start"
                 android:layout_marginLeft="@dimen/land_toolbar_burger_menu_margin_start"
+                android:layout_marginStart="@dimen/land_toolbar_burger_menu_margin_start"
                 android:src="@drawable/ic_menu"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +71,7 @@
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/city_container"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/land_toolbar_main_city_container_height"
                 android:layout_marginEnd="@dimen/land_toolbar_main_city_margin_end"
                 android:layout_marginRight="@dimen/land_toolbar_main_city_margin_end"
                 android:background="@drawable/rect_fill_stroke_grey"
@@ -80,13 +80,13 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/currency"
+                    android:id="@+id/image_icon_place"
                     android:layout_width="@dimen/land_toolbar_main_pin_width"
                     android:layout_height="@dimen/land_toolbar_main_pin_height"
                     android:layout_marginEnd="@dimen/land_toolbar_main_pin_margin_end"
+                    android:layout_marginStart="@dimen/land_toolbar_main_pin_margin_start"
                     android:layout_marginRight="@dimen/land_toolbar_main_pin_margin_end"
                     android:layout_marginLeft="@dimen/land_toolbar_main_pin_margin_start"
-                    android:layout_marginStart="@dimen/land_toolbar_main_pin_margin_start"
                     android:src="@drawable/ic_place_red"
                     android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="@+id/city_title"
@@ -98,10 +98,8 @@
                     android:id="@+id/city_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/land_toolbar_main_city_title_margin_bottom"
-                    android:layout_marginEnd="@dimen/land_toolbar_main_city_title_margin_end"
-                    android:layout_marginRight="@dimen/land_toolbar_main_city_title_margin_end"
-                    android:layout_marginTop="@dimen/land_toolbar_main_city_title_margin_top"
+                    android:layout_marginEnd="@dimen/toolbar_main_city_title_margin_end"
+                    android:layout_marginRight="@dimen/toolbar_main_city_title_margin_end"
                     android:fontFamily="@font/open_sans"
                     android:gravity="center_horizontal"
                     android:text="Dubai"
@@ -109,19 +107,18 @@
                     android:textSize="@dimen/land_toolbar_main_city_title_text_size"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/arrow2"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/arrow2"
                     android:layout_width="@dimen/land_toolbar_main_arrow_width"
                     android:layout_height="@dimen/land_toolbar_main_arrow_height"
                     android:layout_marginEnd="@dimen/land_toolbar_main_arrow_margin_end"
+                    android:layout_marginRight="@dimen/land_toolbar_main_arrow_margin_end"
                     android:src="@drawable/ic_go_link"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginRight="@dimen/land_toolbar_main_arrow_margin_end" />
+                    app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
         </android.support.constraint.ConstraintLayout>
     </FrameLayout>

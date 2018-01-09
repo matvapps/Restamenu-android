@@ -43,7 +43,7 @@ public interface DataSource {
 
     Flowable<List<Image>> getGallery(@NonNull Integer restaurantId);
 
-    Flowable<List<Product>> getCategoryProducts(@NonNull Integer restaurantId, @NonNull Integer serviceId, @NonNull Integer categoryId);
+    Flowable<List<Product>> getCategoryProducts(@NonNull Integer restaurantId, @NonNull Integer categoryId);
 
 
 

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.restamenu.R;
 import com.restamenu.base.BasePresenterActivity;
@@ -90,12 +91,10 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     }
 
     public void changeCategoryTo(int categoryId) {
-
+        Logger.log("categoryIndex = " + categoryIndex);
         txtCategoryName.setText(categories.get
                 (getCategoryIndex(categories, categoryId)).getName());
 
-
-        Logger.log(categoryIndex + "");
 
         presenter.loadData(categoryId);
     }
@@ -168,8 +167,6 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
             btnTopCategoryPrevious.setVisibility(View.VISIBLE);
             btnTopCategoryPrevious.setEnabled(true);
-            btnBottomCategoryPrevious.setVisibility(View.VISIBLE);
-            btnBottomCategoryPrevious.setEnabled(true);
 
             if (isTablet()) {
                 nextCategoryName.setText(data.get(categoryIndex + NEXT_CATEGORY).getName());
@@ -218,8 +215,10 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
 
         buttonFind.setOnClickListener(view -> {
-            if (!findEditText.getText().toString().equals(""))
+            if (!findEditText.getText().toString().equals("")) {
                 productAdapter.findProductBy(findEditText.getText().toString());
+                findEditText.setText("");
+            }
         });
 
 
@@ -295,7 +294,7 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
     @Override
     public void showError() {
-
+        Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -9,4 +9,4 @@
 .externalNativeBuild
 libs/
 sampledata/
-src/main/java/com/restamenu/views/
+.gitignore

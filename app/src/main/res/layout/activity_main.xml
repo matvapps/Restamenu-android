@@ -11,7 +11,7 @@
     <include
         layout="@layout/toolbar_main"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize" />
+        android:layout_height="@dimen/toolbar_main_height" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -72,6 +72,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="@dimen/activity_main_title_margin_bottom"
                 android:layout_marginTop="@dimen/activity_main_title_margin_top"
+                android:fontFamily="@font/open_sans_bold"
                 android:text="Restaurants in Dubai"
                 android:textColor="@color/black"
                 android:textSize="@dimen/activity_main_title_text_size"

@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.restamenu.R;
 import com.restamenu.model.content.Cusine;
 import com.restamenu.model.content.Institute;
-import com.restamenu.util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +21,17 @@ import java.util.List;
 public class PopupDropDownAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<PopupFilterItem> items;
-    private PopupItemClickListener popupItemClickListener;
+//    private PopupItemClickListener popupItemClickListener;
+    private FilterItemChangeListener filterItemChangeListener;
 
     public PopupDropDownAdapter() {
         items = new ArrayList<>();
     }
 
+
+    public void setFilterItemChangeListener(FilterItemChangeListener filterItemChangeListener) {
+        this.filterItemChangeListener = filterItemChangeListener;
+    }
 
     public void addItems(List<PopupFilterItem> data) {
         items.addAll(data);
@@ -65,8 +69,6 @@ public class PopupDropDownAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         filterViewHolder.itemView.setOnClickListener(view -> {
 
-            Logger.log(String.valueOf(items.get(position).isChecked()));
-
             if (items.get(position).isChecked()) {
                 items.get(position).setChecked(false);
                 filterViewHolder.chbx.setVisibility(View.INVISIBLE);
@@ -75,11 +77,11 @@ public class PopupDropDownAdapter extends RecyclerView.Adapter<RecyclerView.View
                 filterViewHolder.chbx.setVisibility(View.VISIBLE);
             }
 
-            if (popupItemClickListener != null) {
-                popupItemClickListener.onClick(items.get(position));
-
-                Logger.log(String.valueOf(items.get(position).isChecked()));
-
+//            if (popupItemClickListener != null) {
+//                popupItemClickListener.onClick(items.get(position));
+//            }
+            if (filterItemChangeListener != null) {
+                filterItemChangeListener.onFilterItemChanged(items.get(position));
             }
         });
 
@@ -92,19 +94,23 @@ public class PopupDropDownAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     }
 
+    public interface FilterItemChangeListener {
+        void onFilterItemChanged(PopupFilterItem item);
+    }
+
 
     @Override
     public int getItemCount() {
         return items.size();
     }
 
-    public PopupItemClickListener getPopupItemClickListener() {
-        return popupItemClickListener;
-    }
+//    public PopupItemClickListener getPopupItemClickListener() {
+//        return popupItemClickListener;
+//    }
 
-    public void setPopupItemClickListener(PopupItemClickListener popupItemClickListener) {
-        this.popupItemClickListener = popupItemClickListener;
-    }
+//    public void setPopupItemClickListener(PopupItemClickListener popupItemClickListener) {
+//        this.popupItemClickListener = popupItemClickListener;
+//    }
 
 
     class FilterViewHolder extends RecyclerView.ViewHolder {

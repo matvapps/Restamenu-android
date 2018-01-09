@@ -10,9 +10,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.model.content.Product;
 import com.restamenu.util.Logger;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +71,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Product product = items.get(position);
 
         holder.productName.setText(product.getName());
-        holder.productDescription.setText(product.getDescription());
+        //TODO: uncomment
+//        holder.productDescription.setText(product.getDescription());
 
         int priceOriginal = product.getPriceOriginal();
         int price = product.getPrice();
@@ -87,6 +90,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.serviceList.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext(), HORIZONTAL, false));
         holder.serviceList.setAdapter(specialsAdapter);
 
+
+        String imageUrl = product.getImages().get(0);
+        if (!imageUrl.equals("")) {
+            String path = BuildConfig.BASE_URL + imageUrl.substring(1, imageUrl.length());
+            Picasso.with(holder.itemView.getContext()).load(path).into(holder.productImage);
+        }
         specialsAdapter.setItems(items.get(position).getSpecial());
 
 
@@ -103,7 +112,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void findProductBy(String characters) {
         List<Product> result = new ArrayList<>();
 
-        for(int i = 0; i < defaultList.size(); i++) {
+        for (int i = 0; i < defaultList.size(); i++) {
             Product product = defaultList.get(i);
 
             if (product.getName().toLowerCase()
@@ -123,7 +132,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         private ImageView productImage;
         private TextView productName;
         private TextView productDescription;
-//        private TextView productMass;
+        //        private TextView productMass;
         private TextView productPrice;
         private TextView productPriceSub;
         private RecyclerView serviceList;

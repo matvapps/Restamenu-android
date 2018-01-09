@@ -16,7 +16,7 @@ import com.restamenu.R;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.RestaurantActivity;
-import com.squareup.picasso.Picasso;
+import com.restamenu.util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +38,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     }
 
     public void setData(List<Restaurant> data) {
+
         this.restaurants.clear();
         this.restaurants.addAll(data);
         this.filter = new RestaurantFilter(this, data);
@@ -60,6 +61,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
         switch (restaurants.get(viewType).getType()) {
             case 0:
+                Logger.log("viewType = " + viewType);
                 rootView = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.restaurant_card_item, parent, false);
                 break;
@@ -86,7 +88,9 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
         String path = BuildConfig.BASE_URL + item.getImage().substring(1, item.getImage().length());
 
-        Picasso.with(context).load(path).into(holder.restaurantBackgroundImageView);
+
+        //TODO: uncomment
+//        Picasso.with(context).load(path).into(holder.restaurantBackgroundImageView);
 
         for (int i = 0; i < item.getServices().size(); i++) {
             switch (item.getServices().get(i)) {
@@ -182,7 +186,6 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
                     }
                 }
             }
-            System.out.println("Count Number " + filteredList.size());
             results.values = filteredList;
             results.count = filteredList.size();
             return results;
