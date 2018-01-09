@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="isLargeLayout" type="bool">false</item>
-    <item name="restaurant_span_count" type="integer">1</item>
-    <item name="product_span_count" type="integer">1</item>
-    <item name="restaurant_content_list_size" type="integer">9</item>
-    <item name="select_service_pos" type="integer">0</item>
-    <item name="menu_sections_title_pos" type="integer">-1</item>
-    <item name="menu_sections_list_pos" type="integer">1</item>
-    <item name="restaurant_promotions_title_pos" type="integer">2</item>
-    <item name="restaurant_promotions_list_pos" type="integer">3</item>
-    <item name="gallery_title_pos" type="integer">-1</item>
-    <item name="gallery_list_pos" type="integer">-1</item>
-    <item name="about_title_pos" type="integer">4</item>
-    <item name="about_text_pos" type="integer">5</item>
-    <item name="contacts_title_pos" type="integer">6</item>
-    <item name="contacts_list_pos" type="integer">7</item>
-    <item name="map_pos" type="integer">8</item>
+	<item name="isLargeLayout" type="bool">false</item>
+	<item name="restaurant_span_count" type="integer">1</item>
+	<item name="product_span_count" type="integer">1</item>
+	<item name="restaurant_content_list_size" type="integer">9</item>
+	<item name="select_service_pos" type="integer">0</item>
+	<item name="menu_sections_title_pos" type="integer">-1</item>
+	<item name="menu_sections_list_pos" type="integer">1</item>
+	<item name="restaurant_promotions_title_pos" type="integer">2</item>
+	<item name="restaurant_promotions_list_pos" type="integer">3</item>
+	<item name="gallery_title_pos" type="integer">-1</item>
+	<item name="gallery_list_pos" type="integer">-1</item>
+	<item name="about_title_pos" type="integer">4</item>
+	<item name="about_text_pos" type="integer">5</item>
+	<item name="contacts_title_pos" type="integer">6</item>
+	<item name="contacts_list_pos" type="integer">7</item>
+	<item name="map_pos" type="integer">8</item>
 
-
-    <dimen name="activity_category_header_heighy">112.5dp</dimen>
-    <dimen name="fragment_restaurant_header_restaurant_type_margin_top">0dp</dimen>
+	<dimen name="activity_category_header_heighy">81.2dp</dimen>
+	<dimen name="fragment_restaurant_header_restaurant_type_margin_top">0dp</dimen>
 	<dimen name="splash_cursor_margin_left">88.9dp</dimen>
 	<dimen name="splash_title_width">83.3dp</dimen>
 	<dimen name="splash_title_height">22.2dp</dimen>
@@ -28,17 +27,17 @@
 	<dimen name="splash_rest_text_height">16.7dp</dimen>
 	<dimen name="splash_title_container_height">55.6dp</dimen>
 	<dimen name="title_shift_margin">7.2dp</dimen>
-	<dimen name="activity_category_arrow_left_size">35.6dp</dimen>
+	<dimen name="activity_category_arrow_left_size">18.3dp</dimen>
 	<dimen name="activity_category_arrow_left_margin_bottom">13.3dp</dimen>
 	<dimen name="activity_category_arrow_left_margin_start">8.9dp</dimen>
 	<dimen name="activity_category_arrow_left_margin_top">13.3dp</dimen>
 	<dimen name="activity_category_arrow_left_padding">8.9dp</dimen>
 	<dimen name="activity_category_title_margin">4.4dp</dimen>
-	<dimen name="activity_category_title_text_size">13.3sp</dimen>
-	<dimen name="activity_category_search_edit_height">19.4dp</dimen>
+	<dimen name="activity_category_title_text_size">19.5sp</dimen>
+	<dimen name="activity_category_search_edit_height">28.4dp</dimen>
 	<dimen name="activity_category_search_edit_margin">8.9dp</dimen>
 	<dimen name="activity_category_edit_text_margin_start">8.9dp</dimen>
-	<dimen name="activity_category_edit_text_size">7.7sp</dimen>
+	<dimen name="activity_category_edit_text_size">8.1sp</dimen>
 	<dimen name="activity_category_search_icon_size">8.9dp</dimen>
 	<dimen name="activity_category_product_list_margin">8.9dp</dimen>
 	<dimen name="activity_main_search_container_padding_vertical">13.3dp</dimen>
@@ -54,33 +53,33 @@
 	<dimen name="activity_main_search_icon_size">8.3dp</dimen>
 	<dimen name="activity_main_title_margin_bottom">10.1dp</dimen>
 	<dimen name="activity_main_title_margin_top">11.9dp</dimen>
-	<dimen name="category_product_item_margin_bottom">8.9dp</dimen>
+	<dimen name="category_product_item_margin_bottom">13dp</dimen>
 	<dimen name="category_product_item_radius">1.1dp</dimen>
-	<dimen name="category_product_item_image_height">102.7dp</dimen>
-	<dimen name="category_product_item_service_list_margin_start">10dp</dimen>
-	<dimen name="category_product_item_service_list_margin_top">8.9dp</dimen>
-	<dimen name="category_product_item_name_margin_start">8.9dp</dimen>
+	<dimen name="category_product_item_image_height">150dp</dimen>
+	<dimen name="category_product_item_service_list_margin_start">15.4dp</dimen>
+	<dimen name="category_product_item_service_list_margin_top">13dp</dimen>
+	<dimen name="category_product_item_name_margin_start">15.4dp</dimen>
 	<dimen name="category_product_item_name_margin_top">11.1dp</dimen>
-	<dimen name="category_product_item_name_text_size">8.3sp</dimen>
+	<dimen name="category_product_item_name_text_size">12.2sp</dimen>
 	<dimen name="category_product_item_description_margin_end">40dp</dimen>
 	<dimen name="category_product_item_description_margin_top">2.8dp</dimen>
-	<dimen name="category_product_item_description_text_size">5.6sp</dimen>
+	<dimen name="category_product_item_description_text_size">8.1sp</dimen>
 	<dimen name="category_product_item_quantity_container_margin_end">4.4dp</dimen>
 	<dimen name="category_product_item_quantity_container_padding_vertical">5.6dp</dimen>
-	<dimen name="category_product_item_quantity_container_padding_horizontal">8.3dp</dimen>
-	<dimen name="category_product_item_quantity_text_size">6.7sp</dimen>
-	<dimen name="category_product_item_price_margin_vertical">4.4dp</dimen>
+	<dimen name="category_product_item_quantity_container_padding_horizontal">12.5dp</dimen>
+	<dimen name="category_product_item_quantity_text_size">9.9sp</dimen>
+	<dimen name="category_product_item_price_margin_vertical">15dp</dimen>
 	<dimen name="category_product_item_price_margin_start">8.9dp</dimen>
-	<dimen name="category_product_item_price_text_size">10sp</dimen>
+	<dimen name="category_product_item_price_text_size">14.7sp</dimen>
 	<dimen name="category_product_item_price_sub_margin_start">4.4dp</dimen>
 	<dimen name="category_product_item_price_sub_text_size">6.7sp</dimen>
 	<dimen name="category_product_item_buy_container_margin_bottom">8.3dp</dimen>
 	<dimen name="category_product_item_buy_container_margin_top">10dp</dimen>
 	<dimen name="category_product_item_buy_container_padding_vertical">3.9dp</dimen>
-	<dimen name="category_product_item_buy_container_padding_horizontal">10.6dp</dimen>
+	<dimen name="category_product_item_buy_container_padding_horizontal">14.9dp</dimen>
 	<dimen name="category_product_item_buy_text_margin_end">2.8dp</dimen>
-	<dimen name="category_product_item_buy_text_size">6.7sp</dimen>
-	<dimen name="category_product_item_buy_icon_size">7.2dp</dimen>
+	<dimen name="category_product_item_buy_text_size">9.9sp</dimen>
+	<dimen name="category_product_item_buy_icon_size">9.9dp</dimen>
 	<dimen name="fragment_nearby_restaurants_near_text_margin_horizontal">4.4dp</dimen>
 	<dimen name="fragment_nearby_restaurants_near_text_margin_top">17.2dp</dimen>
 	<dimen name="fragment_nearby_restaurants_near_text_size">14.7sp</dimen>
@@ -176,8 +175,8 @@
 	<dimen name="search_spinner_item_arrow_height">2.8dp</dimen>
 	<dimen name="search_spinner_item_arrow_margin_vertical">6.7dp</dimen>
 	<dimen name="search_spinner_item_arrow_margin_start">8.9dp</dimen>
-	<dimen name="special_item_size">11.7dp</dimen>
-	<dimen name="special_item_margin_end">4.4dp</dimen>
+	<dimen name="special_item_size">16.3dp</dimen>
+	<dimen name="special_item_margin_end">3.6dp</dimen>
 	<dimen name="special_item_big_margin_end">4.4dp</dimen>
 	<dimen name="special_item_big_margin_vertical">8.9dp</dimen>
 	<dimen name="special_item_big_padding">4.4dp</dimen>
@@ -218,12 +217,12 @@
 	<dimen name="restaurant_card_item_title_margin_top">6.4dp</dimen>
 	<dimen name="restaurant_card_item_title_text_size">11.2sp</dimen>
 	<dimen name="restaurant_card_item_type_margin_end">15.6dp</dimen>
-	<dimen name="restaurant_card_item_type_margin_top">3.8dp</dimen>
+	<dimen name="restaurant_card_item_type_margin_top">1.2dp</dimen>
 	<dimen name="restaurant_card_item_type_text_size">7.2sp</dimen>
 	<dimen name="restaurant_card_item_rest_img_width">7.7dp</dimen>
 	<dimen name="restaurant_card_item_rest_img_height">8.3dp</dimen>
 	<dimen name="restaurant_card_item_rest_img_margin_bottom">11.1dp</dimen>
-	<dimen name="restaurant_card_item_rest_img_margin_top">8.3dp</dimen>
+	<dimen name="restaurant_card_item_rest_img_margin_top">10.8dp</dimen>
 	<dimen name="restaurant_card_item_take_img_width">8.4dp</dimen>
 	<dimen name="restaurant_card_item_take_img_height">8.1dp</dimen>
 	<dimen name="restaurant_card_item_take_img_margin_start">3.8dp</dimen>
@@ -272,9 +271,9 @@
 	<dimen name="restaurant_contact_item_content_margin_top">3.9dp</dimen>
 	<dimen name="restaurant_contact_item_content_text_size">6.7sp</dimen>
 	<dimen name="toolbar_category_title_max_width">127.7dp</dimen>
-	<dimen name="toolbar_category_title_text_size">11.1sp</dimen>
+	<dimen name="toolbar_category_title_text_size">12.3sp</dimen>
 	<dimen name="toolbar_category_settings_container_margin_end">8.9dp</dimen>
-	<dimen name="toolbar_category_currency_icon_size">6.1dp</dimen>
+	<dimen name="toolbar_category_currency_icon_size">8.4dp</dimen>
 	<dimen name="toolbar_category_currency_icon_margin_start">7.2dp</dimen>
 	<dimen name="toolbar_category_currency_title_margin_bottom">3.3dp</dimen>
 	<dimen name="toolbar_category_currency_title_margin_end">7.4dp</dimen>
@@ -469,13 +468,14 @@
 	<dimen name="toolbar_main_height">32.4dp</dimen>
 	<dimen name="scroll_it_white_text_size">5.6sp</dimen>
 	<dimen name="popup_content_title_text_size">10.6sp</dimen>
-    <dimen name="toolbar_category_settings_icon_margin_end">2dp</dimen>
-    <dimen name="order_container_margin_end">4dp</dimen>
-    <dimen name="order_container_margin_start">9dp</dimen>
-    <dimen name="toolbar_category_order_value_text">8dp</dimen>
-    <dimen name="product_item_quantity_container_height">33dp</dimen>
-    <dimen name="buy_container_text_margin_bottom">5dp</dimen>
-    <dimen name="category_product_item_buy_container_height">33dp</dimen>
-    <dimen name="category_product_item_price_margin_bottom">18dp</dimen>
-    <dimen name="product_quantity_container_margin_top">5dp</dimen>
+	<dimen name="toolbar_category_settings_icon_margin_end">1.2dp</dimen>
+	<dimen name="order_container_margin_end">2.5dp</dimen>
+	<dimen name="order_container_margin_start">5.3dp</dimen>
+	<dimen name="toolbar_category_order_value_text">5.3dp</dimen>
+	<dimen name="product_item_quantity_container_height">24.3dp</dimen>
+	<dimen name="buy_container_text_margin_bottom">3.1dp</dimen>
+	<dimen name="category_product_item_buy_container_height">20.6dp</dimen>
+	<dimen name="category_product_item_price_margin_bottom">16.2dp</dimen>
+	<dimen name="product_quantity_container_margin_top">1.9dp</dimen>
+	<dimen name="card_corner_radius">2.4dp</dimen>
 </resources>

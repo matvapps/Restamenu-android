@@ -78,8 +78,13 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
                     titleText.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.warm_grey_66));
                     serviceImage.setVisibility(View.INVISIBLE);
                     notAvailable.setVisibility(View.VISIBLE);
-                } else
-                    serviceImage.setImageResource(R.drawable.ic_bigrestaurant_link);
+                } else {
+                    if (viewId == R.layout.order_type_header_item)
+                        serviceImage.setImageResource(R.drawable.ic_bigrestaurant_link);
+                    else {
+                        serviceImage.setImageResource(R.drawable.ic_bigrestaurant_off);
+                    }
+                }
                 break;
             case 2:
                 if (usingServices.indexOf(2) == -1) {
@@ -87,8 +92,13 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
                     titleText.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.warm_grey_66));
                     serviceImage.setVisibility(View.INVISIBLE);
                     notAvailable.setVisibility(View.VISIBLE);
-                } else
-                    serviceImage.setImageResource(R.drawable.ic_bigtakeaway_link);
+                } else{
+                    if (viewId == R.layout.order_type_header_item)
+                        serviceImage.setImageResource(R.drawable.ic_bigtakeaway_link);
+                    else {
+                        serviceImage.setImageResource(R.drawable.ic_bigtakeaway_off);
+                    }
+                }
                 break;
             case 3:
                 if (usingServices.indexOf(3) == -1) {
@@ -97,8 +107,13 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
                     serviceImage.setVisibility(View.INVISIBLE);
                     notAvailable.setVisibility(View.VISIBLE);
 
-                } else
-                    serviceImage.setImageResource(R.drawable.ic_bigdelivery_line);
+                } else{
+                    if (viewId == R.layout.order_type_header_item)
+                        serviceImage.setImageResource(R.drawable.ic_bigdelivery_line);
+                    else {
+                        serviceImage.setImageResource(R.drawable.ic_bigdelivery_off);
+                    }
+                }
                 break;
             default:
                 serviceTitle = "";

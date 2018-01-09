@@ -12,6 +12,6 @@
         android:layout_marginStart="@dimen/restaurant_promotion_item_margin_end"
         android:background="@color/greyish"
         android:scaleType="centerCrop"
-        app:riv_corner_radius="@dimen/restaurant_promotion_item_radius" />
+        app:riv_corner_radius="@dimen/card_corner_radius" />
 
 </FrameLayout>

@@ -114,7 +114,7 @@
         android:layout_width="@dimen/fragment_restaurant_header_phone_icon_size"
         android:layout_height="@dimen/fragment_restaurant_header_phone_icon_size"
         android:layout_marginTop="@dimen/fragment_restaurant_header_phone_icon_margin_top"
-        android:src="@drawable/ic_callinfo"
+        android:src="@drawable/ic_call"
         app:layout_constraintStart_toStartOf="@+id/location_image_icon"
         app:layout_constraintTop_toBottomOf="@+id/location_image_icon" />
 

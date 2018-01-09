@@ -489,5 +489,6 @@
     <dimen name="category_product_item_buy_container_height">33.75dp</dimen>
     <dimen name="category_product_item_price_margin_bottom">18dp</dimen>
     <dimen name="product_quantity_container_margin_top">12dp</dimen>
+    <dimen name="card_corner_radius">3.5dp</dimen>
 
 </resources>

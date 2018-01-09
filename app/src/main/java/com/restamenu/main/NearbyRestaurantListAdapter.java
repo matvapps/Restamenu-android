@@ -14,7 +14,9 @@ import com.restamenu.R;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.RestaurantActivity;
+import com.restamenu.util.DimensionUtil;
 import com.restamenu.util.Logger;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,9 +93,8 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerVi
         cardHolder.restaurantDistanceTextView.setText((int) (restaurants.get(position).getDistance()) + "m");
 
         String path = BuildConfig.BASE_URL + restaurant.getImage().substring(1, restaurant.getImage().length());
-
-        // TODO: uncomment
-//        Picasso.with(context).load(path).into(cardHolder.restaurantBackgroundImageView);
+        path += "?width=" + DimensionUtil.getScreenWidth(context);
+        Picasso.with(context).load(path).into(cardHolder.restaurantBackgroundImageView);
 
 
         for (int i = 0; i < restaurant.getServices().size(); i++) {

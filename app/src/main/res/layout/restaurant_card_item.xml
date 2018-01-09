@@ -12,7 +12,7 @@
         android:layout_marginBottom="@dimen/restaurant_card_item_margin"
         android:background="?selectableItemBackground"
         android:foreground="?selectableItemBackground"
-        app:cardCornerRadius="@dimen/restaurant_card_item_radius"
+        app:cardCornerRadius="@dimen/card_corner_radius"
         app:cardElevation="0dp">
 
 
@@ -30,8 +30,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:riv_corner_radius_top_right="@dimen/restaurant_card_item_radius"
-                app:riv_corner_radius_top_left="@dimen/restaurant_card_item_radius"/>
+                app:riv_corner_radius_top_right="@dimen/card_corner_radius"
+                app:riv_corner_radius_top_left="@dimen/card_corner_radius"/>
 
 
             <TextView

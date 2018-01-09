@@ -211,6 +211,7 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
         productAdapter = new ProductAdapter();
         productsRecycler.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.product_span_count)));
+        productsRecycler.setNestedScrollingEnabled(false);
         productsRecycler.setAdapter(productAdapter);
 
 

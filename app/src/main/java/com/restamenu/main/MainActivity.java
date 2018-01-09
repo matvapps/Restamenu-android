@@ -1,12 +1,10 @@
 package com.restamenu.main;
 
-import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,6 +18,7 @@ import com.restamenu.model.content.Cusine;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.RestaurantActivity;
+import com.restamenu.util.DimensionUtil;
 import com.restamenu.util.Logger;
 import com.restamenu.views.search.RestaurantsSearchView;
 import com.squareup.picasso.Picasso;
@@ -42,6 +41,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     private DiscreteScrollView nearbyRestaurantPicker;
     private ImageView nearbyContainerBackground;
     private RestaurantsSearchView searchView;
+    private List<Institute> institutes;
 
     @Override
     protected void initViews() {
@@ -57,6 +57,8 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         searchView = findViewById(R.id.search_view);
         searchView.setSearchListener(this);
         searchView.showSearch(false);
+
+        institutes = new ArrayList<>();
 
         if (!isTablet()) {
             nearbyRestaurantPicker = findViewById(R.id.nearby_restaurant_picker);
@@ -116,14 +118,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     protected void attachPresenter() {
         Logger.log("Attach");
         if (presenter == null) {
-
-            Display display = getWindowManager().getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
-
-            int width = size.x;
-
-            presenter = new MainPresenter(width);
+            presenter = new MainPresenter(DimensionUtil.getScreenWidth(this));
         }
         presenter.attachView(this);
         presenter.init();
@@ -146,6 +141,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         Logger.log("Found: " + data.size() + " restaurant('s)");
         restaurantListAdapter = new RestaurantListAdapter(MainActivity.this, this);
         restaurantListAdapter.setData(data);
+        restaurantListAdapter.setInstituteList(institutes);
         restaurantsRecycler.setAdapter(restaurantListAdapter);
     }
 
@@ -195,6 +191,8 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     public void setInstitutions(List<Institute> data) {
         nearbyRestaurantListAdapter.setInstituteList(data);
         restaurantListAdapter.setInstituteList(data);
+
+        institutes = data;
 
         searchView.setInstitutions(data);
     }

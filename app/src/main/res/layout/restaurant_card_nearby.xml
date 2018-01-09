@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/restaurant_nearby_card_margin_start"
         android:layout_marginStart="@dimen/restaurant_nearby_card_margin_start"
-        app:cardCornerRadius="@dimen/restaurant_nearby_card_radius"
+        app:cardCornerRadius="@dimen/card_corner_radius"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true">
@@ -26,13 +26,12 @@
                 android:id="@+id/restaurant_background"
                 android:layout_width="@dimen/restaurant_nearby_card_background_width"
                 android:layout_height="@dimen/restaurant_nearby_card_background_height"
-                android:background="@color/white_two"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:riv_corner_radius_top_left="@dimen/restaurant_nearby_card_radius"
-                app:riv_corner_radius_top_right="@dimen/restaurant_nearby_card_radius"/>
+                app:riv_corner_radius_top_left="@dimen/card_corner_radius"
+                app:riv_corner_radius_top_right="@dimen/card_corner_radius"/>
 
 
             <TextView

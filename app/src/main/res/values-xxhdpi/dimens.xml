@@ -39,7 +39,7 @@
 	<dimen name="category_product_item_buy_container_padding_horizontal">23.85dp</dimen>
 	<dimen name="category_product_item_buy_text_margin_end">4.4dp</dimen>
 	<dimen name="fragment_restaurant_header_margin_top">18dp</dimen>
-	<dimen name="restaurant_card_item_type_margin_top">6.15dp</dimen>
+	<dimen name="restaurant_card_item_type_margin_top">2dp</dimen>
 	<dimen name="restaurant_item_title_margin_top">48dp</dimen>
 	<dimen name="activity_category_search_edit_margin">14.2dp</dimen>
 	<dimen name="category_product_item_service_list_margin_top">20.77dp</dimen>
@@ -63,7 +63,7 @@
 	<dimen name="restaurant_nearby_card_deliv_img_height">11.92dp</dimen>
 	<dimen name="restaurant_advertising_card_service_takeaway_img_margin_start">3.6dp</dimen>
 	<dimen name="restaurant_promotion_item_height">200.38dp</dimen>
-	<dimen name="fragment_restaurant_header_hours_margin_start">4.4dp</dimen>
+	<dimen name="fragment_restaurant_header_hours_margin_start">7dp</dimen>
 	<dimen name="activity_category_arrow_left_margin_start">14.2dp</dimen>
 	<dimen name="activity_main_search_edit_text_margin_start">14.2dp</dimen>
 	<dimen name="search_spinner_item_arrow_margin_start">14.2dp</dimen>
@@ -103,7 +103,7 @@
 	<dimen name="restaurant_category_item_name_margin_start">18dp</dimen>
 	<dimen name="order_type_header_item_image_width">28.46dp</dimen>
 	<dimen name="activity_main_title_margin_bottom">16.2dp</dimen>
-	<dimen name="restaurant_card_item_rest_img_margin_top">13.25dp</dimen>
+	<dimen name="restaurant_card_item_rest_img_margin_top">17.25dp</dimen>
 	<dimen name="toolbar_main_city_container_margin_end">20.77dp</dimen>
 	<dimen name="fragment_restaurant_header_title_margin_start">14.2dp</dimen>
 	<dimen name="fragment_restaurant_header_type_margin_end">42.7dp</dimen>
@@ -476,6 +476,7 @@
     <dimen name="category_product_item_buy_container_height">33dp</dimen>
     <dimen name="category_product_item_price_margin_bottom">26dp</dimen>
     <dimen name="product_quantity_container_margin_top">3dp</dimen>
+	<dimen name="card_corner_radius">3.84dp</dimen>
 
 
 </resources>
