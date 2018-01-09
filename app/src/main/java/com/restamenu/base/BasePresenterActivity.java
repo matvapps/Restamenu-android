@@ -3,6 +3,7 @@ package com.restamenu.base;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
 import com.restamenu.R;
 
@@ -29,15 +30,6 @@ public abstract class BasePresenterActivity<P extends Presenter<V>, V, M> extend
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        boolean isLargeLayout = getResources().getBoolean(R.bool.isLargeLayout);
-        if(isLargeLayout) {
-            // Tablet Mode
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        } else {
-            // Handset Mode
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
-
         presenter = (P) getLastCustomNonConfigurationInstance();
         attachPresenter();
     }
@@ -48,4 +40,17 @@ public abstract class BasePresenterActivity<P extends Presenter<V>, V, M> extend
         return presenter;
     }
 
+    @Override
+    public void showLoading(boolean show) {
+        if (show)
+            loadingView.showLoadingIndicator();
+        else
+            loadingView.hideLoadingIndicator();
+    }
+
+    @Override
+    public void showError() {
+        loadingView.hideLoadingIndicator();
+        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+    }
 }

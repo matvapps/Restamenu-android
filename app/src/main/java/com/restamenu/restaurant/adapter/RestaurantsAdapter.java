@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.model.content.Category;
@@ -20,7 +21,6 @@ import com.restamenu.model.content.Image;
 import com.restamenu.model.content.Promotion;
 import com.restamenu.util.Logger;
 import com.restamenu.views.custom.ServiceButton;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -305,7 +305,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                 // load map
                 String backgroundUrl = item.getTitle().substring(1, item.getTitle().length());
-                Picasso.with(holder.itemView.getContext()).load(BuildConfig.BASE_URL + backgroundUrl).into(imageViewHolder.image);
+                Glide.with(holder.itemView.getContext()).load(BuildConfig.BASE_URL + backgroundUrl).into(imageViewHolder.image);
 
                 break;
             }

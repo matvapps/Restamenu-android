@@ -302,6 +302,7 @@
 	<dimen name="search_text_view_padding">8.9dp</dimen>
 	<dimen name="search_view_icon_size">9.9dp</dimen>
 	<dimen name="search_view_height">28.4dp</dimen>
+	<item name="restaurant_content_list_size" type="integer">9</item>
 	<dimen name="popup_content_grid_margin_bottom">17.8dp</dimen>
 	<dimen name="search_view_filter_text_size">8.1sp</dimen>
 	<dimen name="search_text_view_size">8.1sp</dimen>

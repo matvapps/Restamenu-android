@@ -23,4 +23,6 @@
     <string name="restaurants_by_near_you">Restaurants by near you</string>
     <string name="institution_string">Institution</string>
 
+    <string name="loading_title">Please wait...</string>
+
 </resources>

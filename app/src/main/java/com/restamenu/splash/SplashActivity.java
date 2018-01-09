@@ -10,12 +10,12 @@ import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.github.florent37.viewanimator.AnimationListener;
 import com.github.florent37.viewanimator.ViewAnimator;
 import com.restamenu.R;
 import com.restamenu.api.RepositoryProvider;
 import com.restamenu.main.MainActivity;
-import com.squareup.picasso.Picasso;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -63,7 +63,7 @@ public class SplashActivity extends AppCompatActivity {
         ImageView electronicMenuText = findViewById(R.id.electronic_menu_text);
         FrameLayout titleContainer = findViewById(R.id.title_container);
 
-        Picasso.with(this).load(R.drawable.splash_background).into(splashBackgroundImage);
+        Glide.with(this).load(R.drawable.splash_background).into(splashBackgroundImage);
 
         splashCursorImage.setScaleX(0);
         splashCursorImage.setScaleY(0);

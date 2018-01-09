@@ -49,14 +49,12 @@ public class CategoryPresenter implements Presenter<CategoryView> {
                 .observeOn(schedulerProvider.ui())
                 .subscribe(categories -> {
                     view.setData(categories);
-                    if (!ListUtils.isEmpty(categories))
-                        loadProducts(restaurantId, serviceId, categoryId);
+                    /*if (!ListUtils.isEmpty(categories))
+                        loadProducts(restaurantId, serviceId, categoryId);*/
                 }, throwable -> view.showError());
     }
 
-
-
-    public void loadProducts(int restaurantId, int serviceId, int categoryId) {
+    /*public void loadProducts(int restaurantId, int serviceId, int categoryId) {
         RepositoryProvider.getAppRepository().getCategoryProducts(restaurantId, serviceId, categoryId)
                 .flatMap(Flowable::fromIterable)
                 .toList()
@@ -66,7 +64,7 @@ public class CategoryPresenter implements Presenter<CategoryView> {
                     Logger.log("Products: " + products.toString());
                     view.setProducts(products);
                 }, throwable -> view.showError());
-    }
+    }*/
 
 
 }

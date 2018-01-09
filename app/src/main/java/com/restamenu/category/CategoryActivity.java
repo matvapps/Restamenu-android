@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.restamenu.R;
@@ -17,6 +17,7 @@ import com.restamenu.base.BasePresenterActivity;
 import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Product;
 import com.restamenu.util.Logger;
+import com.restamenu.views.pager.CircularViewPagerHandler;
 
 import java.util.List;
 
@@ -36,17 +37,21 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
     private int categoryIndex = 0;
 
-    private ProductAdapter productAdapter;
+    //private ProductAdapter productAdapter;
+
+    private FrameLayout searchContainer;
+    private EditText searchEditText;
+    private LinearLayout searchButton;
 
     private ImageView btnTopCategoryPrevious;
     private ImageView btnTopCategoryNext;
     private TextView txtCategoryName;
-    private RecyclerView productsRecycler;
     private View btnBottomCategoryPrevious;
     private View btnBottomCategoryNext;
     private TextView prevCategoryName;
     private TextView nextCategoryName;
-    private NestedScrollView nestedScrollView;
+
+    //private NestedScrollView nestedScrollView;
     private TextView toolbarRestaurantTitle;
     private EditText findEditText;
     private View buttonFind;
@@ -54,6 +59,8 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
     private String restaurantTitle;
 
+    private CategoryPagerAdapter pagerAdapter;
+    private ViewPager pager;
     private List<Category> categories;
 
 
@@ -85,7 +92,7 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     public void setProducts(List<Product> products) {
         Logger.log("Products : " + products.toString());
 
-        productAdapter.setItems(products);
+        //productAdapter.setItems(products);
 
     }
 
@@ -105,7 +112,15 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         Logger.log("Categories: " + data.toString());
         categories = data;
 
-        nestedScrollView.smoothScrollTo(0, 0);
+
+        pagerAdapter = new CategoryPagerAdapter(getSupportFragmentManager(), data, restaurantId, serviceId);
+        pager.setAdapter(pagerAdapter);
+
+        final CircularViewPagerHandler circularViewPagerHandler = new CircularViewPagerHandler(pager);
+        circularViewPagerHandler.setOnPageChangeListener(createOnPageChangeListener());
+        pager.addOnPageChangeListener(circularViewPagerHandler);
+
+        //nestedScrollView.smoothScrollTo(0, 0);
 
         categoryIndex = getCategoryIndex(data, categoryId);
         txtCategoryName.setText(data.get(categoryIndex).getName());
@@ -182,7 +197,7 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
         }
 
-        productAdapter.notifyDataSetChanged();
+        //productAdapter.notifyDataSetChanged();
 
     }
 
@@ -190,12 +205,12 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     @Override
     protected void initViews() {
 
-        nestedScrollView = findViewById(R.id.scroll_container);
+        //nestedScrollView = findViewById(R.id.scroll_container);
 
         btnTopCategoryPrevious = findViewById(R.id.category_arrow_left);
         btnTopCategoryNext = findViewById(R.id.category_arrow_right);
         txtCategoryName = findViewById(R.id.category_title);
-        productsRecycler = findViewById(R.id.product_list);
+        pager = findViewById(R.id.product_list);
 
         buttonFind = findViewById(R.id.button_find);
         findEditText = findViewById(R.id.search_edit_text);
@@ -212,15 +227,21 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
             toolbarBack.setOnClickListener(view -> finish());
 
 
-        productAdapter = new ProductAdapter();
-        productsRecycler.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.product_span_count)));
-        productsRecycler.setAdapter(productAdapter);
+        pager = findViewById(R.id.viewpager);
+        //pager.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        //pagerAdapter = new CategoryPagerAdapter();
+        //viewPager.setAdapter(pagerAdapter);
+
+        //productAdapter = new ProductAdapter();
+        //productsRecycler.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.product_span_count)));
+        //productsRecycler.setAdapter(productAdapter);
 
 
-        buttonFind.setOnClickListener(view -> {
+        //TODO commented
+        /*buttonFind.setOnClickListener(view -> {
             if (!findEditText.getText().toString().equals(""))
                 productAdapter.findProductBy(findEditText.getText().toString());
-        });
+        });*/
 
 
         if (isTablet()) {
@@ -294,16 +315,6 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     }
 
     @Override
-    public void showError() {
-
-    }
-
-    @Override
-    public void showLoading(boolean show) {
-
-    }
-
-    @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
@@ -316,6 +327,24 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         }
 
         return -1;
+    }
+
+
+    private ViewPager.OnPageChangeListener createOnPageChangeListener() {
+        return new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
+                //TODO
+            }
+
+            @Override
+            public void onPageSelected(final int position) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(final int state) {
+            }
+        };
     }
 
 }

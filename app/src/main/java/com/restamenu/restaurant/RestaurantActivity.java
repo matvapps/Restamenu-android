@@ -19,6 +19,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.base.BasePresenterActivity;
@@ -40,7 +41,6 @@ import com.restamenu.util.ListUtils;
 import com.restamenu.util.Logger;
 import com.restamenu.views.custom.ServiceButton;
 import com.restamenu.views.custom.StickyScrollView;
-import com.squareup.picasso.Picasso;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.Orientation;
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
@@ -327,7 +327,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
             // add restaurant image
             String restaurantImageUrl = restaurant.getImage();
-            Picasso.with(this).load(BuildConfig.BASE_URL +
+            Glide.with(this).load(BuildConfig.BASE_URL +
                     restaurantImageUrl.substring(1, restaurantImageUrl.length())).into(restaurantImage);
 
             // add about
@@ -335,7 +335,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
             //add map
             String backgroundUrl = restaurant.getLocation().getImage();
-            Picasso.with(this).load(BuildConfig.BASE_URL +
+            Glide.with(this).load(BuildConfig.BASE_URL +
                     backgroundUrl.substring(1, backgroundUrl.length())).into(mapImageView);
 
             if (ListUtils.isEmpty(data.getServices()))
@@ -384,7 +384,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
         //load restaurant background
         String backgroundUrl = restaurant.getBackground();
-        Picasso.with(this).load(BuildConfig.BASE_URL +
+        Glide.with(this).load(BuildConfig.BASE_URL +
                 backgroundUrl.substring(1, backgroundUrl.length())).into(restaurantBackground);
 
 
@@ -511,16 +511,6 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
         if (isTablet())
             scrollView.getHitRect(scrollBounds);
-    }
-
-    @Override
-    public void showError() {
-
-    }
-
-    @Override
-    public void showLoading(boolean show) {
-
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.restamenu.main;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,12 +10,14 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.RestaurantActivity;
-import com.squareup.picasso.Picasso;
+import com.restamenu.util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,16 +25,14 @@ import java.util.List;
 
 public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.ViewHolder> implements Filterable {
 
-    private Context context;
     private List<Restaurant> restaurants;
     private List<Institute> instituteList;
     private RestaurantClickListener listener;
     private RestaurantFilter filter;
 
-    public RestaurantListAdapter(Context context, RestaurantClickListener listener) {
+    public RestaurantListAdapter(RestaurantClickListener listener) {
         this.restaurants = new ArrayList<>();
         this.instituteList = new ArrayList<>();
-        this.context = context;
         this.listener = listener;
     }
 
@@ -44,7 +43,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         notifyDataSetChanged();
     }
 
-    public Restaurant getItem(int position){
+    public Restaurant getItem(int position) {
         return restaurants.get(position);
     }
 
@@ -74,7 +73,6 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     }
 
 
-
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
@@ -84,9 +82,18 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         holder.itemView.setOnClickListener(click -> listener.onRestaurantClicked(item.getId()));
 
 
-        String path = BuildConfig.BASE_URL + item.getImage().substring(1, item.getImage().length());
+        String path = BuildConfig.BASE_URL + item.getImage().substring(1, item.getImage().length()) + BuildConfig.IMAGE_WIDTH_200;
 
-        Picasso.with(context).load(path).into(holder.restaurantBackgroundImageView);
+        int width = holder.restaurantBackgroundImageView.getWidth();
+        Logger.log("Width: " + width);
+
+        RequestOptions options = new RequestOptions()
+                .override(200, 200);
+
+        Glide.with(holder.itemView.getContext())
+                .load(R.drawable.test_map)
+                .apply(options)
+                .into(holder.restaurantBackgroundImageView);
 
         for (int i = 0; i < item.getServices().size(); i++) {
             switch (item.getServices().get(i)) {
@@ -119,10 +126,10 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         holder.restaurantTypeTextView.setText(institutions.toString());
 
         holder.rootView.setOnClickListener(view -> {
-            Intent intent = new Intent(context, RestaurantActivity.class);
+            Intent intent = new Intent(holder.itemView.getContext(), RestaurantActivity.class);
             intent.putExtra(RestaurantActivity.KEY_RESTAURANT_ID, item.getId());
 
-            context.startActivity(intent);
+            holder.itemView.getContext().startActivity(intent);
         });
 
 
@@ -176,7 +183,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
                 filteredList.addAll(dictionaryWords);
             } else {
                 final String filterPattern = charSequence.toString().toLowerCase().trim();
-                for (Restaurant restaurant: dictionaryWords) {
+                for (Restaurant restaurant : dictionaryWords) {
                     if (restaurant.getName().startsWith(filterPattern)) {
                         filteredList.add(restaurant);
                     }

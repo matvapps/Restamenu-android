@@ -39,6 +39,7 @@ public class MainPresenter implements Presenter<MainView> {
     }
 
     public void performSearch(String keyword) {
+        view.showLoading(true);
         RepositoryProvider.getAppRepository()
                 .getRestaurants(1, keyword, null, null, 1, true)
                 .flatMap(Flowable::fromIterable)
@@ -52,7 +53,7 @@ public class MainPresenter implements Presenter<MainView> {
     }
 
     private void loadNearRestaurants(int width) {
-        view.showLoading(true);
+        //view.showLoading(true);
 
         RepositoryProvider.getAppRepository().getNearRestaurants(1, "25.1948827,55.2738285", width)
                 .flatMap(Flowable::fromIterable)
@@ -66,7 +67,7 @@ public class MainPresenter implements Presenter<MainView> {
     }
 
     private void loadRestaurants() {
-        view.showLoading(true);
+        //view.showLoading(true);
 
         RepositoryProvider.getAppRepository().getRestaurants(1, 1)
                 .flatMap(Flowable::fromIterable)
@@ -93,7 +94,7 @@ public class MainPresenter implements Presenter<MainView> {
     }
 
     private void loadInstitutions() {
-        view.showLoading(true);
+        //view.showLoading(true);
 
         RepositoryProvider.getAppRepository().getInstitutions()
                 .flatMap(Flowable::fromIterable)
@@ -102,14 +103,14 @@ public class MainPresenter implements Presenter<MainView> {
                 .observeOn(schedulerProvider.ui())
                 .subscribe(institutes -> {
                     view.setInstitutions(institutes);
-                    view.showLoading(false);
+                    //view.showLoading(false);
                     loadRestaurants();
                     loadNearRestaurants(width);
                 }, throwable -> view.showError());
     }
 
     private void loadCuisines() {
-        view.showLoading(true);
+        //view.showLoading(true);
 
         RepositoryProvider.getAppRepository().getCusines()
                 .flatMap(Flowable::fromIterable)
@@ -118,11 +119,12 @@ public class MainPresenter implements Presenter<MainView> {
                 .observeOn(schedulerProvider.ui())
                 .subscribe(cusines -> {
                     view.setCusines(cusines);
-                    view.showLoading(false);
+                    //view.showLoading(false);
                 }, throwable -> view.showError());
     }
 
     private void loadData() {
+        view.showLoading(true);
         loadInstitutions();
         loadCuisines();
     }

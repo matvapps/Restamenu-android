@@ -9,13 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.RestaurantActivity;
 import com.restamenu.util.Logger;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,16 +25,14 @@ import java.util.List;
 public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Restaurant> restaurants;
-    private Context context;
     private List<Institute> instituteList;
     private View.OnClickListener clickListener;
     private boolean useScrollIt;
     private boolean usedFirstElement;
 
 
-    public NearbyRestaurantListAdapter(Context context) {
+    public NearbyRestaurantListAdapter() {
         this.restaurants = new ArrayList<>();
-        this.context = context;
         this.clickListener = null;
         this.useScrollIt = false;
         this.usedFirstElement = false;
@@ -91,10 +90,14 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerVi
         cardHolder.restaurantStreetTextView.setText(restaurants.get(position).getAddress());
         cardHolder.restaurantDistanceTextView.setText((int) (restaurants.get(position).getDistance()) + "m");
 
-        String path = BuildConfig.BASE_URL + restaurant.getImage().substring(1, restaurant.getImage().length());
+        String path = BuildConfig.BASE_URL + restaurant.getImage().substring(1, restaurant.getImage().length()) + BuildConfig.IMAGE_WIDTH_200;
 
-        Picasso.with(context)
-                .load(path)
+        RequestOptions options = new RequestOptions()
+                .override(200, 200);
+
+        Glide.with(holder.itemView.getContext())
+                .load(R.drawable.test_map)
+                .apply(options)
                 .into(cardHolder.restaurantBackgroundImageView);
 
 
@@ -134,10 +137,10 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerVi
         else {
 
             cardHolder.rootView.setOnClickListener(view -> {
-                Intent intent = new Intent(context, RestaurantActivity.class);
+                Intent intent = new Intent(holder.itemView.getContext(), RestaurantActivity.class);
                 intent.putExtra(RestaurantActivity.KEY_RESTAURANT_ID, restaurant.getId());
 
-                context.startActivity(intent);
+                holder.itemView.getContext().startActivity(intent);
             });
 
         }

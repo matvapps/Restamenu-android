@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 
 import com.restamenu.R;
+import com.restamenu.views.dialog.LoadingDialog;
+import com.restamenu.views.dialog.LoadingView;
 
 /**
  * @author Roodie
@@ -18,6 +20,7 @@ import com.restamenu.R;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
+    protected LoadingView loadingView;
     protected FrameLayout container;
     protected Toolbar toolbar;
     //protected TextView toolbarTitle;
@@ -58,6 +61,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         initViews();
         configureToolbar();
+
+        loadingView = LoadingDialog.view(getSupportFragmentManager());
     }
 
     protected void setContentFrame() {

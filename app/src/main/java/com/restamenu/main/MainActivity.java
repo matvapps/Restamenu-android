@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.restamenu.BuildConfig;
 import com.restamenu.R;
@@ -22,7 +23,6 @@ import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.RestaurantActivity;
 import com.restamenu.util.Logger;
 import com.restamenu.views.search.RestaurantsSearchView;
-import com.squareup.picasso.Picasso;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.Orientation;
 import com.yarolegovich.discretescrollview.transform.Pivot;
@@ -45,74 +45,80 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     @Override
     protected void initViews() {
-        super.initViews();
-        nearbyRestaurantsRecycler = findViewById(R.id.restaurant_list_container);
-        restaurantsRecycler = findViewById(R.id.restaurants_list);
-        nearbyListContainer = findViewById(R.id.nearby_list_container);
-        nearbyListContainer.setVisibility(View.GONE);
-        nearbyContainerBackground = findViewById(R.id.nearby_restaurants_container_background);
+        try {
+            super.initViews();
+            nearbyRestaurantsRecycler = findViewById(R.id.restaurant_list_container);
+            restaurantsRecycler = findViewById(R.id.restaurants_list);
+            nearbyListContainer = findViewById(R.id.nearby_list_container);
+            nearbyListContainer.setVisibility(View.GONE);
+            nearbyContainerBackground = findViewById(R.id.nearby_restaurants_container_background);
 
-        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter(MainActivity.this);
+            nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter();
 
-        searchView = findViewById(R.id.search_view);
-        searchView.setSearchListener(this);
-        searchView.showSearch(false);
+            searchView = findViewById(R.id.search_view);
+            searchView.setSearchListener(this);
+            searchView.showSearch(false);
 
-        if (!isTablet()) {
-            nearbyRestaurantPicker = findViewById(R.id.nearby_restaurant_picker);
-            nearbyRestaurantPicker.setOrientation(Orientation.HORIZONTAL);
+            if (!isTablet()) {
+                nearbyRestaurantPicker = findViewById(R.id.nearby_restaurant_picker);
+                nearbyRestaurantPicker.setOrientation(Orientation.HORIZONTAL);
 
-            //DividerItemDecoration itemDecorator = new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL);
-            //itemDecorator.setDrawable(ContextCompat.getDrawable(this, R.drawable.nearby_list_divider));
-            //nearbyRestaurantPicker.addItemDecoration(itemDecorator);
+                //DividerItemDecoration itemDecorator = new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL);
+                //itemDecorator.setDrawable(ContextCompat.getDrawable(this, R.drawable.nearby_list_divider));
+                //nearbyRestaurantPicker.addItemDecoration(itemDecorator);
 
-            //nearbyRestaurantPicker.addItemDecoration(new SimpleListDividerDecorator(ContextCompat.getDrawable(this, R.drawable.nearby_list_divider), true));
+                //nearbyRestaurantPicker.addItemDecoration(new SimpleListDividerDecorator(ContextCompat.getDrawable(this, R.drawable.nearby_list_divider), true));
 
-            nearbyRestaurantPicker.addOnItemChangedListener(this);
-            nearbyRestaurantPicker.setSlideOnFling(true);
-            nearbyRestaurantPicker.setItemTransitionTimeMillis(430);
-            nearbyRestaurantPicker.setItemTransformer(new ScaleTransformer.Builder()
-                    .setMinScale(0.86f)
-                    .setPivotX(Pivot.X.LEFT)
-                    .setPivotY(Pivot.Y.CENTER)
-                    .build());
+                nearbyRestaurantPicker.addOnItemChangedListener(this);
+                nearbyRestaurantPicker.setSlideOnFling(true);
+                nearbyRestaurantPicker.setItemTransitionTimeMillis(430);
+                nearbyRestaurantPicker.setItemTransformer(new ScaleTransformer.Builder()
+                        .setMinScale(0.86f)
+                        .setPivotX(Pivot.X.LEFT)
+                        .setPivotY(Pivot.Y.CENTER)
+                        .build());
 
-        } else {
-            new GravitySnapHelper(Gravity.START, false, this)
-                    .attachToRecyclerView(nearbyRestaurantsRecycler);
+            } else {
+                new GravitySnapHelper(Gravity.START, false, this)
+                        .attachToRecyclerView(nearbyRestaurantsRecycler);
 
-            nearbyRestaurantsRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-            nearbyRestaurantsRecycler.setAdapter(nearbyRestaurantListAdapter);
-        }
-
-        final int span_count = getResources().getInteger(R.integer.restaurant_span_count);
-
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, span_count);
-        gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                switch (restaurantListAdapter.getItem(position).getType()) {
-                    case 0:
-                        return 1;
-                    case 1:
-                        return 1;
-                    case 2:
-                        return 2;
-                    case 3:
-                        return 3;
-                    default:
-                        return -1;
-                }
+                nearbyRestaurantsRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+                nearbyRestaurantsRecycler.setAdapter(nearbyRestaurantListAdapter);
             }
-        });
 
-        restaurantsRecycler.setLayoutManager(gridLayoutManager);
-        restaurantsRecycler.setNestedScrollingEnabled(false);
-        restaurantListAdapter = new RestaurantListAdapter(MainActivity.this, this);
-        restaurantsRecycler.setAdapter(restaurantListAdapter);
+            final int span_count = getResources().getInteger(R.integer.restaurant_span_count);
 
+
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, span_count);
+            gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            if (isTablet()) {
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        switch (restaurantListAdapter.getItem(position).getType()) {
+                            case 0:
+                                return 1;
+                            case 1:
+                                return 1;
+                            case 2:
+                                return 2;
+                            case 3:
+                                return 3;
+                            default:
+                                return -1;
+                        }
+                    }
+                });
+            }
+
+            restaurantsRecycler.setLayoutManager(gridLayoutManager);
+            restaurantsRecycler.setNestedScrollingEnabled(false);
+            restaurantListAdapter = new RestaurantListAdapter(this);
+            restaurantsRecycler.setAdapter(restaurantListAdapter);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
     }
 
@@ -212,12 +218,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     @Override
     public void showError() {
-        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
-        //TODO
-    }
-
-    @Override
-    public void showLoading(boolean show) {
+        super.showError();
         //TODO
     }
 
@@ -229,7 +230,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     private void onItemChanged(Restaurant restaurant) {
         //load restaurant background
         String backgroundUrl = restaurant.getBackground();
-        Picasso.with(this)
+        Glide.with(this)
                 .load(BuildConfig.BASE_URL +
                         backgroundUrl.substring(1, backgroundUrl.length()))
                 .into(nearbyContainerBackground);
