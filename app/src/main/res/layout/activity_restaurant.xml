@@ -8,7 +8,7 @@
     <include
         layout="@layout/toolbar_restaurant"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
+        android:layout_height="@dimen/toolbar_main_height"
         android:layout_gravity="top" />
 
     <android.support.v4.widget.NestedScrollView

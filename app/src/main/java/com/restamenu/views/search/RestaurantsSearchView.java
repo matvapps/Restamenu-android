@@ -59,6 +59,9 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
     private boolean mIsSearchOpen = false;
     private int mAnimationDuration;
     private boolean mClearingFocus;
+    private ListAdapter mAdapter;
+    private List<PopupFilterItem> filterList;
+    private String keyword;
     //Views
     private View mSearchLayout;
     private View mTintView;
@@ -81,8 +84,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
     private PopupWindow cuisinePopup;
     private PopupWindow institutePopup;
     private PopupWindow filterPopup;
-    private ListAdapter mAdapter;
-    private List<PopupFilterItem> filterList;
+
     private final OnClickListener mOnClickListener = new OnClickListener() {
 
         public void onClick(View v) {
@@ -406,6 +408,10 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
             mOnQueryChangeListener.onQueryTextChange(newText.toString());
         }
         mOldQueryText = newText.toString();
+
+        keyword = text.toString();
+        searchListener.onInputDataChanged(filterList, keyword);
+
     }
 
     private void onSubmitQuery() {
@@ -544,7 +550,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
     public void setSuggestions(ArrayList<String> suggestions) {
         if (suggestions != null && suggestions.size() > 0) {
             mTintView.setVisibility(VISIBLE);
-            final SearchAdapter adapter = new SearchAdapter(mContext, suggestions, suggestionIcon, ellipsize);
+            SearchAdapter adapter = new SearchAdapter(mContext, suggestions, suggestionIcon, ellipsize);
             setAdapter(adapter);
 
             setOnItemClickListener((parent, view, position, id) -> setQuery((String) adapter.getItem(position), submit));
@@ -789,7 +795,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
     }
 
     @Override
-    public void onFilterItemChanged(PopupFilterItem item, boolean isEnable) {
+    public void onFilterItemChanged(PopupFilterItem item) {
         if (item.getItem() instanceof Cusine) {
             if (!item.isChecked()) {
                 removeFromFilterList(item);
@@ -797,6 +803,8 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
                 addToFilterList(item);
             }
         }
+
+        searchListener.onInputDataChanged(filterList, keyword);
     }
 
     public List<PopupFilterItem> getFilterList() {
@@ -815,13 +823,25 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
         this.filterList = filterList;
     }
 
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+
 
     public interface SearchListener {
         void onPerformSearch(CharSequence searchString);
+//
+//        void onInstituteChanged();
+//
+//        void onCuisineChanged();
+//
+//        void onKeywordChanged();
 
-        void onInstituteChanged(PopupFilterItem item);
-
-        void onCuisineChanged(PopupFilterItem item);
+        void onInputDataChanged(List<PopupFilterItem> filterList, String keyword);
     }
 
     public interface OnQueryTextListener {
@@ -886,6 +906,10 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
             out.writeString(query);
             out.writeInt(isSearchOpen ? 1 : 0);
         }
+    }
+
+    public PopupWindow getFilterPopup() {
+        return filterPopup;
     }
 
     protected boolean isTablet() {

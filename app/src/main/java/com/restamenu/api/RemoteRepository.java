@@ -50,13 +50,13 @@ public class RemoteRepository {
                 .map(Responce<Restaurant>::getItem);
     }
 
-    public Flowable<List<Category>> getCategories(@NonNull Integer restId, Integer serviceId) {
+    public Flowable<List<Category>> getCategories(@NonNull Integer restId, @NonNull Integer serviceId) {
         return restaMenuService.getCategories(restId, serviceId, null)
                 .map(ListResponce<Category>::getData);
     }
 
-    public Flowable<List<Product>> getCategoryProducts(@NonNull final Integer restId, final Integer serviceId, final Integer categoryId) {
-        return restaMenuService.getCategory(restId, serviceId, categoryId, null, null)
+    public Flowable<List<Product>> getCategoryProducts(@NonNull final Integer restId, final Integer categoryId) {
+        return restaMenuService.getCategory(restId, null, categoryId, null, null)
                 .map(ListResponce<Product>::getData);
     }
 

@@ -22,6 +22,18 @@
     <string name="select_menu_language">Select menu language:</string>
     <string name="restaurants_by_near_you">Restaurants by near you</string>
     <string name="institution_string">Institution</string>
+    <string name="menu">Menu</string>
+    <string name="photo">Photo</string>
+    <string name="about">About</string>
+    <string name="contact">Contact</string>
+    <string name="add_to_favorite">Add to favorite</string>
+    <string name="contact_restaurant_text">Contact restaurant</string>
+    <string name="adress_text">Address</string>
+    <string name="social_networks_text">Social Networks</string>
+    <string name="phones_text">Phones</string>
+    <string name="about_restaurant_text">About Restaurant</string>
+    <string name="select_service_text">Select service</string>
+    <string name="setting_string">Setting</string>
 
     <string name="loading_title">Please wait...</string>
 

@@ -29,7 +29,7 @@ public class Restaurant {
     private int type;  //тип показа карточки категории. Например, 0 - по-умолчанию.
 
     private String information;
-    private List<String> timing;
+//    private List<String> timing;
     private List<String> phones;
     private List<String> social;
     private List<String> currency;
@@ -94,9 +94,9 @@ public class Restaurant {
         return information;
     }
 
-    public List<String> getTiming() {
-        return timing;
-    }
+//    public List<String> getTiming() {
+//        return timing;
+//    }
 
     public List<String> getPhones() {
         return phones;

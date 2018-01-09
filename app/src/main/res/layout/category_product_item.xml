@@ -8,8 +8,9 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/category_product_item_margin_bottom"
-        app:cardElevation="@dimen/category_product_item_radius">
+        android:layout_marginTop="@dimen/category_product_item_margin_bottom"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:cardElevation="0dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -26,8 +27,8 @@
                     android:id="@+id/product_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
                     android:background="@color/greyish"
+                    android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -37,56 +38,59 @@
                     android:id="@+id/service_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/category_product_item_service_list_margin_start"
                     android:layout_marginStart="@dimen/category_product_item_service_list_margin_start"
                     android:layout_marginTop="@dimen/category_product_item_service_list_margin_top"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </android.support.constraint.ConstraintLayout>
 
 
             <TextView
                 android:id="@+id/product_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/category_product_item_name_margin_start"
                 android:layout_marginStart="@dimen/category_product_item_name_margin_start"
                 android:layout_marginTop="@dimen/category_product_item_name_margin_top"
                 android:fontFamily="@font/open_sans_bold"
-                tools:text="Salmon sandwich"
                 android:textColor="@color/black"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textSize="@dimen/category_product_item_name_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/background" />
+                app:layout_constraintTop_toBottomOf="@+id/background"
+                tools:text="Salmon sandwich" />
 
             <TextView
                 android:id="@+id/product_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/category_product_item_description_margin_end"
+                android:layout_marginEnd="@dimen/category_product_item_name_margin_start"
                 android:layout_marginTop="@dimen/category_product_item_description_margin_top"
-                android:ellipsize="end"
                 android:fontFamily="@font/open_sans"
-                android:maxLines="2"
                 android:textColor="#666666"
                 android:textSize="@dimen/category_product_item_description_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/product_name"
                 app:layout_constraintTop_toBottomOf="@+id/product_name"
-                tools:text="Avocado, cheese, Iceberg salad, Tobiko caviar, smoked eel, teriyaki sauce and sesame." />
+                android:layout_marginRight="@dimen/category_product_item_name_margin_start" />
 
             <FrameLayout
                 android:id="@+id/product_quantity_container"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="@dimen/product_item_quantity_container_height"
                 android:layout_marginEnd="@dimen/category_product_item_quantity_container_margin_end"
+                android:layout_marginRight="@dimen/category_product_item_quantity_container_margin_end"
+                android:layout_marginTop="@dimen/product_quantity_container_margin_top"
                 android:background="@drawable/round_rect_stroke_grey"
-                android:paddingBottom="@dimen/category_product_item_quantity_container_padding_vertical"
                 android:paddingLeft="@dimen/category_product_item_quantity_container_padding_horizontal"
                 android:paddingRight="@dimen/category_product_item_quantity_container_padding_horizontal"
-                android:paddingTop="@dimen/category_product_item_quantity_container_padding_vertical"
-                app:layout_constraintBottom_toBottomOf="@+id/buy_container"
+                app:layout_constraintBottom_toBottomOf="@+id/product_price"
                 app:layout_constraintEnd_toStartOf="@+id/buy_container"
-                app:layout_constraintTop_toTopOf="@+id/buy_container">
+                app:layout_constraintTop_toTopOf="@+id/product_price">
 
                 <EditText
                     android:id="@+id/product_quantity"
@@ -94,11 +98,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@android:color/transparent"
-                    android:focusable="false"
                     android:fontFamily="@font/open_sans_semibold"
                     android:gravity="center"
+                    android:hint="1"
                     android:inputType="numberDecimal"
-                    android:text="1"
                     android:textAlignment="center"
                     android:textColor="#999999"
                     android:textSize="@dimen/category_product_item_quantity_text_size" />
@@ -111,20 +114,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/category_product_item_price_margin_vertical"
-                android:layout_marginStart="@dimen/category_product_item_price_margin_start"
-                android:layout_marginTop="@dimen/category_product_item_price_margin_vertical"
+                android:layout_marginTop="@dimen/category_product_item_price_margin_bottom"
                 android:fontFamily="@font/open_sans_bold"
                 android:textColor="@color/black"
                 android:textSize="@dimen/category_product_item_price_text_size"
-                app:layout_constraintBottom_toBottomOf="@+id/product_quantity_container"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/product_quantity_container"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/product_description"
+                app:layout_constraintTop_toBottomOf="@+id/product_description"
                 tools:text="$15" />
 
             <TextView
                 android:id="@+id/product_price_sub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/category_product_item_price_sub_margin_start"
                 android:layout_marginStart="@dimen/category_product_item_price_sub_margin_start"
                 android:textColor="#b3000000"
                 android:textSize="@dimen/category_product_item_price_sub_text_size"
@@ -137,27 +140,23 @@
             <LinearLayout
                 android:id="@+id/buy_container"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/category_product_item_buy_container_margin_bottom"
-                android:layout_marginTop="@dimen/category_product_item_buy_container_margin_top"
+                android:layout_height="@dimen/product_item_quantity_container_height"
                 android:background="@color/dusty_red"
                 android:gravity="center"
-                android:paddingBottom="@dimen/category_product_item_buy_container_padding_vertical"
                 android:paddingLeft="@dimen/category_product_item_buy_container_padding_horizontal"
                 android:paddingRight="@dimen/category_product_item_buy_container_padding_horizontal"
-                android:paddingTop="@dimen/category_product_item_buy_container_padding_vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/product_quantity_container"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/product_description">
+                app:layout_constraintTop_toTopOf="@+id/product_quantity_container">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/category_product_item_buy_text_margin_end"
+                    android:layout_marginRight="@dimen/category_product_item_buy_text_margin_end"
                     android:fontFamily="@font/open_sans_semibold"
-                    android:text="Buy"
-                    android:layout_marginBottom="2dp"
                     android:gravity="top"
+                    android:text="Buy"
                     android:textColor="@color/white"
                     android:textSize="@dimen/category_product_item_buy_text_size"
                     android:textStyle="bold" />
@@ -165,7 +164,7 @@
                 <ImageView
                     android:layout_width="@dimen/category_product_item_buy_icon_size"
                     android:layout_height="@dimen/category_product_item_buy_icon_size"
-                    android:src="@drawable/ic_buy" />
+                    android:src="@drawable/ic_cart" />
 
             </LinearLayout>
 

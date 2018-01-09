@@ -4,10 +4,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
+import com.makeramen.roundedimageview.RoundedImageView;
+import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.model.content.Promotion;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +50,10 @@ public class PromotionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         PromotionViewHolder promotionViewHolder = (PromotionViewHolder) holder;
 
-        //TODO:
-//        promotionViewHolder.background.setImageResource(R.drawable.restaurants);
+        String image = items.get(position).getImage();
+        String backgroundUrl = image.substring(1, image.length());
+        Picasso.with(holder.itemView.getContext())
+                .load(BuildConfig.BASE_URL + backgroundUrl).into(promotionViewHolder.background);
 
     }
 
@@ -59,7 +63,7 @@ public class PromotionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     class PromotionViewHolder extends RecyclerView.ViewHolder {
-        private ImageView background;
+        private RoundedImageView background;
 
         public PromotionViewHolder(View itemView) {
             super(itemView);

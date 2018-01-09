@@ -96,12 +96,7 @@ public class SplashActivity extends AppCompatActivity {
                 .interpolator(new LinearInterpolator())
                 .scaleY(1, 5f)
                 .scaleX(1, 0.25f)
-                .onStop(new AnimationListener.Stop() {
-                    @Override
-                    public void onStop() {
-                        splashCursorImage.setImageResource(R.drawable.rectangle_shape);
-                    }
-                })
+                .onStop(() -> splashCursorImage.setImageResource(R.drawable.rectangle_shape))
                 // line moving animation
                 .thenAnimate(splashCursorImage)
                 .startDelay(350)

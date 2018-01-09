@@ -82,7 +82,7 @@ public class MainPresenter implements Presenter<MainView> {
 
     public void loadSuggestions(String keyword, int cuisineId, int instituteId) {
 
-        RepositoryProvider.getAppRepository().getRestaurants(1, keyword, cuisineId, instituteId, 1, true)
+        RepositoryProvider.getAppRepository().getRestaurants(1, keyword, null, null, 1, true)
                 .flatMap(Flowable::fromIterable)
                 .toList()
                 .subscribeOn(schedulerProvider.io())

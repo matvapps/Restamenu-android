@@ -61,19 +61,19 @@ public class ContactsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         switch (contact.getTitle()) {
 
             case "Phones": {
-                Glide.with(holder.itemView.getContext()).load(R.drawable.ic_phone).into(contactViewHolder.icon);
+                contactViewHolder.icon.setImageResource(R.drawable.ic_calldown);
                 break;
             }
             case "Opening Hours": {
-                Glide.with(holder.itemView.getContext()).load(R.drawable.ic_hours).into(contactViewHolder.icon);
+                contactViewHolder.icon.setImageResource(R.drawable.ic_timedown);
                 break;
             }
             case "Social Networks": {
-                Glide.with(holder.itemView.getContext()).load(R.drawable.ic_share).into(contactViewHolder.icon);
+                contactViewHolder.icon.setImageResource(R.drawable.ic_soc_networks);
                 break;
             }
             case "Address": {
-                Glide.with(holder.itemView.getContext()).load(R.drawable.ic_pin_black).into(contactViewHolder.icon);
+                contactViewHolder.icon.setImageResource(R.drawable.ic_place_black);
                 break;
             }
 

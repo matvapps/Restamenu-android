@@ -98,8 +98,8 @@ public class ApplicationRepository implements DataSource {
     }
 
     @Override
-    public Flowable<List<Product>> getCategoryProducts(@NonNull Integer restaurantId, @NonNull Integer serviceId, @NonNull Integer categoryId) {
-        return remoteRepository.getCategoryProducts(restaurantId, serviceId, categoryId);
+    public Flowable<List<Product>> getCategoryProducts(@NonNull Integer restaurantId, @NonNull Integer categoryId) {
+        return remoteRepository.getCategoryProducts(restaurantId, categoryId);
     }
 
     @Override

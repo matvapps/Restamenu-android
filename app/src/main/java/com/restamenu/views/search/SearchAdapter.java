@@ -55,7 +55,7 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
                     List<String> searchData = new ArrayList<>();
 
                     for (String string : suggestions) {
-                        if (string.toLowerCase().startsWith(constraint.toString().toLowerCase())) {
+                        if (string.toLowerCase().contains(constraint.toString().toLowerCase())) {
                             searchData.add(string);
                         }
                     }

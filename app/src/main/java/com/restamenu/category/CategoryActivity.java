@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.restamenu.R;
 import com.restamenu.base.BasePresenterActivity;
@@ -97,12 +98,10 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     }
 
     public void changeCategoryTo(int categoryId) {
-
+        Logger.log("categoryIndex = " + categoryIndex);
         txtCategoryName.setText(categories.get
                 (getCategoryIndex(categories, categoryId)).getName());
 
-
-        Logger.log(categoryIndex + "");
 
         presenter.loadData(categoryId);
     }
@@ -183,8 +182,6 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
             btnTopCategoryPrevious.setVisibility(View.VISIBLE);
             btnTopCategoryPrevious.setEnabled(true);
-            btnBottomCategoryPrevious.setVisibility(View.VISIBLE);
-            btnBottomCategoryPrevious.setEnabled(true);
 
             if (isTablet()) {
                 nextCategoryName.setText(data.get(categoryIndex + NEXT_CATEGORY).getName());

@@ -5,13 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
 import android.widget.TextView;
 
 import com.restamenu.R;
 import com.restamenu.model.content.Cusine;
 import com.restamenu.model.content.Institute;
-import com.restamenu.util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +81,7 @@ public class PopupDropDownAdapter extends RecyclerView.Adapter<RecyclerView.View
 //                popupItemClickListener.onClick(items.get(position));
 //            }
             if (filterItemChangeListener != null) {
-                filterItemChangeListener.onFilterItemChanged(items.get(position), items.get(position).isChecked());
+                filterItemChangeListener.onFilterItemChanged(items.get(position));
             }
         });
 
@@ -97,7 +95,7 @@ public class PopupDropDownAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public interface FilterItemChangeListener {
-        public void onFilterItemChanged(PopupFilterItem item, boolean isEnable);
+        void onFilterItemChanged(PopupFilterItem item);
     }
 
 

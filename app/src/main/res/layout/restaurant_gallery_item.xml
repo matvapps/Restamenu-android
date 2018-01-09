@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.makeramen.roundedimageview.RoundedImageView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/gallery_photo"
-    android:layout_width="@dimen/restaurant_gallery_item_width"
-    android:layout_height="@dimen/restaurant_gallery_item_height"
-    android:layout_marginStart="@dimen/restaurant_gallery_item_margin_start"
-    android:background="@color/greyish"
-    android:scaleType="centerCrop"
-    app:riv_corner_radius="@dimen/restaurant_gallery_item_radius" />
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/gallery_photo"
+        android:layout_width="@dimen/restaurant_gallery_item_width"
+        android:layout_height="@dimen/restaurant_gallery_item_height"
+        android:layout_marginLeft="@dimen/restaurant_gallery_item_margin_start"
+        android:layout_marginStart="@dimen/restaurant_gallery_item_margin_start"
+        android:scaleType="centerCrop"
+        app:riv_corner_radius="@dimen/card_corner_radius" />
+</FrameLayout>

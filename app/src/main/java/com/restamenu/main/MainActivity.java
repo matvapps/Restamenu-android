@@ -1,12 +1,10 @@
 package com.restamenu.main;
 
-import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,6 +19,7 @@ import com.restamenu.model.content.Cusine;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.RestaurantActivity;
+import com.restamenu.util.DimensionUtil;
 import com.restamenu.util.Logger;
 import com.restamenu.views.search.RestaurantsSearchView;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
@@ -42,6 +41,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     private DiscreteScrollView nearbyRestaurantPicker;
     private ImageView nearbyContainerBackground;
     private RestaurantsSearchView searchView;
+    private List<Institute> institutes;
 
     @Override
     protected void initViews() {
@@ -58,6 +58,8 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
             searchView = findViewById(R.id.search_view);
             searchView.setSearchListener(this);
             searchView.showSearch(false);
+
+            institutes = new ArrayList<>();
 
             if (!isTablet()) {
                 nearbyRestaurantPicker = findViewById(R.id.nearby_restaurant_picker);
@@ -77,6 +79,19 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
                         .setPivotX(Pivot.X.LEFT)
                         .setPivotY(Pivot.Y.CENTER)
                         .build());
+
+
+        if (!isTablet()) {
+            nearbyRestaurantPicker = findViewById(R.id.nearby_restaurant_picker);
+            nearbyRestaurantPicker.setOrientation(Orientation.HORIZONTAL);
+            nearbyRestaurantPicker.addOnItemChangedListener(this);
+            nearbyRestaurantPicker.setSlideOnFling(true);
+            nearbyRestaurantPicker.setItemTransitionTimeMillis(430);
+            nearbyRestaurantPicker.setItemTransformer(new ScaleTransformer.Builder()
+                    .setMinScale(0.86f)
+                    .setPivotX(Pivot.X.LEFT)
+                    .setPivotY(Pivot.Y.CENTER)
+                    .build());
 
             } else {
                 new GravitySnapHelper(Gravity.START, false, this)
@@ -110,6 +125,28 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
                     }
                 });
             }
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, span_count);
+        gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        if(isTablet()) {
+            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    switch (restaurantListAdapter.getItem(position).getType()) {
+                        case 0:
+                            return 1;
+                        case 1:
+                            return 1;
+                        case 2:
+                            return 2;
+                        case 3:
+                            return 3;
+                        default:
+                            return -1;
+                    }
+                }
+            });
+        }
 
             restaurantsRecycler.setLayoutManager(gridLayoutManager);
             restaurantsRecycler.setNestedScrollingEnabled(false);
@@ -126,14 +163,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     protected void attachPresenter() {
         Logger.log("Attach");
         if (presenter == null) {
-
-            Display display = getWindowManager().getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
-
-            int width = size.x;
-
-            presenter = new MainPresenter(width);
+            presenter = new MainPresenter(DimensionUtil.getScreenWidth(this));
         }
         presenter.attachView(this);
         presenter.init();
@@ -149,6 +179,20 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     public void setData(@NonNull List<Restaurant> data) {
         Logger.log("Amount: " + data.size());
         restaurantListAdapter.setData(data);
+    }
+
+    @Override
+    public void setFoundedRestaurants(List<Restaurant> data) {
+        Logger.log("Found: " + data.size() + " restaurant('s)");
+        restaurantListAdapter = new RestaurantListAdapter(MainActivity.this, this);
+        restaurantListAdapter.setData(data);
+        restaurantListAdapter.setInstituteList(institutes);
+        restaurantsRecycler.setAdapter(restaurantListAdapter);
+    }
+
+    @Override
+    public void setSuggestion(List<Restaurant> data) {
+        Logger.log("Found: " + data.toString());
 
         ArrayList<String> restNames = new ArrayList<>();
 
@@ -158,18 +202,6 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
         searchView.setSuggestions(restNames);
 
-    }
-
-    @Override
-    public void setFoundedRestaurants(List<Restaurant> data) {
-        Logger.log("Found: " + data.size() + " restaurant('s)");
-        restaurantListAdapter.setData(data);
-    }
-
-    @Override
-    public void setSuggestion(List<Restaurant> data) {
-        Logger.log("Found: " + data.size() + " suggestion('s)");
-        searchView.setSuggestions(data);
     }
 
     @Override
@@ -204,6 +236,8 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     public void setInstitutions(List<Institute> data) {
         nearbyRestaurantListAdapter.setInstituteList(data);
         restaurantListAdapter.setInstituteList(data);
+
+        institutes = data;
 
         searchView.setInstitutions(data);
     }
@@ -248,6 +282,21 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         Logger.log("snapped item: " + position);
     }
 
+
+
+    @Override
+    public void finish() {
+        // dismiss filter popup window if it's showing
+        if (searchView.getFilterPopup().isShowing()) {
+            searchView.getFilterPopup().dismiss();
+
+            return;
+        }
+
+        super.finish();
+    }
+
+
     /**
      * SearchListener
      */
@@ -257,14 +306,37 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     }
 
     @Override
-    public void onInstituteChanged(PopupFilterItem institute) {
+    public void onInputDataChanged(List<PopupFilterItem> filterList, String keyword) {
 
+        List<Cusine> cuisineFilterList = new ArrayList<>();
+        List<Institute> instituteFilterList = new ArrayList<>();
+
+        for (PopupFilterItem item :filterList) {
+            Object obj = item.getItem();
+
+            if (obj instanceof Cusine) {
+                cuisineFilterList.add((Cusine) obj);
+            } else if (obj instanceof Institute) {
+                instituteFilterList.add((Institute) (obj));
+            }
+        }
+
+
+        // TODO: use cuisineFilterLIst and instituteFilterList in loadSuggestions
+        if (!keyword.equals("")) {
+            presenter.loadSuggestions(keyword, 1, 1);
+        }
     }
 
-    @Override
-    public void onCuisineChanged(PopupFilterItem cuisine) {
-
-    }
+    //    @Override
+//    public void onInstituteChanged(PopupFilterItem institute) {
+//
+//    }
+//
+//    @Override
+//    public void onCuisineChanged(PopupFilterItem cuisine) {
+//
+//    }
     /**
      * SearchListener
      */

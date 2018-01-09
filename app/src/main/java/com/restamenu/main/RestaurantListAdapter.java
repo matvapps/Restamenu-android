@@ -18,6 +18,7 @@ import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.RestaurantActivity;
 import com.restamenu.util.Logger;
+import com.restamenu.util.DimensionUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     }
 
     public void setData(List<Restaurant> data) {
+
         this.restaurants.clear();
         this.restaurants.addAll(data);
         this.filter = new RestaurantFilter(this, data);
@@ -94,6 +96,9 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
                 .load(R.drawable.test_map)
                 .apply(options)
                 .into(holder.restaurantBackgroundImageView);
+        //String path = BuildConfig.BASE_URL + item.getImage().substring(1, item.getImage().length());
+       // path += "?width=" + DimensionUtil.getScreenWidth(context);
+//        Picasso.with(context).load(path).into(holder.restaurantBackgroundImageView);
 
         for (int i = 0; i < item.getServices().size(); i++) {
             switch (item.getServices().get(i)) {
@@ -189,7 +194,6 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
                     }
                 }
             }
-            System.out.println("Count Number " + filteredList.size());
             results.values = filteredList;
             results.count = filteredList.size();
             return results;

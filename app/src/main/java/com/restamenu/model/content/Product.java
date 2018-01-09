@@ -15,7 +15,7 @@ public class Product {
     private List<String> images;
     private List<String> special; //(varchar) массив ключей специальных параметров для товара.
     private int price;
-    private boolean price_old;
+    private int price_old;
     private int price_original;
 
     public int getId() {
@@ -46,7 +46,7 @@ public class Product {
         return price;
     }
 
-    public boolean isPriceOld() {
+    public int getPrice_old() {
         return price_old;
     }
 
