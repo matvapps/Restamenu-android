@@ -1,6 +1,5 @@
 package com.restamenu.main;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,13 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.RestaurantActivity;
-import com.restamenu.util.DimensionUtil;
 import com.restamenu.util.Logger;
 
 import java.util.ArrayList;
@@ -91,17 +88,14 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerVi
         cardHolder.restaurantStreetTextView.setText(restaurants.get(position).getAddress());
         cardHolder.restaurantDistanceTextView.setText((int) (restaurants.get(position).getDistance()) + "m");
 
-        String path = BuildConfig.BASE_URL + restaurant.getImage().substring(1, restaurant.getImage().length());
-        path += "?width=" + DimensionUtil.getScreenWidth(context);
-        Picasso.with(context).load(path).into(cardHolder.restaurantBackgroundImageView);
+        //String path = BuildConfig.BASE_URL + restaurant.getImage().substring(1, restaurant.getImage().length());
+        //path += "?width=" + DimensionUtil.getScreenWidth(holder.itemView.getContext());
         String path = BuildConfig.BASE_URL + restaurant.getImage().substring(1, restaurant.getImage().length()) + BuildConfig.IMAGE_WIDTH_200;
 
-        RequestOptions options = new RequestOptions()
-                .override(200, 200);
 
         Glide.with(holder.itemView.getContext())
-                .load(R.drawable.test_map)
-                .apply(options)
+                .load(path)
+                //.apply(options)
                 .into(cardHolder.restaurantBackgroundImageView);
 
 

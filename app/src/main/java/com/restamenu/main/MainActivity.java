@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
@@ -45,40 +44,20 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     @Override
     protected void initViews() {
-        try {
-            super.initViews();
-            nearbyRestaurantsRecycler = findViewById(R.id.restaurant_list_container);
-            restaurantsRecycler = findViewById(R.id.restaurants_list);
-            nearbyListContainer = findViewById(R.id.nearby_list_container);
-            nearbyListContainer.setVisibility(View.GONE);
-            nearbyContainerBackground = findViewById(R.id.nearby_restaurants_container_background);
+        super.initViews();
+        nearbyRestaurantsRecycler = findViewById(R.id.restaurant_list_container);
+        restaurantsRecycler = findViewById(R.id.restaurants_list);
+        nearbyListContainer = findViewById(R.id.nearby_list_container);
+        nearbyListContainer.setVisibility(View.GONE);
+        nearbyContainerBackground = findViewById(R.id.nearby_restaurants_container_background);
 
-            nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter();
+        nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter();
 
-            searchView = findViewById(R.id.search_view);
-            searchView.setSearchListener(this);
-            searchView.showSearch(false);
+        searchView = findViewById(R.id.search_view);
+        searchView.setSearchListener(this);
+        searchView.showSearch(false);
 
-            institutes = new ArrayList<>();
-
-            if (!isTablet()) {
-                nearbyRestaurantPicker = findViewById(R.id.nearby_restaurant_picker);
-                nearbyRestaurantPicker.setOrientation(Orientation.HORIZONTAL);
-
-                //DividerItemDecoration itemDecorator = new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL);
-                //itemDecorator.setDrawable(ContextCompat.getDrawable(this, R.drawable.nearby_list_divider));
-                //nearbyRestaurantPicker.addItemDecoration(itemDecorator);
-
-                //nearbyRestaurantPicker.addItemDecoration(new SimpleListDividerDecorator(ContextCompat.getDrawable(this, R.drawable.nearby_list_divider), true));
-
-                nearbyRestaurantPicker.addOnItemChangedListener(this);
-                nearbyRestaurantPicker.setSlideOnFling(true);
-                nearbyRestaurantPicker.setItemTransitionTimeMillis(430);
-                nearbyRestaurantPicker.setItemTransformer(new ScaleTransformer.Builder()
-                        .setMinScale(0.86f)
-                        .setPivotX(Pivot.X.LEFT)
-                        .setPivotY(Pivot.Y.CENTER)
-                        .build());
+        institutes = new ArrayList<>();
 
 
         if (!isTablet()) {
@@ -93,42 +72,18 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
                     .setPivotY(Pivot.Y.CENTER)
                     .build());
 
-            } else {
-                new GravitySnapHelper(Gravity.START, false, this)
-                        .attachToRecyclerView(nearbyRestaurantsRecycler);
+        } else {
+            new GravitySnapHelper(Gravity.START, false, this)
+                    .attachToRecyclerView(nearbyRestaurantsRecycler);
 
-                nearbyRestaurantsRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-                nearbyRestaurantsRecycler.setAdapter(nearbyRestaurantListAdapter);
-            }
+            nearbyRestaurantsRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            nearbyRestaurantsRecycler.setAdapter(nearbyRestaurantListAdapter);
+        }
 
+        if (isTablet()) {
             final int span_count = getResources().getInteger(R.integer.restaurant_span_count);
-
-
             GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, span_count);
             gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-            if (isTablet()) {
-                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                    @Override
-                    public int getSpanSize(int position) {
-                        switch (restaurantListAdapter.getItem(position).getType()) {
-                            case 0:
-                                return 1;
-                            case 1:
-                                return 1;
-                            case 2:
-                                return 2;
-                            case 3:
-                                return 3;
-                            default:
-                                return -1;
-                        }
-                    }
-                });
-            }
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, span_count);
-        gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
-        if(isTablet()) {
             gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
@@ -146,16 +101,17 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
                     }
                 }
             });
-        }
+
 
             restaurantsRecycler.setLayoutManager(gridLayoutManager);
-            restaurantsRecycler.setNestedScrollingEnabled(false);
-            restaurantListAdapter = new RestaurantListAdapter(this);
-            restaurantsRecycler.setAdapter(restaurantListAdapter);
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } else {
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
+            restaurantsRecycler.setLayoutManager(linearLayoutManager);
         }
+        restaurantsRecycler.setNestedScrollingEnabled(false);
+        restaurantsRecycler.setHasFixedSize(true);
+        restaurantListAdapter = new RestaurantListAdapter(this);
+        restaurantsRecycler.setAdapter(restaurantListAdapter);
 
     }
 
@@ -168,6 +124,11 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         presenter.attachView(this);
         presenter.init();
 
+    }
+
+    @Override
+    protected boolean showToolbarBackStack() {
+        return true;
     }
 
     @Override
@@ -184,7 +145,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     @Override
     public void setFoundedRestaurants(List<Restaurant> data) {
         Logger.log("Found: " + data.size() + " restaurant('s)");
-        restaurantListAdapter = new RestaurantListAdapter(MainActivity.this, this);
+        restaurantListAdapter = new RestaurantListAdapter(this);
         restaurantListAdapter.setData(data);
         restaurantListAdapter.setInstituteList(institutes);
         restaurantsRecycler.setAdapter(restaurantListAdapter);
@@ -196,7 +157,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
         ArrayList<String> restNames = new ArrayList<>();
 
-        for (Restaurant restaurant: data) {
+        for (Restaurant restaurant : data) {
             restNames.add(restaurant.getName());
         }
 
@@ -283,7 +244,6 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     }
 
 
-
     @Override
     public void finish() {
         // dismiss filter popup window if it's showing
@@ -311,7 +271,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         List<Cusine> cuisineFilterList = new ArrayList<>();
         List<Institute> instituteFilterList = new ArrayList<>();
 
-        for (PopupFilterItem item :filterList) {
+        for (PopupFilterItem item : filterList) {
             Object obj = item.getItem();
 
             if (obj instanceof Cusine) {

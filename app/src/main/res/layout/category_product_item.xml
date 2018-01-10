@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/category_product_item_margin_bottom"
         app:cardCornerRadius="@dimen/card_corner_radius"
+        android:background="?selectableItemBackground"
         app:cardElevation="0dp">
 
         <android.support.constraint.ConstraintLayout

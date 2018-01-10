@@ -11,12 +11,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.restamenu.R;
 import com.restamenu.base.BasePresenterActivity;
 import com.restamenu.model.content.Category;
-import com.restamenu.model.content.Product;
 import com.restamenu.util.Logger;
 import com.restamenu.views.pager.CircularViewPagerHandler;
 
@@ -38,7 +36,6 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
     private int categoryIndex = 0;
 
-    //private ProductAdapter productAdapter;
 
     private FrameLayout searchContainer;
     private EditText searchEditText;
@@ -52,13 +49,13 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     private TextView prevCategoryName;
     private TextView nextCategoryName;
 
+    private String restaurantTitle;
+
     //private NestedScrollView nestedScrollView;
-    private TextView toolbarRestaurantTitle;
+    //private TextView toolbarRestaurantTitle;
     private EditText findEditText;
     private View buttonFind;
-    private View toolbarBack;
 
-    private String restaurantTitle;
 
     private CategoryPagerAdapter pagerAdapter;
     private ViewPager pager;
@@ -84,33 +81,30 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
         super.onCreate(savedInstanceState);
 
-        toolbarRestaurantTitle.setText(restaurantTitle);
-
+        toolbarTitle.setText(restaurantTitle);
     }
-
 
     @Override
-    public void setProducts(List<Product> products) {
-        Logger.log("Products : " + products.toString());
+    protected boolean showToolbarBackStack() {
+        return true;
+    }
 
-        //productAdapter.setItems(products);
+    private void increaseCategory() {
+        int position = pager.getCurrentItem();
+        pager.setCurrentItem(position + 1, true);
 
     }
 
-    public void changeCategoryTo(int categoryId) {
-        Logger.log("categoryIndex = " + categoryIndex);
-        txtCategoryName.setText(categories.get
-                (getCategoryIndex(categories, categoryId)).getName());
+    private void decreaseCategory() {
+        int position = pager.getCurrentItem();
+        pager.setCurrentItem(position - 1, true);
 
-
-        presenter.loadData(categoryId);
     }
 
     @Override
     public void setData(@NonNull List<Category> data) {
         Logger.log("Categories: " + data.toString());
         categories = data;
-
 
         pagerAdapter = new CategoryPagerAdapter(getSupportFragmentManager(), data, restaurantId, serviceId);
         pager.setAdapter(pagerAdapter);
@@ -193,9 +187,6 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
             }
 
         }
-
-        //productAdapter.notifyDataSetChanged();
-
     }
 
 
@@ -207,7 +198,7 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         btnTopCategoryPrevious = findViewById(R.id.category_arrow_left);
         btnTopCategoryNext = findViewById(R.id.category_arrow_right);
         txtCategoryName = findViewById(R.id.category_title);
-        pager = findViewById(R.id.product_list);
+        pager = findViewById(R.id.viewpager);
 
         buttonFind = findViewById(R.id.button_find);
         findEditText = findViewById(R.id.search_edit_text);
@@ -217,22 +208,6 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         btnBottomCategoryNext = findViewById(R.id.next_category_button);
         prevCategoryName = findViewById(R.id.previous_category_title);
         nextCategoryName = findViewById(R.id.next_category_title);
-        toolbarRestaurantTitle = findViewById(R.id.toolbar_restaurant_title);
-        toolbarBack = findViewById(R.id.back_to_category);
-
-        if (isTablet())
-            toolbarBack.setOnClickListener(view -> finish());
-
-
-        pager = findViewById(R.id.viewpager);
-        //pager.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        //pagerAdapter = new CategoryPagerAdapter();
-        //viewPager.setAdapter(pagerAdapter);
-
-        //productAdapter = new ProductAdapter();
-        //productsRecycler.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.product_span_count)));
-        //productsRecycler.setAdapter(productAdapter);
-
 
         //TODO commented
         /*buttonFind.setOnClickListener(view -> {
@@ -258,6 +233,11 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     }
 
     @Override
+    protected int getToolbarLayoutId() {
+        return R.layout.include_toolbar_category;
+    }
+
+    @Override
     protected void attachPresenter() {
         Logger.log("Attach");
         if (presenter == null) {
@@ -265,7 +245,7 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         }
 
         presenter.attachView(this);
-        presenter.loadData(categoryId);
+        presenter.loadData();
     }
 
 
@@ -274,26 +254,12 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         switch (view.getId()) {
             case R.id.category_arrow_left:
             case R.id.previous_category_button: {
-
-                if (categoryIndex == 0)
-                    categoryIndex = categories.size() - 1;
-                else
-                    categoryIndex += PREV_CATEGORY;
-
-                categoryId = categories.get(categoryIndex).geId();
-                changeCategoryTo(categoryId);
+                decreaseCategory();
                 break;
             }
             case R.id.category_arrow_right:
             case R.id.next_category_button: {
-
-                if (categoryIndex + 1 == categories.size())
-                    categoryIndex = 0;
-                else
-                    categoryIndex += NEXT_CATEGORY;
-
-                categoryId = categories.get(categoryIndex).geId();
-                changeCategoryTo(categoryId);
+                increaseCategory();
                 break;
             }
 
@@ -331,11 +297,16 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         return new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
-                //TODO
             }
 
             @Override
             public void onPageSelected(final int position) {
+                Logger.log("Position selected: " + position);
+                try {
+                    txtCategoryName.setText(categories.get(position).getName());
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
 
             @Override

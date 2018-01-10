@@ -15,7 +15,11 @@
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            
+            <ViewStub
+                android:id="@+id/toolbar_stub"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbar_main_height" />
+
         </android.support.design.widget.AppBarLayout>
 
         <FrameLayout

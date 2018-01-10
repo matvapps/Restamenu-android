@@ -1,342 +1,330 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/white"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
+    android:scrollbars="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
-    <include
-        layout="@layout/toolbar_category"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-
-    <!--<android.support.v4.widget.NestedScrollView
-        android:id="@+id/scroll_container"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">-->
+        android:orientation="vertical">
 
-        <RelativeLayout
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/product_header"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical">
+            <!-- app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintHorizontal_bias="0.0"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent"-->>
 
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/product_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_alignParentTop="true">
-               <!-- app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"-->>
-
-                <ImageView
-                    android:id="@+id/category_header_background"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/bgapp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/category_arrow_left"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="24dp"
-                    android:padding="16dp"
-                    android:src="@drawable/ic_rounded_arrow_white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/category_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="6dp"
-                    android:layout_marginTop="6dp"
-                    android:fontFamily="@font/gotham_pro_bold"
-                    android:textColor="@color/white"
-                    android:textSize="49sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/category_arrow_right"
-                    app:layout_constraintStart_toEndOf="@+id/category_arrow_left"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Appetizers" />
-
-                <ImageView
-                    android:id="@+id/category_arrow_right"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginTop="24dp"
-                    android:padding="16dp"
-                    android:rotation="180"
-                    android:src="@drawable/ic_rounded_arrow_white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </android.support.constraint.ConstraintLayout>
-
-
-            <FrameLayout
-                android:id="@+id/container_search"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/grey"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
-                android:layout_below="@+id/product_header">
-                <!--app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/product_header">-->
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginEnd="250dp"
-                    android:layout_marginStart="250dp"
-                    android:background="@drawable/round_rect_stroke_grey"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/search_edit_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="8"
-                        android:background="@android:color/transparent"
-                        android:fontFamily="@font/open_sans"
-                        android:hint="Start typing the name..."
-                        android:textColor="#80000000"
-                        android:textSize="14sp" />
-
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="#e6e6e6e6" />
-
-
-                    <LinearLayout
-                        android:id="@+id/dropdown_menu_institute"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_margin="1dp"
-                        android:layout_weight="1.1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginEnd="6dp"
-                            android:layout_marginStart="16dp"
-                            android:text="Filter"
-                            android:textColor="#c33c43"
-                            android:textSize="15sp" />
-
-
-                        <ImageView
-                            android:layout_width="9dp"
-                            android:layout_height="6dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_arrow" />
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:id="@+id/button_find"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:background="@drawable/left_round_red_rect"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/ic_find"
-                            android:layout_marginEnd="7dp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/open_sans_semibold"
-                            android:text="Search"
-                            android:textColor="@color/white"
-                            android:textSize="17sp" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-            </FrameLayout>
-
-            <!--<android.support.v7.widget.RecyclerView
-                android:id="@+id/product_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="25dp"
-                android:nestedScrollingEnabled="false"
+            <ImageView
+                android:id="@+id/category_header_background"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bgapp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />-->
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/category_arrow_left"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:padding="16dp"
+                android:src="@drawable/ic_rounded_arrow_white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/viewpager"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/category_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/container_search"
-                android:layout_above="@+id/button_container"
-                >
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/gotham_pro_bold"
+                android:textColor="@color/white"
+                android:textSize="49sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/category_arrow_right"
+                app:layout_constraintStart_toEndOf="@+id/category_arrow_left"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Appetizers" />
 
-            </android.support.v4.view.ViewPager>
+            <ImageView
+                android:id="@+id/category_arrow_right"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="24dp"
+                android:padding="16dp"
+                android:rotation="180"
+                android:src="@drawable/ic_rounded_arrow_white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <FrameLayout
+            android:id="@+id/container_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/product_header"
+            android:background="@color/grey"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:visibility="gone">
+            <!--app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/product_header">-->
 
 
             <LinearLayout
-                android:id="@+id/button_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal"
-                android:layout_alignParentBottom="true">
+                android:layout_height="35dp"
+                android:layout_marginEnd="250dp"
+                android:layout_marginStart="250dp"
+                android:background="@drawable/round_rect_stroke_grey"
+                android:orientation="horizontal">
 
-                <!--app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/product_list">-->
-
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/previous_category_button"
+                <EditText
+                    android:id="@+id/search_edit_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/rect_stroke_grey">
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="8"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/open_sans"
+                    android:hint="Start typing the name..."
+                    android:textColor="#80000000"
+                    android:textSize="14sp" />
+
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#e6e6e6e6" />
+
+
+                <LinearLayout
+                    android:id="@+id/dropdown_menu_institute"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1.1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="6dp"
+                        android:layout_marginStart="16dp"
+                        android:text="Filter"
+                        android:textColor="#c33c43"
+                        android:textSize="15sp" />
 
 
                     <ImageView
-                        android:id="@+id/image_prev"
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
-                        android:layout_marginStart="32dp"
-                        android:padding="16dp"
-                        android:src="@drawable/ic"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_width="9dp"
+                        android:layout_height="6dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_arrow" />
+
+                </LinearLayout>
 
 
-                    <TextView
-                        android:id="@+id/previous_category_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="33dp"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/gotham_pro_medium"
-                        android:textColor="#000000"
-                        android:textSize="21sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/prev_text"
-                        app:layout_constraintTop_toBottomOf="@+id/prev_text"
-                        tools:text="Salads" />
-
-
-                    <TextView
-                        android:id="@+id/prev_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="36dp"
-                        android:layout_marginTop="33dp"
-                        android:fontFamily="@font/open_sans"
-                        android:lineSpacingExtra="6.1sp"
-                        android:textColor="#000000"
-                        android:textSize="9sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:text="Previous menu section" />
-
-
-                </android.support.constraint.ConstraintLayout>
-
-
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/next_category_button"
+                <LinearLayout
+                    android:id="@+id/button_find"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/rect_stroke_grey">
-
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@drawable/left_round_red_rect"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/image_next"
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
-                        android:layout_marginEnd="32dp"
-                        android:padding="16dp"
-                        android:rotation="180"
-                        android:src="@drawable/ic"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginEnd="7dp"
+                        android:src="@drawable/ic_find" />
 
                     <TextView
-                        android:id="@+id/next_category_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="33dp"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/gotham_pro_medium"
-                        android:textColor="#000000"
-                        android:textSize="21sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/next_text"
-                        app:layout_constraintTop_toBottomOf="@+id/next_text"
-                        tools:text="Main Dishes" />
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="Search"
+                        android:textColor="@color/white"
+                        android:textSize="17sp" />
 
-
-                    <TextView
-                        android:id="@+id/next_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="36dp"
-                        android:layout_marginTop="33dp"
-                        android:fontFamily="@font/open_sans"
-                        android:lineSpacingExtra="6.1sp"
-                        android:textColor="#000000"
-                        android:textSize="9sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:text="Next menu section" />
-
-
-                </android.support.constraint.ConstraintLayout>
+                </LinearLayout>
 
             </LinearLayout>
+        </FrameLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/product_header"
+            android:layout_above="@+id/divider" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#6e000000"
+            android:layout_above="@+id/button_container"></View>
 
 
-        </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/button_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true">
 
-    <!--</android.support.v4.widget.NestedScrollView>-->
+            <!--app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/product_list">-->
 
-</LinearLayout>
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/previous_category_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/rect_stroke_grey">
+
+
+                <ImageView
+                    android:id="@+id/image_prev"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginStart="32dp"
+                    android:padding="16dp"
+                    android:src="@drawable/ic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/previous_category_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="33dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/gotham_pro_medium"
+                    android:textColor="#000000"
+                    android:textSize="21sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/prev_text"
+                    app:layout_constraintTop_toBottomOf="@+id/prev_text"
+                    tools:text="Salads" />
+
+
+                <TextView
+                    android:id="@+id/prev_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="36dp"
+                    android:layout_marginTop="33dp"
+                    android:fontFamily="@font/open_sans"
+                    android:lineSpacingExtra="6.1sp"
+                    android:text="Previous menu section"
+                    android:textColor="#000000"
+                    android:textSize="9sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="#6e000000" />
+
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/next_category_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/rect_stroke_grey">
+
+
+                <ImageView
+                    android:id="@+id/image_next"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginEnd="32dp"
+                    android:padding="16dp"
+                    android:rotation="180"
+                    android:src="@drawable/ic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/next_category_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="33dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/gotham_pro_medium"
+                    android:textColor="#000000"
+                    android:textSize="21sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/next_text"
+                    app:layout_constraintTop_toBottomOf="@+id/next_text"
+                    tools:text="Main Dishes" />
+
+
+                <TextView
+                    android:id="@+id/next_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="33dp"
+                    android:fontFamily="@font/open_sans"
+                    android:lineSpacingExtra="6.1sp"
+                    android:text="Next menu section"
+                    android:textColor="#000000"
+                    android:textSize="9sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </android.support.constraint.ConstraintLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>
+

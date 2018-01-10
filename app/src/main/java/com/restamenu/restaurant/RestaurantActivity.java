@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.restamenu.BuildConfig;
@@ -103,6 +102,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
     private RadioGroup navigationTree;
     private RadioButton toMenuBtn;
+    private RadioButton toPromotionsBtn;
     private RadioButton toPhotoBtn;
     private RadioButton toAboutBtn;
     private RadioButton toContactsBtn;
@@ -128,8 +128,18 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     }
 
     @Override
+    protected boolean showToolbarBackStack() {
+        return true;
+    }
+
+    @Override
     protected int getContentViewLayoutId() {
         return R.layout.activity_restaurant;
+    }
+
+    @Override
+    protected int getToolbarLayoutId() {
+        return R.layout.include_toolbar_restaurant;
     }
 
     @Override
@@ -214,14 +224,30 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
                     //Logger.log("Categories not visible");
                 }
 
+                //Check for promotions recycler is being visible
+                if (promotionsListRecycle.getLocalVisibleRect(scrollBounds)) {
+                    if (!promotionsListRecycle.getLocalVisibleRect(scrollBounds)
+                            || scrollBounds.height() < promotionsListRecycle.getHeight()) {
+                        //Logger.log("Gallery appear parcialy");
+                    } else {
+                        if (scrollY > oldScrollY && checkedTreeItem != 1) {
+                            checkedTreeItem = 1;
+                            navigationTree.check(R.id.nav_promotions);
+                            Logger.log("Promotions appeared fully");
+                        }
+                    }
+                } else {
+                    Logger.log("Promotions not visible");
+                }
+
                 //Check for gallery recycler is being visible
                 if (galleryListRecycle.getLocalVisibleRect(scrollBounds)) {
                     if (!galleryListRecycle.getLocalVisibleRect(scrollBounds)
                             || scrollBounds.height() < galleryListRecycle.getHeight()) {
                         //Logger.log("Gallery appear parcialy");
                     } else {
-                        if (scrollY > oldScrollY && checkedTreeItem != 1) {
-                            checkedTreeItem = 1;
+                        if (scrollY > oldScrollY && checkedTreeItem != 2) {
+                            checkedTreeItem = 2;
                             navigationTree.check(R.id.nav_photo);
                             Logger.log("Gallery appeared fully");
                         }
@@ -289,11 +315,13 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     private void initNavigationMenu() {
         navigationTree = findViewById(R.id.nav_container);
         toMenuBtn = findViewById(R.id.nav_menu);
+        toPromotionsBtn = findViewById(R.id.nav_promotions);
         toPhotoBtn = findViewById(R.id.nav_photo);
         toAboutBtn = findViewById(R.id.nav_about);
         toContactsBtn = findViewById(R.id.nav_contacts);
 
         toMenuBtn.setOnCheckedChangeListener(this);
+        toPromotionsBtn.setOnCheckedChangeListener(this);
         toPhotoBtn.setOnCheckedChangeListener(this);
         toAboutBtn.setOnCheckedChangeListener(this);
         toContactsBtn.setOnCheckedChangeListener(this);
@@ -310,7 +338,6 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         restaurantPhoneView.setText(data.getPhones().get(0));
         //TODO: uncomment
         //        restaurantOpeningHours.setText(data.getTiming().get(0));
-
 
 
         if (!isTablet()) {
@@ -580,22 +607,28 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
                 checkedTreeItem = 0;
                 scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.categories_list_title).getTop() - 20));
                 break;
-            case R.id.nav_about:
-                if (checkedTreeItem == 2)
-                    return;
-                checkedTreeItem = 2;
-                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.about_text_title).getTop() - 20));
-                break;
-            case R.id.nav_photo:
+            case R.id.nav_promotions:
                 if (checkedTreeItem == 1)
                     return;
                 checkedTreeItem = 1;
+                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.promotions_list_title).getTop() - 20));
+                break;
+            case R.id.nav_photo:
+                if (checkedTreeItem == 2)
+                    return;
+                checkedTreeItem = 2;
                 scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.gallery_list_title).getTop() - 20));
                 break;
-            case R.id.nav_contacts:
+            case R.id.nav_about:
                 if (checkedTreeItem == 3)
                     return;
                 checkedTreeItem = 3;
+                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.about_text_title).getTop() - 20));
+                break;
+            case R.id.nav_contacts:
+                if (checkedTreeItem == 4)
+                    return;
+                checkedTreeItem = 4;
                 scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.contact_list_title).getTop() - 20));
                 break;
         }

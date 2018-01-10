@@ -4,13 +4,13 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/product_list"
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginEnd="@dimen/activity_category_product_list_margin"
-        android:layout_marginStart="@dimen/activity_category_product_list_margin"
-        android:layout_marginTop="@dimen/activity_category_product_list_margin"
-        android:nestedScrollingEnabled="false" />
+        android:nestedScrollingEnabled="false"
+        android:paddingLeft="@dimen/activity_category_product_list_margin"
+        android:paddingRight="@dimen/activity_category_product_list_margin"
+        android:paddingBottom="@dimen/activity_category_product_list_margin" />
 
 </FrameLayout>
 

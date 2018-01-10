@@ -8,7 +8,9 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ViewStub;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.restamenu.R;
 import com.restamenu.views.dialog.LoadingDialog;
@@ -23,7 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected LoadingView loadingView;
     protected FrameLayout container;
     protected Toolbar toolbar;
-    //protected TextView toolbarTitle;
+    protected TextView toolbarTitle;
 
     protected CoordinatorLayout coordinatorLayout;
     protected AppBarLayout appBarLayout;
@@ -31,6 +33,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     @LayoutRes
     protected int getBaseViewLayoutId() {
         return R.layout.activity_base;
+    }
+
+    @LayoutRes
+    protected int getToolbarLayoutId() {
+        return R.layout.include_toolbar_main;
     }
 
     @Override
@@ -41,9 +48,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         container = findViewById(R.id.container);
 
+        ViewStub toolbarStub = findViewById(R.id.toolbar_stub);
+        toolbarStub.setLayoutResource(getToolbarLayoutId());
+        toolbarStub.inflate();
+
         toolbar = findViewById(R.id.toolbar);
-//        toolbar.setNavigationIcon(getToolbarIcon());
-        //toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle = findViewById(R.id.toolbar_title);
+
 
         appBarLayout = findViewById(R.id.appbar);
         coordinatorLayout = findViewById(R.id.main_content);
@@ -80,13 +91,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @LayoutRes
     protected abstract int getContentViewLayoutId();
 
+    protected abstract boolean showToolbarBackStack();
 
-    /**
-     * Override this to add additional buttons/textViews to toolbar or change up toolbar.
-     */
-    protected void configureToolbar() {
-
-    }
 
     public int getToolbarIcon() {
         return R.drawable.ic_burger_menu;
@@ -94,5 +100,22 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected boolean isTablet() {
         return getResources().getBoolean(R.bool.isLargeLayout);
+    }
+
+    protected void configureToolbar() {
+        if (toolbar != null) {
+            toolbar.setNavigationIcon(getToolbarIcon());
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setTitle(null);
+            if (showToolbarBackStack()) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setDisplayShowHomeEnabled(true);
+                getSupportActionBar().setHomeButtonEnabled(true);
+            } else {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                getSupportActionBar().setDisplayShowHomeEnabled(false);
+                getSupportActionBar().setHomeButtonEnabled(false);
+            }
+        }
     }
 }

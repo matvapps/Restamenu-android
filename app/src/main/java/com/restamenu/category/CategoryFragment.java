@@ -83,13 +83,15 @@ public class CategoryFragment extends Fragment {
     }
 
     public void loadProducts(int restaurantId, int serviceId, int categoryId) {
-        RepositoryProvider.getAppRepository().getCategoryProducts(restaurantId, serviceId, categoryId)
+        showLoading(true);
+        RepositoryProvider.getAppRepository().getCategoryProducts(restaurantId, categoryId)
                 .flatMap(Flowable::fromIterable)
                 .toList()
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(products -> {
                     Logger.log("Products: " + products.toString());
+                    showLoading(false);
                     setProducts(products);
                 }, throwable -> showError());
     }
@@ -100,6 +102,12 @@ public class CategoryFragment extends Fragment {
     }
 
     private void showError() {
+        ((CategoryActivity) getActivity()).showError();
 
     }
+
+    private void showLoading(boolean visible) {
+        ((CategoryActivity) getActivity()).showLoading(visible);
+    }
+
 }

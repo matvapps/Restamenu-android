@@ -1,21 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.restamenu.views.custom.StickyScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
-
-    <include
-        layout="@layout/toolbar_restaurant"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/land_toolbar_height"
-        android:layout_gravity="top" />
-
-
-    <com.restamenu.views.custom.StickyScrollView
         android:id="@+id/scroll_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -220,6 +207,11 @@
                     android:text="@string/menu" />
 
                 <RadioButton
+                    android:id="@+id/nav_promotions"
+                    style="@style/RadioButtonTreeMenu"
+                    android:text="@string/promotions" />
+
+                <RadioButton
                     android:id="@+id/nav_photo"
                     style="@style/RadioButtonTreeMenu"
                     android:text="@string/photo" />
@@ -409,7 +401,4 @@
 
         </android.support.constraint.ConstraintLayout>
 
-
     </com.restamenu.views.custom.StickyScrollView>
-
-</LinearLayout>

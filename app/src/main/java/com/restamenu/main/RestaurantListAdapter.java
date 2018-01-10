@@ -10,15 +10,12 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.RestaurantActivity;
 import com.restamenu.util.Logger;
-import com.restamenu.util.DimensionUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +35,6 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     }
 
     public void setData(List<Restaurant> data) {
-
         this.restaurants.clear();
         this.restaurants.addAll(data);
         this.filter = new RestaurantFilter(this, data);
@@ -51,15 +47,15 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
     @Override
     public int getItemViewType(int position) {
-        return position;
+        return getItem(position).getType();
     }
 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rootView;
-
-        switch (restaurants.get(viewType).getType()) {
+        //Logger.log("Create view: " + viewType);
+        switch (viewType) {
             case 0:
                 rootView = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.restaurant_card_item, parent, false);
@@ -77,8 +73,9 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        Logger.log("Bind View: " + position);
 
-        final Restaurant item = restaurants.get(position);
+        final Restaurant item = getItem(position);
 
         holder.restaurantTitleTextView.setText(item.getName());
         holder.itemView.setOnClickListener(click -> listener.onRestaurantClicked(item.getId()));
@@ -86,19 +83,12 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
         String path = BuildConfig.BASE_URL + item.getImage().substring(1, item.getImage().length()) + BuildConfig.IMAGE_WIDTH_200;
 
-        int width = holder.restaurantBackgroundImageView.getWidth();
-        Logger.log("Width: " + width);
-
-        RequestOptions options = new RequestOptions()
-                .override(200, 200);
-
-        Glide.with(holder.itemView.getContext())
-                .load(R.drawable.test_map)
-                .apply(options)
-                .into(holder.restaurantBackgroundImageView);
         //String path = BuildConfig.BASE_URL + item.getImage().substring(1, item.getImage().length());
-       // path += "?width=" + DimensionUtil.getScreenWidth(context);
-//        Picasso.with(context).load(path).into(holder.restaurantBackgroundImageView);
+        //path += "?width=" + DimensionUtil.getScreenWidth(holder.itemView.getContext());
+
+        /*Glide.with(holder.itemView.getContext())
+                .load(path)
+                .into(holder.restaurantBackgroundImageView);*/
 
         for (int i = 0; i < item.getServices().size(); i++) {
             switch (item.getServices().get(i)) {

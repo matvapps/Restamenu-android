@@ -1,43 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <include
-        layout="@layout/toolbar_category"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <!--<android.support.v4.widget.NestedScrollView
         android:id="@+id/scroll_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#f7f7f7">-->
+    android:scrollbars="vertical"
+    android:fitsSystemWindows="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:fillViewport="true"
+    tools:context="com.restamenu.category.CategoryActivity">
 
-        <RelativeLayout
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="com.restamenu.category.CategoryActivity">
+        android:orientation="vertical">
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/product_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_alignParentTop="true">
-                <!--app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">-->
+                android:gravity="center_vertical">
 
                 <ImageView
                     android:id="@+id/category_header_background"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:visibility="visible"
                     android:scaleType="centerCrop"
                     android:src="@drawable/bgapp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -49,8 +39,9 @@
                     android:id="@+id/category_arrow_left"
                     android:layout_width="@dimen/activity_category_arrow_left_size"
                     android:layout_height="@dimen/activity_category_arrow_left_size"
-                    android:layout_marginStart="@dimen/activity_category_arrow_left_margin_start"
+                    android:layout_marginLeft="@dimen/activity_category_arrow_left_margin_start"
                     android:padding="@dimen/activity_category_arrow_left_padding"
+                    android:background="?selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_rounded_arrow_white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +67,8 @@
                     android:layout_width="@dimen/activity_category_arrow_left_size"
                     android:layout_height="@dimen/activity_category_arrow_left_size"
                     android:layout_marginBottom="@dimen/activity_category_arrow_left_margin_bottom"
-                    android:layout_marginEnd="@dimen/activity_category_arrow_left_margin_start"
+                    android:layout_marginRight="@dimen/activity_category_arrow_left_margin_start"
+                    android:background="?selectableItemBackgroundBorderless"
                     android:layout_marginTop="@dimen/activity_category_arrow_left_margin_top"
                     android:padding="@dimen/activity_category_arrow_left_padding"
                     android:rotation="180"
@@ -92,11 +84,8 @@
                 android:id="@+id/container_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/grey"
-                android:layout_below="@+id/product_header">
-                <!--app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/product_header">-->
+                android:visibility="gone"
+                android:background="@color/grey">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -145,34 +134,17 @@
 
             </FrameLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="1px"
+            android:background="#6e000000"></View>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/container_search"
-                android:layout_alignParentBottom="true"/>
+                android:layout_height="1000dp"
+                android:background="#f7f7f7" />
+    </LinearLayout>
 
-            <!--app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/product_search">-->
-
-
-            <!--<android.support.v7.widget.RecyclerView
-                android:id="@+id/product_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/activity_category_product_list_margin"
-                android:layout_marginStart="@dimen/activity_category_product_list_margin"
-                android:layout_marginTop="@dimen/activity_category_product_list_margin"
-                android:nestedScrollingEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/product_search" />-->
-
-
-        </RelativeLayout>
-
-   <!-- </android.support.v4.widget.NestedScrollView>-->
-
-</LinearLayout>
+</android.support.v4.widget.NestedScrollView>

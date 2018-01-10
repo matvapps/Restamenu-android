@@ -45,7 +45,6 @@ public abstract class BaseNavigationActivity<P extends Presenter<V>, V, M> exten
             navigationView.setNavigationItemSelectedListener(this);
 
         }
-
     }
 
     @Override

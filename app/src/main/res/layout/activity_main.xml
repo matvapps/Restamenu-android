@@ -1,20 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?><!--<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.restamenu.main.MainActivity">
+    tools:context="com.restamenu.main.MainActivity">-->
 
-    <include
-        layout="@layout/toolbar_main"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_main_height" />
+<!--<include
+    android:id="@+id/toolbar_container"
+    layout="@layout/toolbar_main"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/toolbar_main_height"
+    android:layout_alignParentTop="true"/>-->
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    android:scrollbarAlwaysDrawVerticalTrack="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,21 +26,13 @@
                 android:id="@+id/nearby_list_container"
                 layout="@layout/fragment_nearby_restaurants"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
+                android:layout_height="wrap_content" />
 
             <FrameLayout
                 android:id="@+id/search_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/grey"/>
-
-
+                android:layout_height="wrap_content"
+                android:background="@color/grey">
 
                 <com.restamenu.views.search.RestaurantsSearchView
                     android:id="@+id/search_view"
@@ -51,8 +44,6 @@
                     android:layout_marginRight="@dimen/activity_main_search_margin"
                     android:background="@drawable/round_rect_stroke_grey"
                     android:gravity="center_vertical" />
-
-
             </FrameLayout>
 
             <View
@@ -60,7 +51,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#1CFFFFFF" />
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -77,15 +67,13 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/restaurants_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/activity_main_restaurant_list_margin"
-                android:layout_marginStart="@dimen/activity_main_restaurant_list_margin"
-                android:layout_marginLeft="@dimen/activity_main_restaurant_list_margin"
-                android:layout_marginRight="@dimen/activity_main_restaurant_list_margin"
-                android:nestedScrollingEnabled="false" />
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:paddingBottom="@dimen/activity_main_restaurant_list_margin"
+                android:paddingLeft="@dimen/activity_main_restaurant_list_margin"
+                android:paddingRight="@dimen/activity_main_restaurant_list_margin" />
 
         </LinearLayout>
 
 
-    </android.support.v4.widget.NestedScrollView>
-</LinearLayout>
+    </android.support.v4.widget.NestedScrollView><!--</RelativeLayout>-->
