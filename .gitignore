@@ -7,7 +7,6 @@
 .externalNativeBuild
 libs/
 sampledata/
-src/main/java/com/restamenu/views/
 src/main/MaterialSearchView-develop (1).zip
 src/main/MaterialSearchView-develop (1)/
 app/build

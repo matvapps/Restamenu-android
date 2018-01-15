@@ -109,7 +109,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
             restaurantsRecycler.setLayoutManager(linearLayoutManager);
         }
         restaurantsRecycler.setNestedScrollingEnabled(false);
-        restaurantsRecycler.setHasFixedSize(true);
+        restaurantsRecycler.setHasFixedSize(false);
         restaurantListAdapter = new RestaurantListAdapter(this);
         restaurantsRecycler.setAdapter(restaurantListAdapter);
 
@@ -224,7 +224,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     private void onItemChanged(Restaurant restaurant) {
         //load restaurant background
-        String backgroundUrl = restaurant.getBackground();
+        String backgroundUrl = restaurant.getBackground() + BuildConfig.IMAGE_WIDTH_400;
         Glide.with(this)
                 .load(BuildConfig.BASE_URL +
                         backgroundUrl.substring(1, backgroundUrl.length()))
@@ -246,11 +246,13 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     @Override
     public void finish() {
-        // dismiss filter popup window if it's showing
-        if (searchView.getFilterPopup().isShowing()) {
-            searchView.getFilterPopup().dismiss();
+        // dismiss filter popup window if it's showing on phone
+        if (!isTablet()) {
+            if (searchView.getFilterPopup().isShowing()) {
+                searchView.getFilterPopup().dismiss();
 
-            return;
+                return;
+            }
         }
 
         super.finish();
@@ -261,8 +263,28 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
      * SearchListener
      */
     @Override
-    public void onPerformSearch(CharSequence searchString) {
-        presenter.performSearch(searchString.toString());
+    public void onPerformSearch(List<PopupFilterItem> filterList, CharSequence searchString) {
+
+        List<Cusine> cuisineFilterList = new ArrayList<>();
+        List<Institute> instituteFilterList = new ArrayList<>();
+
+        for (PopupFilterItem item : filterList) {
+            Object obj = item.getItem();
+
+            if (obj instanceof Cusine) {
+                cuisineFilterList.add((Cusine) obj);
+            } else if (obj instanceof Institute) {
+                instituteFilterList.add((Institute) (obj));
+            }
+        }
+
+        String filterCuisineParam = filterListToString(cuisineFilterList);
+        String filterInstituteParam = filterListToString(instituteFilterList);
+        String keyword = searchString.toString();
+
+        if (!keyword.equals("") || !filterCuisineParam.equals("") || !filterInstituteParam.equals("")) {
+            presenter.performSearch(keyword, filterCuisineParam, filterInstituteParam);
+        }
     }
 
     @Override
@@ -281,10 +303,12 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
             }
         }
 
+        String filterCuisineParam = filterListToString(cuisineFilterList);
+        String filterInstituteParam = filterListToString(instituteFilterList);
 
-        // TODO: use cuisineFilterLIst and instituteFilterList in loadSuggestions
-        if (!keyword.equals("")) {
-            presenter.loadSuggestions(keyword, 1, 1);
+
+        if (!keyword.equals("") || !filterCuisineParam.equals("") || !filterInstituteParam.equals("")) {
+            presenter.loadSuggestions(keyword, filterCuisineParam, filterInstituteParam);
         }
     }
 
@@ -297,6 +321,30 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 //    public void onCuisineChanged(PopupFilterItem cuisine) {
 //
 //    }
+
+    private String filterListToString(List filterList) {
+        StringBuilder result = new StringBuilder();
+
+        if (filterList != null && filterList.size() > 0) {
+
+            if (filterList.get(0) instanceof Cusine) {
+                for (int i = 0; i < filterList.size(); i++) {
+                    result.append(((Cusine) filterList.get(i)).getId());
+                    if (i < filterList.size() - 1)
+                        result.append(",");
+                }
+            } else if (filterList.get(0) instanceof Institute) {
+                for (int i = 0; i < filterList.size(); i++) {
+                    result.append(((Institute) filterList.get(i)).getId());
+                    if (i < filterList.size() - 1)
+                        result.append(",");
+                }
+            }
+
+        }
+        return result.toString();
+    }
+
     /**
      * SearchListener
      */

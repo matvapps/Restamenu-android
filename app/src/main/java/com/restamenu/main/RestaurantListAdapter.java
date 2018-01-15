@@ -10,11 +10,13 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.RestaurantActivity;
+import com.restamenu.util.DimensionUtil;
 import com.restamenu.util.Logger;
 
 import java.util.ArrayList;
@@ -81,14 +83,14 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         holder.itemView.setOnClickListener(click -> listener.onRestaurantClicked(item.getId()));
 
 
-        String path = BuildConfig.BASE_URL + item.getImage().substring(1, item.getImage().length()) + BuildConfig.IMAGE_WIDTH_200;
+        String path = BuildConfig.BASE_URL + item.getImage().substring(1, item.getImage().length()) + BuildConfig.IMAGE_WIDTH_400;
 
-        //String path = BuildConfig.BASE_URL + item.getImage().substring(1, item.getImage().length());
-        //path += "?width=" + DimensionUtil.getScreenWidth(holder.itemView.getContext());
+//        String path = BuildConfig.BASE_URL + item.getImage().substring(1, item.getImage().length());
+        path += "?width=" + DimensionUtil.getScreenWidth(holder.itemView.getContext());
 
-        /*Glide.with(holder.itemView.getContext())
+        Glide.with(holder.itemView.getContext())
                 .load(path)
-                .into(holder.restaurantBackgroundImageView);*/
+                .into(holder.restaurantBackgroundImageView);
 
         for (int i = 0; i < item.getServices().size(); i++) {
             switch (item.getServices().get(i)) {

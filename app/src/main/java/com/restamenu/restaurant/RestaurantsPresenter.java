@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.restamenu.api.RepositoryProvider;
 import com.restamenu.base.Presenter;
+import com.restamenu.data.preferences.KeyValueStorage;
 import com.restamenu.rx.BaseSchedulerProvider;
 import com.restamenu.rx.SchedulerProvider;
 import com.restamenu.util.ListUtils;
@@ -20,6 +21,7 @@ public class RestaurantsPresenter implements Presenter<RestaurantView> {
     private final BaseSchedulerProvider schedulerProvider;
     private RestaurantView view;
     private Integer restaurantId;
+    private KeyValueStorage keyValueStorage;
 
     public RestaurantsPresenter(@NonNull Integer restaurantId) {
         this.restaurantId = restaurantId;
@@ -38,20 +40,44 @@ public class RestaurantsPresenter implements Presenter<RestaurantView> {
 
     }
 
-    public void loadData(int screenWidth) {
+    public void loadCurrencies(int language_id) {
+        view.showLoading(true);
+        RepositoryProvider.getAppRepository().getCurrencies(language_id)
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(currencies -> {
+                    view.setCurrencies(currencies);
+                    view.showLoading(false);
+                }, throwable -> view.showError());
+    }
+
+    public void loadLanguages() {
+        view.showLoading(true);
+        RepositoryProvider.getAppRepository().getLanguages()
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(languages -> {
+                    view.setLanguages(languages);
+                    view.showLoading(false);
+                }, throwable -> view.showError());
+    }
+
+    public void loadData(int screenWidth, int languageId) {
         view.showLoading(true);
         RepositoryProvider.getAppRepository().getRestaurant(restaurantId, screenWidth)
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(restaurant -> {
                     loadInstitutes();
+                    loadLanguages();
+                    loadCurrencies(languageId);
                     view.setData(restaurant);
                     view.showLoading(false);
                     if (!ListUtils.isEmpty(restaurant.getServices()))
                         loadCategories(restaurantId, restaurant.getServices().get(0));
                     loadGallery(restaurantId);
                     loadPromotions(restaurantId);
-                });
+                }, throwable -> view.showError());
     }
 
     public void changeCategories(int serviceId) {

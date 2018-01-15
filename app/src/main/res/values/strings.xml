@@ -37,5 +37,11 @@
     <string name="setting_string">Setting</string>
 
     <string name="loading_title">Please wait...</string>
+    <string name="not_available">Not available</string>
+    <string name="gallery_of_restaurant">Gallery of restaurant</string>
+    <string name="restaurant_promotions">Restaurant promotions</string>
+    <string name="menu_sections">Menu sections</string>
+    <string name="about_restaurant">About restaurant</string>
+    <string name="contacts">Contacts</string>
 
 </resources>

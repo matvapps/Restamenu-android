@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -41,6 +42,7 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     private EditText searchEditText;
     private LinearLayout searchButton;
 
+    private View productHeader;
     private ImageView btnTopCategoryPrevious;
     private ImageView btnTopCategoryNext;
     private TextView txtCategoryName;
@@ -199,7 +201,8 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         btnTopCategoryNext = findViewById(R.id.category_arrow_right);
         txtCategoryName = findViewById(R.id.category_title);
         pager = findViewById(R.id.viewpager);
-
+        productHeader = findViewById(R.id.product_header);
+        NestedScrollView nsv = findViewById(R.id.scroll_container);
         buttonFind = findViewById(R.id.button_find);
         findEditText = findViewById(R.id.search_edit_text);
 
@@ -209,12 +212,6 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         prevCategoryName = findViewById(R.id.previous_category_title);
         nextCategoryName = findViewById(R.id.next_category_title);
 
-        //TODO commented
-        /*buttonFind.setOnClickListener(view -> {
-            if (!findEditText.getText().toString().equals(""))
-                productAdapter.findProductBy(findEditText.getText().toString());
-        });*/
-
 
         if (isTablet()) {
             btnBottomCategoryNext.setOnClickListener(this);
@@ -223,6 +220,14 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
         btnTopCategoryNext.setOnClickListener(this);
         btnTopCategoryPrevious.setOnClickListener(this);
+        productHeader.setOnTouchListener(new OnSwipeTouchListener(CategoryActivity.this){
+            public void onSwipeRight() {
+                decreaseCategory();
+            }
+            public void onSwipeLeft() {
+                increaseCategory();
+            }
+        });
 
     }
 
@@ -234,7 +239,7 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
     @Override
     protected int getToolbarLayoutId() {
-        return R.layout.include_toolbar_category;
+        return R.layout.toolbar_category;
     }
 
     @Override
@@ -252,12 +257,12 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.category_arrow_left:
+            case R.id.category_arrow_right:
             case R.id.previous_category_button: {
                 decreaseCategory();
                 break;
             }
-            case R.id.category_arrow_right:
+            case R.id.category_arrow_left:
             case R.id.next_category_button: {
                 increaseCategory();
                 break;
@@ -303,6 +308,7 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
             public void onPageSelected(final int position) {
                 Logger.log("Position selected: " + position);
                 try {
+                    findEditText.setText("");
                     txtCategoryName.setText(categories.get(position).getName());
                 } catch (Exception ex) {
                     ex.printStackTrace();

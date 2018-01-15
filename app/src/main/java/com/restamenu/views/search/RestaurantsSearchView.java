@@ -378,6 +378,13 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
             View layout = filterPopup.getContentView();
             TextView instituteTitle = layout.findViewById(R.id.filter_institute_title);
             RecyclerView instituteList = layout.findViewById(R.id.filter_institute_list);
+            View buttonSave = layout.findViewById(R.id.button_save);
+
+            buttonSave.setOnClickListener(view -> {
+                // TODO: save filters
+                filterPopup.dismiss();
+            });
+
 
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
                     LinearLayoutManager.VERTICAL, false);
@@ -421,7 +428,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
 //                closeSearch();
                 mSearchSrcTextView.setText(null);
             }
-            searchListener.onPerformSearch(query);
+            searchListener.onPerformSearch(filterList, query);
         }
     }
 
@@ -796,15 +803,14 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
 
     @Override
     public void onFilterItemChanged(PopupFilterItem item) {
-        if (item.getItem() instanceof Cusine) {
-            if (!item.isChecked()) {
-                removeFromFilterList(item);
-            } else {
-                addToFilterList(item);
-            }
+        if (!item.isChecked()) {
+            removeFromFilterList(item);
+        } else {
+            addToFilterList(item);
         }
 
-        searchListener.onInputDataChanged(filterList, keyword);
+        if (!filterPopup.isShowing())
+            searchListener.onInputDataChanged(filterList, keyword);
     }
 
     public List<PopupFilterItem> getFilterList() {
@@ -833,7 +839,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
 
 
     public interface SearchListener {
-        void onPerformSearch(CharSequence searchString);
+        void onPerformSearch(List<PopupFilterItem> filterList, CharSequence searchString);
 //
 //        void onInstituteChanged();
 //

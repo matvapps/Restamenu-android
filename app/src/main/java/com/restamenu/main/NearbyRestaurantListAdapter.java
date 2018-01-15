@@ -88,9 +88,7 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerVi
         cardHolder.restaurantStreetTextView.setText(restaurants.get(position).getAddress());
         cardHolder.restaurantDistanceTextView.setText((int) (restaurants.get(position).getDistance()) + "m");
 
-        //String path = BuildConfig.BASE_URL + restaurant.getImage().substring(1, restaurant.getImage().length());
-        //path += "?width=" + DimensionUtil.getScreenWidth(holder.itemView.getContext());
-        String path = BuildConfig.BASE_URL + restaurant.getImage().substring(1, restaurant.getImage().length()) + BuildConfig.IMAGE_WIDTH_200;
+        String path = BuildConfig.BASE_URL + restaurant.getImage().substring(1, restaurant.getImage().length()) + BuildConfig.IMAGE_WIDTH_400;
 
 
         Glide.with(holder.itemView.getContext())
@@ -174,9 +172,6 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerVi
         return clickListener;
     }
 
-    public void setClickListener(View.OnClickListener clickListener) {
-        this.clickListener = clickListener;
-    }
 
     public boolean isUseScrollIt() {
         return useScrollIt;

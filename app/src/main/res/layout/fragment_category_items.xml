@@ -8,8 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:nestedScrollingEnabled="false"
-        android:paddingLeft="@dimen/activity_category_product_list_margin"
-        android:paddingRight="@dimen/activity_category_product_list_margin"
+        android:paddingLeft="@dimen/toolbar_burger_menu_margin_start"
+        android:paddingRight="@dimen/toolbar_burger_menu_margin_start"
         android:paddingBottom="@dimen/activity_category_product_list_margin" />
 
 </FrameLayout>

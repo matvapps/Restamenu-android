@@ -9,54 +9,58 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp">
+        android:layout_marginBottom="@dimen/land_restaurant_contact_margin_vert"
+        android:layout_marginRight="@dimen/land_restaurant_contact_margin_horiz"
+        android:layout_marginTop="@dimen/land_restaurant_contact_margin_vert"
+        android:layout_marginEnd="@dimen/land_restaurant_contact_margin_horiz">
 
 
         <ImageView
             android:id="@+id/contact_icon"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="@dimen/land_rest_contact_icon_size"
+            android:layout_height="@dimen/land_rest_contact_icon_size"
             android:layout_alignBottom="@+id/contact_title"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="@dimen/land_rest_contact_icon_margin_top"
             android:src="@drawable/ic_time_black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_alignParentLeft="true" />
 
         <TextView
             android:id="@+id/contact_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="7dp"
+            android:layout_marginStart="@dimen/land_rest_contact_margin_start"
             android:layout_toEndOf="@+id/contact_icon"
             android:fontFamily="@font/open_sans_bold"
             android:textColor="@color/black"
-            android:textSize="19sp"
+            android:textSize="@dimen/land_rest_contact_title_text_size"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/contact_icon"
             app:layout_constraintStart_toEndOf="@+id/contact_icon"
             app:layout_constraintTop_toTopOf="@+id/contact_icon"
-            tools:text="Opening Hours" />
+            tools:text="Opening Hours"
+            android:layout_marginLeft="@dimen/land_rest_contact_margin_start"
+            android:layout_toRightOf="@+id/contact_icon" />
 
 
         <TextView
             android:id="@+id/contact_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/contact_title"
             android:layout_below="@+id/contact_title"
-            android:layout_marginBottom="13dp"
-            android:layout_marginTop="7dp"
+            android:layout_marginBottom="@dimen/land_rest_contact_content_margin_bottom"
+            android:layout_marginTop="@dimen/land_rest_contact_content_margin_top"
             android:fontFamily="@font/open_sans"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="@dimen/land_rest_contact_content_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/contact_title"
             app:layout_constraintTop_toBottomOf="@+id/contact_title"
-            tools:text="Mon - Fri 12:00 - 24:00" />
+            tools:text="Mon - Fri 12:00 - 24:00"
+            android:layout_alignLeft="@+id/contact_title" />
 
         <View
             android:id="@+id/contact_divider"
@@ -64,9 +68,10 @@
             android:layout_height="1dp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/contact_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/land_rest_contact_divider_margin_top"
             android:background="@color/greyish"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            android:layout_alignParentLeft="true" />
 
 
     </android.support.constraint.ConstraintLayout>

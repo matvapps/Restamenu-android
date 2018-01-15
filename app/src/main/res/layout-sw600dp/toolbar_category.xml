@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/land_toolbar_height"
+    android:background="@color/white"
+    android:elevation="2dp"
+    android:gravity="center"
+    app:elevation="2dp"
+    app:navigationIcon="@drawable/ic_burger_menu"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/back_to_category"
+            android:layout_width="65dp"
+            android:layout_height="32dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rect_fill_stroke_grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="8dp">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="3dp"
+                android:layout_height="6dp"
+                android:layout_marginStart="5dp"
+                android:rotation="-180"
+                android:src="@drawable/ic_arrow_small"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/back"
+                android:layout_marginLeft="5dp" />
+
+            <TextView
+                android:id="@+id/back"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="7dp"
+                android:fontFamily="@font/open_sans"
+                android:gravity="center_horizontal"
+                android:text="Back"
+                android:textColor="#000000"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/icon"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="7dp" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/order_container"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:minWidth="95dp"
+            android:layout_marginStart="18dp"
+            android:background="@drawable/round_rect_stroke_grey"
+            android:backgroundTint="@color/dusty_red"
+            app:layout_constraintBottom_toBottomOf="@+id/back_to_category"
+            app:layout_constraintStart_toEndOf="@+id/back_to_category"
+            app:layout_constraintTop_toTopOf="@+id/back_to_category"
+            app:layout_constraintVertical_bias="0.521"
+            android:layout_marginLeft="18dp">
+
+            <ImageView
+                android:id="@+id/order_icon"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginStart="9dp"
+                android:src="@drawable/ic_buy"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/order_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/order_text"
+                app:layout_constraintVertical_bias="1.0"
+                android:layout_marginLeft="9dp" />
+
+            <TextView
+                android:id="@+id/order_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Order: $0"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/order_icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:orientation="vertical"
+            android:layout_marginEnd="?attr/actionBarSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="?attr/actionBarSize">
+
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:maxWidth="500dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:fontFamily="@font/open_sans_bold"
+                android:gravity="center"
+                tools:text="Serafina Dubai"
+                android:textColor="@color/dusty_red"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/lang_container"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/rect_fill_stroke_grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginRight="40dp">
+
+            <ImageView
+                android:id="@+id/country_flag"
+                android:layout_width="11dp"
+                android:layout_height="8dp"
+                android:layout_marginBottom="9dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="9dp"
+                android:src="@color/test_purple"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:id="@+id/language_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="9dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="9dp"
+                android:gravity="center_horizontal"
+                android:textColor="#000000"
+                android:textSize="9sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/arrow"
+                app:layout_constraintStart_toEndOf="@+id/country_flag"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="ENG"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="7dp" />
+
+            <ImageView
+                android:id="@+id/arrow"
+                android:layout_width="6.5dp"
+                android:layout_height="4dp"
+                android:layout_marginEnd="7dp"
+                android:rotation="90"
+                android:src="@drawable/ic_arrow_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginRight="7dp" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/currency_container"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginEnd="17dp"
+            android:background="@drawable/rect_fill_stroke_grey"
+            app:layout_constraintBottom_toBottomOf="@+id/lang_container"
+            app:layout_constraintEnd_toStartOf="@+id/lang_container"
+            app:layout_constraintTop_toTopOf="@+id/lang_container"
+            android:layout_marginRight="17dp">
+
+            <TextView
+                android:id="@+id/image_icon_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="$"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:id="@+id/currency_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="9dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="9dp"
+                android:gravity="center_horizontal"
+                android:text="USD"
+                android:textColor="#000000"
+                android:textSize="9sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/arrow2"
+                app:layout_constraintStart_toEndOf="@+id/image_icon_place"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="7dp" />
+
+            <ImageView
+                android:id="@+id/arrow2"
+                android:layout_width="6.5dp"
+                android:layout_height="4dp"
+                android:layout_marginEnd="7dp"
+                android:rotation="90"
+                android:src="@drawable/ic_arrow_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginRight="7dp" />
+        </android.support.constraint.ConstraintLayout>
+
+        <!--<Spinner-->
+        <!--android:layout_width="35dp"-->
+        <!--android:layout_height="20dp" />-->
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.v7.widget.Toolbar>

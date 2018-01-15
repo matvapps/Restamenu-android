@@ -120,7 +120,7 @@
     <dimen name="order_type_dropdown_item_image_width">23dp</dimen>
     <dimen name="order_type_dropdown_item_image_height">24dp</dimen>
     <dimen name="order_type_dropdown_item_title_margin_start">31dp</dimen>
-    <dimen name="order_type_dropdown_item_title_text_size">15.75sp</dimen>
+    <dimen name="order_type_dropdown_item_title_text_size">20.25sp</dimen>
     <dimen name="order_type_header_item_height">55dp</dimen>
     <dimen name="order_type_header_item_image_width">24.75dp</dimen>
     <dimen name="order_type_header_item_image_height">25.75dp</dimen>
@@ -206,7 +206,7 @@
     <dimen name="restaurant_advertising_card_advert_text_margin_bottom">13dp</dimen>
     <dimen name="restaurant_advertising_card_advert_text_margin_end">16dp</dimen>
     <dimen name="restaurant_advertising_card_advert_text_margin_top">17dp</dimen>
-    <dimen name="restaurant_advertising_card_advert_text_size">12sp</dimen>
+    <dimen name="restaurant_advertising_card_advert_text_size">9sp</dimen>
     <dimen name="restaurant_card_item_margin">16.75dp</dimen>
     <dimen name="restaurant_card_item_radius">3.5dp</dimen>
     <dimen name="restaurant_card_item_elevation">2dp</dimen>
@@ -253,7 +253,7 @@
     <dimen name="restaurant_nearby_card_pin_margin_top">6.25dp</dimen>
     <dimen name="restaurant_nearby_card_distance_margin_start">5.5dp</dimen>
     <dimen name="restaurant_nearby_card_street_margin_end">4dp</dimen>
-    <dimen name="restaurant_nearby_card_street_max_width">185dp</dimen>
+    <dimen name="restaurant_nearby_card_street_max_width">180dp</dimen>
     <dimen name="restaurant_nearby_card_street_text_size">9sp</dimen>
     <dimen name="restaurant_nearby_card_distance_text_margin_end">32dp</dimen>
     <dimen name="restaurant_nearby_card_distance_text_size">9sp</dimen>
@@ -488,5 +488,16 @@
     <dimen name="category_product_item_price_margin_bottom">18dp</dimen>
     <dimen name="product_quantity_container_margin_top">12dp</dimen>
     <dimen name="card_corner_radius">3.5dp</dimen>
+    <dimen name="fragment_loading_progress_title_margin_start">12dp</dimen>
+    <dimen name="currency_icon_margin_left">11.5dp</dimen>
+    <dimen name="currency_icon_margin_top">21dp</dimen>
+    <dimen name="currency_icon_text_size">21sp</dimen>
+    <dimen name="currency_name_margin_start">24.75dp</dimen>
+    <dimen name="currency_name_text_size">16.75sp</dimen>
+    <dimen name="currency_divider_margin_top">10.5dp</dimen>
+    <dimen name="language_icon_height">18dp</dimen>
+    <dimen name="language_icon_width">26.5dp</dimen>
+    <dimen name="language_icon_margin_left">1.25dp</dimen>
+    <dimen name="language_icon_margin_top">21dp</dimen>
 
 </resources>

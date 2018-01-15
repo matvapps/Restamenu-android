@@ -22,10 +22,27 @@ public class KeyValueStorage {
         return preferences.getBoolean("is_first_time", true);
     }
 
-    public void setFirsrTime(boolean data) {
+    public void setFirstTime(boolean data) {
         editor.putBoolean("is_first_time", data);
         editor.commit();
     }
 
+    public void setLanguageId(int languageId) {
+        editor.putInt("language_id", languageId);
+        editor.commit();
+    }
+
+    public void setCurrencyId(int currencyId) {
+        editor.putInt("currency_id", currencyId);
+        editor.commit();
+    }
+
+    public int getCurrencyId() {
+        return preferences.getInt("currency_id", 1);
+    }
+
+    public int getLanguageId() {
+        return preferences.getInt("language_id", 1);
+    }
 
 }

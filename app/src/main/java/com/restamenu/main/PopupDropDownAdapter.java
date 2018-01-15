@@ -77,9 +77,6 @@ public class PopupDropDownAdapter extends RecyclerView.Adapter<RecyclerView.View
                 filterViewHolder.chbx.setVisibility(View.VISIBLE);
             }
 
-//            if (popupItemClickListener != null) {
-//                popupItemClickListener.onClick(items.get(position));
-//            }
             if (filterItemChangeListener != null) {
                 filterItemChangeListener.onFilterItemChanged(items.get(position));
             }
@@ -98,20 +95,10 @@ public class PopupDropDownAdapter extends RecyclerView.Adapter<RecyclerView.View
         void onFilterItemChanged(PopupFilterItem item);
     }
 
-
     @Override
     public int getItemCount() {
         return items.size();
     }
-
-//    public PopupItemClickListener getPopupItemClickListener() {
-//        return popupItemClickListener;
-//    }
-
-//    public void setPopupItemClickListener(PopupItemClickListener popupItemClickListener) {
-//        this.popupItemClickListener = popupItemClickListener;
-//    }
-
 
     class FilterViewHolder extends RecyclerView.ViewHolder {
         private View chbx;

@@ -49,14 +49,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/order_container_margin_end"
+            android:layout_marginLeft="@dimen/order_container_margin_start"
+            android:layout_marginRight="@dimen/order_container_margin_end"
             android:layout_marginStart="@dimen/order_container_margin_start"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/toolbar_restaurant_title"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/burger_menu"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginRight="@dimen/order_container_margin_end"
-            android:layout_marginLeft="@dimen/order_container_margin_start">
+            app:layout_constraintTop_toTopOf="parent">
 
             <FrameLayout
                 android:layout_width="wrap_content"
@@ -77,9 +77,9 @@
                     android:layout_marginRight="@dimen/toolbar_category_order_value_text"
                     android:layout_marginStart="@dimen/toolbar_category_order_value_text"
                     android:fontFamily="@font/open_sans_bold"
+                    android:text="$510"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/toolbar_category_currency_title_text_size"
-                    android:text="$510" />
+                    android:textSize="@dimen/toolbar_category_currency_title_text_size" />
 
 
             </FrameLayout>
@@ -89,7 +89,7 @@
 
 
         <TextView
-            android:id="@+id/toolbar_restaurant_title"
+            android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -138,6 +138,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/toolbar_category_currency_title_margin_end"
+                android:layout_marginLeft="@dimen/toolbar_category_currency_title_margin_start"
+                android:layout_marginRight="@dimen/toolbar_category_currency_title_margin_end"
                 android:layout_marginStart="@dimen/toolbar_category_currency_title_margin_start"
                 android:fontFamily="@font/open_sans"
                 android:gravity="center_horizontal"
@@ -147,9 +149,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/settings"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginRight="@dimen/toolbar_category_currency_title_margin_end"
-                android:layout_marginLeft="@dimen/toolbar_category_currency_title_margin_start" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
 

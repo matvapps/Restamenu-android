@@ -3,9 +3,11 @@ package com.restamenu.api.service;
 import android.support.annotation.NonNull;
 
 import com.restamenu.model.content.Category;
+import com.restamenu.model.content.Currency;
 import com.restamenu.model.content.Cusine;
 import com.restamenu.model.content.Image;
 import com.restamenu.model.content.Institute;
+import com.restamenu.model.content.Language;
 import com.restamenu.model.content.Product;
 import com.restamenu.model.content.Promotion;
 import com.restamenu.model.content.Restaurant;
@@ -25,8 +27,8 @@ public interface RestaurantService {
     /**
      * @param cityId      required
      * @param keyword     not required
-     * @param cusineId    not required
-     * @param instituteId not required
+     * @param cuisineIds    not required
+     * @param instituteIds not required
      * @param page        not required
      * @param details     not required
      * @return
@@ -35,8 +37,8 @@ public interface RestaurantService {
     @GET("getRestaurants")
     Flowable<ListResponce<Restaurant>> getRestaurants(@NonNull @Query("city_id") Integer cityId,
                                                       @Query("keyword") String keyword,
-                                                      @Query("cusine_id") Integer cusineId,
-                                                      @Query("institute_id") Integer instituteId,
+                                                      @Query("cuisine_id") String cuisineIds,
+                                                      @Query("institute_id") String instituteIds,
                                                       @Query("page") Integer page,
                                                       @Query("details") boolean details);
 
@@ -96,6 +98,14 @@ public interface RestaurantService {
     @NonNull
     @GET("getPromotions")
     Flowable<ListResponce<Promotion>> getPromotions(@NonNull @Query("restaurant_id") Integer restaurantId);
+
+    @NonNull
+    @GET("getLanguages")
+    Flowable<ListResponce<Language>> getLanguages();
+
+    @NonNull
+    @GET("getCurrencies")
+    Flowable<ListResponce<Currency>> getCurrencies(@Query("language_id") Integer languageId);
 
 
 }

@@ -7,4 +7,5 @@
     android:layout_marginEnd="25dp"
     android:scaleType="centerCrop"
     android:background="@color/greyish"
-    app:riv_corner_radius="2dp" />
+    app:riv_corner_radius="2dp"
+    android:layout_marginRight="25dp" />

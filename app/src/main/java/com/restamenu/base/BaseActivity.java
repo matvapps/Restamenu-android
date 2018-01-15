@@ -37,7 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @LayoutRes
     protected int getToolbarLayoutId() {
-        return R.layout.include_toolbar_main;
+        return R.layout.toolbar_main;
     }
 
     @Override
@@ -61,8 +61,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         setContentFrame();
 
-        boolean isLargeLayout = getResources().getBoolean(R.bool.isLargeLayout);
-        if(isLargeLayout) {
+        if(isTablet()) {
             // Tablet Mode
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         } else {
@@ -104,9 +103,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void configureToolbar() {
         if (toolbar != null) {
-            toolbar.setNavigationIcon(getToolbarIcon());
+            //TODO
+///            toolbar.setNavigationIcon(getToolbarIcon());
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle(null);
+            getSupportActionBar().setElevation(0f);
             if (showToolbarBackStack()) {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 getSupportActionBar().setDisplayShowHomeEnabled(true);

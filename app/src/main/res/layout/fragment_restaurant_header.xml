@@ -18,31 +18,40 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <ImageView
-        android:id="@+id/favourite_icon_image"
-        android:layout_width="@dimen/fragment_restaurant_header_fav_icon_size"
-        android:layout_height="@dimen/fragment_restaurant_header_fav_icon_size"
-        android:layout_marginLeft="@dimen/fragment_restaurant_header_margin_start"
-        android:layout_marginStart="@dimen/fragment_restaurant_header_margin_start"
-        android:layout_marginTop="@dimen/fragment_restaurant_header_margin_top"
-        android:src="@drawable/ic_favorite_active"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/favourite_text"
+    <LinearLayout
+        android:id="@+id/favourite_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/fragment_restaurant_header_fav_text_margin_start"
-        android:layout_marginStart="@dimen/fragment_restaurant_header_fav_text_margin_start"
-        android:fontFamily="@font/open_sans_semibold"
-        android:text="Add to favorite"
-        android:textColor="@color/white"
-        android:textSize="@dimen/fragment_restaurant_header_fav_text_size"
-        app:layout_constraintBottom_toBottomOf="@+id/favourite_icon_image"
-        app:layout_constraintStart_toEndOf="@+id/favourite_icon_image"
-        app:layout_constraintTop_toTopOf="@+id/favourite_icon_image" />
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="@dimen/fragment_restaurant_header_margin_start"
+        android:layout_marginStart="@dimen/fragment_restaurant_header_margin_start"
+        android:layout_marginTop="@dimen/fragment_restaurant_header_margin_top">
 
+        <ImageView
+            android:id="@+id/favourite_icon_image"
+            android:layout_width="@dimen/fragment_restaurant_header_fav_icon_size"
+            android:layout_height="@dimen/fragment_restaurant_header_fav_icon_size"
+            android:src="@drawable/ic_fav_noact"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/favourite_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fragment_restaurant_header_fav_text_margin_start"
+            android:layout_marginStart="@dimen/fragment_restaurant_header_fav_text_margin_start"
+            android:fontFamily="@font/open_sans_semibold"
+            android:text="Add to favorite"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fragment_restaurant_header_fav_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/favourite_icon_image"
+            app:layout_constraintStart_toEndOf="@+id/favourite_icon_image"
+            app:layout_constraintTop_toTopOf="@+id/favourite_icon_image" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/restaurant_title"
@@ -59,8 +68,8 @@
         android:textSize="@dimen/fragment_restaurant_header_title_text_size"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/favourite_icon_image"
-        app:layout_constraintTop_toBottomOf="@+id/favourite_text"
+        app:layout_constraintStart_toStartOf="@+id/favourite_container"
+        app:layout_constraintTop_toBottomOf="@+id/favourite_container"
         tools:text="Serafina Dubai" />
 
     <TextView
@@ -153,7 +162,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="@+id/restaurant_phone"
         app:layout_constraintTop_toTopOf="@+id/imageView2"
-        tools:text="Mon - Fri 12:00 - 24:00" />
+        android:text="Mon - Fri 10:00 - 23:00" />
 
 
     <com.yarolegovich.discretescrollview.DiscreteScrollView

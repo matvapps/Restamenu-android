@@ -24,7 +24,7 @@
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/restaurant_background"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/land_rest_card_nearby_width"
                 android:layout_height="@dimen/land_rest_card_nearby_background_height"
                 android:background="@color/white_two"
                 android:scaleType="centerCrop"

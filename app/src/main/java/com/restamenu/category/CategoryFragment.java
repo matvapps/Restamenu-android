@@ -66,8 +66,8 @@ public class CategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category_items, container, false);
         recycler = view.findViewById(R.id.recycler);
+        recycler.setNestedScrollingEnabled(false);
         recycler.setLayoutManager(new GridLayoutManager(getContext(), getResources().getInteger(R.integer.product_span_count)));
-
         return view;
     }
 

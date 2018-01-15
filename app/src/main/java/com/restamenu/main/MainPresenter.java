@@ -38,10 +38,10 @@ public class MainPresenter implements Presenter<MainView> {
         loadData();
     }
 
-    public void performSearch(String keyword) {
+    public void performSearch(String keyword, String filterCuisines, String filterInstitutes) {
         view.showLoading(true);
         RepositoryProvider.getAppRepository()
-                .getRestaurants(1, keyword, null, null, 1, true)
+                .getRestaurants(1, keyword, filterCuisines, filterInstitutes, null, true)
                 .flatMap(Flowable::fromIterable)
                 .toList()
                 .subscribeOn(schedulerProvider.io())
@@ -80,9 +80,9 @@ public class MainPresenter implements Presenter<MainView> {
                 }, throwable -> view.showError());
     }
 
-    public void loadSuggestions(String keyword, int cuisineId, int instituteId) {
+    public void loadSuggestions(String keyword, String filterCuisines, String filterInstitutes) {
 
-        RepositoryProvider.getAppRepository().getRestaurants(1, keyword, null, null, 1, true)
+        RepositoryProvider.getAppRepository().getRestaurants(1, keyword, filterCuisines, filterInstitutes, null, true)
                 .flatMap(Flowable::fromIterable)
                 .toList()
                 .subscribeOn(schedulerProvider.io())

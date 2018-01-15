@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/language_icon"
+        android:layout_width="@dimen/language_icon_width"
+        android:layout_height="@dimen/language_icon_height"
+        android:layout_marginLeft="@dimen/language_icon_margin_left"
+        android:layout_marginStart="@dimen/language_icon_margin_left"
+        android:layout_marginTop="@dimen/language_icon_margin_top"
+        android:background="@color/greyish"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/language_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/currency_name_margin_start"
+        android:layout_marginStart="@dimen/currency_name_margin_start"
+        android:fontFamily="@font/open_sans"
+        android:text="Dollar"
+        android:textColor="@color/cerulean"
+        android:textSize="@dimen/currency_name_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/language_icon"
+        app:layout_constraintStart_toEndOf="@+id/language_icon"
+        app:layout_constraintTop_toTopOf="@+id/language_icon" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_marginTop="@dimen/currency_divider_margin_top"
+        android:background="#F1F2F3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/language_icon" />
+
+</android.support.constraint.ConstraintLayout>

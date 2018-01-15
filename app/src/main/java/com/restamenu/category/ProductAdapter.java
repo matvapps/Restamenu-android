@@ -71,8 +71,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Product product = items.get(position);
 
         holder.productName.setText(product.getName());
-        //TODO: uncomment
-//        holder.productDescription.setText(product.getDescription());
+        holder.productDescription.setText(product.getDescription());
 
         int priceOriginal = product.getPriceOriginal();
         int price = product.getPrice();
@@ -93,7 +92,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         String imageUrl = product.getImages().get(0);
         if (!imageUrl.equals("")) {
-            String path = BuildConfig.BASE_URL + imageUrl.substring(1, imageUrl.length());
+            String path = BuildConfig.BASE_URL + imageUrl.substring(1, imageUrl.length()) + BuildConfig.IMAGE_WIDTH_400;
             Picasso.with(holder.itemView.getContext()).load(path).into(holder.productImage);
         }
         specialsAdapter.setItems(items.get(position).getSpecial());

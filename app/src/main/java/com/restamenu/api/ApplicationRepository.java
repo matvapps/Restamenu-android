@@ -4,9 +4,11 @@ import android.support.annotation.NonNull;
 
 import com.restamenu.data.database.LocalRepository;
 import com.restamenu.model.content.Category;
+import com.restamenu.model.content.Currency;
 import com.restamenu.model.content.Cusine;
 import com.restamenu.model.content.Image;
 import com.restamenu.model.content.Institute;
+import com.restamenu.model.content.Language;
 import com.restamenu.model.content.Product;
 import com.restamenu.model.content.Promotion;
 import com.restamenu.model.content.Restaurant;
@@ -62,8 +64,8 @@ public class ApplicationRepository implements DataSource {
     }
 
     @Override
-    public Flowable<List<Restaurant>> getRestaurants(@NonNull Integer cityId, String keyword, Integer cusineId, Integer instituteId, Integer page, boolean details) {
-        return remoteRepository.getRestaurants(cityId, keyword, cusineId, instituteId, page, details);
+    public Flowable<List<Restaurant>> getRestaurants(@NonNull Integer cityId, String keyword, String cusineIds, String instituteIds, Integer page, boolean details) {
+        return remoteRepository.getRestaurants(cityId, keyword, cusineIds, instituteIds, page, details);
     }
 
     @Override
@@ -105,6 +107,16 @@ public class ApplicationRepository implements DataSource {
     @Override
     public Flowable<List<Promotion>> getPromotions(@NonNull Integer restaurantId) {
         return remoteRepository.getPromotions(restaurantId);
+    }
+
+    @Override
+    public Flowable<List<Language>> getLanguages() {
+        return remoteRepository.getLanguages();
+    }
+
+    @Override
+    public Flowable<List<Currency>> getCurrencies(Integer language_id) {
+        return remoteRepository.getCurrencies(language_id);
     }
 
     @Override

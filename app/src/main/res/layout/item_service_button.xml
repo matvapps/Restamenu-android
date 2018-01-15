@@ -6,16 +6,17 @@
     android:layout_height="wrap_content">
 
 
-    <View
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/triangle"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
+        android:layout_width="@dimen/item_service_button_triangle_size"
+        android:layout_height="@dimen/item_service_button_triangle_size"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="bottom"
         android:background="@drawable/triangle"
         android:backgroundTint="@color/golden"
         android:rotation="180"
+        app:backgroundTint="@color/golden"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/container" />
@@ -23,7 +24,7 @@
     <RelativeLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="99dp"
+        android:layout_height="@dimen/land_item_service_button_height"
         android:background="@drawable/round_rect_stroke_grey">
 
         <ImageView
@@ -40,7 +41,7 @@
             android:layout_centerInParent="true"
             android:fontFamily="@font/open_sans_bold"
             android:textColor="@color/semi_grey"
-            android:textSize="22sp"
+            android:textSize="@dimen/land_item_service_button_text_size"
             tools:text="At Restaurant" />
 
         <TextView
@@ -51,9 +52,9 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="Not available"
+            android:text="@string/not_available"
             android:textColor="@color/semi_grey"
-            android:textSize="10.9sp"
+            android:textSize="@dimen/land_item_service_button_is_available_text_size"
             android:visibility="visible" />
 
     </RelativeLayout>

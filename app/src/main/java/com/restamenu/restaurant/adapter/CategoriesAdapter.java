@@ -79,7 +79,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (items.get(position).getImage() != null && !items.get(position).getImage().equals("")) {
 
             String image = items.get(position).getImage();
-            String backgroundUrl = image.substring(1, image.length());
+            String backgroundUrl = image.substring(1, image.length()) + BuildConfig.IMAGE_WIDTH_400;
+
             Picasso.with(holder.itemView.getContext())
                     .load(BuildConfig.BASE_URL + backgroundUrl).into(categoryViewHolder.background);
         }

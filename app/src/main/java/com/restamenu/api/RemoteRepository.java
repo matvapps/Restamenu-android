@@ -4,9 +4,11 @@ import android.support.annotation.NonNull;
 
 import com.restamenu.api.service.RestaurantService;
 import com.restamenu.model.content.Category;
+import com.restamenu.model.content.Currency;
 import com.restamenu.model.content.Cusine;
 import com.restamenu.model.content.Image;
 import com.restamenu.model.content.Institute;
+import com.restamenu.model.content.Language;
 import com.restamenu.model.content.Product;
 import com.restamenu.model.content.Promotion;
 import com.restamenu.model.content.Restaurant;
@@ -35,8 +37,8 @@ public class RemoteRepository {
                 .map(ListResponce<Restaurant>::getData);
     }
 
-    public Flowable<List<Restaurant>> getRestaurants(@NonNull Integer cityId, String keyword, Integer cusineId, Integer instituteId, Integer page, boolean details) {
-        return restaMenuService.getRestaurants(cityId, keyword, cusineId, instituteId, page, details)
+    public Flowable<List<Restaurant>> getRestaurants(@NonNull Integer cityId, String keyword, String cusineIds, String instituteIds, Integer page, boolean details) {
+        return restaMenuService.getRestaurants(cityId, keyword, cusineIds, instituteIds, page, details)
                 .map(ListResponce<Restaurant>::getData);
     }
 
@@ -78,6 +80,16 @@ public class RemoteRepository {
     public Flowable<List<Promotion>> getPromotions(@NonNull Integer restaurantId) {
         return restaMenuService.getPromotions(restaurantId)
                 .map(ListResponce<Promotion>::getData);
+    }
+
+    public Flowable<List<Language>> getLanguages() {
+        return restaMenuService.getLanguages()
+                .map(ListResponce<Language>::getData);
+    }
+
+    public Flowable<List<Currency>> getCurrencies(Integer languageId) {
+        return restaMenuService.getCurrencies(languageId)
+                .map(ListResponce<Currency>::getData);
     }
 
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.NestedScrollView;
@@ -12,9 +13,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.Display;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -24,18 +29,23 @@ import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.base.BasePresenterActivity;
 import com.restamenu.category.CategoryActivity;
+import com.restamenu.data.preferences.KeyValueStorage;
 import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Contact;
+import com.restamenu.model.content.Currency;
 import com.restamenu.model.content.Image;
 import com.restamenu.model.content.Institute;
+import com.restamenu.model.content.Language;
 import com.restamenu.model.content.Promotion;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.adapter.AdapterItemType;
 import com.restamenu.restaurant.adapter.CategoriesAdapter;
 import com.restamenu.restaurant.adapter.CategoryClickListener;
 import com.restamenu.restaurant.adapter.ContactsAdapter;
+import com.restamenu.restaurant.adapter.CurrencyAdapter;
 import com.restamenu.restaurant.adapter.GalleryAdapter;
 import com.restamenu.restaurant.adapter.ItemType;
+import com.restamenu.restaurant.adapter.LanguageAdapter;
 import com.restamenu.restaurant.adapter.PromotionsAdapter;
 import com.restamenu.restaurant.adapter.RestaurantsAdapter;
 import com.restamenu.util.ListUtils;
@@ -73,12 +83,16 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
     private StickyScrollView scrollView;
 
+    private boolean favorite = false;
     private View favouriteContainer;
+    private View settingBtn;
+    private ImageView favouriteIconImage;
+    private TextView favouriteText;
     private TextView restaurantTitleView;
     private TextView restaurantTypeView;
     private TextView restaurantAddressView;
     private TextView restaurantPhoneView;
-    private TextView restaurantOpeningHours;
+//    private TextView restaurantOpeningHours;
     private ImageView restaurantImage;
     private ImageView restaurantBackground;
     private RecyclerView recycler;
@@ -90,6 +104,8 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     private RecyclerView categoriesListRecycle;
     private RecyclerView promotionsListRecycle;
     private RecyclerView galleryListRecycle;
+    private RecyclerView currencyList;
+    private RecyclerView languageList;
     private DiscreteScrollView galleryList;
     private RecyclerView contactsListRecycle;
     private TextView aboutContentText;
@@ -98,6 +114,13 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     private CategoriesAdapter categoriesAdapter;
     private PromotionsAdapter promotionsAdapter;
     private ContactsAdapter contactsAdapter;
+    private LanguageAdapter languageAdapter;
+    private CurrencyAdapter currencyAdapter;
+
+
+    private PopupWindow settingPopup;
+    private PopupWindow currencyPopup;
+    private PopupWindow languagePopup;
 
 
     private RadioGroup navigationTree;
@@ -139,7 +162,12 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
     @Override
     protected int getToolbarLayoutId() {
-        return R.layout.include_toolbar_restaurant;
+        return R.layout.toolbar_restaurant;
+    }
+
+    private boolean isFavourite() {
+        // TODO:
+        return favorite;
     }
 
     @Override
@@ -151,14 +179,31 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         restaurantTypeView = findViewById(R.id.restaurant_type);
         restaurantAddressView = findViewById(R.id.restaurant_address);
         restaurantPhoneView = findViewById(R.id.restaurant_phone);
-        restaurantOpeningHours = findViewById(R.id.restaurant_opening_hours);
-        favouriteContainer = findViewById(R.id.restaurant_favourite_container);
+        favouriteIconImage = findViewById(R.id.favourite_icon_image);
+        favouriteText = findViewById(R.id.favourite_text);
+//        restaurantOpeningHours = findViewById(R.id.restaurant_opening_hours);
+        favouriteContainer = findViewById(R.id.favourite_container);
         restaurantImage = findViewById(R.id.restaurant_image);
         restaurantBackground = findViewById(R.id.restaurant_background);
         recycler = findViewById(R.id.recycler);
-
+        settingBtn = findViewById(R.id.settings_container);
 
         galleryAdapter = new GalleryAdapter();
+        languageAdapter = new LanguageAdapter();
+        currencyAdapter = new CurrencyAdapter();
+
+        //TODO:
+        favouriteContainer.setOnClickListener(view -> {
+            if (isFavourite()) {
+                favouriteText.setText("Add to favorite");
+                favouriteIconImage.setImageResource(R.drawable.ic_fav_noact);
+                favorite = false;
+            } else {
+                favouriteText.setText("In favorite");
+                favouriteIconImage.setImageResource(R.drawable.ic_favorite_active);
+                favorite = true;
+            }
+        });
 
 
         if (isTablet()) {
@@ -173,6 +218,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
             categoriesListRecycle.setHasFixedSize(true);
             categoriesListRecycle.setLayoutManager(new GridLayoutManager(RestaurantActivity.this, 3));
+            categoriesListRecycle.setNestedScrollingEnabled(false);
 
             promotionsListRecycle.setHasFixedSize(true);
             promotionsListRecycle.setLayoutManager(new LinearLayoutManager(RestaurantActivity.this, LinearLayoutManager.HORIZONTAL, false));
@@ -277,6 +323,9 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
                     .setPivotX(Pivot.X.LEFT)
                     .setPivotY(Pivot.Y.CENTER)
                     .build());
+
+            initSettingPopup();
+            settingBtn.setOnClickListener(view -> displaySettingPopup(settingBtn));
         }
 
 
@@ -328,6 +377,70 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
     }
 
+
+    private void initLanguagePopup() {
+        languagePopup = new PopupWindow(this);
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+//        View layout = inflater.inflate(R.layout.lang_popup_content, false);
+
+//        languageList = layout.findViewById(R.id.language_list);
+//        languageList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+//        languageList.setAdapter(languageAdapter);
+
+//        languageList.setContentView(layout);
+    }
+
+    private void initCurrencyPopup() {
+
+    }
+
+    private void initSettingPopup() {
+        settingPopup = new PopupWindow(this);
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+
+        View layout = inflater.inflate(R.layout.setting_popup_content, null);
+
+        View actionCancel = layout.findViewById(R.id.action_cancel);
+        actionCancel.setOnClickListener(view -> settingPopup.dismiss());
+
+        currencyList = layout.findViewById(R.id.currency_list);
+        languageList = layout.findViewById(R.id.language_list);
+
+        currencyList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        languageList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        currencyList.setAdapter(currencyAdapter);
+        languageList.setAdapter(languageAdapter);
+
+
+        settingPopup.setContentView(layout);
+        settingPopup.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+        settingPopup.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        settingPopup.setOutsideTouchable(false);
+        settingPopup.setFocusable(false);
+        settingPopup.setBackgroundDrawable(new BitmapDrawable());
+    }
+
+    private void displayLanguagePopup(View anchorView) {
+        if (languagePopup != null) {
+            languagePopup.showAsDropDown(anchorView);
+        }
+    }
+
+    private void displayCurrencyPopup(View anchorView) {
+        if (currencyPopup != null) {
+            currencyPopup.showAsDropDown(anchorView);
+        }
+    }
+
+    private void displaySettingPopup(View anchorView) {
+        if (settingPopup != null) {
+            settingPopup.showAtLocation(anchorView, Gravity.CENTER, 0, 0);
+        }
+    }
+
     @Override
     public void setData(@NonNull Restaurant data) {
         Logger.log("Restaurant: " + data.toString());
@@ -365,7 +478,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             // add restaurant image
             String restaurantImageUrl = restaurant.getImage();
             Glide.with(this).load(BuildConfig.BASE_URL +
-                    restaurantImageUrl.substring(1, restaurantImageUrl.length())).into(restaurantImage);
+                    restaurantImageUrl.substring(1, restaurantImageUrl.length()) + BuildConfig.IMAGE_WIDTH_400).into(restaurantImage);
 
             // add about
             aboutContentText.setText(Html.fromHtml(data.getInformation()));
@@ -494,6 +607,18 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     }
 
     @Override
+    public void setLanguages(@NonNull List<Language> languages) {
+        Logger.log("language[0]: " + languages.get(0).getName());
+        languageAdapter.setItems(languages);
+    }
+
+    @Override
+    public void setCurrencies(@NonNull List<Currency> currencies) {
+        Logger.log("currency[0]: " + currencies.get(0).getName());
+        currencyAdapter.setItems(currencies);
+    }
+
+    @Override
     public void setCategories(@NonNull List<Category> categories) {
         Logger.log("Categories: " + categories.toString());
 
@@ -565,8 +690,9 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         display.getSize(size);
 
         int width = size.x;
+        KeyValueStorage keyValueStorage = new KeyValueStorage(this);
 
-        presenter.loadData(width);
+        presenter.loadData(width, keyValueStorage.getLanguageId());
 
     }
 
@@ -605,34 +731,47 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
                 if (checkedTreeItem == 0)
                     return;
                 checkedTreeItem = 0;
-                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.categories_list_title).getTop() - 20));
+                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.categories_list_title).getTop()));
                 break;
             case R.id.nav_promotions:
                 if (checkedTreeItem == 1)
                     return;
                 checkedTreeItem = 1;
-                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.promotions_list_title).getTop() - 20));
+                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.promotions_list_title).getTop()));
                 break;
             case R.id.nav_photo:
                 if (checkedTreeItem == 2)
                     return;
                 checkedTreeItem = 2;
-                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.gallery_list_title).getTop() - 20));
+                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.gallery_list_title).getTop()));
                 break;
             case R.id.nav_about:
                 if (checkedTreeItem == 3)
                     return;
                 checkedTreeItem = 3;
-                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.about_text_title).getTop() - 20));
+                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.about_text_title).getTop()));
                 break;
             case R.id.nav_contacts:
                 if (checkedTreeItem == 4)
                     return;
                 checkedTreeItem = 4;
-                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.contact_list_title).getTop() - 20));
+                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.contact_list_title).getTop()));
                 break;
         }
     }
 
+    @Override
+    public void finish() {
+        // dismiss setting popup window if it's showing on phone
+        if (!isTablet()) {
+            if (settingPopup.isShowing()) {
+                settingPopup.dismiss();
+
+                return;
+            }
+        }
+
+        super.finish();
+    }
 
 }

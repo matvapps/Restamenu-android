@@ -411,10 +411,10 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
 
-    class ContactsViewHolder extends RecyclerView.ViewHolder {
-        public ContactsViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
+//    class ContactsViewHolder extends RecyclerView.ViewHolder {
+//        public ContactsViewHolder(View itemView) {
+//            super(itemView);
+//        }
+//    }
 
 }

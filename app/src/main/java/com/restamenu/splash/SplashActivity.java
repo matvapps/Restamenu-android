@@ -11,7 +11,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.github.florent37.viewanimator.AnimationListener;
 import com.github.florent37.viewanimator.ViewAnimator;
 import com.restamenu.R;
 import com.restamenu.api.RepositoryProvider;
@@ -36,7 +35,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
     public void showMainScreen() {
-        RepositoryProvider.getPreferences().setFirsrTime(false);
+        RepositoryProvider.getPreferences().setFirstTime(false);
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
@@ -68,12 +67,7 @@ public class SplashActivity extends AppCompatActivity {
         splashCursorImage.setScaleX(0);
         splashCursorImage.setScaleY(0);
 
-        splashBackgroundImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showMainScreen();
-            }
-        });
+        splashBackgroundImage.setOnClickListener(view -> showMainScreen());
 
 
         ViewAnimator

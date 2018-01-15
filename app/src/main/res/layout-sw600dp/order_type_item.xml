@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/order_type_view"
     android:layout_width="match_parent"
-    android:layout_height="110dp"
+    android:layout_height="@dimen/land_activity_restaurant_order_list_height"
     android:orientation="horizontal"
     android:paddingBottom="0dp">
 
@@ -17,7 +17,7 @@
         app:service_title="@string/service_restaurant"/>
 
     <Space
-        android:layout_width="16dp"
+        android:layout_width="@dimen/land_space_between_order_type_item"
         android:layout_height="0dp" />
 
     <com.restamenu.views.custom.ServiceButton
@@ -29,7 +29,7 @@
         app:service_title="@string/service_takeaway"/>
 
     <Space
-        android:layout_width="16dp"
+        android:layout_width="@dimen/land_space_between_order_type_item"
         android:layout_height="0dp" />
 
     <com.restamenu.views.custom.ServiceButton
@@ -37,7 +37,6 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:layout_marginEnd="16dp"
         app:service_icon="@drawable/ic_delivery_noactive"
         app:service_title="@string/service_delivery" />
 
