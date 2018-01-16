@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ru.noties.scrollable.ScrollableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scroll_container"
+    android:id="@+id/scrollable_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.restamenu.category.CategoryActivity">-->
+    app:scrollable_autoMaxScroll="true"
+    app:scrollable_defaultCloseUp="true"
+    tools:context="com.restamenu.category.CategoryActivity">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context="com.restamenu.category.CategoryActivity">
+        android:visibility="visible">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/product_header"
@@ -56,9 +55,9 @@
                 android:layout_marginEnd="@dimen/activity_category_title_margin"
                 android:layout_marginStart="@dimen/activity_category_title_margin"
                 android:fontFamily="@font/gotham_pro_bold"
+                android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/activity_category_title_text_size"
-                android:gravity="center"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/category_arrow_right"
@@ -114,9 +113,9 @@
 
 
                 <!--<View-->
-                    <!--android:layout_width="1dp"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:background="@android:color/darker_gray" />-->
+                <!--android:layout_width="1dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:background="@android:color/darker_gray" />-->
 
 
                 <LinearLayout
@@ -134,23 +133,16 @@
                         android:src="@drawable/ic_find" />
 
                 </LinearLayout>
-
             </LinearLayout>
-
         </FrameLayout>
-
-        <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1px"-->
-            <!--android:background="#6e000000" />-->
-
-        <com.lsjwzh.widget.recyclerviewpager.LoopRecyclerViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#f7f7f7"
-            android:clipToPadding="false" />
-
     </LinearLayout>
 
-    <!--</android.support.v4.widget.NestedScrollView>-->
+    <com.lsjwzh.widget.recyclerviewpager.LoopRecyclerViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f7f7f7"
+        android:clipToPadding="false" />
+
+</ru.noties.scrollable.ScrollableLayout>
+

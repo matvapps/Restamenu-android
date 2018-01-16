@@ -6,10 +6,10 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ViewStub;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.restamenu.R;
@@ -23,7 +23,7 @@ import com.restamenu.views.dialog.LoadingView;
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected LoadingView loadingView;
-    protected NestedScrollView container;
+    protected FrameLayout container;
     protected Toolbar toolbar;
     protected TextView toolbarTitle;
 

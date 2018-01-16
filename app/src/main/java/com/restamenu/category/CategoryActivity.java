@@ -25,6 +25,10 @@ import com.restamenu.util.Logger;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import ru.noties.scrollable.CanScrollVerticallyDelegate;
+import ru.noties.scrollable.OnFlingOverListener;
+import ru.noties.scrollable.ScrollableLayout;
+
 public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, CategoryView, List<Category>> implements CategoryView, View.OnClickListener, RecyclerViewPager.OnPageChangedListener {
 
     public static final String KEY_RESTAURANT_ID = "key_rest_id";
@@ -61,6 +65,9 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     private EditText findEditText;
     private View buttonFind;
 
+    private ScrollableLayout scrollableLayout;
+
+    private int selectedPage = 0;
 
     private FragmentsAdapter pagerAdapter;
     private LoopRecyclerViewPager pager;
@@ -180,23 +187,48 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
                 btnBottomCategoryPrevious.setVisibility(View.VISIBLE);
                 btnTopCategoryPrevious.setEnabled(true);
             }
-
         }
     }
 
-
     @Override
     protected void initViews() {
+        scrollableLayout = findViewById(R.id.scrollable_layout);
 
         btnTopCategoryPrevious = findViewById(R.id.category_arrow_left);
         btnTopCategoryNext = findViewById(R.id.category_arrow_right);
         txtCategoryName = findViewById(R.id.category_title);
         pager = findViewById(R.id.viewpager);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,
                 false);
         pager.setLayoutManager(layoutManager);
         pager.setHasFixedSize(true);
         pager.addOnPageChangedListener(this);
+
+        scrollableLayout.setCanScrollVerticallyDelegate(new CanScrollVerticallyDelegate() {
+            @Override
+            public boolean canScrollVertically(int direction) {
+                Logger.log("Can scroll vertically : dir: " + direction);
+                if (direction > 0)
+                    return true;
+                else {
+                    final CategoryFragment fragment = (CategoryFragment) pagerAdapter.getItem(selectedPage, null);
+                    Logger.log("Can Current fragment scroll ? " + (fragment.canScrollVertically(direction)));
+                    return fragment != null && fragment.canScrollVertically(direction);
+                }
+            }
+        });
+
+        scrollableLayout.setOnFlingOverListener(new OnFlingOverListener() {
+            @Override
+            public void onFlingOver(int y, long duration) {
+                Logger.log("Can on fling : duration: " + duration);
+                final CategoryFragment fragment = (CategoryFragment) pagerAdapter.getItem(selectedPage, null);
+                if (fragment != null) {
+                    fragment.onFlingOver(y, duration);
+                }
+            }
+        });
 
         productHeader = findViewById(R.id.product_header);
         buttonFind = findViewById(R.id.button_find);
@@ -225,9 +257,7 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
                 decreaseCategory();
             }
         });
-
     }
-
 
     @Override
     protected int getContentViewLayoutId() {
@@ -255,19 +285,17 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.category_arrow_right:
-            case R.id.previous_category_button: {
+            case R.id.next_category_button: {
                 decreaseCategory();
                 break;
             }
             case R.id.category_arrow_left:
-            case R.id.next_category_button: {
+            case R.id.previous_category_button: {
                 increaseCategory();
                 break;
             }
-
         }
     }
-
 
     @Override
     public void showEmptyView() {
@@ -301,7 +329,6 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        //Logger.log("Category oldPosition:" + i + " newPosition:" + i1);
     }
 
     class FragmentsAdapter extends FragmentStatePagerAdapter {
@@ -328,11 +355,10 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
             position = pager.transformToActualPosition(position);
             Fragment f = mFragmentCache.containsKey(position) ? mFragmentCache.get(position)
                     : CategoryFragment.create(getCategory(position), restaurantId, serviceId);
-            Logger.log("Category getItem:" + position + " from cache: " + mFragmentCache.containsKey
-                    (position));
+            //Logger.log("Category getItem:" + position + " from cache: " + mFragmentCache.containsKey(position));
             if (!mFragmentCache.containsKey(position)) {
                 f.setInitialSavedState(savedState);
-                Logger.log("Category setInitialSavedState:" + position);
+                //Logger.log("Category setInitialSavedState:" + position);
             }
             mFragmentCache.put(position, f);
             return f;
