@@ -40,6 +40,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         this.restaurants.clear();
         this.restaurants.addAll(data);
         this.filter = new RestaurantFilter(this, data);
+        //notifyItemRangeChanged(0, restaurants.size()-1);
         notifyDataSetChanged();
     }
 
@@ -122,7 +123,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
         holder.restaurantTypeTextView.setText(institutions.toString());
 
-        holder.rootView.setOnClickListener(view -> {
+        holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(holder.itemView.getContext(), RestaurantActivity.class);
             intent.putExtra(RestaurantActivity.KEY_RESTAURANT_ID, item.getId());
 
@@ -199,7 +200,6 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        View rootView;
         ImageView restaurantBackgroundImageView;
         TextView restaurantTitleTextView;
         TextView restaurantTypeTextView;
@@ -213,7 +213,6 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         public ViewHolder(View itemView) {
             super(itemView);
 
-            rootView = itemView;
             restaurantBackgroundImageView = itemView.findViewById(R.id.restaurant_background);
             restaurantTitleTextView = itemView.findViewById(R.id.restaurant_title);
             restaurantTypeTextView = itemView.findViewById(R.id.restaurant_type);

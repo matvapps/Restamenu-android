@@ -4,8 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -13,15 +14,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.lsjwzh.widget.recyclerviewpager.FragmentStatePagerAdapter;
+import com.lsjwzh.widget.recyclerviewpager.LoopRecyclerViewPager;
+import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 import com.restamenu.R;
 import com.restamenu.base.BasePresenterActivity;
 import com.restamenu.model.content.Category;
 import com.restamenu.util.Logger;
-import com.restamenu.views.pager.CircularViewPagerHandler;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
-public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, CategoryView, List<Category>> implements CategoryView, View.OnClickListener {
+public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, CategoryView, List<Category>> implements CategoryView, View.OnClickListener, RecyclerViewPager.OnPageChangedListener {
 
     public static final String KEY_RESTAURANT_ID = "key_rest_id";
     public static final String KEY_SERVICE_ID = "key_service_id";
@@ -53,14 +57,13 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
     private String restaurantTitle;
 
-    //private NestedScrollView nestedScrollView;
     //private TextView toolbarRestaurantTitle;
     private EditText findEditText;
     private View buttonFind;
 
 
-    private CategoryPagerAdapter pagerAdapter;
-    private ViewPager pager;
+    private FragmentsAdapter pagerAdapter;
+    private LoopRecyclerViewPager pager;
     private List<Category> categories;
 
 
@@ -92,30 +95,20 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     }
 
     private void increaseCategory() {
-        int position = pager.getCurrentItem();
-        pager.setCurrentItem(position + 1, true);
-
+        pager.smoothScrollToPosition(pager.getActualCurrentPosition() - 1);
     }
 
     private void decreaseCategory() {
-        int position = pager.getCurrentItem();
-        pager.setCurrentItem(position - 1, true);
-
+        pager.smoothScrollToPosition(pager.getActualCurrentPosition() + 1);
     }
 
     @Override
     public void setData(@NonNull List<Category> data) {
-        Logger.log("Categories: " + data.toString());
+        Logger.log("Set category(ies): " + data.size());
         categories = data;
 
-        pagerAdapter = new CategoryPagerAdapter(getSupportFragmentManager(), data, restaurantId, serviceId);
+        pagerAdapter = new FragmentsAdapter(getSupportFragmentManager(), data, restaurantId, serviceId);
         pager.setAdapter(pagerAdapter);
-
-        final CircularViewPagerHandler circularViewPagerHandler = new CircularViewPagerHandler(pager);
-        circularViewPagerHandler.setOnPageChangeListener(createOnPageChangeListener());
-        pager.addOnPageChangeListener(circularViewPagerHandler);
-
-        //nestedScrollView.smoothScrollTo(0, 0);
 
         categoryIndex = getCategoryIndex(data, categoryId);
         txtCategoryName.setText(data.get(categoryIndex).getName());
@@ -195,14 +188,17 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     @Override
     protected void initViews() {
 
-        //nestedScrollView = findViewById(R.id.scroll_container);
-
         btnTopCategoryPrevious = findViewById(R.id.category_arrow_left);
         btnTopCategoryNext = findViewById(R.id.category_arrow_right);
         txtCategoryName = findViewById(R.id.category_title);
         pager = findViewById(R.id.viewpager);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,
+                false);
+        pager.setLayoutManager(layoutManager);
+        pager.setHasFixedSize(true);
+        pager.addOnPageChangedListener(this);
+
         productHeader = findViewById(R.id.product_header);
-        NestedScrollView nsv = findViewById(R.id.scroll_container);
         buttonFind = findViewById(R.id.button_find);
         findEditText = findViewById(R.id.search_edit_text);
 
@@ -220,12 +216,13 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
         btnTopCategoryNext.setOnClickListener(this);
         btnTopCategoryPrevious.setOnClickListener(this);
-        productHeader.setOnTouchListener(new OnSwipeTouchListener(CategoryActivity.this){
+        productHeader.setOnTouchListener(new OnSwipeTouchListener(CategoryActivity.this) {
             public void onSwipeRight() {
-                decreaseCategory();
-            }
-            public void onSwipeLeft() {
                 increaseCategory();
+            }
+
+            public void onSwipeLeft() {
+                decreaseCategory();
             }
         });
 
@@ -293,32 +290,68 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
             if (categoryId == categories.get(i).geId())
                 return i;
         }
-
         return -1;
     }
 
+    @Override
+    public void OnPageChanged(int i, int i1) {
+        try {
+            findEditText.setText("");
+            txtCategoryName.setText(categories.get(pager.getActualCurrentPosition()).getName());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        //Logger.log("Category oldPosition:" + i + " newPosition:" + i1);
+    }
 
-    private ViewPager.OnPageChangeListener createOnPageChangeListener() {
-        return new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
+    class FragmentsAdapter extends FragmentStatePagerAdapter {
+
+        private int restaurantId;
+        private int serviceId;
+        private List<Category> categories;
+        private LinkedHashMap<Integer, Fragment> mFragmentCache = new LinkedHashMap<>();
+
+
+        public FragmentsAdapter(FragmentManager fm, List<Category> categories, int restaurantId, int serviceId) {
+            super(fm);
+            this.restaurantId = restaurantId;
+            this.serviceId = serviceId;
+            this.categories = categories;
+        }
+
+        private Category getCategory(int position) {
+            return categories.get(position);
+        }
+
+        @Override
+        public Fragment getItem(int position, Fragment.SavedState savedState) {
+            position = pager.transformToActualPosition(position);
+            Fragment f = mFragmentCache.containsKey(position) ? mFragmentCache.get(position)
+                    : CategoryFragment.create(getCategory(position), restaurantId, serviceId);
+            Logger.log("Category getItem:" + position + " from cache: " + mFragmentCache.containsKey
+                    (position));
+            if (!mFragmentCache.containsKey(position)) {
+                f.setInitialSavedState(savedState);
+                Logger.log("Category setInitialSavedState:" + position);
+            }
+            mFragmentCache.put(position, f);
+            return f;
+        }
+
+        @Override
+        public void onDestroyItem(int position, Fragment fragment) {
+            // onDestroyItem
+            while (mFragmentCache.size() > 5) {
+                Object[] keys = mFragmentCache.keySet().toArray();
+                mFragmentCache.remove(keys[0]);
             }
 
-            @Override
-            public void onPageSelected(final int position) {
-                Logger.log("Position selected: " + position);
-                try {
-                    findEditText.setText("");
-                    txtCategoryName.setText(categories.get(position).getName());
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
+        }
 
-            @Override
-            public void onPageScrollStateChanged(final int state) {
-            }
-        };
+        @Override
+        public int getItemCount() {
+            return categories.size();
+        }
     }
 
 }

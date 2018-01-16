@@ -68,6 +68,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(ProductAdapter.ProductViewHolder holder, int position) {
+        Logger.log("Bind View: " + position);
+
         Product product = items.get(position);
 
         holder.productName.setText(product.getName());
@@ -82,8 +84,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             holder.productPriceSub.setText(String.format("%d", product.getPriceOriginal()));
         }
 
-        for (int i = 0; i < items.get(position).getSpecial().size(); i++)
-            Logger.log(items.get(position).getSpecial().get(i));
+        //for (int i = 0; i < items.get(position).getSpecial().size(); i++)
+        //    Logger.log(items.get(position).getSpecial().get(i));
 
         SpecialsAdapter specialsAdapter = new SpecialsAdapter();
         holder.serviceList.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext(), HORIZONTAL, false));

@@ -3,6 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--<android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">-->
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
@@ -11,6 +16,8 @@
         android:paddingLeft="@dimen/toolbar_burger_menu_margin_start"
         android:paddingRight="@dimen/toolbar_burger_menu_margin_start"
         android:paddingBottom="@dimen/activity_category_product_list_margin" />
+
+    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 
 </FrameLayout>
 

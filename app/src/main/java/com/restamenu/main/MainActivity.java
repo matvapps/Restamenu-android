@@ -80,6 +80,9 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
             nearbyRestaurantsRecycler.setAdapter(nearbyRestaurantListAdapter);
         }
 
+        restaurantsRecycler.setNestedScrollingEnabled(false);
+        restaurantsRecycler.setHasFixedSize(false);
+
         if (isTablet()) {
             final int span_count = getResources().getInteger(R.integer.restaurant_span_count);
             GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, span_count);
@@ -106,10 +109,10 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
             restaurantsRecycler.setLayoutManager(gridLayoutManager);
         } else {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
+            //linearLayoutManager.setAutoMeasureEnabled(false);
             restaurantsRecycler.setLayoutManager(linearLayoutManager);
         }
-        restaurantsRecycler.setNestedScrollingEnabled(false);
-        restaurantsRecycler.setHasFixedSize(false);
+
         restaurantListAdapter = new RestaurantListAdapter(this);
         restaurantsRecycler.setAdapter(restaurantListAdapter);
 
@@ -138,7 +141,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     @Override
     public void setData(@NonNull List<Restaurant> data) {
-        Logger.log("Amount: " + data.size());
+        Logger.log("Set restaurants: " + data.size());
         restaurantListAdapter.setData(data);
     }
 
@@ -167,7 +170,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     @Override
     public void setNearRestaurants(List<Restaurant> data) {
-        Logger.log("Near: " + data.toString());
+        Logger.log("Set near restaurants: " + data.toString());
 
 
         if (isTablet()) {

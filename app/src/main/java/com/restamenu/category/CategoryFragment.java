@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.restamenu.R;
 import com.restamenu.api.RepositoryProvider;
@@ -28,6 +29,7 @@ public class CategoryFragment extends Fragment {
 
     private BaseSchedulerProvider schedulerProvider;
 
+    //private SwipeRefreshLayout refreshLayout;
     private RecyclerView recycler;
     private ProductAdapter adapter;
 
@@ -58,6 +60,8 @@ public class CategoryFragment extends Fragment {
         serviceId = getArguments().getInt(KEY_SERVICE);
         super.onCreate(savedInstanceState);
 
+        Logger.log("Create category id: " + category.geId());
+
         schedulerProvider = SchedulerProvider.getInstance();
     }
 
@@ -65,6 +69,10 @@ public class CategoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category_items, container, false);
+        /*refreshLayout = view.findViewById(R.id.refresh_layout);
+        refreshLayout.setOnRefreshListener(() -> {
+            loadProducts(restaurantId, category.geId());
+        });*/
         recycler = view.findViewById(R.id.recycler);
         recycler.setNestedScrollingEnabled(false);
         recycler.setLayoutManager(new GridLayoutManager(getContext(), getResources().getInteger(R.integer.product_span_count)));
@@ -78,12 +86,13 @@ public class CategoryFragment extends Fragment {
         recycler.setAdapter(adapter);
 
         if (category != null) {
-            loadProducts(restaurantId, serviceId, category.geId());
+            loadProducts(restaurantId, category.geId());
         }
     }
 
-    public void loadProducts(int restaurantId, int serviceId, int categoryId) {
-        showLoading(true);
+    public void loadProducts(int restaurantId, int categoryId) {
+        //showLoading(true);
+        //refreshLayout.setRefreshing(true);
         RepositoryProvider.getAppRepository().getCategoryProducts(restaurantId, categoryId)
                 .flatMap(Flowable::fromIterable)
                 .toList()
@@ -91,18 +100,19 @@ public class CategoryFragment extends Fragment {
                 .observeOn(schedulerProvider.ui())
                 .subscribe(products -> {
                     Logger.log("Products: " + products.toString());
-                    showLoading(false);
+                    //refreshLayout.setRefreshing(false);
+                    //showLoading(false);
                     setProducts(products);
                 }, throwable -> showError());
     }
 
     public void setProducts(List<Product> products) {
-        Logger.log("Products : " + products.toString());
+        Logger.log("Category set products : " + products.size());
         adapter.setItems(products);
     }
 
     private void showError() {
-        ((CategoryActivity) getActivity()).showError();
+        Toast.makeText(getContext(), "Error Products", Toast.LENGTH_SHORT).show();
 
     }
 
