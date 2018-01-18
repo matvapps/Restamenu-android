@@ -63,7 +63,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     private final String CONTACT_FB = "fb.com";
     private final String CONTACT_INSTAGRAM = "instagram";
 
-    private final String HYPERLINK_PATTERN = "<a href='%s'> %s </a>";
+    private final String HYPERLINK_PATTERN = "<a href=\"%s\"> %s </a>";
 
     private final String FACEBOOK_TITLE = "facebook";
     private final String INSTAGRAM_TITLE = "instagram";

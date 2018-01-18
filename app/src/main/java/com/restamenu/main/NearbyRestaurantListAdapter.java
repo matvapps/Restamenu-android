@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.model.content.Institute;
@@ -93,6 +94,8 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerVi
 
         Glide.with(holder.itemView.getContext())
                 .load(path)
+                .apply(new RequestOptions()
+                        .placeholder(R.color.greyish))
                 //.apply(options)
                 .into(cardHolder.restaurantBackgroundImageView);
 

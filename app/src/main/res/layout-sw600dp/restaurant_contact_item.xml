@@ -51,16 +51,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_title"
-            android:layout_marginBottom="@dimen/land_rest_contact_content_margin_bottom"
             android:layout_marginTop="@dimen/land_rest_contact_content_margin_top"
             android:fontFamily="@font/open_sans"
             android:textColor="@color/black"
             android:textSize="@dimen/land_rest_contact_content_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/contact_title"
-            app:layout_constraintTop_toBottomOf="@+id/contact_title"
-            tools:text="Mon - Fri 12:00 - 24:00"
-            android:layout_alignLeft="@+id/contact_title" />
+            app:layout_constraintTop_toBottomOf="@+id/contact_icon"
+            tools:text="facebook: @serafinadubai\ninstagram: /serafinadubai"
+            android:layout_alignLeft="@+id/contact_title"
+            android:layout_alignStart="@+id/contact_title" />
 
         <View
             android:id="@+id/contact_divider"

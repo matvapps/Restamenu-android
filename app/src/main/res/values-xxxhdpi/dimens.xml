@@ -463,8 +463,8 @@
 	<dimen name="fragment_loading_progress_title_margin_start">13.5dp</dimen>
 	<dimen name="currency_icon_margin_left">12.4dp</dimen>
 	<dimen name="currency_icon_margin_top">23.6dp</dimen>
-	<dimen name="currency_icon_text_size">23.6sp</dimen>
-	<dimen name="currency_name_margin_start">63.2dp</dimen>
+	<dimen name="currency_icon_text_size">16.9sp</dimen>
+	<dimen name="currency_name_margin_start">28.1dp</dimen>
 	<dimen name="currency_name_text_size">22sp</dimen>
 	<dimen name="currency_divider_margin_top">15.6dp</dimen>
 	<dimen name="language_icon_height">23.4dp</dimen>
@@ -473,5 +473,5 @@
 	<dimen name="language_icon_margin_top">22dp</dimen>
 	<dimen name="item_language_check_image_size">22.5dp</dimen>
 	<dimen name="language_name_margin_start">25.9dp</dimen>
-    <dimen name="land_item_currency_icon_container">36dp</dimen>
+	<dimen name="land_item_currency_icon_container">41.6dp</dimen>
 </resources>

@@ -17,12 +17,13 @@
 
     <TextView
         android:id="@+id/currency_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="AED"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        tools:text="$"
+        android:includeFontPadding="false"
+        android:maxLines="1"
         android:textColor="@color/black"
-        android:textSize="@dimen/currency_icon_text_size"
         android:textStyle="bold" />
 
 </FrameLayout>

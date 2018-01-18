@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<item name="isLargeLayout" type="bool">true</item>
+	<item name="restaurant_span_count" type="integer">3</item>
+	<item name="product_span_count" type="integer">4</item>
+
 	<dimen name="splash_cursor_margin_left">228dp</dimen>
 	<dimen name="splash_title_width">210dp</dimen>
 	<dimen name="splash_title_height">90dp</dimen>

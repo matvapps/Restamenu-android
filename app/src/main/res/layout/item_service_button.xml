@@ -6,13 +6,15 @@
     android:layout_height="wrap_content">
 
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/triangle"
         android:layout_width="@dimen/item_service_button_triangle_size"
         android:layout_height="@dimen/item_service_button_triangle_size"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="bottom"
+        android:tint="@color/golden"
+        android:backgroundTint="@color/golden"
         android:background="@drawable/triangle"
         android:rotation="180"
         app:layout_constraintEnd_toEndOf="parent"

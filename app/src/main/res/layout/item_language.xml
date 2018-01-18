@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/language_icon"
         android:layout_width="@dimen/language_icon_width"
         android:layout_height="@dimen/language_icon_height"
         android:layout_marginLeft="@dimen/language_icon_margin_left"
         android:layout_marginStart="@dimen/language_icon_margin_left"
         android:layout_marginTop="@dimen/language_icon_margin_top"
-        android:background="@color/greyish"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_flag_arabic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

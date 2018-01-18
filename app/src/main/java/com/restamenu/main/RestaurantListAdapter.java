@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.model.content.Institute;
@@ -96,6 +97,8 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
         Glide.with(holder.itemView.getContext())
                 .load(path)
+                .apply(new RequestOptions()
+                        .placeholder(R.color.greyish))
                 .into(holder.restaurantBackgroundImageView);
 
         for (int i = 0; i < item.getServices().size(); i++) {
