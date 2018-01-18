@@ -257,6 +257,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_categories_list"
             android:layout_width="0dp"
+            android:minHeight="1dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/land_recycler_category_list_margin_end"
             android:layout_marginTop="@dimen/land_recycler_category_list_margin_top"
@@ -284,6 +285,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_promotions_list"
             android:layout_width="0dp"
+            android:minHeight="1dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/land_recycler_promotions_list_margin_top"
             android:nestedScrollingEnabled="false"
@@ -309,6 +311,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_gallery_list"
             android:layout_width="0dp"
+            android:minHeight="1dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/land_recycler_gallery_list_margin_top"
             android:nestedScrollingEnabled="false"

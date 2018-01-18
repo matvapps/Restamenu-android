@@ -11,6 +11,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -18,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.restamenu.BuildConfig;
@@ -249,49 +249,59 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
                 if (categoriesListRecycle.getLocalVisibleRect(scrollBounds)) {
                     if (!categoriesListRecycle.getLocalVisibleRect(scrollBounds)
                             || scrollBounds.height() < categoriesListRecycle.getHeight()) {
-                        //Logger.log("Categories appear parcialy");
-                    } else {
-                        Logger.log("Categories appeared");
-                        //Scrolling to top
                         if (scrollY < oldScrollY && checkedTreeItem != 0) {
+                            //Scrolling to top of scrollView and became partially visible
+                            checkedTreeItem = 0;
+                            navigationTree.check(R.id.nav_menu);
+                        }
+                    } else {
+                        //Became visible
+                        if (scrollY < oldScrollY && checkedTreeItem != 0) {
+                            //Scroll to top of the scrollView
+                            Log.d("Scroll", "Categories check");
                             checkedTreeItem = 0;
                             navigationTree.check(R.id.nav_menu);
                         }
                     }
                 } else {
-                    //Logger.log("Categories not visible");
+                    //Log.d("Scroll", "Categories not visible");
                 }
 
                 //Check for promotions recycler is being visible
                 if (promotionsListRecycle.getLocalVisibleRect(scrollBounds)) {
                     if (!promotionsListRecycle.getLocalVisibleRect(scrollBounds)
                             || scrollBounds.height() < promotionsListRecycle.getHeight()) {
-                        //Logger.log("Gallery appear parcialy");
+                        //Log.d("Scroll", "Gallery appear parcialy");
                     } else {
                         if (scrollY > oldScrollY && checkedTreeItem != 1) {
+                            //Scrolling to bottom of the scrollView
                             checkedTreeItem = 1;
                             navigationTree.check(R.id.nav_promotions);
-                            Logger.log("Promotions appeared fully");
+                        } else if (scrollY < oldScrollY && checkedTreeItem != 1) {
+                            //Scrolling to top of the scrollView
+                            checkedTreeItem = 1;
+                            navigationTree.check(R.id.nav_promotions);
                         }
                     }
                 } else {
-                    Logger.log("Promotions not visible");
+                    //Log.d("Scroll", "Promotions not visible");
                 }
 
                 //Check for gallery recycler is being visible
                 if (galleryListRecycle.getLocalVisibleRect(scrollBounds)) {
                     if (!galleryListRecycle.getLocalVisibleRect(scrollBounds)
                             || scrollBounds.height() < galleryListRecycle.getHeight()) {
-                        //Logger.log("Gallery appear parcialy");
+                        //Log.d("Scroll", "Gallery appear parcialy");
                     } else {
+                        //Log.d("Scroll", "Gallery visible");
                         if (scrollY > oldScrollY && checkedTreeItem != 2) {
                             checkedTreeItem = 2;
                             navigationTree.check(R.id.nav_photo);
-                            Logger.log("Gallery appeared fully");
+                            //Log.d("Scroll", "Gallery check");
                         }
                     }
                 } else {
-                    Logger.log("Gallery not visible");
+                    //Log.d("Scroll", "Gallery not visible");
                 }
 
             });
@@ -454,7 +464,6 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
             }
 
-
         }
 
         //load restaurant background
@@ -465,8 +474,9 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
         setContacts(data);
 
-        if (isTablet())
+        if (isTablet()) {
             scrollView.getHitRect(scrollBounds);
+        }
 
     }
 
@@ -557,7 +567,6 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         } else {
             categoriesAdapter.setItems(categories);
             scrollView.getHitRect(scrollBounds);
-
         }
     }
 
@@ -566,8 +575,9 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         Logger.log("Gallery: " + images.toString());
         galleryAdapter.setItems(images);
 
-        if (isTablet())
+        if (isTablet()) {
             scrollView.getHitRect(scrollBounds);
+        }
 
     }
 
@@ -584,8 +594,9 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             adapter.change(new AdapterItemType<>("Restaurant promotions", null, ItemType.TITLE), promotionsTitlePos);
             adapter.change(new AdapterItemType<>(null, promotions, ItemType.PROMOTIONS), promotionsListPos);
         }
-        if (isTablet())
+        if (isTablet()) {
             scrollView.getHitRect(scrollBounds);
+        }
 
     }
 
@@ -601,8 +612,9 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
         restaurantTypeView.setText(instituteText.toString());
 
-        if (isTablet())
+        if (isTablet()) {
             scrollView.getHitRect(scrollBounds);
+        }
     }
 
     @Override
@@ -658,31 +670,48 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
                 if (checkedTreeItem == 0)
                     return;
                 checkedTreeItem = 0;
-                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.categories_list_title).getTop()));
+                scrollView.post(() -> {
+                            scrollView.scrollTo(0, 0);
+                            scrollView.scrollTo(0, findViewById(R.id.categories_list_title).getTop());
+                        }
+                );
                 break;
             case R.id.nav_promotions:
                 if (checkedTreeItem == 1)
                     return;
                 checkedTreeItem = 1;
-                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.promotions_list_title).getTop()));
+                scrollView.post(() -> {
+                    scrollView.scrollTo(0, 0);
+                    scrollView.scrollTo(0, findViewById(R.id.promotions_list_title).getTop());
+                });
                 break;
             case R.id.nav_photo:
                 if (checkedTreeItem == 2)
                     return;
                 checkedTreeItem = 2;
-                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.gallery_list_title).getTop()));
+                scrollView.post(() -> {
+                    scrollView.scrollTo(0, 0);
+                    scrollView.scrollTo(0, findViewById(R.id.gallery_list_title).getTop());
+                });
                 break;
             case R.id.nav_about:
                 if (checkedTreeItem == 3)
                     return;
                 checkedTreeItem = 3;
-                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.about_text_title).getTop()));
+                scrollView.post(() -> {
+                    scrollView.scrollTo(0, 0);
+                    scrollView.scrollTo(0, findViewById(R.id.about_text_title).getTop());
+                });
                 break;
             case R.id.nav_contacts:
                 if (checkedTreeItem == 4)
                     return;
                 checkedTreeItem = 4;
-                scrollView.post(() -> scrollView.smoothScrollTo(0, findViewById(R.id.contact_list_title).getTop()));
+                scrollView.post(() -> {
+                            scrollView.scrollTo(0, 0);
+                            scrollView.scrollTo(0, findViewById(R.id.contact_list_title).getTop());
+                        }
+                );
                 break;
         }
     }
