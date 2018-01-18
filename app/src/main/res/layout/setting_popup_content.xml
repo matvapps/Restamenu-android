@@ -17,23 +17,26 @@
             android:layout_height="wrap_content">
 
 
-            <ImageView
+            <FrameLayout
                 android:id="@+id/action_cancel"
-                android:layout_width="@dimen/filter_popup_content_action_cancel_size"
-                android:layout_height="@dimen/filter_popup_content_action_cancel_size"
-                android:layout_marginLeft="@dimen/filter_popup_content_action_cancel_margin"
-                android:layout_marginStart="@dimen/filter_popup_content_action_cancel_margin"
-                android:layout_marginTop="@dimen/filter_popup_content_action_cancel_margin"
-                android:src="@drawable/ic_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/filter_popup_content_action_cancel_margin"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="@dimen/filter_popup_content_action_cancel_size"
+                    android:layout_height="@dimen/filter_popup_content_action_cancel_size"
+                    android:src="@drawable/ic_close" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/filter_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_bold"
-                android:text="Setting"
+                android:text="@string/setting"
                 android:textColor="@color/black"
                 android:textSize="@dimen/filter_popup_content_filter_text_size"
                 app:layout_constraintBottom_toBottomOf="@+id/divider"
@@ -45,7 +48,6 @@
                 android:id="@+id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:layout_marginTop="@dimen/filter_popup_content_divider_margin_top"
                 android:background="#E6E6E6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +60,8 @@
                 android:layout_marginEnd="@dimen/filter_popup_content_action_cancel_margin"
                 android:layout_marginRight="@dimen/filter_popup_content_action_cancel_margin"
                 android:layout_marginTop="@dimen/filter_popup_content_action_cancel_margin"
+                android:layout_marginLeft="@dimen/filter_popup_content_action_cancel_margin"
+                android:layout_marginStart="@dimen/filter_popup_content_action_cancel_margin"
                 android:fontFamily="@font/open_sans_bold"
                 android:text="Select menu language"
                 android:textColor="@color/black"
@@ -85,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/filter_popup_content_institute_title_margin_top"
                 android:fontFamily="@font/open_sans_bold"
-                android:text="Select menu currency"
+                android:text="@string/select_menu_currency"
                 android:textColor="@color/black"
                 android:textSize="@dimen/filter_popup_content_institute_title_text_size"
                 app:layout_constraintEnd_toEndOf="@+id/language_list"
@@ -122,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/open_sans_bold"
-                    android:text="Save"
+                    android:text="@string/save"
                     android:textColor="@color/white"
                     android:textSize="@dimen/filter_popup_content_save_text_size" />
 

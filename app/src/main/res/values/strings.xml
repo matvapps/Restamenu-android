@@ -43,5 +43,11 @@
     <string name="menu_sections">Menu sections</string>
     <string name="about_restaurant">About restaurant</string>
     <string name="contacts">Contacts</string>
+    <string name="save">Save</string>
+    <string name="setting">Setting</string>
+    <string name="select_menu_currency">Select menu currency:</string>
+    <string name="search">Search</string>
+    <string name="cuisine">Cuisine</string>
+    <string name="back">Back</string>
 
 </resources>

@@ -20,15 +20,25 @@
         android:id="@+id/language_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/currency_name_margin_start"
-        android:layout_marginStart="@dimen/currency_name_margin_start"
+        android:layout_marginLeft="@dimen/language_name_margin_start"
+        android:layout_marginStart="@dimen/language_name_margin_start"
         android:fontFamily="@font/open_sans"
-        android:text="Dollar"
+        tools:text="Dollar"
         android:textColor="@color/cerulean"
         android:textSize="@dimen/currency_name_text_size"
         app:layout_constraintBottom_toBottomOf="@+id/language_icon"
         app:layout_constraintStart_toEndOf="@+id/language_icon"
         app:layout_constraintTop_toTopOf="@+id/language_icon" />
+
+    <ImageView
+        android:id="@+id/check_image"
+        android:layout_width="@dimen/item_language_check_image_size"
+        android:layout_height="@dimen/item_language_check_image_size"
+        android:src="@drawable/ic_check"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/language_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/language_name" />
 
     <View
         android:id="@+id/divider"

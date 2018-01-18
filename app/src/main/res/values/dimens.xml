@@ -1,22 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<item name="isLargeLayout" type="bool">false</item>
-	<item name="restaurant_span_count" type="integer">1</item>
-	<item name="product_span_count" type="integer">1</item>
-	<item name="restaurant_content_list_size" type="integer">9</item>
-	<item name="select_service_pos" type="integer">0</item>
-	<item name="menu_sections_title_pos" type="integer">-1</item>
-	<item name="menu_sections_list_pos" type="integer">1</item>
-	<item name="restaurant_promotions_title_pos" type="integer">2</item>
-	<item name="restaurant_promotions_list_pos" type="integer">3</item>
-	<item name="gallery_title_pos" type="integer">-1</item>
-	<item name="gallery_list_pos" type="integer">-1</item>
-	<item name="about_title_pos" type="integer">4</item>
-	<item name="about_text_pos" type="integer">5</item>
-	<item name="contacts_title_pos" type="integer">6</item>
-	<item name="contacts_list_pos" type="integer">7</item>
-	<item name="map_pos" type="integer">8</item>
-
 	<dimen name="activity_category_header_heighy">81.2dp</dimen>
 	<dimen name="fragment_restaurant_header_restaurant_type_margin_top">0dp</dimen>
 	<dimen name="splash_cursor_margin_left">88.9dp</dimen>
@@ -108,7 +91,7 @@
 	<dimen name="fragment_restaurant_header_loc_icon_width">5.8dp</dimen>
 	<dimen name="fragment_restaurant_header_loc_icon_height">8.1dp</dimen>
 	<dimen name="fragment_restaurant_header_loc_icon_margin_top">11.2dp</dimen>
-	<dimen name="fragment_restaurant_header_hours_margin_start">2.8dp</dimen>
+	<dimen name="fragment_restaurant_header_hours_margin_start">4.4dp</dimen>
 	<dimen name="fragment_restaurant_header_gallery_margin_bottom">20dp</dimen>
 	<dimen name="fragment_restaurant_header_gallery_margin_top">16.2dp</dimen>
 	<dimen name="item_service_button_height">55dp</dimen>
@@ -478,16 +461,21 @@
 	<dimen name="category_product_item_price_margin_bottom">16.2dp</dimen>
 	<dimen name="product_quantity_container_margin_top">1.9dp</dimen>
 	<dimen name="card_corner_radius">2.4dp</dimen>
-    <dimen name="fragment_loading_progress_title_margin_start">12dp</dimen>
-    <dimen name="land_contact_list_title_margin_top">68dp</dimen>
-	<dimen name="currency_icon_margin_left">11dp</dimen>
-	<dimen name="currency_icon_margin_top">21dp</dimen>
-	<dimen name="currency_icon_text_size">21sp</dimen>
-	<dimen name="currency_name_margin_start">24dp</dimen>
-	<dimen name="currency_name_text_size">16sp</dimen>
-	<dimen name="currency_divider_margin_top">10dp</dimen>
-	<dimen name="language_icon_height">18dp</dimen>
-	<dimen name="language_icon_width">26dp</dimen>
-	<dimen name="language_icon_margin_left">1dp</dimen>
-	<dimen name="language_icon_margin_top">21dp</dimen>
+	<dimen name="fragment_loading_progress_title_margin_start">7.5dp</dimen>
+	<dimen name="land_contact_list_title_margin_top">68dp</dimen>
+	<dimen name="currency_icon_margin_left">6.9dp</dimen>
+	<dimen name="currency_icon_margin_top">13.1dp</dimen>
+	<dimen name="currency_icon_text_size">13.1sp</dimen>
+	<dimen name="currency_name_margin_start">35.1dp</dimen>
+	<dimen name="currency_name_text_size">12.2sp</dimen>
+	<dimen name="currency_divider_margin_top">8.6dp</dimen>
+	<dimen name="language_icon_height">13dp</dimen>
+	<dimen name="language_icon_width">19dp</dimen>
+	<dimen name="language_icon_margin_left">0.6dp</dimen>
+	<dimen name="language_icon_margin_top">12.2dp</dimen>
+	<dimen name="land_category_product_service_margin_start">24dp</dimen>
+	<dimen name="land_category_product_buy_margin_top">23dp</dimen>
+	<dimen name="item_language_check_image_size">12.5dp</dimen>
+	<dimen name="language_name_margin_start">14.4dp</dimen>
+    <dimen name="land_item_currency_icon_container">36dp</dimen>
 </resources>

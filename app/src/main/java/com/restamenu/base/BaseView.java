@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 
 public interface BaseView<T> {
 
-    void setData(@NonNull T data);
+    void setData(T data);
 
     void showError();
 

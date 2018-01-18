@@ -33,12 +33,7 @@
             android:id="@+id/product_header"
             android:layout_width="match_parent"
             android:layout_height="@dimen/land_product_header_height"
-            android:layout_alignParentTop="true"
             android:gravity="center_vertical">
-            <!-- app:layout_constraintEnd_toEndOf="parent"
-             app:layout_constraintHorizontal_bias="0.0"
-             app:layout_constraintStart_toStartOf="parent"
-             app:layout_constraintTop_toTopOf="parent"-->
 
             <ImageView
                 android:id="@+id/category_header_background"
@@ -95,22 +90,20 @@
             android:id="@+id/container_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/product_header"
             android:background="@color/grey"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp"
+            android:paddingBottom="@dimen/land_activity_category_search_padding"
+            android:paddingTop="@dimen/land_activity_category_search_padding"
             android:visibility="visible">
-            <!--app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/product_header">-->
 
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginEnd="250dp"
-                android:layout_marginStart="250dp"
-                android:background="@drawable/round_rect_stroke_grey"
+                android:layout_height="@dimen/land_activity_category_search_height"
+                android:layout_marginEnd="@dimen/land_activity_category_search_margin_horiz"
+                android:layout_marginLeft="@dimen/land_activity_category_search_margin_horiz"
+                android:layout_marginRight="@dimen/land_activity_category_search_margin_horiz"
+                android:layout_marginStart="@dimen/land_activity_category_search_margin_horiz"
+                android:background="@drawable/search_view_background"
                 android:orientation="horizontal">
 
                 <EditText
@@ -118,14 +111,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="@dimen/land_activity_category_search_edit_margin_start"
+                    android:layout_marginStart="@dimen/land_activity_category_search_edit_margin_start"
                     android:layout_weight="8"
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/open_sans"
                     android:hint="Start typing the name..."
                     android:textColor="#80000000"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/land_activity_category_search_edit_text_size" />
 
 
                 <View
@@ -136,30 +129,31 @@
 
                 <LinearLayout
                     android:id="@+id/dropdown_menu_institute"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_margin="1dp"
-                    android:layout_weight="1.1"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginEnd="6dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="6dp"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="@dimen/land_activity_category_filter_text_margin_end"
+                        android:layout_marginLeft="@dimen/land_activity_category_filter_text_margin_start"
+                        android:layout_marginRight="@dimen/land_activity_category_filter_text_margin_end"
+                        android:layout_marginStart="@dimen/land_activity_category_filter_text_margin_start"
                         android:text="Filter"
                         android:textColor="#c33c43"
-                        android:textSize="15sp" />
+                        android:textSize="@dimen/land_activity_category_filter_text_size" />
 
 
                     <ImageView
-                        android:layout_width="9dp"
-                        android:layout_height="6dp"
+                        android:layout_width="@dimen/land_activity_category_arro_width"
+                        android:layout_height="@dimen/land_activity_category_arrow_height"
                         android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/land_activity_category_arrow_margin_end"
+                        android:layout_marginRight="@dimen/land_activity_category_arrow_margin_end"
                         android:src="@drawable/ic_arrow" />
 
                 </LinearLayout>
@@ -167,27 +161,30 @@
 
                 <LinearLayout
                     android:id="@+id/button_find"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
                     android:background="@drawable/left_round_red_rect"
                     android:gravity="center"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_marginEnd="7dp"
-                        android:layout_marginRight="7dp"
+                        android:layout_width="@dimen/land_activity_category_find_icon_size"
+                        android:layout_height="@dimen/land_activity_category_find_icon_size"
+                        android:layout_marginEnd="@dimen/land_activity_category_find_icon_margin_end"
+                        android:layout_marginLeft="@dimen/land_activity_category_find_icon_margin_start"
+                        android:layout_marginRight="@dimen/land_activity_category_find_icon_margin_end"
+                        android:layout_marginStart="@dimen/land_activity_category_find_icon_margin_start"
                         android:src="@drawable/ic_find" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/land_activity_category_find_txt_margin_end"
+                        android:layout_marginRight="@dimen/land_activity_category_find_txt_margin_end"
                         android:fontFamily="@font/open_sans_semibold"
                         android:text="Search"
                         android:textColor="@color/white"
-                        android:textSize="17sp" />
+                        android:textSize="@dimen/land_activity_category_find_txt_size" />
 
                 </LinearLayout>
 
@@ -204,8 +201,13 @@
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_above="@+id/divider"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="@dimen/land_activity_category_list_margin_top"
+            android:layout_marginLeft="@dimen/land_activity_category_list_margin_top"
+            android:layout_marginRight="@dimen/land_activity_category_list_margin_top"
+            android:layout_marginStart="@dimen/land_activity_category_list_margin_top"
+            android:layout_marginTop="@dimen/land_activity_category_list_margin_top"
             android:background="#f7f7f7"
             android:clipToPadding="false" />
 
@@ -235,11 +237,10 @@
 
                 <ImageView
                     android:id="@+id/image_prev"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginStart="32dp"
-                    android:padding="16dp"
+                    android:layout_width="@dimen/land_activity_category_bottom_arrow_size"
+                    android:layout_height="@dimen/land_activity_category_bottom_arrow_size"
+                    android:layout_marginLeft="@dimen/land_toolbar_burger_menu_margin_start"
+                    android:layout_marginStart="@dimen/land_toolbar_burger_menu_margin_start"
                     android:src="@drawable/ic"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -250,11 +251,11 @@
                     android:id="@+id/previous_category_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="33dp"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/gotham_pro_medium"
-                    android:textColor="#000000"
-                    android:textSize="21sp"
+                    android:layout_marginBottom="@dimen/land_activity_category_bottom_title_margin_bottom"
+                    android:layout_marginTop="@dimen/land_activity_category_bottom_title_margin_top"
+                    android:fontFamily="@font/open_sans_bold"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/land_activity_category_bottom_title_text_size"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/prev_text"
                     app:layout_constraintTop_toBottomOf="@+id/prev_text"
@@ -265,14 +266,13 @@
                     android:id="@+id/prev_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="36dp"
-                    android:layout_marginRight="36dp"
-                    android:layout_marginTop="33dp"
+                    android:layout_marginEnd="@dimen/land_activity_category_prev_text_margin_end"
+                    android:layout_marginRight="@dimen/land_activity_category_prev_text_margin_end"
+                    android:layout_marginTop="@dimen/land_activity_category_prev_text_margin_top"
                     android:fontFamily="@font/open_sans"
-                    android:lineSpacingExtra="6.1sp"
                     android:text="Previous menu section"
-                    android:textColor="#000000"
-                    android:textSize="9sp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/land_activity_category_prev_text_size"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -295,11 +295,12 @@
 
                 <ImageView
                     android:id="@+id/image_next"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginRight="32dp"
-                    android:padding="16dp"
+                    android:layout_width="@dimen/land_activity_category_bottom_arrow_size"
+                    android:layout_height="@dimen/land_activity_category_bottom_arrow_size"
+                    android:layout_marginEnd="@dimen/land_toolbar_burger_menu_margin_start"
+                    android:layout_marginLeft="@dimen/land_toolbar_burger_menu_margin_start"
+                    android:layout_marginRight="@dimen/land_toolbar_burger_menu_margin_start"
+                    android:layout_marginStart="@dimen/land_toolbar_burger_menu_margin_start"
                     android:rotation="180"
                     android:src="@drawable/ic"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -311,11 +312,11 @@
                     android:id="@+id/next_category_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="33dp"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/gotham_pro_medium"
-                    android:textColor="#000000"
-                    android:textSize="21sp"
+                    android:layout_marginBottom="@dimen/land_activity_category_bottom_title_margin_bottom"
+                    android:layout_marginTop="@dimen/land_activity_category_bottom_title_margin_top"
+                    android:fontFamily="@font/open_sans_bold"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/land_activity_category_bottom_title_text_size"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/next_text"
                     app:layout_constraintTop_toBottomOf="@+id/next_text"
@@ -326,17 +327,15 @@
                     android:id="@+id/next_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="36dp"
-                    android:layout_marginStart="36dp"
-                    android:layout_marginTop="33dp"
+                    android:layout_marginLeft="@dimen/land_activity_category_prev_text_margin_end"
+                    android:layout_marginStart="@dimen/land_activity_category_prev_text_margin_end"
+                    android:layout_marginTop="@dimen/land_activity_category_prev_text_margin_top"
                     android:fontFamily="@font/open_sans"
-                    android:lineSpacingExtra="6.1sp"
                     android:text="Next menu section"
-                    android:textColor="#000000"
-                    android:textSize="9sp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/land_activity_category_prev_text_size"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
 
             </android.support.constraint.ConstraintLayout>
 

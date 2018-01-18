@@ -20,7 +20,7 @@ import java.util.List;
 
 public class PopupDropDownAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<PopupFilterItem> items;
+    private List<CheckedItem> items;
 //    private PopupItemClickListener popupItemClickListener;
     private FilterItemChangeListener filterItemChangeListener;
 
@@ -33,19 +33,19 @@ public class PopupDropDownAdapter extends RecyclerView.Adapter<RecyclerView.View
         this.filterItemChangeListener = filterItemChangeListener;
     }
 
-    public void addItems(List<PopupFilterItem> data) {
+    public void addItems(List<CheckedItem> data) {
         items.addAll(data);
         notifyDataSetChanged();
     }
 
-    public void setItems(List<PopupFilterItem> data) {
+    public void setItems(List<CheckedItem> data) {
         items.clear();
         items.addAll(data);
         notifyDataSetChanged();
     }
 
-    public void addItem(PopupFilterItem popupFilterItem) {
-        items.add(popupFilterItem);
+    public void addItem(CheckedItem checkedItem) {
+        items.add(checkedItem);
         notifyDataSetChanged();
     }
 
@@ -92,7 +92,7 @@ public class PopupDropDownAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public interface FilterItemChangeListener {
-        void onFilterItemChanged(PopupFilterItem item);
+        void onFilterItemChanged(CheckedItem item);
     }
 
     @Override

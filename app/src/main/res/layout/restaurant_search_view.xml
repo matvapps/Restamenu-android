@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/search_view_height"
             android:padding="1dp"
-            android:background="@drawable/round_rect_stroke_grey"
+            android:background="@drawable/search_view_background"
             android:orientation="horizontal">
 
             <FrameLayout
@@ -45,7 +45,9 @@
                     android:singleLine="true"
                     android:textColor="#212121"
                     android:textColorHint="#999999"
-                    android:textSize="@dimen/search_text_view_size" />
+                    android:textSize="@dimen/search_text_view_size"
+                    android:paddingStart="@dimen/search_text_view_padding_left"
+                    android:paddingEnd="@dimen/search_text_view_padding_right" />
 
                 <ImageButton
                     android:id="@+id/action_empty_btn"

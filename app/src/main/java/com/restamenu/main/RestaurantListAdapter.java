@@ -31,18 +31,23 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     private RestaurantFilter filter;
 
     public RestaurantListAdapter(RestaurantClickListener listener) {
-        this.restaurants = new ArrayList<>();
-        this.instituteList = new ArrayList<>();
+        restaurants = new ArrayList<>();
+        instituteList = new ArrayList<>();
         this.listener = listener;
     }
 
-    public void setData(List<Restaurant> data) {
-        this.restaurants.clear();
-        this.restaurants.addAll(data);
-        this.filter = new RestaurantFilter(this, data);
-        //notifyItemRangeChanged(0, restaurants.size()-1);
+    public void setItems(List<Restaurant> items) {
+        restaurants.clear();
+        restaurants.addAll(items);
+        this.filter = new RestaurantFilter(this, items);
         notifyDataSetChanged();
     }
+
+    public void addItems(List<Restaurant> items) {
+        restaurants.addAll(items);
+        notifyDataSetChanged();
+    }
+
 
     public Restaurant getItem(int position) {
         return restaurants.get(position);

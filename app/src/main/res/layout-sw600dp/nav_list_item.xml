@@ -14,12 +14,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans_semibold"
-            android:paddingBottom="20dp"
-            android:paddingStart="20dp"
-            android:paddingTop="20dp"
+            android:paddingBottom="@dimen/land_nav_list_text_padding"
+            android:paddingStart="@dimen/land_nav_list_text_padding"
+            android:paddingTop="@dimen/land_nav_list_text_padding"
             android:textColor="@color/cerulean"
-            android:textSize="15sp"
-            tools:text="Menu" />
+            android:textSize="@dimen/land_nav_list_text_size"
+            tools:text="Menu"
+            android:paddingLeft="@dimen/land_nav_list_text_padding" />
 
 
 </FrameLayout>

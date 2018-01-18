@@ -49,7 +49,7 @@
                 android:layout_marginLeft="@dimen/land_activity_restaurant_favorite_icon_margin_start"
                 android:layout_marginRight="@dimen/land_activity_restaurant_favorite_icon_margin_end"
                 android:layout_marginStart="@dimen/land_activity_restaurant_favorite_icon_margin_start"
-                android:src="@drawable/ic_favorite_active" />
+                android:src="@drawable/ic_fav_noact" />
 
             <TextView
                 android:id="@+id/favourite_text"
@@ -171,7 +171,7 @@
                 android:layout_marginStart="@dimen/land_activity_restaurant_adress_margin_start"
                 android:textColor="@color/white"
                 android:textSize="@dimen/land_activity_restaurant_adress_text_size"
-                tools:text="24 hours" />
+                android:text="Mon - Fri 10:00 - 23:00" />
 
         </LinearLayout>
 
@@ -182,11 +182,10 @@
             android:layout_marginLeft="@dimen/land_activity_restaurant_margin_horizontal"
             android:layout_marginStart="@dimen/land_activity_restaurant_margin_horizontal"
             android:layout_marginTop="@dimen/land_activity_restaurant_image_margin_top"
-            android:background="@color/greyish"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:riv_corner_radius="3dp" />
+            app:riv_corner_radius="@dimen/land_rest_card_nearby_radius" />
 
         <RadioGroup
             android:id="@+id/nav_container"
@@ -387,8 +386,8 @@
         <ImageView
             android:id="@+id/map_image_view"
             android:layout_width="0dp"
-            android:layout_height="534dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="@dimen/land_map_image_height"
+            android:layout_marginTop="@dimen/land_map_image_margin_top"
             android:scaleType="centerCrop"
             android:background="@color/greyish"
             android:visibility="visible"

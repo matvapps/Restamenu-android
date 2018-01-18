@@ -53,48 +53,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/settings_container"
+        <com.restamenu.views.custom.SettingView
+            android:id="@+id/settings_view"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/settings_container_height"
+            android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/toolbar_burger_menu_margin_start"
             android:layout_marginRight="@dimen/toolbar_burger_menu_margin_start"
-            android:background="@drawable/rect_fill_stroke_grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"/>
 
-            <ImageView
-                android:id="@+id/settings"
-                android:layout_width="@dimen/toolbar_restaurant_settings_icon"
-                android:layout_height="@dimen/toolbar_restaurant_settings_icon"
-                android:layout_marginEnd="@dimen/toolbar_restaurant_settings_margin_end"
-                android:layout_marginRight="@dimen/toolbar_restaurant_settings_margin_end"
-                android:layout_marginStart="@dimen/toolbar_category_currency_icon_margin_start"
-                android:layout_marginLeft="@dimen/toolbar_category_currency_icon_margin_start"
-                android:src="@drawable/ic_setting"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/settings_title"
-                app:layout_constraintEnd_toStartOf="@+id/settings_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/settings_title" />
-
-            <TextView
-                android:id="@+id/settings_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/toolbar_category_currency_title_margin_end"
-                android:layout_marginRight="@dimen/toolbar_category_currency_title_margin_end"
-                android:fontFamily="@font/open_sans"
-                android:gravity="center_horizontal"
-                android:text="Setting"
-                android:textColor="@color/black"
-                android:textSize="@dimen/toolbar_category_currency_title_text_size"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 
 </RelativeLayout>

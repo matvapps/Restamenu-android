@@ -61,6 +61,8 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
     private View createItemView(int position, int viewId, ViewGroup parent) {
 
         View view = mInflater.inflate(viewId, parent, false);
+        view.setPadding(0, 0, 0, 0);
+
 
         TextView titleText = view.findViewById(R.id.order_type_title);
         ImageView serviceImage = view.findViewById(R.id.order_type_image);

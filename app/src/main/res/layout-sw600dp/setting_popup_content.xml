@@ -10,14 +10,16 @@
 
     <View
         android:id="@+id/view2"
-        android:layout_width="@dimen/lang_popup_content_triangle_size"
-        android:layout_height="@dimen/lang_popup_content_triangle_size"
-        android:layout_gravity="center"
+        android:layout_width="@dimen/land_popup_content_triangle_size"
+        android:layout_height="@dimen/land_popup_content_triangle_size"
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/land_triangle_margin_end"
         android:background="@drawable/triangle"
         android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="@dimen/land_triangle_margin_end" />
 
 
     <LinearLayout
@@ -33,26 +35,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginStart="37dp"
-            android:layout_marginLeft="37dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginStart="@dimen/land_popup_content_title_margin_start"
+            android:layout_marginLeft="@dimen/land_popup_content_title_margin_start"
+            android:layout_marginRight="@dimen/land_popup_content_title_margin_start"
+            android:layout_marginEnd="@dimen/land_popup_content_title_margin_start"
+            android:layout_marginTop="@dimen/land_popup_content_title_margin_top"
             android:fontFamily="@font/open_sans_bold"
             android:textColor="@color/black"
-            android:textSize="19sp"
+            android:textSize="@dimen/land_popup_content_title_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/select_menu_language" />
+            tools:text="Select type of cuisine:" />
 
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/dropdown_content_grid"
-            android:layout_width="wrap_content"
+            android:id="@+id/dropdown_content_list"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
-            android:layout_marginEnd="38dp"
-            android:layout_marginStart="38dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="@dimen/land_popup_content_grid_margin_bottom"
+            android:layout_marginRight="@dimen/land_popup_content_grid_margin_end"
+            android:layout_marginLeft="@dimen/land_popup_content_grid_margin_end"
+            android:layout_marginEnd="@dimen/land_popup_content_grid_margin_end"
+            android:layout_marginStart="@dimen/land_popup_content_grid_margin_end"
+            android:layout_marginTop="@dimen/land_popup_content_grid_margin_top"
             android:layout_gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

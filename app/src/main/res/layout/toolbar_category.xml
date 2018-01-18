@@ -53,7 +53,6 @@
             android:layout_marginRight="@dimen/order_container_margin_end"
             android:layout_marginStart="@dimen/order_container_margin_start"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/toolbar_restaurant_title"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/burger_menu"
             app:layout_constraintTop_toTopOf="parent">
@@ -90,7 +89,7 @@
 
         <TextView
             android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:ellipsize="end"
@@ -98,60 +97,26 @@
             android:gravity="center"
             android:maxLines="1"
             android:maxWidth="@dimen/toolbar_category_title_max_width"
+            android:textAlignment="center"
             android:textColor="@color/dusty_red"
             android:textSize="@dimen/toolbar_category_title_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/settings_view"
+            app:layout_constraintHorizontal_bias="0.403"
+            app:layout_constraintStart_toEndOf="@+id/order_container"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Serafina Dubai" />
 
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/settings_container"
+        <com.restamenu.views.custom.SettingView
+            android:id="@+id/settings_view"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/toolbar_main_city_container_height"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/toolbar_burger_menu_margin_start"
             android:layout_marginRight="@dimen/toolbar_burger_menu_margin_start"
-            android:background="@drawable/rect_fill_stroke_grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/settings"
-                android:layout_width="@dimen/toolbar_category_currency_icon_size"
-                android:layout_height="@dimen/toolbar_category_currency_icon_size"
-                android:layout_marginEnd="@dimen/toolbar_category_settings_icon_margin_end"
-                android:layout_marginLeft="@dimen/toolbar_category_currency_icon_margin_start"
-                android:layout_marginRight="3dp"
-                android:layout_marginStart="@dimen/toolbar_category_currency_icon_margin_start"
-                android:src="@drawable/ic_setting"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/currency_title"
-                app:layout_constraintEnd_toStartOf="@+id/currency_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/currency_title" />
-
-            <TextView
-                android:id="@+id/currency_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/toolbar_category_currency_title_margin_end"
-                android:layout_marginLeft="@dimen/toolbar_category_currency_title_margin_start"
-                android:layout_marginRight="@dimen/toolbar_category_currency_title_margin_end"
-                android:layout_marginStart="@dimen/toolbar_category_currency_title_margin_start"
-                android:fontFamily="@font/open_sans"
-                android:gravity="center_horizontal"
-                android:text="@string/setting_string"
-                android:textColor="@color/black"
-                android:textSize="@dimen/toolbar_category_currency_title_text_size"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/settings"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </android.support.constraint.ConstraintLayout>
+            app:layout_constraintTop_toTopOf="parent"/>
 
 
     </android.support.constraint.ConstraintLayout>

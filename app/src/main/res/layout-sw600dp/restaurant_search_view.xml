@@ -120,7 +120,7 @@
                     android:layout_marginLeft="@dimen/land_search_view_cuisine_margin_start"
                     android:layout_marginStart="@dimen/land_search_view_cuisine_margin_start"
                     android:fontFamily="@font/open_sans"
-                    android:text="Cuisine"
+                    android:text="@string/cuisine"
                     android:textColor="#c33c43"
                     android:textSize="@dimen/land_search_view_cuisine_text_size"
                     android:typeface="normal" />
@@ -159,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/open_sans_semibold"
                     android:gravity="center_vertical"
-                    android:text="Search"
+                    android:text="@string/search"
                     android:textColor="#ffffff"
                     android:textSize="@dimen/land_search_view_search_text_size" />
 

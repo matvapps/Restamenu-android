@@ -52,111 +52,121 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/lang_container"
+        <com.restamenu.views.custom.SettingView
+            android:id="@+id/settings_view"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/land_toolbar_restaurant_container_height"
+            android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/land_toolbar_restaurant_margin_horizontal"
             android:layout_marginRight="@dimen/land_toolbar_restaurant_margin_horizontal"
-            android:background="@drawable/rect_fill_stroke_grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/country_flag"
-                android:layout_width="@dimen/land_toolbar_restaurant_flag_width"
-                android:layout_height="@dimen/land_toolbar_restaurant_flag_height"
-                android:layout_marginEnd="@dimen/land_toolbar_flag_margin_end"
-                android:layout_marginLeft="@dimen/land_toolbar_flag_margin_start"
-                android:layout_marginRight="@dimen/land_toolbar_flag_margin_end"
-                android:layout_marginStart="@dimen/land_toolbar_flag_margin_start"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_flag_uk"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/language_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <!--<android.support.constraint.ConstraintLayout-->
+        <!--android:id="@+id/lang_container"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="@dimen/land_toolbar_restaurant_container_height"-->
+        <!--android:layout_marginEnd="@dimen/land_toolbar_restaurant_margin_horizontal"-->
+        <!--android:layout_marginRight="@dimen/land_toolbar_restaurant_margin_horizontal"-->
+        <!--android:background="@drawable/rect_fill_stroke_grey"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent">-->
 
-            <TextView
-                android:id="@+id/language_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/land_toolbar_lang_title_margin_end"
-                android:layout_marginRight="@dimen/land_toolbar_lang_title_margin_end"
-                android:gravity="center_horizontal"
-                android:text="ENG"
-                android:textColor="@color/black"
-                android:textSize="@dimen/land_toolbar_lang_title_text_size"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/arrow"
-                app:layout_constraintTop_toTopOf="parent" />
+        <!--<ImageView-->
+        <!--android:id="@+id/country_flag"-->
+        <!--android:layout_width="@dimen/land_toolbar_restaurant_flag_width"-->
+        <!--android:layout_height="@dimen/land_toolbar_restaurant_flag_height"-->
+        <!--android:layout_marginEnd="@dimen/land_toolbar_flag_margin_end"-->
+        <!--android:layout_marginLeft="@dimen/land_toolbar_flag_margin_start"-->
+        <!--android:layout_marginRight="@dimen/land_toolbar_flag_margin_end"-->
+        <!--android:layout_marginStart="@dimen/land_toolbar_flag_margin_start"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:src="@drawable/ic_flag_uk"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toStartOf="@+id/language_title"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
-            <ImageView
-                android:id="@+id/arrow"
-                android:layout_width="@dimen/land_toolbar_restaurant_arrow_width"
-                android:layout_height="@dimen/land_toolbar_restaurant_arrow_height"
-                android:layout_marginEnd="@dimen/land_toolbar_restaurant_arrow_margin_end"
-                android:layout_marginRight="@dimen/land_toolbar_restaurant_arrow_margin_end"
-                android:src="@drawable/ic_arrow_dropdown"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <!--<TextView-->
+        <!--android:id="@+id/language_title"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginEnd="@dimen/land_toolbar_lang_title_margin_end"-->
+        <!--android:layout_marginRight="@dimen/land_toolbar_lang_title_margin_end"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:text="ENG"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:textSize="@dimen/land_toolbar_lang_title_text_size"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toStartOf="@+id/arrow"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
-        </android.support.constraint.ConstraintLayout>
+        <!--<ImageView-->
+        <!--android:id="@+id/arrow"-->
+        <!--android:layout_width="@dimen/land_toolbar_restaurant_arrow_width"-->
+        <!--android:layout_height="@dimen/land_toolbar_restaurant_arrow_height"-->
+        <!--android:layout_marginEnd="@dimen/land_toolbar_restaurant_arrow_margin_end"-->
+        <!--android:layout_marginRight="@dimen/land_toolbar_restaurant_arrow_margin_end"-->
+        <!--android:src="@drawable/ic_arrow_dropdown"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/currency_container"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/land_toolbar_restaurant_container_height"
-            android:layout_marginEnd="@dimen/land_toolbar_restaurant_currency_container_margin_end"
-            android:layout_marginRight="@dimen/land_toolbar_restaurant_currency_container_margin_end"
-            android:background="@drawable/rect_fill_stroke_grey"
-            app:layout_constraintBottom_toBottomOf="@+id/lang_container"
-            app:layout_constraintEnd_toStartOf="@+id/lang_container"
-            app:layout_constraintTop_toTopOf="@+id/lang_container">
+        <!--</android.support.constraint.ConstraintLayout>-->
 
-            <ImageView
-                android:id="@+id/currency_image_icon"
-                android:layout_width="@dimen/land_toolbar_restaurant_icon_place_"
-                android:layout_height="@dimen/land_toolbar_restaurant_icon_place_height"
-                android:layout_marginEnd="@dimen/land_toolbar_restaurant_currency_icon_margin_end"
-                android:layout_marginLeft="@dimen/land_toolbar_restaurant_currency_icon_margin_left"
-                android:layout_marginRight="@dimen/land_toolbar_restaurant_currency_icon_margin_end"
-                android:layout_marginStart="@dimen/land_toolbar_restaurant_currency_icon_margin_left"
-                android:src="@drawable/ic_usd_link"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/currency_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <!--<android.support.constraint.ConstraintLayout-->
+        <!--android:id="@+id/currency_container"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="@dimen/land_toolbar_restaurant_container_height"-->
+        <!--android:layout_marginEnd="@dimen/land_toolbar_restaurant_currency_container_margin_end"-->
+        <!--android:layout_marginRight="@dimen/land_toolbar_restaurant_currency_container_margin_end"-->
+        <!--android:background="@drawable/rect_fill_stroke_grey"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/lang_container"-->
+        <!--app:layout_constraintEnd_toStartOf="@+id/lang_container"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/lang_container">-->
 
-            <TextView
-                android:id="@+id/currency_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/land_toolbar_restaurant_currency_title_margin_end"
-                android:layout_marginRight="@dimen/land_toolbar_restaurant_currency_title_margin_end"
-                android:fontFamily="@font/open_sans"
-                android:gravity="center_horizontal"
-                android:text="USD"
-                android:textColor="@color/black"
-                android:textSize="@dimen/land_toolbar_restaurant_currency_title_text_size"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/arrow2"
-                app:layout_constraintTop_toTopOf="parent"/>
+        <!--<ImageView-->
+        <!--android:id="@+id/currency_image_icon"-->
+        <!--android:layout_width="@dimen/land_toolbar_restaurant_icon_place_"-->
+        <!--android:layout_height="@dimen/land_toolbar_restaurant_icon_place_height"-->
+        <!--android:layout_marginEnd="@dimen/land_toolbar_restaurant_currency_icon_margin_end"-->
+        <!--android:layout_marginLeft="@dimen/land_toolbar_restaurant_currency_icon_margin_left"-->
+        <!--android:layout_marginRight="@dimen/land_toolbar_restaurant_currency_icon_margin_end"-->
+        <!--android:layout_marginStart="@dimen/land_toolbar_restaurant_currency_icon_margin_left"-->
+        <!--android:src="@drawable/ic_usd_link"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toStartOf="@+id/currency_title"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
-            <ImageView
-                android:id="@+id/arrow2"
-                android:layout_width="@dimen/land_toolbar_restaurant_arrow_width"
-                android:layout_height="@dimen/land_toolbar_restaurant_arrow_height"
-                android:layout_marginEnd="@dimen/land_toolbar_restaurant_arrow_margin_end"
-                android:layout_marginRight="@dimen/land_toolbar_restaurant_arrow_margin_end"
-                android:src="@drawable/ic_arrow_dropdown"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <!--<TextView-->
+        <!--android:id="@+id/currency_title"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginEnd="@dimen/land_toolbar_restaurant_currency_title_margin_end"-->
+        <!--android:layout_marginRight="@dimen/land_toolbar_restaurant_currency_title_margin_end"-->
+        <!--android:fontFamily="@font/open_sans"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:text="USD"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:textSize="@dimen/land_toolbar_restaurant_currency_title_text_size"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toStartOf="@+id/arrow2"-->
+        <!--app:layout_constraintTop_toTopOf="parent"/>-->
 
-        </android.support.constraint.ConstraintLayout>
+        <!--<ImageView-->
+        <!--android:id="@+id/arrow2"-->
+        <!--android:layout_width="@dimen/land_toolbar_restaurant_arrow_width"-->
+        <!--android:layout_height="@dimen/land_toolbar_restaurant_arrow_height"-->
+        <!--android:layout_marginEnd="@dimen/land_toolbar_restaurant_arrow_margin_end"-->
+        <!--android:layout_marginRight="@dimen/land_toolbar_restaurant_arrow_margin_end"-->
+        <!--android:src="@drawable/ic_arrow_dropdown"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+        <!--</android.support.constraint.ConstraintLayout>-->
 
         <!--<Spinner-->
         <!--android:layout_width="35dp"-->

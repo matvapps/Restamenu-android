@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
 
-    <android.support.v7.widget.AppCompatButton
+    <ImageView
         android:id="@+id/triangle"
         android:layout_width="@dimen/item_service_button_triangle_size"
         android:layout_height="@dimen/item_service_button_triangle_size"
@@ -14,9 +14,7 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="bottom"
         android:background="@drawable/triangle"
-        android:backgroundTint="@color/golden"
         android:rotation="180"
-        app:backgroundTint="@color/golden"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/container" />

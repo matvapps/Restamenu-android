@@ -16,17 +16,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
-            <ImageView
+            <FrameLayout
                 android:id="@+id/action_cancel"
-                android:layout_width="@dimen/filter_popup_content_action_cancel_size"
-                android:layout_height="@dimen/filter_popup_content_action_cancel_size"
-                android:layout_marginLeft="@dimen/filter_popup_content_action_cancel_margin"
-                android:layout_marginStart="@dimen/filter_popup_content_action_cancel_margin"
-                android:layout_marginTop="@dimen/filter_popup_content_action_cancel_margin"
-                android:src="@drawable/ic_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/filter_popup_content_action_cancel_margin"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="@dimen/filter_popup_content_action_cancel_size"
+                    android:layout_height="@dimen/filter_popup_content_action_cancel_size"
+                    android:src="@drawable/ic_close" />
+            </FrameLayout>
+
 
             <TextView
                 android:id="@+id/filter_text"
@@ -45,7 +48,6 @@
                 android:id="@+id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:layout_marginTop="@dimen/filter_popup_content_divider_margin_top"
                 android:background="#E6E6E6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +60,8 @@
                 android:layout_marginEnd="@dimen/filter_popup_content_action_cancel_margin"
                 android:layout_marginRight="@dimen/filter_popup_content_action_cancel_margin"
                 android:layout_marginTop="@dimen/filter_popup_content_action_cancel_margin"
+                android:layout_marginLeft="@dimen/filter_popup_content_action_cancel_margin"
+                android:layout_marginStart="@dimen/filter_popup_content_action_cancel_margin"
                 android:fontFamily="@font/open_sans_bold"
                 android:text="Select type of cuisine: "
                 android:textColor="@color/black"
@@ -97,9 +101,9 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/filter_institute_list"
                 android:layout_width="0dp"
-                android:focusable="false"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/filter_popup_content_institute_list_margin_top"
+                android:focusable="false"
                 android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="@+id/filter_institute_title"
                 app:layout_constraintStart_toStartOf="@+id/filter_institute_title"

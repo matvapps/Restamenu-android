@@ -17,6 +17,10 @@
         <attr name="service_title" format="string" />
         <attr name="service_icon" format="color|reference"></attr>
     </declare-styleable>
+    
+    <declare-styleable name="SettingView">
+        
+    </declare-styleable>
 
     <declare-styleable name="NavMenuButton">
         <attr name="menu_title" format="string"/>

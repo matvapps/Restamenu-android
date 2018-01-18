@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:background="?selectableItemBackground"
         android:foreground="?selectableItemBackground"
-        app:cardCornerRadius="@dimen/land_rest_card_radius"
+        app:cardCornerRadius="@dimen/land_rest_card_nearby_radius"
         app:cardElevation="0dp">
 
 
@@ -28,13 +28,12 @@
                 android:id="@+id/restaurant_background"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/land_rest_card_background_height"
-                android:background="@color/white_two"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:riv_corner_radius_top_right="@dimen/land_rest_card_radius"
-                app:riv_corner_radius_top_left="@dimen/land_rest_card_radius"/>
+                app:riv_corner_radius_top_right="@dimen/land_rest_card_nearby_radius"
+                app:riv_corner_radius_top_left="@dimen/land_rest_card_nearby_radius"/>
 
 
             <TextView

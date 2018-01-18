@@ -19,8 +19,12 @@ import com.lsjwzh.widget.recyclerviewpager.LoopRecyclerViewPager;
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 import com.restamenu.R;
 import com.restamenu.base.BasePresenterActivity;
+import com.restamenu.data.preferences.KeyValueStorage;
 import com.restamenu.model.content.Category;
+import com.restamenu.model.content.Currency;
+import com.restamenu.model.content.Language;
 import com.restamenu.util.Logger;
+import com.restamenu.views.custom.SettingView;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -49,6 +53,10 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     private FrameLayout searchContainer;
     private EditText searchEditText;
     private LinearLayout searchButton;
+
+    private KeyValueStorage keyValueStorage;
+
+    private SettingView settingView;
 
     private View productHeader;
     private ImageView btnTopCategoryPrevious;
@@ -92,6 +100,7 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         restaurantTitle = getIntent().getStringExtra(KEY_RESTAURANT_TITLE);
 
         super.onCreate(savedInstanceState);
+        keyValueStorage = new KeyValueStorage(this);
 
         toolbarTitle.setText(restaurantTitle);
     }
@@ -198,6 +207,8 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         btnTopCategoryNext = findViewById(R.id.category_arrow_right);
         txtCategoryName = findViewById(R.id.category_title);
         pager = findViewById(R.id.viewpager);
+        View back = findViewById(R.id.back_to_category);
+        settingView = findViewById(R.id.settings_view);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,
                 false);
@@ -244,6 +255,7 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         if (isTablet()) {
             btnBottomCategoryNext.setOnClickListener(this);
             btnBottomCategoryPrevious.setOnClickListener(this);
+            back.setOnClickListener(view -> finish());
         }
 
         btnTopCategoryNext.setOnClickListener(this);
@@ -276,8 +288,10 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
             presenter = new CategoryPresenter(restaurantId, serviceId);
         }
 
+        keyValueStorage = new KeyValueStorage(this);
+
         presenter.attachView(this);
-        presenter.loadData();
+        presenter.loadData(keyValueStorage.getLanguageId());
     }
 
 
@@ -329,6 +343,16 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    @Override
+    public void setLanguages(@NonNull List<Language> languages) {
+        settingView.setLanguages(languages);
+    }
+
+    @Override
+    public void setCurrencies(@NonNull List<Currency> currencies) {
+        settingView.setCurrencies(currencies);
     }
 
     class FragmentsAdapter extends FragmentStatePagerAdapter {

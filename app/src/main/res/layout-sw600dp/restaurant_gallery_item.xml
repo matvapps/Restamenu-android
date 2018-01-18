@@ -2,9 +2,10 @@
 <com.makeramen.roundedimageview.RoundedImageView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/gallery_photo"
-    android:layout_width="276dp"
-    android:layout_height="294dp"
-    android:layout_marginEnd="25dp"
+    android:layout_width="@dimen/land_gallery_item_width"
+    android:layout_height="@dimen/land_gallery_item_height"
+    android:layout_marginEnd="@dimen/land_gallery_item_margin_end"
     android:scaleType="centerCrop"
     android:background="@color/greyish"
-    app:riv_corner_radius="2dp" />
+    app:riv_corner_radius="@dimen/land_rest_card_nearby_radius"
+    android:layout_marginRight="@dimen/land_gallery_item_margin_end" />

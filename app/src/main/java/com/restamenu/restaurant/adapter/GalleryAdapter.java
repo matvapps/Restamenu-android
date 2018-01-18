@@ -68,7 +68,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             String image = items.get(position).getImage();
             String backgroundUrl = image.substring(1, image.length());
             Picasso.with(holder.itemView.getContext())
-                    .load(BuildConfig.BASE_URL + backgroundUrl).into(imageViewHolder.photo);
+                    .load(BuildConfig.BASE_URL + backgroundUrl + BuildConfig.IMAGE_WIDTH_400).into(imageViewHolder.photo);
 
 
         } else if (position > 0 && useScrollIt) {

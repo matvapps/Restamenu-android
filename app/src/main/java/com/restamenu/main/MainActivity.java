@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
@@ -20,6 +21,7 @@ import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.RestaurantActivity;
 import com.restamenu.util.DimensionUtil;
 import com.restamenu.util.Logger;
+import com.restamenu.views.recycler.EndlessRecyclerOnScrollListener;
 import com.restamenu.views.search.RestaurantsSearchView;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.Orientation;
@@ -41,6 +43,14 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     private ImageView nearbyContainerBackground;
     private RestaurantsSearchView searchView;
     private List<Institute> institutes;
+
+    private String keyword = null;
+    private String filterCuisines = null;
+    private String filterInstitutes = null;
+
+    private int currentPage = 1;
+
+    private boolean hasOtherPages;
 
     @Override
     protected void initViews() {
@@ -80,9 +90,6 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
             nearbyRestaurantsRecycler.setAdapter(nearbyRestaurantListAdapter);
         }
 
-        restaurantsRecycler.setNestedScrollingEnabled(false);
-        restaurantsRecycler.setHasFixedSize(false);
-
         if (isTablet()) {
             final int span_count = getResources().getInteger(R.integer.restaurant_span_count);
             GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, span_count);
@@ -109,12 +116,20 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
             restaurantsRecycler.setLayoutManager(gridLayoutManager);
         } else {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
-            //linearLayoutManager.setAutoMeasureEnabled(false);
             restaurantsRecycler.setLayoutManager(linearLayoutManager);
         }
-
         restaurantListAdapter = new RestaurantListAdapter(this);
         restaurantsRecycler.setAdapter(restaurantListAdapter);
+        restaurantsRecycler.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
+            @Override
+            public void onLoadNextPage(View view) {
+                if (hasOtherPages) {
+                    hasOtherPages = false;
+                    currentPage++;
+                    presenter.loadRestaurants(currentPage, keyword, filterCuisines, filterInstitutes);
+                }
+            }
+        });
 
     }
 
@@ -125,7 +140,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
             presenter = new MainPresenter(DimensionUtil.getScreenWidth(this));
         }
         presenter.attachView(this);
-        presenter.init();
+        presenter.init(currentPage);
 
     }
 
@@ -136,20 +151,23 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     @Override
     protected int getContentViewLayoutId() {
-        return R.layout.activity_main;
+        return R.layout.activity_test_main;
     }
 
     @Override
-    public void setData(@NonNull List<Restaurant> data) {
-        Logger.log("Set restaurants: " + data.size());
-        restaurantListAdapter.setData(data);
+    public void setData(List<Restaurant> data) {
+        hasOtherPages = true;
+        if (currentPage == 1)
+            restaurantListAdapter.setItems(data);
+        else
+            restaurantListAdapter.addItems(data);
     }
 
     @Override
     public void setFoundedRestaurants(List<Restaurant> data) {
-        Logger.log("Found: " + data.size() + " restaurant('s)");
+        Logger.log("Found :" + data.size() + " restaurants");
         restaurantListAdapter = new RestaurantListAdapter(this);
-        restaurantListAdapter.setData(data);
+        restaurantListAdapter.setItems(data);
         restaurantListAdapter.setInstituteList(institutes);
         restaurantsRecycler.setAdapter(restaurantListAdapter);
     }
@@ -170,7 +188,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     @Override
     public void setNearRestaurants(List<Restaurant> data) {
-        Logger.log("Set near restaurants: " + data.toString());
+        Logger.log("Near: " + data.toString());
 
 
         if (isTablet()) {
@@ -246,7 +264,6 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         Logger.log("snapped item: " + position);
     }
 
-
     @Override
     public void finish() {
         // dismiss filter popup window if it's showing on phone
@@ -266,12 +283,12 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
      * SearchListener
      */
     @Override
-    public void onPerformSearch(List<PopupFilterItem> filterList, CharSequence searchString) {
+    public void onPerformSearch(List<CheckedItem> filterList, CharSequence searchString) {
 
         List<Cusine> cuisineFilterList = new ArrayList<>();
         List<Institute> instituteFilterList = new ArrayList<>();
 
-        for (PopupFilterItem item : filterList) {
+        for (CheckedItem item : filterList) {
             Object obj = item.getItem();
 
             if (obj instanceof Cusine) {
@@ -281,22 +298,23 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
             }
         }
 
-        String filterCuisineParam = filterListToString(cuisineFilterList);
-        String filterInstituteParam = filterListToString(instituteFilterList);
-        String keyword = searchString.toString();
+        filterCuisines = filterListToString(cuisineFilterList);
+        filterInstitutes = filterListToString(instituteFilterList);
+        keyword = searchString.toString();
 
-        if (!keyword.equals("") || !filterCuisineParam.equals("") || !filterInstituteParam.equals("")) {
-            presenter.performSearch(keyword, filterCuisineParam, filterInstituteParam);
-        }
+        currentPage = 1;
+        restaurantListAdapter.setItems(new ArrayList<>());
+        presenter.loadRestaurants(currentPage, keyword, filterCuisines, filterInstitutes);
+
     }
 
     @Override
-    public void onInputDataChanged(List<PopupFilterItem> filterList, String keyword) {
+    public void onInputDataChanged(List<CheckedItem> filterList, String keyword) {
 
         List<Cusine> cuisineFilterList = new ArrayList<>();
         List<Institute> instituteFilterList = new ArrayList<>();
 
-        for (PopupFilterItem item : filterList) {
+        for (CheckedItem item : filterList) {
             Object obj = item.getItem();
 
             if (obj instanceof Cusine) {
@@ -314,16 +332,6 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
             presenter.loadSuggestions(keyword, filterCuisineParam, filterInstituteParam);
         }
     }
-
-    //    @Override
-//    public void onInstituteChanged(PopupFilterItem institute) {
-//
-//    }
-//
-//    @Override
-//    public void onCuisineChanged(PopupFilterItem cuisine) {
-//
-//    }
 
     private String filterListToString(List filterList) {
         StringBuilder result = new StringBuilder();

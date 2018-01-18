@@ -33,23 +33,11 @@ public class MainPresenter implements Presenter<MainView> {
         this.view = null;
     }
 
-    public void init() {
-        loadData();
+    public void init(int page) {
+        loadData(page, null, null, null);
     }
 
-    public void performSearch(String keyword, String filterCuisines, String filterInstitutes) {
-        view.showLoading(true);
-        RepositoryProvider.getAppRepository()
-                .getRestaurants(1, keyword, filterCuisines, filterInstitutes, null, true)
-                .flatMap(Flowable::fromIterable)
-                .toList()
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
-                .subscribe(restaurants -> {
-                    view.showLoading(false);
-                    view.setFoundedRestaurants(restaurants);
-                }, throwable -> view.showError());
-    }
+
 
     private void loadNearRestaurants(int width) {
         view.showLoading(true);
@@ -65,10 +53,22 @@ public class MainPresenter implements Presenter<MainView> {
                 }, throwable -> view.showError());
     }
 
-    private void loadRestaurants() {
+    public void performSearch(int page, String keyword, String filterCuisines, String filterInstitutes){
         view.showLoading(true);
+        RepositoryProvider.getAppRepository().getRestaurants(1, keyword, filterCuisines, filterInstitutes, page, true)
+                .flatMap(Flowable::fromIterable)
+                .toList()
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(restaurants -> {
+                    view.showLoading(false);
+                    view.setFoundedRestaurants(restaurants);
+                }, throwable -> view.showError());
+    }
 
-        RepositoryProvider.getAppRepository().getRestaurants(1, 1)
+    public void loadRestaurants(int page, String keyword, String filterCuisines, String filterInstitutes) {
+        view.showLoading(true);
+        RepositoryProvider.getAppRepository().getRestaurants(1, keyword, filterCuisines, filterInstitutes, page, true)
                 .flatMap(Flowable::fromIterable)
                 .toList()
                 .subscribeOn(schedulerProvider.io())
@@ -93,22 +93,6 @@ public class MainPresenter implements Presenter<MainView> {
 
     }
 
-    private void loadInstitutions() {
-        view.showLoading(true);
-
-        RepositoryProvider.getAppRepository().getInstitutions()
-                .flatMap(Flowable::fromIterable)
-                .toList()
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
-                .subscribe(institutes -> {
-                    view.showLoading(false);
-                    view.setInstitutions(institutes);
-                    loadRestaurants();
-                    loadNearRestaurants(width);
-                }, throwable -> view.showError());
-    }
-
     private void loadCuisines() {
         view.showLoading(true);
 
@@ -123,9 +107,21 @@ public class MainPresenter implements Presenter<MainView> {
                 }, throwable -> view.showError());
     }
 
-    private void loadData() {
-        //view.showLoading(true);
-        loadInstitutions();
+    private void loadData(int page, String keyword, String filterCuisines, String filterInstitutes) {
+        view.showLoading(true);
+
+        RepositoryProvider.getAppRepository().getInstitutions()
+                .flatMap(Flowable::fromIterable)
+                .toList()
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(institutes -> {
+                    view.showLoading(false);
+                    view.setInstitutions(institutes);
+                    loadRestaurants(page, keyword, filterCuisines, filterInstitutes);
+                    loadNearRestaurants(width);
+                }, throwable -> view.showError());
+
         loadCuisines();
     }
 }

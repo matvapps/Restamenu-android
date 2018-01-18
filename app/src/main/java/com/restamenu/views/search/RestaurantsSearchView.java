@@ -35,8 +35,8 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.restamenu.R;
+import com.restamenu.main.CheckedItem;
 import com.restamenu.main.PopupDropDownAdapter;
-import com.restamenu.main.PopupFilterItem;
 import com.restamenu.model.content.Cusine;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
@@ -60,7 +60,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
     private int mAnimationDuration;
     private boolean mClearingFocus;
     private ListAdapter mAdapter;
-    private List<PopupFilterItem> filterList;
+    private List<CheckedItem> filterList;
     private String keyword;
     //Views
     private View mSearchLayout;
@@ -259,13 +259,10 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
             }
         });
 
-        mSearchSrcTextView.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    showKeyboard(mSearchSrcTextView);
-                    showSuggestions();
-                }
+        mSearchSrcTextView.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                showKeyboard(mSearchSrcTextView);
+                showSuggestions();
             }
         });
     }
@@ -303,7 +300,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
     public void setCuisines(List<Cusine> cusines) {
 
         for (int i = 0; i < cusines.size(); i++) {
-            cuisinePopupDropdownAdapter.addItem(new PopupFilterItem<>(cusines.get(i), false));
+            cuisinePopupDropdownAdapter.addItem(new CheckedItem<>(cusines.get(i), false));
         }
 
         if (isTablet()) {
@@ -350,7 +347,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
 
     public void setInstitutions(List<Institute> data) {
         for (int i = 0; i < data.size(); i++) {
-            institutePopupDropdownAdapter.addItem(new PopupFilterItem<>(data.get(i), false));
+            institutePopupDropdownAdapter.addItem(new CheckedItem<>(data.get(i), false));
         }
 
         if (isTablet()) {
@@ -428,8 +425,9 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
 //                closeSearch();
                 mSearchSrcTextView.setText(null);
             }
-            searchListener.onPerformSearch(filterList, query);
         }
+        clearFocus();
+        searchListener.onPerformSearch(filterList, query);
     }
 
     public void hideKeyboard(View view) {
@@ -454,8 +452,6 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
             mSearchTopBar.setBackgroundDrawable(background);
         }*/
     }
-
-    //Public Attributes
 
     @Override
     public void setBackgroundColor(int color) {
@@ -802,30 +798,30 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
     }
 
     @Override
-    public void onFilterItemChanged(PopupFilterItem item) {
+    public void onFilterItemChanged(CheckedItem item) {
         if (!item.isChecked()) {
             removeFromFilterList(item);
         } else {
             addToFilterList(item);
         }
-
-        if (!filterPopup.isShowing())
-            searchListener.onInputDataChanged(filterList, keyword);
+        if (filterPopup != null)
+            if (!filterPopup.isShowing())
+                searchListener.onInputDataChanged(filterList, keyword);
     }
 
-    public List<PopupFilterItem> getFilterList() {
+    public List<CheckedItem> getFilterList() {
         return filterList;
     }
 
-    public void addToFilterList(PopupFilterItem item) {
+    public void addToFilterList(CheckedItem item) {
         filterList.add(item);
     }
 
-    public void removeFromFilterList(PopupFilterItem item) {
+    public void removeFromFilterList(CheckedItem item) {
         filterList.remove(item);
     }
 
-    public void setFilterList(List<PopupFilterItem> filterList) {
+    public void setFilterList(List<CheckedItem> filterList) {
         this.filterList = filterList;
     }
 
@@ -839,7 +835,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
 
 
     public interface SearchListener {
-        void onPerformSearch(List<PopupFilterItem> filterList, CharSequence searchString);
+        void onPerformSearch(List<CheckedItem> filterList, CharSequence searchString);
 //
 //        void onInstituteChanged();
 //
@@ -847,7 +843,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
 //
 //        void onKeywordChanged();
 
-        void onInputDataChanged(List<PopupFilterItem> filterList, String keyword);
+        void onInputDataChanged(List<CheckedItem> filterList, String keyword);
     }
 
     public interface OnQueryTextListener {

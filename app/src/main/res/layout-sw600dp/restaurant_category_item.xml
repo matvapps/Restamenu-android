@@ -18,7 +18,7 @@
         android:layout_height="@dimen/land_category_background_height"
         android:scaleType="centerCrop"
         android:background="@color/greyish"
-        app:riv_corner_radius="3dp" />
+        app:riv_corner_radius="@dimen/land_rest_card_nearby_radius" />
 
     <TextView
         android:id="@+id/category_name"

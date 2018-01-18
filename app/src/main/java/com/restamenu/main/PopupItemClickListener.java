@@ -5,5 +5,5 @@ package com.restamenu.main;
  */
 
 public interface PopupItemClickListener {
-    void onClick(PopupFilterItem popupFilterItem);
+    void onClick(CheckedItem checkedItem);
 }

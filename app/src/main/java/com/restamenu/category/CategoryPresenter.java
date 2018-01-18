@@ -38,14 +38,38 @@ public class CategoryPresenter implements Presenter<CategoryView> {
 
     }
 
+    public void loadCurrencies(int language_id) {
+        view.showLoading(true);
+        RepositoryProvider.getAppRepository().getCurrencies(language_id)
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(currencies -> {
+                    view.setCurrencies(currencies);
+                    view.showLoading(false);
+                }, throwable -> view.showError());
+    }
 
-    public void loadData() {
+    public void loadLanguages() {
+        view.showLoading(true);
+        RepositoryProvider.getAppRepository().getLanguages()
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(languages -> {
+                    view.setLanguages(languages);
+                    view.showLoading(false);
+                }, throwable -> view.showError());
+    }
+
+
+    public void loadData(int languageId) {
         RepositoryProvider.getAppRepository().getCategories(restaurantId, serviceId)
                 .flatMap(Flowable::fromIterable)
                 .toList()
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(categories -> {
+                    loadLanguages();
+                    loadCurrencies(languageId);
                     view.setData(categories);
                 }, throwable -> view.showError());
     }

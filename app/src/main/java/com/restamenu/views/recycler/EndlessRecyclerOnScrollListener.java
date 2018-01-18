@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.widget.Toast;
 
 /**
  * Created by alessio.
@@ -66,7 +67,7 @@ public class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListen
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         int visibleItemCount = layoutManager.getChildCount();
         int totalItemCount = layoutManager.getItemCount();
-        if ((visibleItemCount > 0 && currentScrollState == RecyclerView.SCROLL_STATE_IDLE && (lastVisibleItemPosition) >= totalItemCount - 1)) {
+        if ((visibleItemCount > 0 && (lastVisibleItemPosition) >= totalItemCount - 1)) {
             onLoadNextPage(recyclerView);
         }
     }
@@ -83,6 +84,7 @@ public class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListen
 
     @Override
     public void onLoadNextPage(final View view) {
+
     }
 
     public static enum LayoutManagerType {

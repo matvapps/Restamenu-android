@@ -1,11 +1,7 @@
 package com.restamenu.base;
 
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.Toast;
-
-import com.restamenu.R;
 
 /**
  * @author Roodie
@@ -51,6 +47,7 @@ public abstract class BasePresenterActivity<P extends Presenter<V>, V, M> extend
     @Override
     public void showError() {
         loadingView.hideLoadingIndicator();
-        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+        //TODO:
+//        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
     }
 }

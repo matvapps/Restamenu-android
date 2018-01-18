@@ -26,12 +26,11 @@
                 android:id="@+id/restaurant_background"
                 android:layout_width="@dimen/land_rest_card_nearby_width"
                 android:layout_height="@dimen/land_rest_card_nearby_background_height"
-                android:background="@color/white_two"
                 android:scaleType="centerCrop"
                 app:riv_corner_radius_bottom_left="0dp"
                 app:riv_corner_radius_bottom_right="0dp"
-                app:riv_corner_radius_top_left="@dimen/land_rest_card_nearby_backround_radius"
-                app:riv_corner_radius_top_right="@dimen/land_rest_card_nearby_backround_radius" />
+                app:riv_corner_radius_top_left="@dimen/land_rest_card_nearby_radius"
+                app:riv_corner_radius_top_right="@dimen/land_rest_card_nearby_radius" />
 
 
             <TextView
