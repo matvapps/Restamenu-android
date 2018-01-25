@@ -77,7 +77,7 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
             case 1:
                 if (usingServices.indexOf(1) == -1) {
                     view.setEnabled(false);
-                    titleText.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.warm_grey_66));
+                    titleText.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.black));
                     serviceImage.setVisibility(View.INVISIBLE);
                     notAvailable.setVisibility(View.VISIBLE);
                 } else {
@@ -91,7 +91,7 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
             case 2:
                 if (usingServices.indexOf(2) == -1) {
                     view.setEnabled(false);
-                    titleText.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.warm_grey_66));
+                    titleText.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.black));
                     serviceImage.setVisibility(View.INVISIBLE);
                     notAvailable.setVisibility(View.VISIBLE);
                 } else{
@@ -105,7 +105,7 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
             case 3:
                 if (usingServices.indexOf(3) == -1) {
                     view.setEnabled(false);
-                    titleText.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.warm_grey_66));
+                    titleText.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.black));
                     serviceImage.setVisibility(View.INVISIBLE);
                     notAvailable.setVisibility(View.VISIBLE);
 

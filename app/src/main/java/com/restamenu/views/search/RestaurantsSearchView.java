@@ -423,7 +423,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
             if (mOnQueryChangeListener == null || !mOnQueryChangeListener.onQueryTextSubmit(query.toString())) {
 //                closeSearch();
-                mSearchSrcTextView.setText(null);
+//                mSearchSrcTextView.setText(null);
             }
         }
         clearFocus();
@@ -649,9 +649,8 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
             return;
         }
 
-        //Request Focus
         mSearchSrcTextView.setText(null);
-        mSearchSrcTextView.requestFocus();
+//        mSearchSrcTextView.requestFocus();
 
         if (animate) {
             setVisibleWithAnimation();

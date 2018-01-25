@@ -86,7 +86,7 @@
                 android:layout_marginEnd="@dimen/category_product_item_quantity_container_margin_end"
                 android:layout_marginRight="@dimen/category_product_item_quantity_container_margin_end"
                 android:layout_marginTop="@dimen/product_quantity_container_margin_top"
-                android:background="@drawable/round_rect_stroke_grey"
+                android:background="@drawable/rect_fill_stroke_grey"
                 android:paddingLeft="@dimen/category_product_item_quantity_container_padding_horizontal"
                 android:paddingRight="@dimen/category_product_item_quantity_container_padding_horizontal"
                 app:layout_constraintBottom_toBottomOf="@+id/product_price"

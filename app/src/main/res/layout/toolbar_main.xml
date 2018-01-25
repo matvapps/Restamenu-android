@@ -92,7 +92,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/toolbar_main_city_title_margin_end"
-                    android:layout_marginRight="@dimen/toolbar_main_city_title_margin_end"
+                    android:fontFamily="@font/open_sans"
                     android:gravity="center_horizontal"
                     android:text="City"
                     android:textColor="#000000"

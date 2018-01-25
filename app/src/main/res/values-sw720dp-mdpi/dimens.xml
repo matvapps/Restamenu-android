@@ -3,8 +3,9 @@
 	<item name="isLargeLayout" type="bool">true</item>
 	<item name="restaurant_span_count" type="integer">3</item>
 	<item name="product_span_count" type="integer">4</item>
+    <dimen name="popup_product_image_gallery_height">227.25dp</dimen>
 
-	<dimen name="splash_cursor_margin_left">228dp</dimen>
+    <dimen name="splash_cursor_margin_left">228dp</dimen>
 	<dimen name="splash_title_width">210dp</dimen>
 	<dimen name="splash_title_height">90dp</dimen>
 	<dimen name="splash_cursor_width">18dp</dimen>

@@ -51,7 +51,6 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
 
     private FrameLayout searchContainer;
-    private EditText searchEditText;
     private LinearLayout searchButton;
 
     private KeyValueStorage keyValueStorage;
@@ -127,9 +126,12 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         pager.setAdapter(pagerAdapter);
 
         categoryIndex = getCategoryIndex(data, categoryId);
+
+        Logger.log("Category index = " + categoryIndex);
+
         txtCategoryName.setText(data.get(categoryIndex).getName());
 
-
+        pager.scrollToPosition(categoryIndex);
         btnTopCategoryPrevious.setOnClickListener(this);
         btnTopCategoryNext.setOnClickListener(this);
 
@@ -140,18 +142,12 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
         if (categoryIndex == (data.size() - 1)) {
 
-//            btnTopCategoryNext.setEnabled(false);
-//            btnTopCategoryNext.setVisibility(View.INVISIBLE);
-
             btnTopCategoryPrevious.setEnabled(true);
             btnTopCategoryPrevious.setVisibility(View.VISIBLE);
 
 
             if (isTablet()) {
                 prevCategoryName.setText(data.get(categoryIndex + PREV_CATEGORY).getName());
-
-//                btnBottomCategoryNext.setEnabled(false);
-//                btnBottomCategoryNext.setVisibility(View.INVISIBLE);
 
                 nextCategoryName.setText("To First");
 
@@ -162,19 +158,12 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
         } else if (categoryIndex == 0 && data.size() > 1) {
 
-//            btnTopCategoryPrevious.setEnabled(false);
-//            btnTopCategoryPrevious.setVisibility(View.INVISIBLE);
-
             btnTopCategoryNext.setEnabled(true);
             btnTopCategoryNext.setVisibility(View.VISIBLE);
 
             if (isTablet()) {
                 nextCategoryName.setText(data.get(categoryIndex + NEXT_CATEGORY).getName());
                 btnBottomCategoryNext.setOnClickListener(this);
-
-
-//                btnBottomCategoryPrevious.setVisibility(View.INVISIBLE);
-//                btnBottomCategoryPrevious.setEnabled(false);
 
                 prevCategoryName.setText("To Last");
 
@@ -244,6 +233,7 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         productHeader = findViewById(R.id.product_header);
         buttonFind = findViewById(R.id.button_find);
         findEditText = findViewById(R.id.search_edit_text);
+        findEditText.clearFocus();
 
         // For tablet
         btnBottomCategoryPrevious = findViewById(R.id.previous_category_button);
@@ -402,6 +392,19 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         public int getItemCount() {
             return categories.size();
         }
+    }
+
+    @Override
+    public void finish() {
+        // dismiss setting popup window if it's showing on phone
+        if (!isTablet()) {
+            if (settingView.getSettingPopup().isShowing()) {
+                settingView.dismissSettingPopup();
+                return;
+            }
+        }
+
+        super.finish();
     }
 
 }

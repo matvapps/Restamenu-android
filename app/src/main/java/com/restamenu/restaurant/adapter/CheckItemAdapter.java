@@ -123,11 +123,13 @@ public class CheckItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             if (getItem(position).isChecked()) {
                 languageViewHolder.name.setTextColor(
                         ContextCompat.getColor(languageViewHolder.itemView.getContext(), R.color.grey_99));
+                languageViewHolder.image.setAlpha(0.2f);
                 if (!isTablet())
                     languageViewHolder.check.setVisibility(View.VISIBLE);
             } else {
                 languageViewHolder.name.setTextColor(
                         ContextCompat.getColor(languageViewHolder.itemView.getContext(), R.color.cerulean));
+                languageViewHolder.image.setAlpha(1.0f);
                 languageViewHolder.check.setVisibility(View.INVISIBLE);
             }
             languageViewHolder.itemView.setOnClickListener(view -> {

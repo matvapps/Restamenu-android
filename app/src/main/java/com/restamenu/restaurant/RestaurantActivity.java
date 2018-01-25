@@ -722,6 +722,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         if (!isTablet()) {
             if (settingView.getSettingPopup().isShowing()) {
                 settingView.dismissSettingPopup();
+                return;
             }
         }
 

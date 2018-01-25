@@ -53,14 +53,14 @@
                     android:id="@+id/action_empty_btn"
                     style="@style/MSV_ImageButton"
                     android:layout_gravity="right"
-                    android:src="@drawable/ic_action_navigation_close"
+                    android:src="@drawable/ic_close"
                     android:visibility="gone" />
 
             </FrameLayout>
 
 
             <View
-                android:layout_width="1dp"
+                android:layout_width="@dimen/divider_width"
                 android:layout_height="match_parent"
                 android:background="#e6e6e6" />
 

@@ -26,9 +26,9 @@
         app:layout_constraintStart_toStartOf="parent"
         android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="@dimen/fragment_restaurant_header_margin_start"
-        android:layout_marginStart="@dimen/fragment_restaurant_header_margin_start"
-        android:layout_marginTop="@dimen/fragment_restaurant_header_margin_top">
+        android:paddingLeft="@dimen/fragment_restaurant_header_margin_start"
+        android:paddingRight="@dimen/fragment_restaurant_header_margin_start"
+        android:paddingTop="@dimen/fragment_restaurant_header_margin_top">
 
         <ImageView
             android:id="@+id/favourite_icon_image"
@@ -157,12 +157,12 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/open_sans"
         android:includeFontPadding="false"
+        android:text="Mon - Fri 10:00 - 23:00"
         android:textColor="@color/white"
         android:textSize="@dimen/fragment_restaurant_header_restaurant_data_text_size"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="@+id/restaurant_phone"
-        app:layout_constraintTop_toTopOf="@+id/imageView2"
-        android:text="Mon - Fri 10:00 - 23:00" />
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
 
     <com.yarolegovich.discretescrollview.DiscreteScrollView

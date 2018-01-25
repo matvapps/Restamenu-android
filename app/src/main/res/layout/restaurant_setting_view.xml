@@ -35,8 +35,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/toolbar_category_currency_title_margin_end"
-            android:layout_marginLeft="@dimen/toolbar_category_currency_title_margin_start"
-            android:layout_marginRight="@dimen/toolbar_category_currency_title_margin_end"
             android:layout_marginStart="@dimen/toolbar_category_currency_title_margin_start"
             android:fontFamily="@font/open_sans"
             android:gravity="center_horizontal"

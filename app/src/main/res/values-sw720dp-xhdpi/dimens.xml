@@ -2,8 +2,9 @@
     <item name="isLargeLayout" type="bool">true</item>
     <item name="restaurant_span_count" type="integer">3</item>
     <item name="product_span_count" type="integer">4</item>
+    <dimen name="popup_product_image_gallery_height">227.25dp</dimen>
 
-	<dimen name="land_frag_nearby_text_margin_top">48dp</dimen>
+    <dimen name="land_frag_nearby_text_margin_top">48dp</dimen>
 	<dimen name="land_rest_adv_card_radius">4dp</dimen>
 	<dimen name="land_popup_item_chbx_icon_height">9dp</dimen>
 	<dimen name="land_toolbar_main_logo_width">168dp</dimen>
