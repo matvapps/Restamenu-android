@@ -28,6 +28,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     private List<Product> items;
     private List<Product> defaultList;
+    private String currencyIcon = "$";
 
     ProductAdapter() {
         items = new ArrayList<>();
@@ -78,7 +79,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         if (priceOriginal == price) {
             holder.productPriceSub.setVisibility(View.INVISIBLE);
         } else {
-            holder.productPriceSub.setText(String.format("%s%d", "$", product.getPriceOriginal()));
+            holder.productPrice.setText(String.format("%d %s", product.getPriceOriginal(), currencyIcon));
         }
 
         //for (int i = 0; i < items.get(position).getSpecial().size(); i++)
@@ -97,7 +98,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         specialsAdapter.setItems(items.get(position).getSpecial());
 
 
-        holder.productPrice.setText(String.format("%s%d", "$", product.getPrice()));
+        holder.productPrice.setText(String.format("%d %s", product.getPrice(), currencyIcon));
 
     }
 
@@ -126,6 +127,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         updateItems(result);
     }
+
+    public String getCurrencyIcon() {
+        return currencyIcon;
+    }
+
+    public void setCurrencyIcon(String currencyIcon) {
+        this.currencyIcon = currencyIcon;
+    }
+
 
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {

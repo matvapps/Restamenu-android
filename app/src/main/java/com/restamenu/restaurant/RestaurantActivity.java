@@ -62,7 +62,7 @@ import java.util.List;
 
 public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresenter, RestaurantView, Restaurant>
         implements RestaurantView, CategoryClickListener, RestaurantsAdapter.ChangeServiceListener,
-        CompoundButton.OnCheckedChangeListener, SwipeRefreshLayout.OnRefreshListener, OnSettingItemChanged{
+        CompoundButton.OnCheckedChangeListener, SwipeRefreshLayout.OnRefreshListener, OnSettingItemChanged {
 
     public static final String KEY_RESTAURANT_ID = "key_rest_id";
 
@@ -93,7 +93,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     private TextView restaurantTypeView;
     private TextView restaurantAddressView;
     private TextView restaurantPhoneView;
-//    private TextView restaurantOpeningHours;
+    //    private TextView restaurantOpeningHours;
     private ImageView restaurantImage;
     private ImageView restaurantBackground;
     private RecyclerView recycler;
@@ -110,6 +110,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     private TextView aboutContentText;
     private ImageView mapImageView;
     private CustomSwipeToRefresh swipeRefreshLayout;
+    private TextView categoryTitleView;
 
     private CategoriesAdapter categoriesAdapter;
     private PromotionsAdapter promotionsAdapter;
@@ -189,6 +190,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         settingView = findViewById(R.id.settings_view);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         nestedScrollView = findViewById(R.id.nested_scroll_container);
+        categoryTitleView = findViewById(R.id.categories_list_title);
 
         galleryAdapter = new GalleryAdapter();
         settingView.setOnSettingItemChanged(this);
@@ -246,11 +248,26 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             serviceTakeAway = findViewById(R.id.button_takeaway);
             serviceDelivery = findViewById(R.id.button_delivery);
 
-            serviceDelivery.setOnClickListener(view -> changeService(3));
+            String pattern = "Menu sections for %s";
 
-            serviceTakeAway.setOnClickListener(view -> changeService(2));
 
-            serviceAtRestaurant.setOnClickListener(view -> changeService(1));
+            serviceDelivery.setOnClickListener(view -> {
+                String name = serviceDelivery.getTitleText();
+                categoryTitleView.setText(String.format(pattern, name));
+                changeService(3);
+            });
+
+            serviceTakeAway.setOnClickListener(view -> {
+                String name = serviceTakeAway.getTitleText();
+                categoryTitleView.setText(String.format(pattern, name));
+                changeService(2);
+            });
+
+            serviceAtRestaurant.setOnClickListener(view -> {
+                String name = serviceAtRestaurant.getTitleText();
+                categoryTitleView.setText(String.format(pattern, name));
+                changeService(1);
+            });
 
             initNavigationMenu();
 
@@ -411,7 +428,6 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     }
 
 
-
     @Override
     public void setData(@NonNull Restaurant data) {
         Logger.log("Restaurant: " + data.toString());
@@ -439,7 +455,26 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
             // add order
             int selectServicePos = getResources().getInteger(R.integer.select_service_pos);
-            adapter.setSelectedService(data.getServices().get(0));
+            int positionForHeader = 0;
+            if (data.getServices().size() < 3)
+                if (data.getServices().contains(1)) {
+                    positionForHeader = 0;
+                    Logger.log("data.getServices().contains(1)");
+                } else if (data.getServices().contains(2)) {
+                    positionForHeader = 1;
+                    Logger.log("data.getServices().contains(2)");
+                } else if (data.getServices().contains(3)) {
+                    Logger.log("data.getServices().contains(3)");
+                    positionForHeader = 2;
+                } else {
+                    positionForHeader = -1;
+                    Logger.log("data.din't contain any of item");
+                }
+            Logger.log("positionForHeader = " + positionForHeader);
+
+            if (positionForHeader != -1)
+                adapter.setSelectedService(data.getServices().get(positionForHeader));
+
             adapter.change(new AdapterItemType<>(getString(R.string.select_service_text), data.getServices(), ItemType.ORDER_TYPE_PHONE), selectServicePos);
         } else {
 //            categoriesAdapter.setRestaurantId(restaurant.getId());
@@ -520,12 +555,13 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
     public void openMapInBrowser(Location location) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        Uri geoLocation = Uri.parse("https://www.google.com.ua/maps/place/" + restaurant.getName() + "/@" + location.getGeo() + ",21z" );
+        Uri geoLocation = Uri.parse("https://www.google.com.ua/maps/place/" + restaurant.getName() + "/@" + location.getGeo() + ",21z");
         intent.setData(geoLocation);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
     }
+
     public void showMap(Location location) {
         Uri gmmIntentUri = Uri.parse("geo:" + location.getGeo() + "?q=restaurants");
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
@@ -609,7 +645,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     public void setLanguages(@NonNull List<Language> languages) {
         List<Language> restLangList = new ArrayList<>();
 
-        for (Integer langId: restaurant.getLanguages()) {
+        for (Integer langId : restaurant.getLanguages()) {
             for (int i = 0; i < languages.size(); i++) {
                 if (languages.get(i).getLanguage_id() == langId) {
                     restLangList.add(languages.get(i));
@@ -624,7 +660,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     public void setCurrencies(@NonNull List<Currency> currencies) {
         List<Currency> restCurrList = new ArrayList<>();
 
-        for (Integer currId: restaurant.getCurrencies()) {
+        for (Integer currId : restaurant.getCurrencies()) {
             for (int i = 0; i < currencies.size(); i++) {
                 if (currencies.get(i).getCurrency_id() == currId) {
                     restCurrList.add(currencies.get(i));
@@ -725,7 +761,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     public void onCategoryClicked(int categoryId) {
 
         CategoryActivity.start(RestaurantActivity.this, restaurant.getId(),
-                restaurant.getName(),1,  categoryId,
+                restaurant.getName(), 1, categoryId,
                 restaurant.getCurrencies(), restaurant.getLanguages());
     }
 

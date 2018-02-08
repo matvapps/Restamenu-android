@@ -38,11 +38,11 @@ public class KeyValueStorage {
     }
 
     public int getCurrencyId() {
-        return preferences.getInt("currency_id", 1);
+        return preferences.getInt("currency_id", -1);
     }
 
     public int getLanguageId() {
-        return preferences.getInt("language_id", 1);
+        return preferences.getInt("language_id", -1);
     }
 
 }

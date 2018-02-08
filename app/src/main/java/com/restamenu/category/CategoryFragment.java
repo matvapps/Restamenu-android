@@ -19,6 +19,8 @@ import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Currency;
 import com.restamenu.model.content.Language;
 import com.restamenu.model.content.Product;
+import com.restamenu.model.content.Restaurant;
+import com.restamenu.restaurant.RestaurantActivity;
 import com.restamenu.rx.BaseSchedulerProvider;
 import com.restamenu.rx.SchedulerProvider;
 import com.restamenu.util.Logger;
@@ -101,6 +103,10 @@ public class CategoryFragment extends Fragment implements OnCategoryDataChangeLi
 
         recycler.addItemDecoration(new MaterialViewPagerHeaderDecorator());
         adapter = new ProductAdapter();
+
+        String currencyIcon = ((CategoryActivity) getActivity()).getCurrentCurrency().getSymbol();
+        adapter.setCurrencyIcon(currencyIcon);
+
         recycler.setAdapter(adapter);
 
         if (category != null) {

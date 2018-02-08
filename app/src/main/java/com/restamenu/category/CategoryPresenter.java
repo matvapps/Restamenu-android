@@ -45,47 +45,35 @@ public class CategoryPresenter implements Presenter<CategoryView> {
                 .observeOn(schedulerProvider.ui())
                 .subscribe(currencies -> {
                     view.setCurrencies(currencies);
+                    loadProducts();
                     view.showLoading(false);
                 }, throwable -> view.showError());
     }
 
-    public void loadLanguages() {
+
+    public void loadProducts() {
         view.showLoading(true);
-        RepositoryProvider.getAppRepository().getLanguages()
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
-                .subscribe(languages -> {
-                    view.setLanguages(languages);
-                    view.showLoading(false);
-                }, throwable -> view.showError());
-    }
-
-
-    public void loadData(int languageId) {
         RepositoryProvider.getAppRepository().getCategories(restaurantId, serviceId)
                 .flatMap(Flowable::fromIterable)
                 .toList()
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(categories -> {
-                    loadLanguages();
-                    loadCurrencies(languageId);
                     view.setData(categories);
+                    view.showLoading(false);
                 }, throwable -> view.showError());
     }
 
 
-
-    /*public void loadProducts(int restaurantId, int categoryId) {
-        RepositoryProvider.getAppRepository().getCategoryProducts(restaurantId, categoryId)
-                .flatMap(Flowable::fromIterable)
-                .toList()
+    public void loadData(int languageId) {
+        RepositoryProvider.getAppRepository().getLanguages()
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
-                .subscribe(products -> {
-                    view.setProducts(products);
-                });
-    }*/
+                .subscribe(languages -> {
+                    view.setLanguages(languages);
+                    loadCurrencies(languageId);
+                }, throwable -> view.showError());
 
+    }
 
 }

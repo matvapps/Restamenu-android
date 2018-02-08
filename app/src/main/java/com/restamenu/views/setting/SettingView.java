@@ -194,6 +194,12 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
         int defaultLanguageId = keyValueStorage.getLanguageId();
         languageAdapter.setItems(new ArrayList<>());
 
+        boolean hasDefaultLang = false;
+
+        for (Language item: languages)
+            if (item.getLanguage_id() == defaultLanguageId)
+                hasDefaultLang = true;
+
         for (int i = 0; i < languages.size(); i++) {
             if (defaultLanguageId == languages.get(i).getLanguage_id()) {
 
@@ -209,6 +215,10 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
 
         }
 
+        // if user language not exist then use default language
+        if (!hasDefaultLang)
+            languageAdapter.checkItem(0);
+
     }
 
     public void setCurrencies(List<Currency> currencies) {
@@ -216,6 +226,12 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
 
         int defaultCurrencyId = keyValueStorage.getCurrencyId();
         currencyAdapter.setItems(new ArrayList<>());
+
+        boolean hasDefaultCurr = false;
+
+        for(Currency item: currencies)
+            if (item.getCurrency_id() == defaultCurrencyId)
+                hasDefaultCurr = true;
 
 
         for (int i = 0; i < currencies.size(); i++) {
@@ -233,6 +249,11 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
             else
                 currencyAdapter.addItem(new CheckedItem<>(currencies.get(i), false));
         }
+
+        // if user currency not exist then use default currency
+        if (!hasDefaultCurr)
+            languageAdapter.checkItem(0);
+
     }
 
     private void displayLanguagePopup(View anchorView) {
@@ -300,7 +321,7 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
                 curLanguageIcon.setImageResource(getLanguageFlag(language.getLanguage_id()));
             }
 
-            // TODO: update page with new language
+            onSettingItemChanged.onLanguageChanged(language);
 
         } else if (item.getItem() instanceof Currency) {
             Currency currency = ((Currency) item.getItem());
@@ -312,7 +333,7 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
                 curCurrencyIcon.setText(currency.getSymbol());
             }
 
-            // TODO: update page with new currency
+            onSettingItemChanged.onCurrencyChanged(currency);
         }
 
     }

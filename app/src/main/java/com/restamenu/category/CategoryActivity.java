@@ -56,6 +56,8 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     private SettingView settingView;
     private CustomSwipeToRefresh swipeRefreshLayout;
     private List<OnCategoryDataChangeListener> onCategoryDataChangeListeners;
+    private Language currentLanguage;
+    private Currency currentCurrency;
 
     //private View productHeader;
     //Header
@@ -104,7 +106,8 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         restaurantId = getIntent().getIntExtra(KEY_RESTAURANT_ID, 1);
 
         onCategoryDataChangeListeners = new ArrayList<>();
-
+        currentCurrency = new Currency();
+        currentLanguage = new Language();
 
         super.onCreate(savedInstanceState);
         keyValueStorage = new KeyValueStorage(this);
@@ -316,6 +319,7 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
                 }
             }
         }
+
         settingView.setLanguages(restLangList);
     }
 
@@ -376,7 +380,7 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         swipeRefreshLayout.setRefreshing(false);
     }
 
-    public synchronized void registerOnCategoryDataChangeListener (OnCategoryDataChangeListener onCategoryDataChangeListener) {
+    public synchronized void registerOnCategoryDataChangeListener(OnCategoryDataChangeListener onCategoryDataChangeListener) {
         onCategoryDataChangeListeners.add(onCategoryDataChangeListener);
     }
 
@@ -385,18 +389,8 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     }
 
 
-    public synchronized void langChanged(Language language) {
-        for (OnCategoryDataChangeListener item: onCategoryDataChangeListeners)
-            item.onLangChange(language, viewPager.getViewPager().getCurrentItem());
-    }
-
-    public synchronized void currChanged(Currency currency) {
-        for (OnCategoryDataChangeListener item: onCategoryDataChangeListeners)
-            item.onCurrChange(currency, viewPager.getViewPager().getCurrentItem());
-    }
-
     public synchronized void onPerformSearch(String str) {
-        for (OnCategoryDataChangeListener item: onCategoryDataChangeListeners)
+        for (OnCategoryDataChangeListener item : onCategoryDataChangeListeners)
             item.onPerformSearch(str, viewPager.getViewPager().getCurrentItem());
     }
 
@@ -405,12 +399,35 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
      */
     @Override
     public void onLanguageChanged(Language language) {
-//        onCategoryDataChangeListener.onLangChange(language);
+        currentLanguage = language;
+        presenter.loadData(language.getLanguage_id());
+        categoryId = categories.get(viewPager.getViewPager().getCurrentItem() - 1).geId();
     }
 
     @Override
     public void onCurrencyChanged(Currency currency) {
-//        onCategoryDataChangeListener.onCurrChange(currency);
+        currentCurrency = currency;
+        presenter.loadData(keyValueStorage.getLanguageId());
+        categoryId = categories.get(viewPager.getViewPager().getCurrentItem() - 1).geId();
     }
-    /**------------------------------------------- */
+
+    /**
+     * -------------------------------------------
+     */
+
+    public Language getCurrentLanguage() {
+        return currentLanguage;
+    }
+
+    public void setCurrentLanguage(Language currentLanguage) {
+        this.currentLanguage = currentLanguage;
+    }
+
+    public Currency getCurrentCurrency() {
+        return currentCurrency;
+    }
+
+    public void setCurrentCurrency(Currency currentCurrency) {
+        this.currentCurrency = currentCurrency;
+    }
 }

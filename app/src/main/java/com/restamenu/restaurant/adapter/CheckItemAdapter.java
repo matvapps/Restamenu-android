@@ -143,7 +143,7 @@ public class CheckItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     }
 
-    private void checkItem(int position) {
+    public void checkItem(int position) {
         for (CheckedItem item : items) {
             item.setChecked(false);
         }

@@ -26,6 +26,7 @@ public class ServiceButton extends RelativeLayout {
     private final ImageView image;
     private final TextView isAvailable;
     private final View triangle;
+    private String titleText;
     //private final View container;
 
     private boolean isServiceAvailable = true;
@@ -50,7 +51,7 @@ public class ServiceButton extends RelativeLayout {
         triangle = findViewById(R.id.triangle);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ServiceButton);
-        final String titleText = a.getString(R.styleable.ServiceButton_service_title);
+        titleText = a.getString(R.styleable.ServiceButton_service_title);
 
         final Drawable drawable = a.getDrawable(R.styleable.ServiceButton_service_icon);
         if (drawable != null) {
@@ -92,8 +93,8 @@ public class ServiceButton extends RelativeLayout {
             setSelected(true);
             triangle.setVisibility(VISIBLE);
             title.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
-            image.setScaleX(1.35f);
-            image.setScaleY(1.35f);
+            image.setScaleX(1.2f);
+            image.setScaleY(1.2f);
         } else {
             setDefaults();
         }
@@ -117,6 +118,16 @@ public class ServiceButton extends RelativeLayout {
         }
 
     }
+
+
+    public String getTitleText() {
+        return titleText;
+    }
+
+    public void setTitleText(String titleText) {
+        this.titleText = titleText;
+    }
+
 
 
     /**
