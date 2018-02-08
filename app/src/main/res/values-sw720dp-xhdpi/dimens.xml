@@ -339,5 +339,12 @@
 	<dimen name="land_category_product_margin_top">10dp</dimen>
 	<dimen name="land_sett_view_curr_icon_text_size">19sp</dimen>
 	<dimen name="land_item_currency_icon_container">36dp</dimen>
+	<dimen name="category_header_height">243dp</dimen>
+    <dimen name="search_cancel_size">14dp</dimen>
+    <dimen name="search_cancel_margin">24dp</dimen>
+    <dimen name="action_reset_height">52dp</dimen>
+    <dimen name="rounded_rect">16dp</dimen>
+    <dimen name="rounded_rect_height">14dp</dimen>
+    <dimen name="filter_quantity_text_size">8sp</dimen>
 
 </resources>

@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,6 +34,7 @@ import com.restamenu.model.content.Currency;
 import com.restamenu.model.content.Image;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Language;
+import com.restamenu.model.content.Location;
 import com.restamenu.model.content.Promotion;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.adapter.AdapterItemType;
@@ -44,8 +47,10 @@ import com.restamenu.restaurant.adapter.PromotionsAdapter;
 import com.restamenu.restaurant.adapter.RestaurantsAdapter;
 import com.restamenu.util.ListUtils;
 import com.restamenu.util.Logger;
+import com.restamenu.views.custom.CustomSwipeToRefresh;
 import com.restamenu.views.custom.ServiceButton;
-import com.restamenu.views.custom.SettingView;
+import com.restamenu.views.setting.OnSettingItemChanged;
+import com.restamenu.views.setting.SettingView;
 import com.restamenu.views.custom.StickyScrollView;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.Orientation;
@@ -56,14 +61,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresenter, RestaurantView, Restaurant>
-        implements RestaurantView, CategoryClickListener, RestaurantsAdapter.ChangeServiceListener, CompoundButton.OnCheckedChangeListener {
+        implements RestaurantView, CategoryClickListener, RestaurantsAdapter.ChangeServiceListener,
+        CompoundButton.OnCheckedChangeListener, SwipeRefreshLayout.OnRefreshListener, OnSettingItemChanged{
 
     public static final String KEY_RESTAURANT_ID = "key_rest_id";
 
     private final String CONTACT_FB = "fb.com";
     private final String CONTACT_INSTAGRAM = "instagram";
 
-    private final String HYPERLINK_PATTERN = "<a href=\"%s\"> %s </a>";
+    private final String HYPERLINK_PATTERN = "<a href=\"%s\" >%s</a>";
 
     private final String FACEBOOK_TITLE = "facebook";
     private final String INSTAGRAM_TITLE = "instagram";
@@ -103,10 +109,12 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     private RecyclerView contactsListRecycle;
     private TextView aboutContentText;
     private ImageView mapImageView;
+    private CustomSwipeToRefresh swipeRefreshLayout;
 
     private CategoriesAdapter categoriesAdapter;
     private PromotionsAdapter promotionsAdapter;
     private ContactsAdapter contactsAdapter;
+    private NestedScrollView nestedScrollView;
 
     private KeyValueStorage keyValueStorage;
 
@@ -179,9 +187,12 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         restaurantBackground = findViewById(R.id.restaurant_background);
         recycler = findViewById(R.id.recycler);
         settingView = findViewById(R.id.settings_view);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        nestedScrollView = findViewById(R.id.nested_scroll_container);
 
         galleryAdapter = new GalleryAdapter();
-        galleryAdapter = new GalleryAdapter();
+        settingView.setOnSettingItemChanged(this);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         //TODO:
         favouriteContainer.setOnClickListener(view -> {
@@ -306,6 +317,30 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
             });
         } else {
+
+            settingView.setSettingPopupOnDismissListener(() -> {
+                Display display = getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+
+                int width = size.x;
+                KeyValueStorage keyValueStorage = new KeyValueStorage(this);
+                presenter.loadData(width, keyValueStorage.getLanguageId());
+            });
+
+            nestedScrollView.getViewTreeObserver().addOnScrollChangedListener(() -> {
+                View view = (View) nestedScrollView.getChildAt(nestedScrollView.getChildCount() - 1);
+
+                int diff = (view.getBottom() - (nestedScrollView.getHeight() + nestedScrollView
+                        .getScrollY()));
+
+                if (nestedScrollView.getScrollY() == 0) {
+                    swipeRefreshLayout.setEnabled(true);
+                } else {
+                    swipeRefreshLayout.setEnabled(false);
+                }
+            });
+
             recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             recycler.setNestedScrollingEnabled(false);
 
@@ -376,6 +411,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     }
 
 
+
     @Override
     public void setData(@NonNull Restaurant data) {
         Logger.log("Restaurant: " + data.toString());
@@ -389,7 +425,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
 
         if (!isTablet()) {
-
+            adapter.setRestaurant(restaurant);
             int aboutTitlePos = getResources().getInteger(R.integer.about_title_pos);
             int aboutTextPos = getResources().getInteger(R.integer.about_text_pos);
 
@@ -399,7 +435,7 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
             // add map
             int mapPos = getResources().getInteger(R.integer.map_pos);
-            adapter.change(new AdapterItemType<Image>(restaurant.getLocation().getImage(), null, ItemType.MAP), mapPos);
+            adapter.change(new AdapterItemType<Location>(restaurant.getLocation().getImage(), restaurant.getLocation(), ItemType.MAP), mapPos);
 
             // add order
             int selectServicePos = getResources().getInteger(R.integer.select_service_pos);
@@ -422,6 +458,8 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             String backgroundUrl = restaurant.getLocation().getImage();
             Glide.with(this).load(BuildConfig.BASE_URL +
                     backgroundUrl.substring(1, backgroundUrl.length())).into(mapImageView);
+
+            mapImageView.setOnClickListener(view -> showMap(restaurant.getLocation()));
 
             if (ListUtils.isEmpty(data.getServices()))
                 return;
@@ -480,6 +518,35 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
     }
 
+    public void openMapInBrowser(Location location) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri geoLocation = Uri.parse("https://www.google.com.ua/maps/place/" + restaurant.getName() + "/@" + location.getGeo() + ",21z" );
+        intent.setData(geoLocation);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+    public void showMap(Location location) {
+        Uri gmmIntentUri = Uri.parse("geo:" + location.getGeo() + "?q=restaurants");
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null)
+            startActivity(mapIntent);
+        else
+            openMapInBrowser(location);
+    }
+
+//    https://www.google.com.ua/maps/place/Serafina+Dubai/@25.1948626,55.2759427,21z
+
+//    https://www.google.com/maps/place/CenturyLink+Field/@47.5951518,-122.3360168,17z/data=!4m5!3m4!1s0x54906aa3b9f1182b:0xa636cd513bba22dc!8m2!3d47.5951518!4d-122.3316394
+
+//    private void openMap(Location location) {
+//        String strUri = "http://maps.google.com/maps?q=loc:" + location + " (" + restaurant.getName() + ")";
+//        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(strUri));
+//        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+//        startActivity(intent);
+//    }
+
     private void setContacts(@NonNull Restaurant data) {
         ArrayList<Contact> contacts = new ArrayList<>();
         String stringDivider;
@@ -500,22 +567,14 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 //            openingHours.append(item).append(stringDivider);
 //        }
 
-        // format contacts
+        // format socials
         StringBuilder socialNetworks = new StringBuilder();
-        String socialTitle = "";
-        String hyperText = "";
-        for (String item : data.getSocial()) {
-            if (item.contains(CONTACT_FB)) {
-                hyperText = item.substring(item.lastIndexOf("/"));
-                hyperText = hyperText.replace("/", "@");
-                socialTitle = FACEBOOK_TITLE + ": ";
-            } else if (item.contains(CONTACT_INSTAGRAM)) {
-                hyperText = item.substring(item.lastIndexOf("/"));
-                socialTitle = INSTAGRAM_TITLE + ": ";
+        for (int i = 0; i < data.getSocial().size(); i++) {
+            if (i < data.getPhones().size() - 1) {
+                socialNetworks.append(data.getSocial().get(i)).append(stringDivider);
+            } else {
+                socialNetworks.append(data.getSocial().get(i));
             }
-
-            item = Html.fromHtml(String.format(HYPERLINK_PATTERN, item, hyperText)).toString();
-            socialNetworks.append(socialTitle).append(item).append(stringDivider);
         }
 
         // format phones
@@ -548,12 +607,31 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
     @Override
     public void setLanguages(@NonNull List<Language> languages) {
-        settingView.setLanguages(languages);
+        List<Language> restLangList = new ArrayList<>();
+
+        for (Integer langId: restaurant.getLanguages()) {
+            for (int i = 0; i < languages.size(); i++) {
+                if (languages.get(i).getLanguage_id() == langId) {
+                    restLangList.add(languages.get(i));
+                }
+            }
+        }
+
+        settingView.setLanguages(restLangList);
     }
 
     @Override
     public void setCurrencies(@NonNull List<Currency> currencies) {
-        settingView.setCurrencies(currencies);
+        List<Currency> restCurrList = new ArrayList<>();
+
+        for (Integer currId: restaurant.getCurrencies()) {
+            for (int i = 0; i < currencies.size(); i++) {
+                if (currencies.get(i).getCurrency_id() == currId) {
+                    restCurrList.add(currencies.get(i));
+                }
+            }
+        }
+        settingView.setCurrencies(restCurrList);
     }
 
     @Override
@@ -645,7 +723,10 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
     @Override
     public void onCategoryClicked(int categoryId) {
-        CategoryActivity.start(RestaurantActivity.this, restaurant.getId(),1,  categoryId, restaurant.getName());
+
+        CategoryActivity.start(RestaurantActivity.this, restaurant.getId(),
+                restaurant.getName(),1,  categoryId,
+                restaurant.getCurrencies(), restaurant.getLanguages());
     }
 
     private String getInstituteName(List<Institute> instituteList, int instituteId) {
@@ -729,4 +810,34 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         super.finish();
     }
 
+    @Override
+    public void onRefresh() {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        int width = size.x;
+        KeyValueStorage keyValueStorage = new KeyValueStorage(this);
+        presenter.loadData(width, keyValueStorage.getLanguageId());
+    }
+
+    @Override
+    public void showLoading(boolean show) {
+        super.showLoading(show);
+
+        if (!show) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+
+    }
+
+    @Override
+    public void onLanguageChanged(Language language) {
+
+    }
+
+    @Override
+    public void onCurrencyChanged(Currency currency) {
+
+    }
 }

@@ -32,8 +32,10 @@ public class Restaurant {
 //    private List<String> timing;
     private List<String> phones;
     private List<String> social;
-    private List<String> currency;
-    private List<String> languages;
+    @SerializedName("currency")
+    private int[] currencies;
+    @SerializedName("language")
+    private int[] languages;
 
     private boolean detailsFetched = false;
 
@@ -106,11 +108,11 @@ public class Restaurant {
         return social;
     }
 
-    public List<String> getCurrency() {
-        return currency;
+    public int[] getCurrencies() {
+        return currencies;
     }
 
-    public List<String> getLanguages() {
+    public int[] getLanguages() {
         return languages;
     }
 

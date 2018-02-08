@@ -17,7 +17,7 @@ import com.restamenu.R;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.RestaurantActivity;
-import com.restamenu.util.DimensionUtil;
+import com.restamenu.util.AndroidUtils;
 import com.restamenu.util.Logger;
 
 import java.util.ArrayList;
@@ -30,6 +30,9 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     private List<Institute> instituteList;
     private RestaurantClickListener listener;
     private RestaurantFilter filter;
+
+    private final int imageWidthPixels = 512;
+    private final int imageHeightPixels = 384;
 
     public RestaurantListAdapter(RestaurantClickListener listener) {
         restaurants = new ArrayList<>();
@@ -93,12 +96,13 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         String path = BuildConfig.BASE_URL + item.getImage().substring(1, item.getImage().length()) + BuildConfig.IMAGE_WIDTH_400;
 
 //        String path = BuildConfig.BASE_URL + item.getImage().substring(1, item.getImage().length());
-        path += "?width=" + DimensionUtil.getScreenWidth(holder.itemView.getContext());
+        path += "?width=" + AndroidUtils.getScreenWidth(holder.itemView.getContext());
 
         Glide.with(holder.itemView.getContext())
                 .load(path)
                 .apply(new RequestOptions()
-                        .placeholder(R.color.greyish))
+                        .placeholder(R.color.greyish)
+                        .override(imageWidthPixels, imageHeightPixels))
                 .into(holder.restaurantBackgroundImageView);
 
         for (int i = 0; i < item.getServices().size(); i++) {

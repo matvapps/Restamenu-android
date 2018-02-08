@@ -1,5 +1,8 @@
 package com.restamenu.restaurant.adapter;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +21,9 @@ import com.restamenu.R;
 import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Contact;
 import com.restamenu.model.content.Image;
+import com.restamenu.model.content.Location;
 import com.restamenu.model.content.Promotion;
+import com.restamenu.model.content.Restaurant;
 import com.restamenu.util.Logger;
 import com.restamenu.views.custom.ServiceButton;
 
@@ -34,6 +39,9 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private final ChangeServiceListener listener;
     private List<AdapterItemType> items;
     private int selectedService;
+    private Restaurant restaurant;
+    Context context;
+
 
     private CategoryClickListener categoryClickListener;
 
@@ -90,6 +98,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rootView;
+        context = parent.getContext();
         switch (viewType) {
             case 0:
                 rootView = LayoutInflater.from(parent.getContext())
@@ -304,12 +313,15 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
             // Map
             case 9: {
+
+                AdapterItemType<Location> mapItem = (AdapterItemType<Location>) item;
                 ImageViewHolder imageViewHolder = (ImageViewHolder) holder;
 
                 // load map
-                String backgroundUrl = item.getTitle().substring(1, item.getTitle().length());
+                String backgroundUrl = item.getTitle().substring(1, mapItem.getTitle().length());
                 Glide.with(holder.itemView.getContext()).load(BuildConfig.BASE_URL + backgroundUrl).into(imageViewHolder.image);
                 imageViewHolder.image.setVisibility(View.VISIBLE);
+                imageViewHolder.image.setOnClickListener(view -> showMap(mapItem.getData()));
                 break;
             }
             case 10: {
@@ -327,12 +339,35 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
+    public void openMapInBrowser(Location location) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri geoLocation = Uri.parse("https://www.google.com.ua/maps/place/" + restaurant.getName() + "/@" + location.getGeo() + ",21z" );
+        intent.setData(geoLocation);
+        if (intent.resolveActivity(context.getPackageManager()) != null) {
+            context.startActivity(intent);
+        }
+    }
+    public void showMap(Location location) {
+        Uri gmmIntentUri = Uri.parse("geo:" + location.getGeo() + "?q=restaurants");
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(context.getPackageManager()) != null)
+            context.startActivity(mapIntent);
+        else
+            openMapInBrowser(location);
+    }
+
+
     public CategoryClickListener getCategoryClickListener() {
         return categoryClickListener;
     }
 
     public void setCategoryClickListener(CategoryClickListener categoryClickListener) {
         this.categoryClickListener = categoryClickListener;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     public interface ChangeServiceListener {

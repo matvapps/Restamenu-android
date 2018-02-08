@@ -1,4 +1,4 @@
-package com.restamenu.views.custom;
+package com.restamenu.views.setting;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -26,6 +26,7 @@ import com.restamenu.restaurant.CheckItemChangeListener;
 import com.restamenu.restaurant.adapter.CheckItemAdapter;
 import com.restamenu.util.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -48,6 +49,8 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
 
     private TextView curCurrencyIcon;
     private ImageView curLanguageIcon;
+
+    private OnSettingItemChanged onSettingItemChanged;
 
     public SettingView(@NonNull Context context) {
         super(context, null);
@@ -163,6 +166,13 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
         View actionSave = layout.findViewById(R.id.button_save);
         actionSave.setOnClickListener(view -> settingPopup.dismiss());
 
+        settingPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+
+            }
+        });
+
         RecyclerView currencyList = layout.findViewById(R.id.currency_list);
         RecyclerView languageList = layout.findViewById(R.id.language_list);
 
@@ -182,14 +192,14 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
 
     public void setLanguages(List<Language> languages) {
         int defaultLanguageId = keyValueStorage.getLanguageId();
+        languageAdapter.setItems(new ArrayList<>());
 
         for (int i = 0; i < languages.size(); i++) {
             if (defaultLanguageId == languages.get(i).getLanguage_id()) {
 
                 if (isTablet()) {
-                    String langName = languages.get(i).getName();
-                    curLanguageText.setText(langName.substring(0, 3).toUpperCase());
-                    curLanguageIcon.setImageResource(getLanguageFlag(langName));
+                    curLanguageText.setText(languages.get(i).getShortName());
+                    curLanguageIcon.setImageResource(getLanguageFlag(languages.get(i).getLanguage_id()));
                 }
 
                 languageAdapter.addItem(new CheckedItem<>(languages.get(i), true));
@@ -199,14 +209,13 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
 
         }
 
-
-
     }
 
     public void setCurrencies(List<Currency> currencies) {
         Logger.log("Currencies from SettingView");
 
         int defaultCurrencyId = keyValueStorage.getCurrencyId();
+        currencyAdapter.setItems(new ArrayList<>());
 
 
         for (int i = 0; i < currencies.size(); i++) {
@@ -257,6 +266,10 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
             settingPopup.dismiss();
     }
 
+    public void setSettingPopupOnDismissListener(PopupWindow.OnDismissListener listener) {
+        settingPopup.setOnDismissListener(listener);
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -283,10 +296,11 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
             keyValueStorage.setLanguageId((language.getLanguage_id()));
 
             if (isTablet()) {
-                String langName = language.getName();
-                curLanguageText.setText(langName.substring(0,3).toUpperCase());
-                curLanguageIcon.setImageResource(getLanguageFlag(langName));
+                curLanguageText.setText(language.getShortName());
+                curLanguageIcon.setImageResource(getLanguageFlag(language.getLanguage_id()));
             }
+
+            // TODO: update page with new language
 
         } else if (item.getItem() instanceof Currency) {
             Currency currency = ((Currency) item.getItem());
@@ -298,19 +312,20 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
                 curCurrencyIcon.setText(currency.getSymbol());
             }
 
+            // TODO: update page with new currency
         }
 
     }
 
-    public int getLanguageFlag(String langName) {
-        switch (langName) {
-            case "English": {
+    public int getLanguageFlag(int langId) {
+        switch (langId) {
+            case 1: {
                 return R.drawable.ic_flag_uk;
             }
-            case "Русский": {
+            case 2: {
                 return R.drawable.ic__flag_russia;
             }
-            case "العربية": {
+            case 3: {
                 return R.drawable.ic_flag_arabic;
             }
         }
@@ -318,4 +333,11 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
     }
 
 
+    public OnSettingItemChanged getOnSettingItemChanged() {
+        return onSettingItemChanged;
+    }
+
+    public void setOnSettingItemChanged(OnSettingItemChanged onSettingItemChanged) {
+        this.onSettingItemChanged = onSettingItemChanged;
+    }
 }

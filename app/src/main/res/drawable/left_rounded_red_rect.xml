@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/dusty_red"/>
+
+            <corners android:bottomLeftRadius="@dimen/land_rest_card_nearby_radius"
+                android:topLeftRadius="@dimen/land_rest_card_nearby_radius"/>
+        </shape>
+    </item>
+</selector>

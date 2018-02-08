@@ -13,14 +13,8 @@
         android:screenOrientation="behind"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.MainActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+        <activity android:name=".main.MainActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
         </activity>
 
         <meta-data
@@ -33,16 +27,17 @@
         <activity
             android:name=".splash.SplashActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden">
+            android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".restaurant.RestaurantActivity"/>
         <activity android:name=".category.CategoryActivity"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
     </application>
 
 </manifest>

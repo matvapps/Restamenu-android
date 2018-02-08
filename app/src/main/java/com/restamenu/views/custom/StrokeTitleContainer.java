@@ -13,7 +13,7 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import com.restamenu.R;
-import com.restamenu.util.DimensionUtil;
+import com.restamenu.util.AndroidUtils;
 
 /**
  * Created by Alexandr.
@@ -30,7 +30,7 @@ public class StrokeTitleContainer extends FrameLayout {
     private float strokeSize;
     private float radius;
     private String hintText;
-    private float fontSize = DimensionUtil.convertDpToPixel(12, getContext());
+    private float fontSize = AndroidUtils.dpToPixel(12, getContext());
     private int textColor;
     private int strokeColor;
 
@@ -61,7 +61,7 @@ public class StrokeTitleContainer extends FrameLayout {
         strokePaint.setStrokeWidth(strokeSize);
 
 
-        int padding = (int) DimensionUtil.convertDpToPixel(16, getContext());
+        int padding = (int) AndroidUtils.dpToPixel(16, getContext());
         setPadding(padding, padding, padding, padding);
     }
 
@@ -120,8 +120,8 @@ public class StrokeTitleContainer extends FrameLayout {
         int width = viewWidth;
         int height = viewHeight;
 
-        float textShift = DimensionUtil.convertDpToPixel(4, getContext());
-        float shift = radius + DimensionUtil.convertDpToPixel(16, getContext());
+        float textShift = AndroidUtils.dpToPixel(4, getContext());
+        float shift = radius + AndroidUtils.dpToPixel(16, getContext());
 
         rectDest.set(fontSize / 2,
                 fontSize / 2,

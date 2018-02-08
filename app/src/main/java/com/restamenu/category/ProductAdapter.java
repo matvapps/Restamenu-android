@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.model.content.Product;
-import com.restamenu.util.Logger;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -68,8 +67,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(ProductAdapter.ProductViewHolder holder, int position) {
-        Logger.log("Bind View: " + position);
-
         Product product = items.get(position);
 
         holder.productName.setText(product.getName());
@@ -81,7 +78,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         if (priceOriginal == price) {
             holder.productPriceSub.setVisibility(View.INVISIBLE);
         } else {
-            holder.productPriceSub.setText(String.format("%d", product.getPriceOriginal()));
+            holder.productPriceSub.setText(String.format("%s%d", "$", product.getPriceOriginal()));
         }
 
         //for (int i = 0; i < items.get(position).getSpecial().size(); i++)
@@ -109,6 +106,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return items.size();
     }
 
+    public Product getItem(int position) {
+        return items.get(position);
+    }
 
     public void findProductBy(String characters) {
         List<Product> result = new ArrayList<>();

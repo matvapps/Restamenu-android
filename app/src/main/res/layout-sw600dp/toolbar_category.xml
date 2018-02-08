@@ -146,7 +146,7 @@
             tools:text="Serafina Dubai" />
 
 
-        <com.restamenu.views.custom.SettingView
+        <com.restamenu.views.setting.SettingView
             android:id="@+id/settings_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -67,6 +67,7 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
         TextView titleText = view.findViewById(R.id.order_type_title);
         ImageView serviceImage = view.findViewById(R.id.order_type_image);
         TextView notAvailable = view.findViewById(R.id.order_type_not_available);
+        View divider = view.findViewById(R.id.divider);
 
 
         ServiceType service = items.get(position);
@@ -121,6 +122,9 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
                 serviceTitle = "";
                 break;
         }
+
+        if (position == 3 && divider != null)
+            divider.setVisibility(View.INVISIBLE);
 
         titleText.setText(serviceTitle);
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/search_layout"
     android:layout_width="match_parent"
@@ -21,9 +22,9 @@
             android:id="@+id/search_top_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/search_view_height"
-            android:padding="1dp"
             android:background="@drawable/search_view_background"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="1dp">
 
             <FrameLayout
                 android:layout_width="0dp"
@@ -40,22 +41,37 @@
                     android:hint="@string/search_hint"
                     android:imeOptions="actionSearch"
                     android:inputType="textNoSuggestions"
+                    android:paddingEnd="@dimen/search_text_view_padding_right"
                     android:paddingLeft="@dimen/search_text_view_padding_left"
                     android:paddingRight="@dimen/search_text_view_padding_right"
+                    android:paddingStart="@dimen/search_text_view_padding_left"
                     android:singleLine="true"
                     android:textColor="#212121"
                     android:textColorHint="#999999"
-                    android:textSize="@dimen/search_text_view_size"
-                    android:paddingStart="@dimen/search_text_view_padding_left"
-                    android:paddingEnd="@dimen/search_text_view_padding_right" />
+                    android:textSize="@dimen/search_text_view_size" />
 
-                <ImageButton
+
+                <FrameLayout
                     android:id="@+id/action_empty_btn"
-                    style="@style/MSV_ImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="right"
-                    android:src="@drawable/ic_close"
-                    android:visibility="gone" />
+                    android:background="?android:attr/selectableItemBackground">
 
+
+                    <ImageView
+                        android:layout_width="@dimen/search_cancel_size"
+                        android:layout_height="@dimen/search_cancel_size"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/search_cancel_margin"
+                        android:layout_marginLeft="@dimen/search_cancel_margin"
+                        android:layout_marginRight="@dimen/search_cancel_margin"
+                        android:layout_marginStart="@dimen/search_cancel_margin"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_close"
+                        android:visibility="visible" />
+
+                </FrameLayout>
             </FrameLayout>
 
 
@@ -72,7 +88,39 @@
                 android:layout_margin="1dp"
                 android:background="?selectableItemBackground"
                 android:foreground="?selectableItemBackground"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/search_view_filter_text_margin_start"
+                android:paddingStart="@dimen/search_view_filter_text_margin_start">
+
+
+                <FrameLayout
+                    android:id="@+id/filter_quant_container"
+                    android:layout_width="@dimen/rounded_rect"
+                    android:layout_height="@dimen/rounded_rect_height"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/search_view_filter_text_margin_end"
+                    android:layout_marginLeft="@dimen/search_view_filter_text_margin_end"
+                    android:layout_marginRight="@dimen/search_view_filter_text_margin_end"
+                    android:layout_marginStart="@dimen/search_view_filter_text_margin_end"
+                    android:visibility="gone">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/rounded_rect_white"
+                        app:tint="@color/dusty_red" />
+
+
+                    <TextView
+                        android:id="@+id/filter_quantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/filter_quantity_text_size"
+                        tools:text="1" />
+
+                </FrameLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -80,8 +128,6 @@
                     android:layout_gravity="center"
                     android:layout_marginEnd="@dimen/search_view_filter_text_margin_end"
                     android:layout_marginRight="@dimen/search_view_filter_text_margin_end"
-                    android:layout_marginLeft="@dimen/search_view_filter_text_margin_start"
-                    android:layout_marginStart="@dimen/search_view_filter_text_margin_start"
                     android:text="Filter"
                     android:textColor="#c33c43"
                     android:textSize="@dimen/search_view_filter_text_size" />
@@ -89,10 +135,11 @@
                 <ImageView
                     android:layout_width="@dimen/search_view_arrow_width"
                     android:layout_height="@dimen/search_view_arrow_height"
-                    android:layout_marginRight="@dimen/search_view_arrow_margin_right"
-                    android:layout_marginEnd="@dimen/search_view_arrow_margin_right"
                     android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/search_view_arrow_margin_right"
+                    android:layout_marginRight="@dimen/search_view_arrow_margin_right"
                     android:src="@drawable/ic_arrow_down" />
+
 
             </LinearLayout>
 
@@ -116,10 +163,10 @@
         </LinearLayout>
 
         <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1dip"-->
-            <!--android:background="#fff"-->
-            <!--android:backgroundTint="#10000000" />-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dip"-->
+        <!--android:background="#fff"-->
+        <!--android:backgroundTint="#10000000" />-->
 
 
         <com.restamenu.views.custom.ExpandedListView

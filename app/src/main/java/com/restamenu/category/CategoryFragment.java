@@ -16,37 +16,37 @@ import android.widget.Toast;
 import com.restamenu.R;
 import com.restamenu.api.RepositoryProvider;
 import com.restamenu.model.content.Category;
+import com.restamenu.model.content.Currency;
+import com.restamenu.model.content.Language;
 import com.restamenu.model.content.Product;
 import com.restamenu.rx.BaseSchedulerProvider;
 import com.restamenu.rx.SchedulerProvider;
 import com.restamenu.util.Logger;
+import com.restamenu.views.pager.MaterialViewPagerHeaderDecorator;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
-import ru.noties.scrollable.CanScrollVerticallyDelegate;
-import ru.noties.scrollable.OnFlingOverListener;
 
-
-public class CategoryFragment extends Fragment implements CanScrollVerticallyDelegate, OnFlingOverListener {
-
-    private BaseSchedulerProvider schedulerProvider;
-
-    //private SwipeRefreshLayout refreshLayout;
-    private RecyclerView recycler;
-    private ProductAdapter adapter;
-
-    private Category category;
-    private int restaurantId;
-    private int serviceId;
-
+public class CategoryFragment extends Fragment implements OnCategoryDataChangeListener {
 
     private static final String KEY_CATEGORY = "key_category";
     private static final String KEY_RESTAURANT = "key_restaurant";
     private static final String KEY_SERVICE = "key_service";
+    private BaseSchedulerProvider schedulerProvider;
+    //private SwipeRefreshLayout refreshLayout;
+    private RecyclerView recycler;
+    private ProductAdapter adapter;
+    private LinearLayoutManager layoutManager;
+    private Category category;
+    private int restaurantId;
+    private int serviceId;
+
+    private boolean isVisible = false;
 
     @NonNull
-    public static CategoryFragment create(@NonNull Category category, @NonNull Integer restaurantId, @NonNull Integer serviceId) {
+    public static CategoryFragment create(@NonNull Category category, @NonNull Integer restaurantId,
+                                          @NonNull Integer serviceId) {
         CategoryFragment fragment = new CategoryFragment();
         Bundle args = new Bundle();
         args.putParcelable(KEY_CATEGORY, category);
@@ -63,28 +63,15 @@ public class CategoryFragment extends Fragment implements CanScrollVerticallyDel
         serviceId = getArguments().getInt(KEY_SERVICE);
         super.onCreate(savedInstanceState);
 
-        Logger.log("Create category id: " + category.geId());
+        ((CategoryActivity) getActivity()).registerOnCategoryDataChangeListener(this);
 
         schedulerProvider = SchedulerProvider.getInstance();
     }
 
-    /*@Override
-    public boolean canChildScrollVertically( int direction) {
-        return ScrollingViewDelegate.canScrollVertical(recycler, direction);
-    }*/
-
     @Override
-    public boolean canScrollVertically(int direction) {
-        //if (recycler != null)
-        //    Logger.log("Can scroll vertically : dir: " + direction + " : " + recycler.canScrollVertically(direction));
-        return recycler != null && recycler.canScrollVertically(direction);
-    }
-
-    @Override
-    public void onFlingOver(int y, long duration) {
-        if (recycler != null) {
-            recycler.smoothScrollBy(0, y);
-        }
+    public void onDestroy() {
+        super.onDestroy();
+        ((CategoryActivity) getActivity()).unregisterOnCategoryDataChangeListener(this);
     }
 
     @Nullable
@@ -104,11 +91,15 @@ public class CategoryFragment extends Fragment implements CanScrollVerticallyDel
         recycler = view.findViewById(R.id.recycler);
         //recycler.setNestedScrollingEnabled(false);
         recycler.setHasFixedSize(true);
-        if (isTablet())
-            recycler.setLayoutManager(new GridLayoutManager(getContext(), getResources().getInteger(R.integer.product_span_count)));
-        else
-            recycler.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        if (isTablet())
+            layoutManager = new GridLayoutManager(getContext(), getResources().getInteger(R.integer.product_span_count));
+        else
+            layoutManager = new LinearLayoutManager(getContext());
+
+        recycler.setLayoutManager(layoutManager);
+
+        recycler.addItemDecoration(new MaterialViewPagerHeaderDecorator());
         adapter = new ProductAdapter();
         recycler.setAdapter(adapter);
 
@@ -148,7 +139,31 @@ public class CategoryFragment extends Fragment implements CanScrollVerticallyDel
     }
 
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        isVisible = isVisibleToUser;
+    }
+
     protected boolean isTablet() {
         return getResources().getBoolean(R.bool.isLargeLayout);
+    }
+
+
+    @Override
+    public void onPerformSearch(String searchString, int position) {
+        if (isVisible)
+            adapter.findProductBy(searchString);
+    }
+
+    @Override
+    public void onLangChange(Language language, int position) {
+
+    }
+
+    @Override
+    public void onCurrChange(Currency currency, int position) {
+
     }
 }

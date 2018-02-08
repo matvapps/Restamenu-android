@@ -28,7 +28,6 @@ import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.PopupWindow;
@@ -73,7 +72,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
     private LinearLayout searchBtn;
     //private ImageButton mBackBtn;
     //private ImageButton mVoiceBtn;
-    private ImageButton mEmptyBtn;
+    private View mEmptyBtn;
     private LinearLayout mSearchTopBar;
     private CharSequence mOldQueryText;
     private CharSequence mUserQuery;
@@ -84,6 +83,9 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
     private PopupWindow cuisinePopup;
     private PopupWindow institutePopup;
     private PopupWindow filterPopup;
+
+    private List<Cusine> cusines;
+    private List<Institute> institutes;
 
     private final OnClickListener mOnClickListener = new OnClickListener() {
 
@@ -128,7 +130,6 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
         super(context, attrs);
 
         mContext = context;
-
         initiateView();
 
         initStyle(attrs, defStyleAttr);
@@ -154,9 +155,9 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
                 setHint(a.getString(R.styleable.RestaurantsSearchView_android_hint));
             }
 
-            if (a.hasValue(R.styleable.RestaurantsSearchView_searchCloseIcon)) {
-                setCloseIcon(a.getDrawable(R.styleable.RestaurantsSearchView_searchCloseIcon));
-            }
+//            /if (a.hasValue(R.styleable.RestaurantsSearchView_searchCloseIcon)) {
+//                setCloseIcon(a.getDrawable(R.styleable.RestaurantsSearchView_searchCloseIcon));
+//            }
 
             if (a.hasValue(R.styleable.RestaurantsSearchView_searchSuggestionBackground)) {
                 setSuggestionBackground(a.getDrawable(R.styleable.RestaurantsSearchView_searchSuggestionBackground));
@@ -177,7 +178,8 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
     private void initiateView() {
         LayoutInflater.from(mContext).inflate(R.layout.restaurant_search_view, this, true);
         mSearchLayout = findViewById(R.id.search_layout);
-
+        cusines = new ArrayList<>();
+        institutes = new ArrayList<>();
         mSearchTopBar = (LinearLayout) mSearchLayout.findViewById(R.id.search_top_bar);
         mSuggestionsListView = (ExpandedListView) mSearchLayout.findViewById(R.id.suggestion_list);
         mSearchSrcTextView = (EditText) mSearchLayout.findViewById(R.id.searchTextView);
@@ -185,7 +187,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
         selectInstituteView = (LinearLayout) mSearchLayout.findViewById(R.id.action_choose_institute);
         selectFilterView = mSearchLayout.findViewById(R.id.action_choose_filter);
         searchBtn = (LinearLayout) mSearchLayout.findViewById(R.id.action_search);
-        mEmptyBtn = (ImageButton) mSearchLayout.findViewById(R.id.action_empty_btn);
+        mEmptyBtn = (View) mSearchLayout.findViewById(R.id.action_empty_btn);
         mTintView = mSearchLayout.findViewById(R.id.transparent_view);
 
 
@@ -197,8 +199,27 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
 
             View layout = inflater.inflate(R.layout.filter_popup_content, null);
             View actionCancel = layout.findViewById(R.id.action_cancel);
+            View actionReset = layout.findViewById(R.id.action_reset);
+
+            actionReset.setOnClickListener(view -> {
+                cuisinePopupDropdownAdapter.setItems(new ArrayList<>());
+
+                for (int i = 0; i < cusines.size(); i++) {
+                    cuisinePopupDropdownAdapter.addItem(new CheckedItem<>(cusines.get(i), false));
+
+                }
+                institutePopupDropdownAdapter.setItems(new ArrayList<>());
+
+                for (int i = 0; i < institutes.size(); i++) {
+                    institutePopupDropdownAdapter.addItem(new CheckedItem<>(institutes.get(i), false));
+                }
+
+                filterList = new ArrayList<>();
+                searchListener.onInputDataChanged(filterList, keyword);
+            });
 
             actionCancel.setOnClickListener(view -> filterPopup.dismiss());
+            filterPopup.setOnDismissListener(() -> searchListener.onPerformSearch(filterList, keyword));
 
             filterPopup.setContentView(layout);
             filterPopup.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
@@ -299,6 +320,10 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
 
     public void setCuisines(List<Cusine> cusines) {
 
+        this.cusines = cusines;
+
+        cuisinePopupDropdownAdapter.setItems(new ArrayList<>());
+
         for (int i = 0; i < cusines.size(); i++) {
             cuisinePopupDropdownAdapter.addItem(new CheckedItem<>(cusines.get(i), false));
         }
@@ -346,6 +371,10 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
     }
 
     public void setInstitutions(List<Institute> data) {
+        this.institutes = data;
+
+        institutePopupDropdownAdapter.setItems(new ArrayList<>());
+
         for (int i = 0; i < data.size(); i++) {
             institutePopupDropdownAdapter.addItem(new CheckedItem<>(data.get(i), false));
         }
@@ -470,9 +499,9 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
         mSearchSrcTextView.setHint(hint);
     }
 
-    public void setCloseIcon(Drawable drawable) {
-        mEmptyBtn.setImageDrawable(drawable);
-    }
+//    public void setCloseIcon(Drawable drawable) {
+//        mEmptyBtn.setImageDrawable(drawable);
+//    }
 
     public void setSuggestionIcon(Drawable drawable) {
         suggestionIcon = drawable;
@@ -804,7 +833,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
             addToFilterList(item);
         }
         if (filterPopup != null)
-            if (!filterPopup.isShowing())
+//            if (!filterPopup.isShowing())
                 searchListener.onInputDataChanged(filterList, keyword);
     }
 

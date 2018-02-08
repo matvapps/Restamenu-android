@@ -153,7 +153,7 @@
                 android:layout_height="@dimen/land_category_product_quant_container_height"
                 android:layout_marginBottom="@dimen/land_category_product_buy_margin_borrom"
                 android:layout_marginTop="@dimen/land_category_product_buy_margin_top"
-                android:background="@color/dusty_red"
+                android:background="@drawable/left_rounded_red_rect"
                 android:gravity="center_vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

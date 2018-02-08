@@ -1,16 +1,25 @@
 package com.restamenu.main;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.github.florent37.viewanimator.ViewAnimator;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.restamenu.BuildConfig;
 import com.restamenu.R;
@@ -19,10 +28,13 @@ import com.restamenu.model.content.Cusine;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.RestaurantActivity;
-import com.restamenu.util.DimensionUtil;
+import com.restamenu.util.AndroidUtils;
 import com.restamenu.util.Logger;
+import com.restamenu.views.custom.CustomSwipeToRefresh;
 import com.restamenu.views.recycler.EndlessRecyclerOnScrollListener;
 import com.restamenu.views.search.RestaurantsSearchView;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.Orientation;
 import com.yarolegovich.discretescrollview.transform.Pivot;
@@ -32,7 +44,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView, List<Restaurant>>
-        implements MainView, RestaurantClickListener, DiscreteScrollView.OnItemChangedListener, GravitySnapHelper.SnapListener, RestaurantsSearchView.SearchListener {
+        implements MainView, RestaurantClickListener, DiscreteScrollView.OnItemChangedListener, GravitySnapHelper.SnapListener,
+        RestaurantsSearchView.SearchListener, SwipeRefreshLayout.OnRefreshListener, AppBarLayout.OnOffsetChangedListener {
 
     private View nearbyListContainer;
     private RecyclerView nearbyRestaurantsRecycler;
@@ -43,10 +56,64 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     private ImageView nearbyContainerBackground;
     private RestaurantsSearchView searchView;
     private List<Institute> institutes;
+    private CustomSwipeToRefresh swipeRefreshLayout;
+    private AppBarLayout appBarLayout;
+    private TextView filterQuantText;
+    private View filterQuantContainer;
+    private View filterContainer;
+
 
     private String keyword = null;
     private String filterCuisines = null;
     private String filterInstitutes = null;
+
+    private final Target target = new Target() {
+        @Override
+        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+            ViewAnimator
+                    .animate(nearbyContainerBackground)
+                    .duration(450)
+                    .interpolator(new AccelerateInterpolator())
+                    .alpha(1, 0.35f)
+                    .onStop(() -> {
+                        nearbyContainerBackground.setImageBitmap(bitmap);
+                    })
+                    .thenAnimate(nearbyContainerBackground)
+                    .duration(550)
+                    .interpolator(new AccelerateInterpolator())
+                    .alpha(0.35f, 1)
+                    .start();
+        }
+
+        @Override
+        public void onBitmapFailed(Drawable errorDrawable) {
+
+        }
+
+        @Override
+        public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+        }
+    };
+
+    private final SimpleTarget simpleTarget = new SimpleTarget<Drawable>() {
+        @Override
+        public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
+            ViewAnimator
+                    .animate(nearbyContainerBackground)
+                    .duration(450)
+                    .interpolator(new AccelerateInterpolator())
+                    .alpha(1, 0.35f)
+                    .onStop(() -> {
+                        nearbyContainerBackground.setImageDrawable(resource);
+                    })
+                    .thenAnimate(nearbyContainerBackground)
+                    .duration(550)
+                    .interpolator(new AccelerateInterpolator())
+                    .alpha(0.35f, 1)
+                    .start();
+        }
+    };
 
     private int currentPage = 1;
 
@@ -58,10 +125,19 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         nearbyRestaurantsRecycler = findViewById(R.id.restaurant_list_container);
         restaurantsRecycler = findViewById(R.id.restaurants_list);
         nearbyListContainer = findViewById(R.id.nearby_list_container);
-        nearbyListContainer.setVisibility(View.GONE);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         nearbyContainerBackground = findViewById(R.id.nearby_restaurants_container_background);
+        appBarLayout = findViewById(R.id.appbar_layout);
+        filterContainer = findViewById(R.id.action_choose_filter);
 
+        filterQuantText = findViewById(R.id.filter_quantity);
+
+
+        swipeRefreshLayout.setOnRefreshListener(this);
+        appBarLayout.addOnOffsetChangedListener(this);
+        nearbyListContainer.setVisibility(View.GONE);
         nearbyRestaurantListAdapter = new NearbyRestaurantListAdapter();
+
 
         searchView = findViewById(R.id.search_view);
         searchView.setSearchListener(this);
@@ -71,6 +147,8 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
 
         if (!isTablet()) {
+            filterQuantContainer = findViewById(R.id.filter_quant_container);
+            filterQuantText.setText("0");
             nearbyRestaurantPicker = findViewById(R.id.nearby_restaurant_picker);
             nearbyRestaurantPicker.setOrientation(Orientation.HORIZONTAL);
             nearbyRestaurantPicker.addOnItemChangedListener(this);
@@ -81,10 +159,26 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
                     .setPivotX(Pivot.X.LEFT)
                     .setPivotY(Pivot.Y.CENTER)
                     .build());
+            nearbyRestaurantPicker.addScrollStateChangeListener(new DiscreteScrollView.ScrollStateChangeListener<RecyclerView.ViewHolder>() {
+                @Override
+                public void onScrollStart(@NonNull RecyclerView.ViewHolder currentItemHolder, int adapterPosition) {
+
+                }
+
+                @Override
+                public void onScrollEnd(@NonNull RecyclerView.ViewHolder currentItemHolder, int adapterPosition) {
+                    onItemChanged(adapterPosition);
+                }
+
+                @Override
+                public void onScroll(float scrollPosition, int currentPosition, int newPosition, @Nullable RecyclerView.ViewHolder currentHolder, @Nullable RecyclerView.ViewHolder newCurrent) {
+
+                }
+            });
 
         } else {
             new GravitySnapHelper(Gravity.START, false, this)
-                    .attachToRecyclerView(nearbyRestaurantsRecycler);
+                    .attachToRecyclerView(nearbyRestaurantPicker);
 
             nearbyRestaurantsRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
             nearbyRestaurantsRecycler.setAdapter(nearbyRestaurantListAdapter);
@@ -137,9 +231,10 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     protected void attachPresenter() {
         Logger.log("Attach");
         if (presenter == null) {
-            presenter = new MainPresenter(DimensionUtil.getScreenWidth(this));
+            presenter = new MainPresenter(AndroidUtils.getScreenWidth(this));
         }
         presenter.attachView(this);
+        filterQuantContainer = findViewById(R.id.filter_quant_container);
         presenter.init(currentPage);
 
     }
@@ -205,9 +300,9 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
         if (!isTablet()) {
             nearbyRestaurantPicker.setAdapter(nearbyRestaurantListAdapter);
-            onItemChanged(nearbyRestaurantListAdapter.getItem(0));
+            onItemChanged(0);
         } else {
-            onItemChanged(nearbyRestaurantListAdapter.getItem(1));
+            onItemChanged(1);
         }
 
         nearbyListContainer.setVisibility(View.VISIBLE);
@@ -243,16 +338,33 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         RestaurantActivity.start(MainActivity.this, id);
     }
 
-    private void onItemChanged(Restaurant restaurant) {
+    private void onItemChanged(int position) {
+        Restaurant restaurant = nearbyRestaurantListAdapter.getItem(position);
         //load restaurant background
         String backgroundUrl = restaurant.getBackground() + BuildConfig.IMAGE_WIDTH_400;
+
+        Toast.makeText(this, position + "", Toast.LENGTH_SHORT).show();
+
+
+
+//        Picasso.with(this)
+//                .load(BuildConfig.BASE_URL +
+//                        backgroundUrl.substring(1, backgroundUrl.length()))
+//                .resize(400, 400)
+//                .into(target);
+
         Glide.with(this)
                 .load(BuildConfig.BASE_URL +
                         backgroundUrl.substring(1, backgroundUrl.length()))
-                .into(nearbyContainerBackground);
+                .into(simpleTarget);
 
+//        Glide.with(this)
+//                .load(BuildConfig.BASE_URL +
+//                        backgroundUrl.substring(1, backgroundUrl.length()))
+//                .into(nearbyContainerBackground);
 
     }
+
 
     @Override
     public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {
@@ -262,6 +374,11 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     @Override
     public void onSnap(int position) {
         Logger.log("snapped item: " + position);
+
+        Toast.makeText(this, "snapped item " + position, Toast.LENGTH_SHORT).show();
+
+        onItemChanged(position);
+
     }
 
     @Override
@@ -270,7 +387,6 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         if (!isTablet()) {
             if (searchView.getFilterPopup().isShowing()) {
                 searchView.getFilterPopup().dismiss();
-
                 return;
             }
         }
@@ -327,6 +443,16 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         String filterCuisineParam = filterListToString(cuisineFilterList);
         String filterInstituteParam = filterListToString(instituteFilterList);
 
+        if (!isTablet())
+            if (filterList.size() != 0) {
+                filterQuantText.setText(String.valueOf(filterList.size()));
+                filterQuantContainer.setVisibility(View.VISIBLE);
+                filterContainer.setPadding(0, 0, 0, 0);
+
+            } else if (filterQuantContainer != null) {
+                filterQuantContainer.setVisibility(View.GONE);
+                filterContainer.setPadding((int) getResources().getDimension(R.dimen.search_view_filter_text_margin_start), 0, 0, 0);
+            }
 
         if (!keyword.equals("") || !filterCuisineParam.equals("") || !filterInstituteParam.equals("")) {
             presenter.loadSuggestions(keyword, filterCuisineParam, filterInstituteParam);
@@ -354,6 +480,32 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
         }
         return result.toString();
+    }
+
+    @Override
+    public void onRefresh() {
+        currentPage = 1;
+        presenter.init(currentPage);
+    }
+
+    @Override
+    public void showLoading(boolean show) {
+        super.showLoading(show);
+
+        if (!show) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
+        if (offset == 0) {
+            // Fully expanded
+            swipeRefreshLayout.setEnabled(true);
+        } else {
+            // Not fully expanded or collapsed
+            swipeRefreshLayout.setEnabled(false);
+        }
     }
 
     /**

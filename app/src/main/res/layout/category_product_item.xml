@@ -142,7 +142,7 @@
                 android:id="@+id/buy_container"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/product_item_quantity_container_height"
-                android:background="@color/dusty_red"
+                android:background="@drawable/left_rounded_red_rect"
                 android:gravity="center"
                 android:paddingLeft="@dimen/category_product_item_buy_container_padding_horizontal"
                 android:paddingRight="@dimen/category_product_item_buy_container_padding_horizontal"

@@ -58,6 +58,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/contact_title"
             app:layout_constraintTop_toBottomOf="@+id/contact_icon"
+            android:textColorLink="@color/cerulean"
             tools:text="facebook: @serafinadubai\ninstagram: /serafinadubai"
             android:layout_alignLeft="@+id/contact_title"
             android:layout_alignStart="@+id/contact_title" />

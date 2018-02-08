@@ -119,7 +119,7 @@ public class CheckItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             LanguageViewHolder languageViewHolder = (LanguageViewHolder) holder;
 
             languageViewHolder.name.setText(((Language) getItem(position).getItem()).getName());
-            languageViewHolder.image.setImageResource(getLanguageFlag(((Language) getItem(position).getItem()).getName()));
+            languageViewHolder.image.setImageResource(getLanguageFlag(((Language) getItem(position).getItem()).getLanguage_id()));
             if (getItem(position).isChecked()) {
                 languageViewHolder.name.setTextColor(
                         ContextCompat.getColor(languageViewHolder.itemView.getContext(), R.color.grey_99));
@@ -199,15 +199,15 @@ public class CheckItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return context.getResources().getBoolean(R.bool.isLargeLayout);
     }
 
-    public int getLanguageFlag(String langName) {
-        switch (langName) {
-            case "English": {
+    public int getLanguageFlag(int langId) {
+        switch (langId) {
+            case 1: {
                 return R.drawable.ic_flag_uk;
             }
-            case "Русский": {
+            case 2: {
                 return R.drawable.ic__flag_russia;
             }
-            case "العربية": {
+            case 3: {
                 return R.drawable.ic_flag_arabic;
             }
         }

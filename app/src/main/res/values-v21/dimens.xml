@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="action_reset_height">52dp</dimen>
+    <dimen name="rounded_rect">16dp</dimen>
+    <dimen name="rounded_rect_height">14dp</dimen>
+    <dimen name="filter_quantity_text_size">8sp</dimen>
+</resources>

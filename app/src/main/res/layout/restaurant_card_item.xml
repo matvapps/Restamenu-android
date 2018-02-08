@@ -13,7 +13,7 @@
         android:background="?selectableItemBackground"
         android:foreground="?selectableItemBackground"
         app:cardCornerRadius="@dimen/card_corner_radius"
-        app:cardElevation="3dp">
+        app:cardElevation="0dp">
 
 
         <android.support.constraint.ConstraintLayout

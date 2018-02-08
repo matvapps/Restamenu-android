@@ -47,7 +47,7 @@
             <View
                 android:id="@+id/divider"
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="0.65dp"
                 android:background="#E6E6E6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,11 +58,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/filter_popup_content_action_cancel_margin"
-                android:layout_marginRight="@dimen/filter_popup_content_action_cancel_margin"
-                android:layout_marginTop="@dimen/filter_popup_content_action_cancel_margin"
                 android:layout_marginLeft="@dimen/filter_popup_content_action_cancel_margin"
+                android:layout_marginRight="@dimen/filter_popup_content_action_cancel_margin"
                 android:layout_marginStart="@dimen/filter_popup_content_action_cancel_margin"
-                android:fontFamily="@font/open_sans_bold"
+                android:layout_marginTop="@dimen/filter_popup_content_action_cancel_margin"
+                android:fontFamily="@font/open_sans_semibold"
                 android:text="Select type of cuisine: "
                 android:textColor="@color/black"
                 android:textSize="@dimen/filter_popup_content_title_text_size"
@@ -88,7 +88,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/filter_popup_content_institute_title_margin_top"
-                android:fontFamily="@font/open_sans_bold"
+                android:fontFamily="@font/open_sans_semibold"
                 android:text="Select type of institution: "
                 android:textColor="@color/black"
                 android:textSize="@dimen/filter_popup_content_institute_title_text_size"
@@ -111,13 +111,13 @@
 
 
             <FrameLayout
-                android:id="@+id/button_save"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/filter_popup_content_button_save_height"
+                android:id="@+id/action_reset"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/action_reset_height"
                 android:layout_marginTop="@dimen/filter_popup_content_button_save_margin_top"
-                android:background="@color/dusty_red"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/rect_fill_stroke_grey"
+                app:layout_constraintEnd_toEndOf="@+id/filter_institute_list"
+                app:layout_constraintStart_toStartOf="@+id/filter_institute_list"
                 app:layout_constraintTop_toBottomOf="@+id/filter_institute_list">
 
 
@@ -125,8 +125,33 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:fontFamily="@font/open_sans"
+                    android:text="Reset Filter setting"
+                    android:textColor="@color/cerulean"
+                    android:textSize="@dimen/filter_popup_item_title_text_size"
+                    tools:layout_editor_absoluteX="87dp"
+                    tools:layout_editor_absoluteY="311dp" />
+
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:id="@+id/button_save"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/filter_popup_content_button_save_height"
+                android:layout_marginTop="@dimen/filter_popup_content_button_save_margin_top"
+                android:background="@color/dusty_red"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/action_reset">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:fontFamily="@font/open_sans_bold"
-                    android:text="Save"
+                    android:text="Apply filter"
                     android:textColor="@color/white"
                     android:textSize="@dimen/filter_popup_content_save_text_size" />
 

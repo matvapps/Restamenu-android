@@ -13,6 +13,8 @@
 
     <string name="facebook_title">facebook</string>
     <string name="instagram_title">instagram</string>
+    
+    <string name="hyperlink_pattern">&lt;a href="%s">%s&lt;/a></string>
 
     <string name="popup_dropdown_title">Select type of %s:</string>
     <string name="scroll_it_text">Scroll it</string>

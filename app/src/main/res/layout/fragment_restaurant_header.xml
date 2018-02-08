@@ -65,6 +65,8 @@
         android:includeFontPadding="false"
         android:maxLines="1"
         android:textColor="@color/white"
+        android:layout_marginStart="@dimen/fragment_restaurant_header_margin_start"
+        android:layout_marginLeft="@dimen/fragment_restaurant_header_margin_start"
         android:textSize="@dimen/fragment_restaurant_header_title_text_size"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

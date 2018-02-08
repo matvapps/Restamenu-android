@@ -45,12 +45,27 @@
                     android:textSize="@dimen/land_search_view_edit_text_size"
                     tools:text="hih" />
 
-                <ImageButton
+                <FrameLayout
                     android:id="@+id/action_empty_btn"
-                    style="@style/MSV_ImageButton"
-                    android:layout_gravity="right"
-                    android:src="@drawable/ic_action_navigation_close"
-                    android:visibility="gone" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:layout_gravity="right">
+
+
+                    <ImageView
+                        android:layout_width="@dimen/search_cancel_size"
+                        android:layout_height="@dimen/search_cancel_size"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/search_cancel_margin"
+                        android:layout_marginStart="@dimen/search_cancel_margin"
+                        android:layout_marginRight="@dimen/search_cancel_margin"
+                        android:layout_marginEnd="@dimen/search_cancel_margin"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_close"
+                        android:visibility="visible" />
+
+                </FrameLayout>
 
             </FrameLayout>
 

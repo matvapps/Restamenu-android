@@ -65,12 +65,11 @@
             android:layout_marginBottom="@dimen/restaurant_contact_item_content_margin_bottom"
             android:layout_marginTop="@dimen/restaurant_contact_item_content_margin_top"
             android:fontFamily="@font/open_sans"
-            android:autoLink="all"
             android:textColor="@color/black"
             android:textSize="@dimen/restaurant_contact_item_title_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/contact_title"
-            app:layout_constraintTop_toBottomOf="@+id/contact_title"
+            app:layout_constraintTop_toBottomOf="@+id/contact_icon"
             android:textColorLink="@color/cerulean"
             tools:text="+380933101525 \n+380950804273" />
 

@@ -125,7 +125,7 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
         public SuggestionsViewHolder(View convertView) {
             textView = (TextView) convertView.findViewById(R.id.suggestion_text);
             if (suggestionIcon != null) {
-                imageView = (ImageView) convertView.findViewById(R.id.suggestion_icon);
+//                imageView = (ImageView) convertView.findViewById(R.id.suggestion_icon);
                 imageView.setImageDrawable(suggestionIcon);
             }
         }

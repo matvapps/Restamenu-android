@@ -4,19 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.lsjwzh.widget.recyclerviewpager.FragmentStatePagerAdapter;
-import com.lsjwzh.widget.recyclerviewpager.LoopRecyclerViewPager;
-import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 import com.restamenu.R;
 import com.restamenu.base.BasePresenterActivity;
 import com.restamenu.data.preferences.KeyValueStorage;
@@ -24,79 +18,93 @@ import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Currency;
 import com.restamenu.model.content.Language;
 import com.restamenu.util.Logger;
-import com.restamenu.views.custom.SettingView;
+import com.restamenu.views.custom.CustomSwipeToRefresh;
+import com.restamenu.views.pager.CircularViewPagerHandler;
+import com.restamenu.views.pager.MaterialViewPager;
+import com.restamenu.views.setting.OnSettingItemChanged;
+import com.restamenu.views.setting.SettingView;
 
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
 
-import ru.noties.scrollable.CanScrollVerticallyDelegate;
-import ru.noties.scrollable.OnFlingOverListener;
-import ru.noties.scrollable.ScrollableLayout;
 
-public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, CategoryView, List<Category>> implements CategoryView, View.OnClickListener, RecyclerViewPager.OnPageChangedListener {
+public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, CategoryView, List<Category>>
+        implements CategoryView, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, OnSettingItemChanged {
 
-    public static final String KEY_RESTAURANT_ID = "key_rest_id";
+    public static final String KEY_RESTAURANT = "key_rest";
     public static final String KEY_SERVICE_ID = "key_service_id";
     public static final String KEY_CATEGORY_ID = "key_category_id";
-    public static final String KEY_RESTAURANT_TITLE = "key_restaurant_title";
+    public static final String KEY_RESTAURANT_TITLE = "key_name_id";
+    public static final String KEY_RESTAURANT_ID = "key_restaurant_id";
+    public static final String KEY_RESTAURANT_LANGS = "key_restaurant_langs";
+    public static final String KEY_RESTAURANT_CURRS = "key_restaurant_currs";
 
     private final int NEXT_CATEGORY = 1;
     private final int PREV_CATEGORY = -1;
 
-    private Integer restaurantId;
     private Integer serviceId;
     private Integer categoryId;
+    private int restaurantId;
+    private String restaurantTitle;
+    private int[] restCurrencies;
+    private int[] restLanguages;
 
     private int categoryIndex = 0;
-
-
-    private FrameLayout searchContainer;
-    private LinearLayout searchButton;
 
     private KeyValueStorage keyValueStorage;
 
     private SettingView settingView;
+    private CustomSwipeToRefresh swipeRefreshLayout;
+    private List<OnCategoryDataChangeListener> onCategoryDataChangeListeners;
 
-    private View productHeader;
+    //private View productHeader;
+    //Header
     private ImageView btnTopCategoryPrevious;
     private ImageView btnTopCategoryNext;
     private TextView txtCategoryName;
+
+    private EditText findEditText;
+    private View buttonFind;
+
+    //Tablet
     private View btnBottomCategoryPrevious;
     private View btnBottomCategoryNext;
     private TextView prevCategoryName;
     private TextView nextCategoryName;
 
-    private String restaurantTitle;
+//    private Restaurant restaurant;
 
-    //private TextView toolbarRestaurantTitle;
-    private EditText findEditText;
-    private View buttonFind;
+    private MaterialViewPager viewPager;
+    private CategoryPagerAdapter pagerAdapter;
 
-    private ScrollableLayout scrollableLayout;
-
-    private int selectedPage = 0;
-
-    private FragmentsAdapter pagerAdapter;
-    private LoopRecyclerViewPager pager;
     private List<Category> categories;
 
-
-    public static void start(@NonNull Context context, @NonNull Integer restaurantId,
-                             @NonNull Integer serviceId, @NonNull Integer categoryId, String restaurantTitle) {
+    public static void start(@NonNull Context context, @NonNull int restaurantId, @NonNull String restaurantTitle,
+                             @NonNull Integer serviceId, @NonNull Integer categoryId,
+                             @NonNull int[] currencies, @NonNull int[] languages) {
         Intent intent = new Intent(context, CategoryActivity.class);
         intent.putExtra(KEY_SERVICE_ID, serviceId);
+//        intent.putExtra(KEY_RESTAURANT, restaurant);
         intent.putExtra(KEY_RESTAURANT_ID, restaurantId);
-        intent.putExtra(KEY_CATEGORY_ID, categoryId);
         intent.putExtra(KEY_RESTAURANT_TITLE, restaurantTitle);
+        intent.putExtra(KEY_RESTAURANT_LANGS, languages);
+        intent.putExtra(KEY_RESTAURANT_CURRS, currencies);
+        intent.putExtra(KEY_CATEGORY_ID, categoryId);
         context.startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        restaurantId = getIntent().getIntExtra(KEY_RESTAURANT_ID, 1);
+//        restaurant = (Restaurant) getIntent().getSerializableExtra(KEY_RESTAURANT);
         serviceId = getIntent().getIntExtra(KEY_SERVICE_ID, 1);
         categoryId = getIntent().getIntExtra(KEY_CATEGORY_ID, 1);
         restaurantTitle = getIntent().getStringExtra(KEY_RESTAURANT_TITLE);
+        restCurrencies = getIntent().getIntArrayExtra(KEY_RESTAURANT_CURRS);
+        restLanguages = getIntent().getIntArrayExtra(KEY_RESTAURANT_LANGS);
+        restaurantId = getIntent().getIntExtra(KEY_RESTAURANT_ID, 1);
+
+        onCategoryDataChangeListeners = new ArrayList<>();
+
 
         super.onCreate(savedInstanceState);
         keyValueStorage = new KeyValueStorage(this);
@@ -110,11 +118,18 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     }
 
     private void increaseCategory() {
-        pager.smoothScrollToPosition(pager.getActualCurrentPosition() - 1);
+        int position = viewPager.getViewPager().getCurrentItem();
+        viewPager.getViewPager().setCurrentItem(position + 1, true);
     }
 
     private void decreaseCategory() {
-        pager.smoothScrollToPosition(pager.getActualCurrentPosition() + 1);
+        int position = viewPager.getViewPager().getCurrentItem();
+        viewPager.getViewPager().setCurrentItem(position - 1, true);
+    }
+
+    private void updateCategory() {
+        int position = viewPager.getViewPager().getCurrentItem();
+        viewPager.getViewPager().setCurrentItem(position, true);
     }
 
     @Override
@@ -122,16 +137,20 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         Logger.log("Set category(ies): " + data.size());
         categories = data;
 
-        pagerAdapter = new FragmentsAdapter(getSupportFragmentManager(), data, restaurantId, serviceId);
-        pager.setAdapter(pagerAdapter);
+        pagerAdapter = new CategoryPagerAdapter(getSupportFragmentManager(), data, restaurantId, serviceId);
+        viewPager.getViewPager().setAdapter(pagerAdapter);
+
+        final CircularViewPagerHandler circularViewPagerHandler = new CircularViewPagerHandler(viewPager.getViewPager());
+        circularViewPagerHandler.setOnPageChangeListener(createOnPageChangeListener());
+        viewPager.getViewPager().addOnPageChangeListener(circularViewPagerHandler);
 
         categoryIndex = getCategoryIndex(data, categoryId);
-
-        Logger.log("Category index = " + categoryIndex);
+        Logger.log("categoryIndex = " + categoryIndex);
 
         txtCategoryName.setText(data.get(categoryIndex).getName());
+        viewPager.getViewPager().setCurrentItem(categoryIndex + 1, false);
 
-        pager.scrollToPosition(categoryIndex);
+        //pager.scrollToPosition(categoryIndex);
         btnTopCategoryPrevious.setOnClickListener(this);
         btnTopCategoryNext.setOnClickListener(this);
 
@@ -190,50 +209,25 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
     @Override
     protected void initViews() {
-        scrollableLayout = findViewById(R.id.scrollable_layout);
+        viewPager = findViewById(R.id.materialViewPager);
 
         btnTopCategoryPrevious = findViewById(R.id.category_arrow_left);
         btnTopCategoryNext = findViewById(R.id.category_arrow_right);
         txtCategoryName = findViewById(R.id.category_title);
-        pager = findViewById(R.id.viewpager);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         View back = findViewById(R.id.back_to_category);
         settingView = findViewById(R.id.settings_view);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,
-                false);
-        pager.setLayoutManager(layoutManager);
-        pager.setHasFixedSize(true);
-        pager.addOnPageChangedListener(this);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        settingView.setOnSettingItemChanged(this);
 
-        scrollableLayout.setCanScrollVerticallyDelegate(new CanScrollVerticallyDelegate() {
-            @Override
-            public boolean canScrollVertically(int direction) {
-                Logger.log("Can scroll vertically : dir: " + direction);
-                if (direction > 0)
-                    return true;
-                else {
-                    final CategoryFragment fragment = (CategoryFragment) pagerAdapter.getItem(selectedPage, null);
-                    Logger.log("Can Current fragment scroll ? " + (fragment.canScrollVertically(direction)));
-                    return fragment != null && fragment.canScrollVertically(direction);
-                }
-            }
-        });
-
-        scrollableLayout.setOnFlingOverListener(new OnFlingOverListener() {
-            @Override
-            public void onFlingOver(int y, long duration) {
-                Logger.log("Can on fling : duration: " + duration);
-                final CategoryFragment fragment = (CategoryFragment) pagerAdapter.getItem(selectedPage, null);
-                if (fragment != null) {
-                    fragment.onFlingOver(y, duration);
-                }
-            }
-        });
-
-        productHeader = findViewById(R.id.product_header);
+        //productHeader = findViewById(R.id.product_header);
         buttonFind = findViewById(R.id.button_find);
         findEditText = findViewById(R.id.search_edit_text);
         findEditText.clearFocus();
+
+
+        buttonFind.setOnClickListener(view -> onPerformSearch(findEditText.getText().toString()));
 
         // For tablet
         btnBottomCategoryPrevious = findViewById(R.id.previous_category_button);
@@ -250,15 +244,6 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
         btnTopCategoryNext.setOnClickListener(this);
         btnTopCategoryPrevious.setOnClickListener(this);
-        productHeader.setOnTouchListener(new OnSwipeTouchListener(CategoryActivity.this) {
-            public void onSwipeRight() {
-                increaseCategory();
-            }
-
-            public void onSwipeLeft() {
-                decreaseCategory();
-            }
-        });
     }
 
     @Override
@@ -288,13 +273,13 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.category_arrow_right:
-            case R.id.next_category_button: {
+            case R.id.category_arrow_left:
+            case R.id.previous_category_button: {
                 decreaseCategory();
                 break;
             }
-            case R.id.category_arrow_left:
-            case R.id.previous_category_button: {
+            case R.id.category_arrow_right:
+            case R.id.next_category_button: {
                 increaseCategory();
                 break;
             }
@@ -311,11 +296,6 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
     }
 
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
-
     private int getCategoryIndex(List<Category> categories, int categoryId) {
 
         for (int i = 0; i < categories.size(); i++) {
@@ -326,72 +306,54 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     }
 
     @Override
-    public void OnPageChanged(int i, int i1) {
-        try {
-            findEditText.setText("");
-            txtCategoryName.setText(categories.get(pager.getActualCurrentPosition()).getName());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @Override
     public void setLanguages(@NonNull List<Language> languages) {
-        settingView.setLanguages(languages);
+        List<Language> restLangList = new ArrayList<>();
+
+        for (int langId : restLanguages) {
+            for (int i = 0; i < languages.size(); i++) {
+                if (languages.get(i).getLanguage_id() == langId) {
+                    restLangList.add(languages.get(i));
+                }
+            }
+        }
+        settingView.setLanguages(restLangList);
     }
 
     @Override
     public void setCurrencies(@NonNull List<Currency> currencies) {
-        settingView.setCurrencies(currencies);
+        List<Currency> restCurrList = new ArrayList<>();
+
+        for (int currId : restCurrencies) {
+            for (int i = 0; i < currencies.size(); i++) {
+                if (currencies.get(i).getCurrency_id() == currId) {
+                    restCurrList.add(currencies.get(i));
+                }
+            }
+        }
+        settingView.setCurrencies(restCurrList);
     }
 
-    class FragmentsAdapter extends FragmentStatePagerAdapter {
-
-        private int restaurantId;
-        private int serviceId;
-        private List<Category> categories;
-        private LinkedHashMap<Integer, Fragment> mFragmentCache = new LinkedHashMap<>();
-
-
-        public FragmentsAdapter(FragmentManager fm, List<Category> categories, int restaurantId, int serviceId) {
-            super(fm);
-            this.restaurantId = restaurantId;
-            this.serviceId = serviceId;
-            this.categories = categories;
-        }
-
-        private Category getCategory(int position) {
-            return categories.get(position);
-        }
-
-        @Override
-        public Fragment getItem(int position, Fragment.SavedState savedState) {
-            position = pager.transformToActualPosition(position);
-            Fragment f = mFragmentCache.containsKey(position) ? mFragmentCache.get(position)
-                    : CategoryFragment.create(getCategory(position), restaurantId, serviceId);
-            //Logger.log("Category getItem:" + position + " from cache: " + mFragmentCache.containsKey(position));
-            if (!mFragmentCache.containsKey(position)) {
-                f.setInitialSavedState(savedState);
-                //Logger.log("Category setInitialSavedState:" + position);
-            }
-            mFragmentCache.put(position, f);
-            return f;
-        }
-
-        @Override
-        public void onDestroyItem(int position, Fragment fragment) {
-            // onDestroyItem
-            while (mFragmentCache.size() > 5) {
-                Object[] keys = mFragmentCache.keySet().toArray();
-                mFragmentCache.remove(keys[0]);
+    private ViewPager.OnPageChangeListener createOnPageChangeListener() {
+        return new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
             }
 
-        }
+            @Override
+            public void onPageSelected(final int position) {
+                Logger.log("Position selected: " + position);
+                try {
+                    txtCategoryName.setText(categories.get(position).getName());
+                    categoryIndex = position;
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
 
-        @Override
-        public int getItemCount() {
-            return categories.size();
-        }
+            @Override
+            public void onPageScrollStateChanged(final int state) {
+            }
+        };
     }
 
     @Override
@@ -407,4 +369,48 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         super.finish();
     }
 
+    @Override
+    public void onRefresh() {
+        presenter.loadData(keyValueStorage.getLanguageId());
+        categoryId = categories.get(viewPager.getViewPager().getCurrentItem() - 1).geId();
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    public synchronized void registerOnCategoryDataChangeListener (OnCategoryDataChangeListener onCategoryDataChangeListener) {
+        onCategoryDataChangeListeners.add(onCategoryDataChangeListener);
+    }
+
+    public synchronized void unregisterOnCategoryDataChangeListener(OnCategoryDataChangeListener onCategoryDataChangeListener) {
+        onCategoryDataChangeListeners.remove(onCategoryDataChangeListener);
+    }
+
+
+    public synchronized void langChanged(Language language) {
+        for (OnCategoryDataChangeListener item: onCategoryDataChangeListeners)
+            item.onLangChange(language, viewPager.getViewPager().getCurrentItem());
+    }
+
+    public synchronized void currChanged(Currency currency) {
+        for (OnCategoryDataChangeListener item: onCategoryDataChangeListeners)
+            item.onCurrChange(currency, viewPager.getViewPager().getCurrentItem());
+    }
+
+    public synchronized void onPerformSearch(String str) {
+        for (OnCategoryDataChangeListener item: onCategoryDataChangeListeners)
+            item.onPerformSearch(str, viewPager.getViewPager().getCurrentItem());
+    }
+
+    /**
+     * OnSettingItemChanged listeners
+     */
+    @Override
+    public void onLanguageChanged(Language language) {
+//        onCategoryDataChangeListener.onLangChange(language);
+    }
+
+    @Override
+    public void onCurrencyChanged(Currency currency) {
+//        onCategoryDataChangeListener.onCurrChange(currency);
+    }
+    /**------------------------------------------- */
 }

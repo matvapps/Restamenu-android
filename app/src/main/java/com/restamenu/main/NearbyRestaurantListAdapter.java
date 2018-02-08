@@ -29,6 +29,8 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerVi
     private boolean useScrollIt;
     private boolean usedFirstElement;
 
+    private final int imageWidthPixels = 512;
+    private final int imageHeightPixels = 384;
 
     public NearbyRestaurantListAdapter() {
         this.restaurants = new ArrayList<>();
@@ -91,11 +93,11 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerVi
 
         String path = BuildConfig.BASE_URL + restaurant.getImage().substring(1, restaurant.getImage().length()) + BuildConfig.IMAGE_WIDTH_400;
 
-
         Glide.with(holder.itemView.getContext())
                 .load(path)
                 .apply(new RequestOptions()
-                        .placeholder(R.color.greyish))
+                        .placeholder(R.color.greyish)
+                        .override(imageWidthPixels, imageHeightPixels))
                 //.apply(options)
                 .into(cardHolder.restaurantBackgroundImageView);
 

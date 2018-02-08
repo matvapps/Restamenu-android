@@ -340,4 +340,11 @@
 	<dimen name="currency_name_margin_start">9dp</dimen>
 	<dimen name="currency_name_text_size">14.2sp</dimen>
 	<dimen name="currency_icon_text_size">13.5sp</dimen>
+	<dimen name="category_header_height">144.8dp</dimen>
+    <dimen name="search_cancel_size">10dp</dimen>
+	<dimen name="search_cancel_margin">16dp</dimen>
+    <dimen name="action_reset_height">52dp</dimen>
+    <dimen name="rounded_rect">16dp</dimen>
+	<dimen name="rounded_rect_height">14dp</dimen>
+    <dimen name="filter_quantity_text_size">8sp</dimen>
 </resources>
