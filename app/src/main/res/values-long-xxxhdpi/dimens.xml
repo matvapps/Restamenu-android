@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <item name="isLargeLayout" type="bool">false</item>
+    <item name="restaurant_span_count" type="integer">1</item>
+    <item name="product_span_count" type="integer">1</item>
+    <item name="restaurant_content_list_size" type="integer">8</item>
+    <item name="menu_sections_list_pos" type="integer">0</item>
+    <item name="restaurant_promotions_title_pos" type="integer">1</item>
+    <item name="restaurant_promotions_list_pos" type="integer">2</item>
+    <item name="about_title_pos" type="integer">3</item>
+    <item name="about_text_pos" type="integer">4</item>
+    <item name="contacts_title_pos" type="integer">5</item>
+    <item name="contacts_list_pos" type="integer">6</item>
+    <item name="map_pos" type="integer">7</item>
 
     <dimen name="splash_cursor_margin_left">160dp</dimen>
     <dimen name="splash_title_width">150dp</dimen>
@@ -11,10 +23,6 @@
     <dimen name="splash_rest_text_height">30dp</dimen>
 
     <dimen name="splash_title_container_height">100dp</dimen>
-
-    <item name="isLargeLayout" type="bool">false</item>
-    <item name="restaurant_span_count" type="integer">1</item>
-    <item name="product_span_count" type="integer">1</item>
 
 
 
@@ -66,7 +74,7 @@
     <dimen name="category_product_item_price_margin_start">16dp</dimen>
     <dimen name="category_product_item_price_text_size">20.25sp</dimen>
     <dimen name="category_product_item_price_sub_margin_start">8dp</dimen>
-    <dimen name="category_product_item_price_sub_text_size">12sp</dimen>
+    <dimen name="category_product_item_price_sub_text_size">11.45sp</dimen>
     <dimen name="category_product_item_buy_container_margin_bottom">15dp</dimen>
     <dimen name="category_product_item_buy_container_margin_top">18dp</dimen>
     <dimen name="category_product_item_buy_container_padding_vertical">7dp</dimen>
@@ -82,7 +90,7 @@
     <dimen name="fragment_restaurant_header_fav_icon_size">10.75dp</dimen>
     <dimen name="fragment_restaurant_header_margin_start">17.5dp</dimen>
     <dimen name="fragment_restaurant_header_margin_top">15.25dp</dimen>
-    <dimen name="fragment_restaurant_header_fav_text_margin_start">11.25dp</dimen>
+    <dimen name="fragment_restaurant_header_fav_text_margin_start">6.25dp</dimen>
     <dimen name="fragment_restaurant_header_title_margin_end">32dp</dimen>
     <dimen name="fragment_restaurant_header_title_margin_start">16dp</dimen>
     <dimen name="fragment_restaurant_header_title_margin_top">0dp</dimen>
@@ -301,19 +309,6 @@
     <dimen name="restaurant_category_item_margin">17.5dp</dimen>
     <dimen name="restaurant_gallery_item_margin_start">16.75dp</dimen>
     <dimen name="restaurant_nearby_card_margin_start">18dp</dimen>
-    <item name="restaurant_content_list_size" type="integer">9</item>
-    <item name="select_service_pos" type="integer">0</item>
-    <item name="menu_sections_title_pos" type="integer">-1</item>
-    <item name="menu_sections_list_pos" type="integer">1</item>
-    <item name="restaurant_promotions_title_pos" type="integer">2</item>
-    <item name="restaurant_promotions_list_pos" type="integer">3</item>
-    <item name="gallery_title_pos" type="integer">-1</item>
-    <item name="gallery_list_pos" type="integer">-1</item>
-    <item name="about_title_pos" type="integer">4</item>
-    <item name="about_text_pos" type="integer">5</item>
-    <item name="contacts_title_pos" type="integer">6</item>
-    <item name="contacts_list_pos" type="integer">7</item>
-    <item name="map_pos" type="integer">8</item>
     <dimen name="popup_product_image_gallery_height">227.25dp</dimen>
     <dimen name="activity_category_header_heighy">112.5dp</dimen>
     <dimen name="fragment_restaurant_header_restaurant_type_margin_top">0dp</dimen>
@@ -467,9 +462,9 @@
     <dimen name="filter_popup_content_button_save_height">67.5dp</dimen>
     <dimen name="filter_popup_content_button_save_margin_top">19.5dp</dimen>
     <dimen name="filter_popup_content_save_text_size">20.25sp</dimen>
-    <dimen name="filter_popup_item_chbx_size">27dp</dimen>
+    <dimen name="filter_popup_item_chbx_size">20.25dp</dimen>
     <dimen name="filter_popup_item_item_chbx_margin_bottom">15dp</dimen>
-    <dimen name="filter_popup_item_chbx_margin_top">20.25dp</dimen>
+    <dimen name="filter_popup_item_chbx_margin_top">18.5dp</dimen>
     <dimen name="filter_popup_item_chbx_icon_width">10.25dp</dimen>
     <dimen name="filter_popup_item_chbx_icon_height">7.75dp</dimen>
     <dimen name="filter_popup_item_title_margin_horiz">11.5dp</dimen>
@@ -507,7 +502,7 @@
     <dimen name="category_header_height">188dp</dimen>
     <dimen name="divider_width">1dp</dimen>
     <dimen name="search_cancel_size">10dp</dimen>
-    <dimen name="search_cancel_margin">20dp</dimen>
+    <dimen name="search_cancel_margin">15dp</dimen>
     <dimen name="action_reset_height">45dp</dimen>
     <dimen name="rounded_rect">14.5dp</dimen>
     <dimen name="rounded_rect_height">12.25dp</dimen>

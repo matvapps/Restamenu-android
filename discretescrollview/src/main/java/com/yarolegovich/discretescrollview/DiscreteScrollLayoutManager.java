@@ -585,7 +585,7 @@ class DiscreteScrollLayoutManager extends RecyclerView.LayoutManager {
     }
 
     private boolean isAnotherItemCloserThanCurrent() {
-        return Math.abs(scrolled) >= scrollToChangeCurrent * 0.6f;
+        return Math.abs(scrolled) >= scrollToChangeCurrent * 0.45f;
     }
 
     public View getFirstChild() {

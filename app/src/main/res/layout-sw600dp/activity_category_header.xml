@@ -95,8 +95,8 @@
                 android:layout_weight="8"
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/open_sans"
-                android:hint="Start typing the name..."
-                android:textColor="#80000000"
+                android:hint="@string/search_hint"
+                android:textColor="#212121"
                 android:textSize="@dimen/land_activity_category_search_edit_text_size" />
 
 
@@ -106,36 +106,36 @@
                 android:background="#e6e6e6e6" />
 
 
-            <LinearLayout
-                android:id="@+id/dropdown_menu_institute"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="1dp"
-                android:orientation="horizontal">
+            <!--<LinearLayout-->
+                <!--android:id="@+id/dropdown_menu_institute"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_margin="1dp"-->
+                <!--android:orientation="horizontal">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="@dimen/land_activity_category_filter_text_margin_end"
-                    android:layout_marginLeft="@dimen/land_activity_category_filter_text_margin_start"
-                    android:layout_marginRight="@dimen/land_activity_category_filter_text_margin_end"
-                    android:layout_marginStart="@dimen/land_activity_category_filter_text_margin_start"
-                    android:text="Filter"
-                    android:textColor="#c33c43"
-                    android:textSize="@dimen/land_activity_category_filter_text_size" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_marginEnd="@dimen/land_activity_category_filter_text_margin_end"-->
+                    <!--android:layout_marginLeft="@dimen/land_activity_category_filter_text_margin_start"-->
+                    <!--android:layout_marginRight="@dimen/land_activity_category_filter_text_margin_end"-->
+                    <!--android:layout_marginStart="@dimen/land_activity_category_filter_text_margin_start"-->
+                    <!--android:text="Filter"-->
+                    <!--android:textColor="#c33c43"-->
+                    <!--android:textSize="@dimen/land_activity_category_filter_text_size" />-->
 
 
-                <ImageView
-                    android:layout_width="@dimen/land_activity_category_arro_width"
-                    android:layout_height="@dimen/land_activity_category_arrow_height"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="@dimen/land_activity_category_arrow_margin_end"
-                    android:layout_marginRight="@dimen/land_activity_category_arrow_margin_end"
-                    android:src="@drawable/ic_arrow" />
+                <!--<ImageView-->
+                    <!--android:layout_width="@dimen/land_activity_category_arro_width"-->
+                    <!--android:layout_height="@dimen/land_activity_category_arrow_height"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_marginEnd="@dimen/land_activity_category_arrow_margin_end"-->
+                    <!--android:layout_marginRight="@dimen/land_activity_category_arrow_margin_end"-->
+                    <!--android:src="@drawable/ic_arrow" />-->
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
 
 
             <LinearLayout

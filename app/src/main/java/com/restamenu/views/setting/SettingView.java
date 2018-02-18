@@ -50,7 +50,26 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
     private TextView curCurrencyIcon;
     private ImageView curLanguageIcon;
 
+    private Currency currentCurrency;
+    private Language currentLanguge;
+
+    private View currencyContainer;
+    private View languageContainer;
+
+    private int languageLayoutWidth = 0;
+    private int currencyLayoutWidth = 0;
+
     private OnSettingItemChanged onSettingItemChanged;
+
+    public SettingListener getSettingListener() {
+        return settingListener;
+    }
+
+    public void setSettingListener(SettingListener settingListener) {
+        this.settingListener = settingListener;
+    }
+
+    private SettingListener settingListener;
 
     public SettingView(@NonNull Context context) {
         super(context, null);
@@ -71,6 +90,9 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
     public void initiateView() {
         inflate(getContext(), R.layout.restaurant_setting_view, this);
 
+        currentCurrency = new Currency();
+        currentLanguge = new Language();
+
         keyValueStorage = new KeyValueStorage(getContext());
         currencyAdapter = new CheckItemAdapter();
         languageAdapter = new CheckItemAdapter();
@@ -82,8 +104,8 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
         currencyAdapter.setTYPE(CheckItemAdapter.CURRENCY_TYPE);
 
         if (isTablet()) {
-            View languageContainer = findViewById(R.id.lang_container);
-            View currencyContainer = findViewById(R.id.currency_container);
+            languageContainer = findViewById(R.id.lang_container);
+            currencyContainer = findViewById(R.id.currency_container);
 
             curLanguageText = findViewById(R.id.language_title);
             curCurrencyText = findViewById(R.id.currency_title);
@@ -124,10 +146,19 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
         popupList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         popupList.setAdapter(languageAdapter);
 
+        layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        languageContainer.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        languageLayoutWidth = (int) (layout.getMeasuredWidth() - languageContainer.getMeasuredWidth() * 1.38f);
+        int height = layout.getMeasuredHeight();
+
+
+        languagePopup.setOnDismissListener(()->settingListener.popupClosed());
+
         languagePopup.setContentView(layout);
         languagePopup.setHeight(LayoutParams.WRAP_CONTENT);
         languagePopup.setWidth(LayoutParams.WRAP_CONTENT);
         languagePopup.setOutsideTouchable(true);
+        languagePopup.setFocusable(true);
         languagePopup.setBackgroundDrawable(new BitmapDrawable());
 
     }
@@ -146,10 +177,19 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
         popupList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         popupList.setAdapter(currencyAdapter);
 
+
+        layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        currencyContainer.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        currencyLayoutWidth = (int) (layout.getMeasuredWidth() - currencyContainer.getMeasuredWidth() * 2.32f);
+        int height = layout.getMeasuredHeight();
+
+        currencyPopup.setOnDismissListener(()->settingListener.popupClosed());
+
         currencyPopup.setContentView(layout);
         currencyPopup.setHeight(LayoutParams.WRAP_CONTENT);
         currencyPopup.setWidth(LayoutParams.WRAP_CONTENT);
         currencyPopup.setOutsideTouchable(true);
+        currencyPopup.setFocusable(true);
         currencyPopup.setBackgroundDrawable(new BitmapDrawable());
 
     }
@@ -209,6 +249,7 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
                 }
 
                 languageAdapter.addItem(new CheckedItem<>(languages.get(i), true));
+                currentLanguge = languages.get(i);
             }
             else
                 languageAdapter.addItem(new CheckedItem<>(languages.get(i), false));
@@ -245,6 +286,7 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
                 }
 
                 currencyAdapter.addItem(new CheckedItem<>(currencies.get(i), true));
+                currentCurrency = currencies.get(i);
             }
             else
                 currencyAdapter.addItem(new CheckedItem<>(currencies.get(i), false));
@@ -252,19 +294,23 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
 
         // if user currency not exist then use default currency
         if (!hasDefaultCurr)
-            languageAdapter.checkItem(0);
+            currencyAdapter.checkItem(0);
+
+//        Toast.makeText(getContext(), ((Currency)languageAdapter.getItem(0).getItem()).getName(), Toast.LENGTH_SHORT).show();
 
     }
 
     private void displayLanguagePopup(View anchorView) {
         if (languagePopup != null) {
-            languagePopup.showAsDropDown(anchorView);
+            languagePopup.showAsDropDown(anchorView, -languageLayoutWidth, 0);
+            settingListener.popupOpened();
         }
     }
 
     private void displayCurrencyPopup(View anchorView) {
         if (currencyPopup != null) {
-            currencyPopup.showAsDropDown(anchorView);
+            currencyPopup.showAsDropDown(anchorView, -currencyLayoutWidth, 0);
+            settingListener.popupOpened();
         }
     }
 
@@ -321,6 +367,7 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
                 curLanguageIcon.setImageResource(getLanguageFlag(language.getLanguage_id()));
             }
 
+            currentLanguge = language;
             onSettingItemChanged.onLanguageChanged(language);
 
         } else if (item.getItem() instanceof Currency) {
@@ -333,6 +380,7 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
                 curCurrencyIcon.setText(currency.getSymbol());
             }
 
+            currentCurrency = currency;
             onSettingItemChanged.onCurrencyChanged(currency);
         }
 
@@ -360,5 +408,21 @@ public class SettingView extends FrameLayout implements View.OnClickListener, Ch
 
     public void setOnSettingItemChanged(OnSettingItemChanged onSettingItemChanged) {
         this.onSettingItemChanged = onSettingItemChanged;
+    }
+
+    public Currency getCurrentCurrency() {
+        return currentCurrency;
+    }
+
+    public void setCurrentCurrency(Currency currentCurrency) {
+        this.currentCurrency = currentCurrency;
+    }
+
+    public Language getCurrentLanguge() {
+        return currentLanguge;
+    }
+
+    public void setCurrentLanguge(Language currentLanguge) {
+        this.currentLanguge = currentLanguge;
     }
 }

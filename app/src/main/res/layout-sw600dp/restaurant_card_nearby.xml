@@ -3,19 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:background="?selectableItemBackground"
-    android:foreground="?selectableItemBackground"
     android:layout_height="wrap_content">
 
 
-    <android.support.v7.widget.CardView
-        style="@style/CardViewStyle"
+    <FrameLayout
         android:layout_width="@dimen/land_rest_card_nearby_width"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/land_rest_card_nearby_radius"
         android:layout_marginEnd="@dimen/land_rest_card_nearby_margin_end"
         android:layout_marginRight="@dimen/land_rest_card_nearby_margin_end"
-        app:cardElevation="0dp">
+        android:foreground="?selectableItemBackground"
+        android:background="@drawable/bg_restaurant_card">
 
 
         <android.support.constraint.ConstraintLayout
@@ -27,8 +24,6 @@
                 android:layout_width="@dimen/land_rest_card_nearby_width"
                 android:layout_height="@dimen/land_rest_card_nearby_background_height"
                 android:scaleType="centerCrop"
-                app:riv_corner_radius_bottom_left="0dp"
-                app:riv_corner_radius_bottom_right="0dp"
                 app:riv_corner_radius_top_left="@dimen/land_rest_card_nearby_radius"
                 app:riv_corner_radius_top_right="@dimen/land_rest_card_nearby_radius" />
 
@@ -38,9 +33,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/land_rest_card_nearby_title_margin_horiz"
-                android:layout_marginStart="@dimen/land_rest_card_nearby_title_margin_horiz"
                 android:layout_marginLeft="@dimen/land_rest_card_nearby_title_margin_horiz"
                 android:layout_marginRight="@dimen/land_rest_card_nearby_title_margin_horiz"
+                android:layout_marginStart="@dimen/land_rest_card_nearby_title_margin_horiz"
                 android:layout_marginTop="@dimen/land_rest_card_nearby_title_margin_top"
                 android:ellipsize="end"
                 android:fontFamily="@font/open_sans_bold"
@@ -82,8 +77,8 @@
                 android:layout_width="@dimen/land_rest_card_nearby_takeway_img_width"
                 android:layout_height="@dimen/land_rest_card_nearby_takeway_img_height"
                 android:layout_gravity="bottom"
-                android:layout_marginStart="@dimen/land_rest_card_nearby_takeway_img_margin_start"
                 android:layout_marginLeft="@dimen/land_rest_card_nearby_takeway_img_margin_start"
+                android:layout_marginStart="@dimen/land_rest_card_nearby_takeway_img_margin_start"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_takeaway_disabled"
                 app:layout_constraintBottom_toBottomOf="@+id/food_type_restaurant_img"
@@ -95,8 +90,8 @@
                 android:layout_width="@dimen/land_rest_card_nearby_delivery_img_width"
                 android:layout_height="@dimen/land_rest_card_nearby_delivery_img_height"
                 android:layout_gravity="bottom"
-                android:layout_marginStart="@dimen/land_rest_card_nearby_delivery_img_margin_start"
                 android:layout_marginLeft="@dimen/land_rest_card_nearby_delivery_img_margin_start"
+                android:layout_marginStart="@dimen/land_rest_card_nearby_delivery_img_margin_start"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_delivery_disabled"
                 app:layout_constraintBottom_toBottomOf="@+id/food_type_takeaway_img"
@@ -105,7 +100,7 @@
 
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/imageView3"
                 android:layout_width="@dimen/land_rest_card_nearby_pin_width"
                 android:layout_height="@dimen/land_rest_card_nearby_pin_height"
                 android:layout_gravity="center"
@@ -116,18 +111,7 @@
                 app:layout_constraintStart_toStartOf="@+id/food_type_restaurant_img"
                 app:layout_constraintTop_toBottomOf="@+id/food_type_restaurant_img" />
 
-            <LinearLayout
-                android:id="@+id/layout_distance"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/land_rest_card_nearby_distance_margin_start"
-                android:layout_marginLeft="@dimen/land_rest_card_nearby_distance_margin_start"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-                app:layout_constraintEnd_toEndOf="@+id/restaurant_type"
-                app:layout_constraintStart_toEndOf="@+id/imageView5"
-                app:layout_constraintTop_toTopOf="@+id/imageView5">
+
 
                 <TextView
                     android:id="@+id/restaurant_street"
@@ -138,10 +122,17 @@
                     android:layout_marginRight="@dimen/land_rest_card_nearby_street_margin_end"
                     android:ellipsize="end"
                     android:fontFamily="@font/open_sans"
+                    android:maxEms="12"
                     android:maxLines="1"
                     android:maxWidth="@dimen/land_rest_card_nearby_street_max_width"
+                    android:singleLine="true"
                     android:textColor="@color/black"
                     android:textSize="@dimen/land_rest_card_nearby_street_text_size"
+                    android:layout_marginLeft="@dimen/land_rest_card_nearby_distance_margin_start"
+                    android:layout_marginStart="@dimen/land_rest_card_nearby_distance_margin_start"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                    app:layout_constraintStart_toEndOf="@+id/imageView3"
+                    app:layout_constraintTop_toTopOf="@+id/imageView3"
                     tools:text="Grosvenor House Dubai" />
 
 
@@ -154,13 +145,19 @@
                     android:maxLines="1"
                     android:textColor="@color/black"
                     android:textSize="@dimen/land_rest_card_nearby_street_text_size"
+                    android:layout_marginLeft="@dimen/land_rest_card_nearby_distance_margin_start"
+                    android:layout_marginStart="@dimen/land_rest_card_nearby_distance_margin_start"
+                    app:layout_constraintBottom_toBottomOf="@+id/restaurant_street"
+                    app:layout_constraintEnd_toEndOf="@+id/restaurant_type"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/restaurant_street"
+                    app:layout_constraintTop_toTopOf="@+id/restaurant_street"
                     tools:text="0m" />
 
-            </LinearLayout>
 
 
         </android.support.constraint.ConstraintLayout>
 
 
-    </android.support.v7.widget.CardView>
+    </FrameLayout>
 </FrameLayout>

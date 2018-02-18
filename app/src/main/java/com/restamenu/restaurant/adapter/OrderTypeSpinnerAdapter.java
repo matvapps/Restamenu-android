@@ -24,12 +24,10 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
     private final LayoutInflater mInflater;
     private final List<ServiceType> items;
     private final List<Integer> usingServices;
-    private final int selectedItem;
 
-    public OrderTypeSpinnerAdapter(Context context, List<ServiceType> objects, List<Integer> usingServices, int selectedItem) {
+    public OrderTypeSpinnerAdapter(Context context, List<ServiceType> objects, List<Integer> usingServices) {
         super(context, 0, objects);
 
-        this.selectedItem = selectedItem;
         this.usingServices = usingServices;
         mInflater = LayoutInflater.from(context);
         items = objects;
@@ -80,7 +78,8 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
                     view.setEnabled(false);
                     titleText.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.black));
                     serviceImage.setVisibility(View.INVISIBLE);
-                    notAvailable.setVisibility(View.VISIBLE);
+                    if (notAvailable != null)
+                        notAvailable.setVisibility(View.VISIBLE);
                 } else {
                     if (viewId == R.layout.order_type_header_item)
                         serviceImage.setImageResource(R.drawable.ic_bigrestaurant_link);
@@ -94,7 +93,8 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
                     view.setEnabled(false);
                     titleText.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.black));
                     serviceImage.setVisibility(View.INVISIBLE);
-                    notAvailable.setVisibility(View.VISIBLE);
+                    if (notAvailable != null)
+                        notAvailable.setVisibility(View.VISIBLE);
                 } else{
                     if (viewId == R.layout.order_type_header_item)
                         serviceImage.setImageResource(R.drawable.ic_bigtakeaway_link);
@@ -108,7 +108,8 @@ public class OrderTypeSpinnerAdapter extends ArrayAdapter<ServiceType> {
                     view.setEnabled(false);
                     titleText.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.black));
                     serviceImage.setVisibility(View.INVISIBLE);
-                    notAvailable.setVisibility(View.VISIBLE);
+                    if (notAvailable != null)
+                        notAvailable.setVisibility(View.VISIBLE);
 
                 } else{
                     if (viewId == R.layout.order_type_header_item)

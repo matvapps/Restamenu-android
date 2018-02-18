@@ -16,13 +16,16 @@ import android.text.Html;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.base.BasePresenterActivity;
@@ -43,15 +46,19 @@ import com.restamenu.restaurant.adapter.CategoryClickListener;
 import com.restamenu.restaurant.adapter.ContactsAdapter;
 import com.restamenu.restaurant.adapter.GalleryAdapter;
 import com.restamenu.restaurant.adapter.ItemType;
+import com.restamenu.restaurant.adapter.OrderTypeSpinnerAdapter;
 import com.restamenu.restaurant.adapter.PromotionsAdapter;
 import com.restamenu.restaurant.adapter.RestaurantsAdapter;
+import com.restamenu.restaurant.adapter.ServiceType;
 import com.restamenu.util.ListUtils;
 import com.restamenu.util.Logger;
+import com.restamenu.views.custom.CustomSpinner;
 import com.restamenu.views.custom.CustomSwipeToRefresh;
 import com.restamenu.views.custom.ServiceButton;
-import com.restamenu.views.setting.OnSettingItemChanged;
-import com.restamenu.views.setting.SettingView;
 import com.restamenu.views.custom.StickyScrollView;
+import com.restamenu.views.setting.OnSettingItemChanged;
+import com.restamenu.views.setting.SettingListener;
+import com.restamenu.views.setting.SettingView;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.Orientation;
 import com.yarolegovich.discretescrollview.transform.Pivot;
@@ -62,20 +69,13 @@ import java.util.List;
 
 public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresenter, RestaurantView, Restaurant>
         implements RestaurantView, CategoryClickListener, RestaurantsAdapter.ChangeServiceListener,
-        CompoundButton.OnCheckedChangeListener, SwipeRefreshLayout.OnRefreshListener, OnSettingItemChanged {
+        CompoundButton.OnCheckedChangeListener, SwipeRefreshLayout.OnRefreshListener, OnSettingItemChanged,
+        CustomSpinner.OnSpinnerEventsListener, SettingListener {
 
     public static final String KEY_RESTAURANT_ID = "key_rest_id";
 
-    private final String CONTACT_FB = "fb.com";
-    private final String CONTACT_INSTAGRAM = "instagram";
-
-    private final String HYPERLINK_PATTERN = "<a href=\"%s\" >%s</a>";
-
-    private final String FACEBOOK_TITLE = "facebook";
-    private final String INSTAGRAM_TITLE = "instagram";
-
     private Integer restaurantId;
-
+    private int positionForHeader;
     //Only for tablet
     private int selectedService;
 
@@ -109,8 +109,12 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     private RecyclerView contactsListRecycle;
     private TextView aboutContentText;
     private ImageView mapImageView;
+    private CustomSpinner orderSpinner;
     private CustomSwipeToRefresh swipeRefreshLayout;
     private TextView categoryTitleView;
+    private View logo;
+    private View transparentViewTop;
+    private View transparentViewBottom;
 
     private CategoriesAdapter categoriesAdapter;
     private PromotionsAdapter promotionsAdapter;
@@ -191,6 +195,10 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         nestedScrollView = findViewById(R.id.nested_scroll_container);
         categoryTitleView = findViewById(R.id.categories_list_title);
+        logo = findViewById(R.id.logo);
+        transparentViewTop = findViewById(R.id.transparent_view_top);
+        transparentViewBottom = findViewById(R.id.transparent_view_bottom);
+        orderSpinner = findViewById(R.id.order_type_spinner);
 
         galleryAdapter = new GalleryAdapter();
         settingView.setOnSettingItemChanged(this);
@@ -209,6 +217,8 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             }
         });
 
+        settingView.setSettingListener(this);
+        logo.setOnClickListener(view -> scrollToTop());
 
         if (isTablet()) {
             scrollView = findViewById(R.id.scroll_container);
@@ -253,19 +263,19 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
             serviceDelivery.setOnClickListener(view -> {
                 String name = serviceDelivery.getTitleText();
-                categoryTitleView.setText(String.format(pattern, name));
+                categoryTitleView.setText(String.format(pattern, name.toLowerCase()));
                 changeService(3);
             });
 
             serviceTakeAway.setOnClickListener(view -> {
                 String name = serviceTakeAway.getTitleText();
-                categoryTitleView.setText(String.format(pattern, name));
+                categoryTitleView.setText(String.format(pattern, name.toLowerCase()));
                 changeService(2);
             });
 
             serviceAtRestaurant.setOnClickListener(view -> {
                 String name = serviceAtRestaurant.getTitleText();
-                categoryTitleView.setText(String.format(pattern, name));
+                categoryTitleView.setText(String.format(pattern, name.toLowerCase()));
                 changeService(1);
             });
 
@@ -390,22 +400,24 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         this.selectedService = selectedService;
         Logger.log("Service changed to: " + this.selectedService);
 
-        switch (selectedService) {
-            case 1:
-                serviceAtRestaurant.setServiceSelected(true);
-                serviceTakeAway.setServiceSelected(false);
-                serviceDelivery.setServiceSelected(false);
-                break;
-            case 2:
-                serviceTakeAway.setServiceSelected(true);
-                serviceAtRestaurant.setServiceSelected(false);
-                serviceDelivery.setServiceSelected(false);
-                break;
-            case 3:
-                serviceDelivery.setServiceSelected(true);
-                serviceAtRestaurant.setServiceSelected(false);
-                serviceTakeAway.setServiceSelected(false);
-                break;
+        if (isTablet()) {
+            switch (selectedService) {
+                case 1:
+                    serviceAtRestaurant.setServiceSelected(true);
+                    serviceTakeAway.setServiceSelected(false);
+                    serviceDelivery.setServiceSelected(false);
+                    break;
+                case 2:
+                    serviceTakeAway.setServiceSelected(true);
+                    serviceAtRestaurant.setServiceSelected(false);
+                    serviceDelivery.setServiceSelected(false);
+                    break;
+                case 3:
+                    serviceDelivery.setServiceSelected(true);
+                    serviceAtRestaurant.setServiceSelected(false);
+                    serviceTakeAway.setServiceSelected(false);
+                    break;
+            }
         }
 
         presenter.changeCategories(this.selectedService);
@@ -454,31 +466,27 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             adapter.change(new AdapterItemType<Location>(restaurant.getLocation().getImage(), restaurant.getLocation(), ItemType.MAP), mapPos);
 
             // add order
-            int selectServicePos = getResources().getInteger(R.integer.select_service_pos);
-            int positionForHeader = 0;
+//            int selectServicePos = getResources().getInteger(R.integer.select_service_pos);
+            positionForHeader = 0;
             if (data.getServices().size() < 3)
                 if (data.getServices().contains(1)) {
                     positionForHeader = 0;
-                    Logger.log("data.getServices().contains(1)");
                 } else if (data.getServices().contains(2)) {
                     positionForHeader = 1;
-                    Logger.log("data.getServices().contains(2)");
                 } else if (data.getServices().contains(3)) {
-                    Logger.log("data.getServices().contains(3)");
                     positionForHeader = 2;
                 } else {
                     positionForHeader = -1;
-                    Logger.log("data.din't contain any of item");
                 }
-            Logger.log("positionForHeader = " + positionForHeader);
 
-            if (positionForHeader != -1)
-                adapter.setSelectedService(data.getServices().get(positionForHeader));
+//            if (positionForHeader != -1)
+//                adapter.setSpinnerSelectedPosition(positionForHeader);
 
-            adapter.change(new AdapterItemType<>(getString(R.string.select_service_text), data.getServices(), ItemType.ORDER_TYPE_PHONE), selectServicePos);
+//            adapter.change(new AdapterItemType<>(getString(R.string.select_service_text), data.getServices(), ItemType.ORDER_TYPE_PHONE), selectServicePos);
+
+            initSpinner(data.getServices());
+
         } else {
-//            categoriesAdapter.setRestaurantId(restaurant.getId());
-
             categoriesAdapter.setOnCategoryClickListener(this);
 
             // add restaurant image
@@ -491,14 +499,22 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
 
             //add map
             String backgroundUrl = restaurant.getLocation().getImage();
-            Glide.with(this).load(BuildConfig.BASE_URL +
-                    backgroundUrl.substring(1, backgroundUrl.length())).into(mapImageView);
+            Glide
+                    .with(this)
+                    .load(BuildConfig.BASE_URL + backgroundUrl.substring(1, backgroundUrl.length()))
+                    .apply(new RequestOptions()
+                            .override(800, 800)
+                            .fitCenter())
+                    .into(mapImageView);
 
             mapImageView.setOnClickListener(view -> showMap(restaurant.getLocation()));
 
             if (ListUtils.isEmpty(data.getServices()))
                 return;
             selectedService = data.getServices().get(0);
+
+            serviceAtRestaurant.performClick();
+
             //Set up select service buttons
             switch (selectedService) {
                 case 1:
@@ -572,16 +588,45 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
             openMapInBrowser(location);
     }
 
-//    https://www.google.com.ua/maps/place/Serafina+Dubai/@25.1948626,55.2759427,21z
+    public void scrollToTop() {
+        if (isTablet()) {
+            scrollView.scrollTo(0, 0);
+        } else {
+            nestedScrollView.scrollTo(0, 0);
+        }
+    }
 
-//    https://www.google.com/maps/place/CenturyLink+Field/@47.5951518,-122.3360168,17z/data=!4m5!3m4!1s0x54906aa3b9f1182b:0xa636cd513bba22dc!8m2!3d47.5951518!4d-122.3316394
 
-//    private void openMap(Location location) {
-//        String strUri = "http://maps.google.com/maps?q=loc:" + location + " (" + restaurant.getName() + ")";
-//        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(strUri));
-//        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
-//        startActivity(intent);
-//    }
+    private void initSpinner(List<Integer> services) {
+        Logger.log("initSpinner");
+
+        ArrayList<ServiceType> serviceTypes = new ArrayList<>();
+        serviceTypes.add(ServiceType.RESTAURANT);
+        serviceTypes.add(ServiceType.TAKEAWAY);
+        serviceTypes.add(ServiceType.DELIVERY);
+
+        OrderTypeSpinnerAdapter orderTypeSpinnerAdapter = new OrderTypeSpinnerAdapter(this,
+                serviceTypes, services);
+        orderSpinner.setAdapter(orderTypeSpinnerAdapter);
+        orderSpinner.setDropDownVerticalOffset((int) getResources().getDimension(R.dimen.order_type_header_item_height));
+
+        if (positionForHeader != -1)
+            orderSpinner.setSelection(positionForHeader);
+
+        orderSpinner.setSpinnerEventsListener(this);
+        orderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                changeService((position + 1));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
 
     private void setContacts(@NonNull Restaurant data) {
         ArrayList<Contact> contacts = new ArrayList<>();
@@ -779,6 +824,27 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     }
 
     @Override
+    public void onSpinnerOpened(Spinner spin) {
+        if (!isTablet()) {
+            transparentViewBottom.setVisibility(View.VISIBLE);
+            transparentViewTop.setVisibility(View.VISIBLE);
+        } else {
+
+        }
+    }
+
+    @Override
+    public void onSpinnerClosed(Spinner spin) {
+        if (!isTablet()) {
+            transparentViewBottom.setVisibility(View.INVISIBLE);
+            transparentViewTop.setVisibility(View.INVISIBLE);
+        } else {
+
+        }
+    }
+
+
+    @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (!isChecked)
             return;
@@ -875,5 +941,16 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
     @Override
     public void onCurrencyChanged(Currency currency) {
 
+    }
+
+
+    @Override
+    public void popupOpened() {
+        showTransparentView(true);
+    }
+
+    @Override
+    public void popupClosed() {
+        showTransparentView(false);
     }
 }

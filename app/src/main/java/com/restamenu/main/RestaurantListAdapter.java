@@ -23,6 +23,8 @@ import com.restamenu.util.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
+import carbon.widget.FrameLayout;
+
 
 public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.ViewHolder> implements Filterable {
 
@@ -40,8 +42,14 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         this.listener = listener;
     }
 
+    public void clearItems() {
+        restaurants.clear();
+        notifyDataSetChanged();
+    }
+
     public void setItems(List<Restaurant> items) {
         restaurants.clear();
+        Logger.log("items " + items.size());
         restaurants.addAll(items);
         this.filter = new RestaurantFilter(this, items);
         notifyDataSetChanged();
@@ -89,6 +97,12 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
         final Restaurant item = getItem(position);
 
+
+        if (holder.rootCardView != null) {
+            holder.rootCardView.setElevation(60.0f);
+            holder.rootCardView.setTranslationZ(10f);
+        }
+
         holder.restaurantTitleTextView.setText(item.getName());
         holder.itemView.setOnClickListener(click -> listener.onRestaurantClicked(item.getId()));
 
@@ -105,24 +119,26 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
                         .override(imageWidthPixels, imageHeightPixels))
                 .into(holder.restaurantBackgroundImageView);
 
+        holder.foodTypeRestaurantImageView.setImageResource(R.drawable.ic_restaurant_disabled);
+        holder.foodTypeTakeawayImageView.setImageResource(R.drawable.ic_takeaway_disabled);
+        holder.foodTypeDeliveryImageView.setImageResource(R.drawable.ic_delivery_disabled);
+
+
         for (int i = 0; i < item.getServices().size(); i++) {
-            switch (item.getServices().get(i)) {
-                //restaurant
-                case 1: {
-                    holder.foodTypeRestaurantImageView.setImageResource(R.drawable.ic_restaurant_link);
-                    break;
-                }
-                //takeaway
-                case 2: {
-                    holder.foodTypeTakeawayImageView.setImageResource(R.drawable.ic_takeaway_link);
-                    break;
-                }
-                //delivery
-                case 3: {
-                    holder.foodTypeDeliveryImageView.setImageResource(R.drawable.ic_delivery_link);
-                    break;
-                }
+            int serviceId = item.getServices().get(i);
+            //restaurant
+            if (serviceId == 1) {
+                holder.foodTypeRestaurantImageView.setImageResource(R.drawable.ic_restaurant_link);
             }
+            //takeaway
+            else if (serviceId == 2) {
+                holder.foodTypeTakeawayImageView.setImageResource(R.drawable.ic_takeaway_link);
+            }
+            //delivery
+            else if (serviceId == 3) {
+                holder.foodTypeDeliveryImageView.setImageResource(R.drawable.ic_delivery_link);
+            }
+
         }
 
         StringBuilder institutions = new StringBuilder();
@@ -212,6 +228,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        FrameLayout rootCardView;
         ImageView restaurantBackgroundImageView;
         TextView restaurantTitleTextView;
         TextView restaurantTypeTextView;
@@ -225,6 +242,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         public ViewHolder(View itemView) {
             super(itemView);
 
+            rootCardView = itemView.findViewById(R.id.root_cardview);
             restaurantBackgroundImageView = itemView.findViewById(R.id.restaurant_background);
             restaurantTitleTextView = itemView.findViewById(R.id.restaurant_title);
             restaurantTypeTextView = itemView.findViewById(R.id.restaurant_type);

@@ -10,12 +10,11 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.model.content.Category;
@@ -24,6 +23,7 @@ import com.restamenu.model.content.Image;
 import com.restamenu.model.content.Location;
 import com.restamenu.model.content.Promotion;
 import com.restamenu.model.content.Restaurant;
+import com.restamenu.util.AndroidUtils;
 import com.restamenu.util.Logger;
 import com.restamenu.views.custom.ServiceButton;
 
@@ -39,6 +39,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private final ChangeServiceListener listener;
     private List<AdapterItemType> items;
     private int selectedService;
+    private int spinnerSelectedPosition = 0;
     private Restaurant restaurant;
     Context context;
 
@@ -80,6 +81,10 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         notifyItemChanged(position);
     }
 
+    public void setSpinnerSelectedPosition(int position) {
+        this.spinnerSelectedPosition = position;
+    }
+
     public void setSelectedService(int selectedService) {
         this.selectedService = selectedService;
     }
@@ -99,16 +104,17 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rootView;
         context = parent.getContext();
-        switch (viewType) {
-            case 0:
-                rootView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.order_type_item, parent, false);
-                return new OrderTypePhoneViewHolder(rootView);
 
-            case 1:
-                rootView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.order_type_item, parent, false);
-                return new OrderTypeTabletViewHolder(rootView);
+        switch (viewType) {
+//            case 0:
+//                rootView = LayoutInflater.from(parent.getContext())
+//                        .inflate(R.layout.order_type_item, parent, false);
+//                return new OrderTypePhoneViewHolder(rootView);
+
+//            case 1:
+//                rootView = LayoutInflater.from(parent.getContext())
+//                        .inflate(R.layout.order_type_item, parent, false);
+//                return new OrderTypeTabletViewHolder(rootView);
             case 2:
                 rootView = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.restaurant_item_title, parent, false);
@@ -145,32 +151,33 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final AdapterItemType item = items.get(position);
         switch (holder.getItemViewType()) {
-            case 0: {
-                AdapterItemType<List<Integer>> serviceItemType = (AdapterItemType<List<Integer>>) item;
-                OrderTypePhoneViewHolder viewHolder = (OrderTypePhoneViewHolder) holder;
-                ArrayList<ServiceType> serviceTypes = new ArrayList<>();
-                serviceTypes.add(ServiceType.DELIVERY);
-                serviceTypes.add(ServiceType.TAKEAWAY);
-                serviceTypes.add(ServiceType.RESTAURANT);
-
-                OrderTypeSpinnerAdapter orderTypeSpinnerAdapter = new OrderTypeSpinnerAdapter(holder.itemView.getContext(),
-                        serviceTypes, serviceItemType.getData(), selectedService);
-                viewHolder.spinner.setAdapter(orderTypeSpinnerAdapter);
-                viewHolder.spinner.setDropDownVerticalOffset((int) viewHolder.itemView.getContext().getResources().getDimension(R.dimen.order_type_header_item_height));
-                viewHolder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        changeService((position + 1));
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
-
-                break;
-            }
+//            case 0: {
+//                AdapterItemType<List<Integer>> serviceItemType = (AdapterItemType<List<Integer>>) item;
+//                OrderTypePhoneViewHolder viewHolder = (OrderTypePhoneViewHolder) holder;
+//                ArrayList<ServiceType> serviceTypes = new ArrayList<>();
+//                serviceTypes.add(ServiceType.RESTAURANT);
+//                serviceTypes.add(ServiceType.TAKEAWAY);
+//                serviceTypes.add(ServiceType.DELIVERY);
+//
+//                OrderTypeSpinnerAdapter orderTypeSpinnerAdapter = new OrderTypeSpinnerAdapter(holder.itemView.getContext(),
+//                        serviceTypes, serviceItemType.getData());
+//                viewHolder.spinner.setAdapter(orderTypeSpinnerAdapter);
+//                viewHolder.spinner.setDropDownVerticalOffset((int) viewHolder.itemView.getContext().getResources().getDimension(R.dimen.order_type_header_item_height));
+//                viewHolder.spinner.setSelection(spinnerSelectedPosition);
+//                viewHolder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                    @Override
+//                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                        changeService((position + 1));
+//                    }
+//
+//                    @Override
+//                    public void onNothingSelected(AdapterView<?> parent) {
+//
+//                    }
+//                });
+//
+//                break;
+//            }
             case 1: {
                 AdapterItemType<List<Integer>> serviceItemType = (AdapterItemType<List<Integer>>) item;
                 OrderTypeTabletViewHolder viewHolder = (OrderTypeTabletViewHolder) holder;
@@ -229,7 +236,18 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
             case 2: {
                 TitleViewHolder viewHolder = (TitleViewHolder) holder;
-                viewHolder.title.setText(item.getTitle());
+                String aboutTitle = viewHolder.itemView.getContext().getString(R.string.about_restaurant_text);
+
+                if (!item.getTitle().equals(aboutTitle))
+                    viewHolder.title.setText(item.getTitle());
+                else {
+                    viewHolder.title.setText(item.getTitle());
+                    RecyclerView.LayoutParams params = (RecyclerView.LayoutParams)viewHolder.title.getLayoutParams();
+                    params.setMargins(0, params.topMargin, 0, (int) AndroidUtils.dpToPixel(8, viewHolder.itemView.getContext()));
+
+                    viewHolder.title.setLayoutParams(params);
+                }
+
                 break;
             }
             // MENU_PHONE
@@ -270,6 +288,9 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 ListViewHolder viewHolder = (ListViewHolder) holder;
                 viewHolder.recycler.setHasFixedSize(true);
                 viewHolder.recycler.setLayoutManager(new LinearLayoutManager(viewHolder.itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
+                viewHolder.recycler.setClipToPadding(false);
+                viewHolder.recycler.setPadding(0, 0, (int) AndroidUtils.dpToPixel(16, viewHolder.itemView.getContext()), 0);
+
 
                 PromotionsAdapter promotionsAdapter = new PromotionsAdapter();
                 promotionsAdapter.setItems(promotionsItemType.getData());
@@ -319,7 +340,12 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                 // load map
                 String backgroundUrl = item.getTitle().substring(1, mapItem.getTitle().length());
-                Glide.with(holder.itemView.getContext()).load(BuildConfig.BASE_URL + backgroundUrl).into(imageViewHolder.image);
+                Glide.with(holder.itemView.getContext())
+                        .load(BuildConfig.BASE_URL + backgroundUrl)
+                        .apply(new RequestOptions()
+                                .override(800, 800)
+                                .fitCenter())
+                        .into(imageViewHolder.image);
                 imageViewHolder.image.setVisibility(View.VISIBLE);
                 imageViewHolder.image.setOnClickListener(view -> showMap(mapItem.getData()));
                 break;
@@ -383,20 +409,20 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    class OrderTypePhoneViewHolder extends RecyclerView.ViewHolder {
-
-        //private TextView title;
-        //private ImageView image;
-        private Spinner spinner;
-
-
-        public OrderTypePhoneViewHolder(View itemView) {
-            super(itemView);
-
-            spinner = itemView.findViewById(R.id.order_type_spinner);
-            //image = itemView.findViewById(R.id.image);
-        }
-    }
+//    class OrderTypePhoneViewHolder extends RecyclerView.ViewHolder {
+//
+//        //private TextView title;
+//        //private ImageView image;
+//        private CustomSpinner spinner;
+//
+//
+//        public OrderTypePhoneViewHolder(View itemView) {
+//            super(itemView);
+//
+//            spinner = itemView.findViewById(R.id.order_type_spinner);
+//            //image = itemView.findViewById(R.id.image);
+//        }
+//    }
 
     class OrderTypeTabletViewHolder extends RecyclerView.ViewHolder {
 

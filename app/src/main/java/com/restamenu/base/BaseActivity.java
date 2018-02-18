@@ -8,6 +8,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -30,6 +31,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected CoordinatorLayout coordinatorLayout;
     protected AppBarLayout appBarLayout;
 
+    protected View transparentView;
+
     @LayoutRes
     protected int getBaseViewLayoutId() {
         return R.layout.activity_base;
@@ -47,6 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getBaseViewLayoutId());
 
         container = findViewById(R.id.container);
+        transparentView = findViewById(R.id.view_transparent);
 
         ViewStub toolbarStub = findViewById(R.id.toolbar_stub);
         toolbarStub.setLayoutResource(getToolbarLayoutId());
@@ -90,8 +94,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     @LayoutRes
     protected abstract int getContentViewLayoutId();
 
-    protected abstract boolean showToolbarBackStack();
+    protected void showTransparentView(boolean show) {
+        if (show)
+            transparentView.setVisibility(View.VISIBLE);
+        else
+            transparentView.setVisibility(View.INVISIBLE);
+    }
 
+    protected abstract boolean showToolbarBackStack();
 
     public int getToolbarIcon() {
         return R.drawable.ic_burger_menu;

@@ -38,62 +38,62 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+<!--DELETED-->
+        <!--<android.support.constraint.ConstraintLayout-->
+            <!--android:id="@+id/back_to_category"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="@dimen/land_toolbar_category_button_height"-->
+            <!--android:layout_marginLeft="@dimen/land_toolbar_category_back_btn_margin_start"-->
+            <!--android:layout_marginStart="@dimen/land_toolbar_category_back_btn_margin_start"-->
+            <!--android:background="@drawable/rect_fill_stroke_grey"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/burger_menu"-->
+            <!--app:layout_constraintTop_toTopOf="parent">-->
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/back_to_category"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/land_toolbar_category_button_height"
-            android:layout_marginLeft="@dimen/land_toolbar_category_back_btn_margin_start"
-            android:layout_marginStart="@dimen/land_toolbar_category_back_btn_margin_start"
-            android:background="@drawable/rect_fill_stroke_grey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/burger_menu"
-            app:layout_constraintTop_toTopOf="parent">
+            <!--<ImageView-->
+                <!--android:id="@+id/icon"-->
+                <!--android:layout_width="@dimen/land_toolbar_category_arrow_width"-->
+                <!--android:layout_height="@dimen/land_toolbar_category_arrow_height"-->
+                <!--android:layout_marginLeft="@dimen/land_toolbar_category_arrow_margin_start"-->
+                <!--android:layout_marginStart="@dimen/land_toolbar_category_arrow_margin_start"-->
+                <!--android:rotation="-180"-->
+                <!--android:src="@drawable/ic_arrow_small"-->
+                <!--android:textColor="@color/black"-->
+                <!--app:layout_constraintBottom_toBottomOf="@+id/back"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toTopOf="@+id/back" />-->
 
-            <ImageView
-                android:id="@+id/icon"
-                android:layout_width="@dimen/land_toolbar_category_arrow_width"
-                android:layout_height="@dimen/land_toolbar_category_arrow_height"
-                android:layout_marginLeft="@dimen/land_toolbar_category_arrow_margin_start"
-                android:layout_marginStart="@dimen/land_toolbar_category_arrow_margin_start"
-                android:rotation="-180"
-                android:src="@drawable/ic_arrow_small"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/back"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/back" />
+            <!--<TextView-->
+                <!--android:id="@+id/back"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginEnd="@dimen/land_toolbar_category_back_txt_margin_end"-->
+                <!--android:layout_marginLeft="@dimen/land_toolbar_category_back_txt_margin_start"-->
+                <!--android:layout_marginRight="@dimen/land_toolbar_category_back_txt_margin_end"-->
+                <!--android:layout_marginStart="@dimen/land_toolbar_category_back_txt_margin_start"-->
+                <!--android:fontFamily="@font/open_sans"-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:text="@string/back"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="@dimen/land_toolbar_category_back_txt_size"-->
+                <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintStart_toEndOf="@+id/icon"-->
+                <!--app:layout_constraintTop_toTopOf="parent" />-->
 
-            <TextView
-                android:id="@+id/back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/land_toolbar_category_back_txt_margin_end"
-                android:layout_marginLeft="@dimen/land_toolbar_category_back_txt_margin_start"
-                android:layout_marginRight="@dimen/land_toolbar_category_back_txt_margin_end"
-                android:layout_marginStart="@dimen/land_toolbar_category_back_txt_margin_start"
-                android:fontFamily="@font/open_sans"
-                android:gravity="center_horizontal"
-                android:text="@string/back"
-                android:textColor="@color/black"
-                android:textSize="@dimen/land_toolbar_category_back_txt_size"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/icon"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </android.support.constraint.ConstraintLayout>
+        <!--</android.support.constraint.ConstraintLayout>-->
 
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/order_container"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/land_toolbar_category_button_height"
-            android:layout_marginLeft="@dimen/land_toolbar_category_order_container_margin_start"
-            android:layout_marginStart="@dimen/land_toolbar_category_order_container_margin_start"
+            android:layout_marginLeft="@dimen/land_toolbar_category_back_btn_margin_start"
+            android:layout_marginStart="@dimen/land_toolbar_category_back_btn_margin_start"
             android:background="@color/dusty_red"
-            app:layout_constraintBottom_toBottomOf="@+id/back_to_category"
-            app:layout_constraintStart_toEndOf="@+id/back_to_category"
-            app:layout_constraintTop_toTopOf="@+id/back_to_category">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/burger_menu"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/order_icon"
@@ -111,17 +111,31 @@
                 android:id="@+id/order_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/land_toolbar_category_order_txt_margin_end"
                 android:layout_marginLeft="@dimen/land_toolbar_category_order_txt_margin_start"
-                android:layout_marginRight="@dimen/land_toolbar_category_order_txt_margin_end"
                 android:layout_marginStart="@dimen/land_toolbar_category_order_txt_margin_start"
+                android:fontFamily="@font/open_sans"
                 android:gravity="center_horizontal"
-                android:text="Order: $0"
+                android:text="Order: "
+                android:textColor="@color/white"
+                android:textSize="@dimen/land_toolbar_category_back_txt_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/order_icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/order_quant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/land_toolbar_category_order_txt_margin_end"
+                android:layout_marginRight="@dimen/land_toolbar_category_order_txt_margin_end"
+                android:fontFamily="@font/open_sans_bold"
+                android:gravity="center_horizontal"
+                android:text="0 $ "
                 android:textColor="@color/white"
                 android:textSize="@dimen/land_toolbar_category_back_txt_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/order_icon"
+                app:layout_constraintStart_toEndOf="@+id/order_text"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>

@@ -21,8 +21,9 @@
             android:id="@+id/search_top_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/land_search_view_height"
-            android:background="@drawable/round_rect_stroke_grey"
-            android:orientation="horizontal">
+            android:background="@drawable/search_view_background"
+            android:orientation="horizontal"
+            android:padding="1dp">
 
             <FrameLayout
                 android:layout_width="0dp"
@@ -37,13 +38,14 @@
                     android:hint="@string/search_hint"
                     android:imeOptions="actionSearch"
                     android:inputType="textNoSuggestions"
+                    android:fontFamily="@font/open_sans"
                     android:paddingLeft="@dimen/land_search_view_edit_padding_left"
                     android:paddingRight="@dimen/land_search_view_edit_padding_left"
                     android:singleLine="true"
                     android:textColor="#212121"
                     android:textColorHint="#727272"
                     android:textSize="@dimen/land_search_view_edit_text_size"
-                    tools:text="hih" />
+                    tools:text="@string/search_hint" />
 
                 <FrameLayout
                     android:id="@+id/action_empty_btn"
@@ -94,6 +96,7 @@
                     android:layout_marginLeft="@dimen/land_search_view_inst_text_margin_start"
                     android:layout_marginStart="@dimen/land_search_view_inst_text_margin_start"
                     android:fontFamily="@font/open_sans"
+                    android:includeFontPadding="false"
                     android:text="@string/institution_string"
                     android:textColor="#c33c43"
                     android:textSize="@dimen/land_search_view_inst_text_size"
@@ -104,9 +107,10 @@
                     android:layout_width="@dimen/land_search_view_arrow_width"
                     android:layout_height="@dimen/land_search_view_arrow_height"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/land_search_view_arrow_margin_top"
                     android:layout_marginEnd="@dimen/land_search_view_arro_margin_end"
                     android:layout_marginRight="@dimen/land_search_view_arro_margin_end"
+                    android:scaleX="1.3"
+                    android:scaleY="1.5"
                     android:src="@drawable/ic_arrow_down" />
 
             </LinearLayout>
@@ -135,6 +139,7 @@
                     android:layout_marginLeft="@dimen/land_search_view_cuisine_margin_start"
                     android:layout_marginStart="@dimen/land_search_view_cuisine_margin_start"
                     android:fontFamily="@font/open_sans"
+                    android:includeFontPadding="false"
                     android:text="@string/cuisine"
                     android:textColor="#c33c43"
                     android:textSize="@dimen/land_search_view_cuisine_text_size"
@@ -145,10 +150,11 @@
                     android:layout_width="@dimen/land_search_view_arrow_width"
                     android:layout_height="@dimen/land_search_view_arrow_height"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/land_search_view_arrow_margin_top"
                     android:layout_marginEnd="@dimen/land_search_view_arro_margin_end"
                     android:layout_marginRight="@dimen/land_search_view_arro_margin_end"
-                    android:src="@drawable/ic_arrow" />
+                    android:scaleX="1.3"
+                    android:scaleY="1.5"
+                    android:src="@drawable/ic_arrow_down" />
 
             </LinearLayout>
 
@@ -182,10 +188,10 @@
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dip"
-            android:background="#e6e6e6" />
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dip"-->
+            <!--android:background="#e6e6e6" />-->
 
 
         <com.restamenu.views.custom.ExpandedListView

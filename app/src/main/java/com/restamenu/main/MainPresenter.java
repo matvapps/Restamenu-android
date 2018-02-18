@@ -53,18 +53,18 @@ public class MainPresenter implements Presenter<MainView> {
                 }, throwable -> view.showError());
     }
 
-    public void performSearch(int page, String keyword, String filterCuisines, String filterInstitutes){
-        view.showLoading(true);
-        RepositoryProvider.getAppRepository().getRestaurants(1, keyword, filterCuisines, filterInstitutes, page, true)
-                .flatMap(Flowable::fromIterable)
-                .toList()
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
-                .subscribe(restaurants -> {
-                    view.showLoading(false);
-                    view.setFoundedRestaurants(restaurants);
-                }, throwable -> view.showError());
-    }
+//    public void performSearch(int page, String keyword, String filterCuisines, String filterInstitutes){
+//        view.showLoading(true);
+//        RepositoryProvider.getAppRepository().getRestaurants(1, keyword, filterCuisines, filterInstitutes, page, true)
+//                .flatMap(Flowable::fromIterable)
+//                .toList()
+//                .subscribeOn(schedulerProvider.io())
+//                .observeOn(schedulerProvider.ui())
+//                .subscribe(restaurants -> {
+//                    view.showLoading(false);
+//                    view.setFoundedRestaurants(restaurants);
+//                }, throwable -> view.showError());
+//    }
 
     public void loadRestaurants(int page, String keyword, String filterCuisines, String filterInstitutes) {
         view.showLoading(true);

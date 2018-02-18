@@ -19,10 +19,9 @@ import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Currency;
 import com.restamenu.model.content.Language;
 import com.restamenu.model.content.Product;
-import com.restamenu.model.content.Restaurant;
-import com.restamenu.restaurant.RestaurantActivity;
 import com.restamenu.rx.BaseSchedulerProvider;
 import com.restamenu.rx.SchedulerProvider;
+import com.restamenu.util.AndroidUtils;
 import com.restamenu.util.Logger;
 import com.restamenu.views.pager.MaterialViewPagerHeaderDecorator;
 
@@ -68,6 +67,11 @@ public class CategoryFragment extends Fragment implements OnCategoryDataChangeLi
         ((CategoryActivity) getActivity()).registerOnCategoryDataChangeListener(this);
 
         schedulerProvider = SchedulerProvider.getInstance();
+        adapter = new ProductAdapter();
+
+        String currencyIcon = ((CategoryActivity) getActivity()).getSettingView().getCurrentCurrency().getSymbol();
+        adapter.setCurrencyIcon(currencyIcon);
+
     }
 
     @Override
@@ -80,10 +84,6 @@ public class CategoryFragment extends Fragment implements OnCategoryDataChangeLi
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_category_items, container, false);
-        /*refreshLayout = view.findViewById(R.id.refresh_layout);
-        refreshLayout.setOnRefreshListener(() -> {
-            loadProducts(restaurantId, category.geId());
-        });*/
     }
 
     @Override
@@ -92,20 +92,20 @@ public class CategoryFragment extends Fragment implements OnCategoryDataChangeLi
 
         recycler = view.findViewById(R.id.recycler);
         //recycler.setNestedScrollingEnabled(false);
-        recycler.setHasFixedSize(true);
+//        recycler.setHasFixedSize(true);
 
-        if (isTablet())
+        recycler.setClipToPadding(false);
+
+        if (isTablet()) {
             layoutManager = new GridLayoutManager(getContext(), getResources().getInteger(R.integer.product_span_count));
-        else
-            layoutManager = new LinearLayoutManager(getContext());
 
+            recycler.setPadding(0, 0, 0, (int) AndroidUtils.dpToPixel(16, getContext()));
+        } else {
+            layoutManager = new LinearLayoutManager(getContext());
+        }
         recycler.setLayoutManager(layoutManager);
 
         recycler.addItemDecoration(new MaterialViewPagerHeaderDecorator());
-        adapter = new ProductAdapter();
-
-        String currencyIcon = ((CategoryActivity) getActivity()).getCurrentCurrency().getSymbol();
-        adapter.setCurrencyIcon(currencyIcon);
 
         recycler.setAdapter(adapter);
 

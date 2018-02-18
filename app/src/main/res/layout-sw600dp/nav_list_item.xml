@@ -12,7 +12,7 @@
             android:id="@+id/nav_list_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/open_sans_semibold"
+            android:fontFamily="@font/open_sans"
             android:paddingBottom="@dimen/land_nav_list_text_padding"
             android:paddingStart="@dimen/land_nav_list_text_padding"
             android:paddingTop="@dimen/land_nav_list_text_padding"

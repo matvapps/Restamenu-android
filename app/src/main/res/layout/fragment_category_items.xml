@@ -3,8 +3,10 @@
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="@dimen/toolbar_burger_menu_margin_start"
-        android:paddingRight="@dimen/toolbar_burger_menu_margin_start" /><!--android:paddingBottom="@dimen/activity_category_product_list_margin"-->
+        android:layout_marginLeft="@dimen/land_toolbar_restaurant_margin_horizontal"
+        android:layout_marginRight="@dimen/land_toolbar_restaurant_margin_horizontal"
+        android:layout_marginEnd="@dimen/land_toolbar_restaurant_margin_horizontal"
+    android:layout_marginStart="@dimen/land_toolbar_restaurant_margin_horizontal" />
 
 
 

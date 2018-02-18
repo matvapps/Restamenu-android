@@ -16,9 +16,9 @@ public class RestaurantUtils {
         switch (position) {
             case 0:
                 return context.getString(R.string.service_restaurant);
-            case 1:
-                return context.getString(R.string.service_takeaway);
             case 2:
+                return context.getString(R.string.service_takeaway);
+            case 3:
                 return context.getString(R.string.service_delivery);
             default:
                 return context.getString(R.string.service_restaurant);

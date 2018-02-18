@@ -6,9 +6,9 @@ package com.restamenu.restaurant.adapter;
 
 public enum ServiceType {
 
-    DELIVERY(1),
+    DELIVERY(3),
     TAKEAWAY(2),
-    RESTAURANT(3);
+    RESTAURANT(1);
 
     private final int position;
 

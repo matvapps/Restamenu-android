@@ -9,10 +9,7 @@
         android:id="@+id/popup_item_chbx"
         android:layout_width="@dimen/filter_popup_item_chbx_size"
         android:layout_height="@dimen/filter_popup_item_chbx_size"
-        android:layout_marginBottom="@dimen/filter_popup_item_item_chbx_margin_bottom"
-        android:layout_marginTop="@dimen/filter_popup_item_chbx_margin_top"
         android:background="@drawable/ic_checkbox_before"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -50,11 +47,15 @@
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="0.65dp"
+        android:layout_height="0.5dp"
         android:background="#F1F2F3"
+        android:layout_marginBottom="@dimen/filter_popup_item_chbx_margin_top"
+        android:layout_marginTop="@dimen/filter_popup_item_item_chbx_margin_bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/popup_item_chbx" />
 
 
 </android.support.constraint.ConstraintLayout>

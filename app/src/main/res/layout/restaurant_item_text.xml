@@ -10,7 +10,7 @@
     android:layout_marginRight="@dimen/activity_restaurant_margin_start"
     android:fontFamily="@font/open_sans"
     android:gravity="start"
-    android:lineSpacingMultiplier="1.35"
+    android:lineSpacingMultiplier="1.4"
     android:textColor="@color/black"
     android:textSize="@dimen/restaurant_item_text_size"
     tools:text="Details" />

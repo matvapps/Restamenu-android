@@ -3,8 +3,8 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@drawable/bg_restaurant_card"
     android:paddingLeft="@dimen/restaurant_nearby_card_margin_start">
 
@@ -12,8 +12,8 @@
         android:id="@+id/restaurant_background"
         android:layout_width="@dimen/restaurant_nearby_card_background_width"
         android:layout_height="@dimen/restaurant_nearby_card_background_height"
-        android:src="@color/white_two"
         android:scaleType="centerCrop"
+        android:src="@color/white_two"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -102,48 +102,44 @@
         app:layout_constraintStart_toStartOf="@+id/food_type_restaurant_img"
         app:layout_constraintTop_toBottomOf="@+id/food_type_restaurant_img" />
 
-    <LinearLayout
-        android:id="@+id/layout_distance"
-        android:layout_width="0dp"
+
+    <TextView
+        android:id="@+id/restaurant_street"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/restaurant_nearby_card_distance_margin_start"
+        android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/restaurant_nearby_card_distance_margin_start"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
+        android:ellipsize="end"
+        android:fontFamily="@font/open_sans"
+        android:maxEms="12"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/restaurant_nearby_card_street_text_size"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3">
-
-        <TextView
-            android:id="@+id/restaurant_street"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="@dimen/restaurant_nearby_card_street_margin_end"
-            android:layout_marginRight="@dimen/restaurant_nearby_card_street_margin_end"
-            android:ellipsize="end"
-            android:fontFamily="@font/open_sans"
-            android:maxLines="1"
-            android:maxWidth="@dimen/restaurant_nearby_card_street_max_width"
-            android:textColor="@color/black"
-            android:textSize="@dimen/restaurant_nearby_card_street_text_size"
-            tools:text="Grosvenor House Dubai" />
+        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        tools:text="Grosvenor House Dubai and alekjdf aaaa sdfdf "
+        android:layout_marginLeft="@dimen/restaurant_nearby_card_distance_margin_start" />
 
 
-        <TextView
-            android:id="@+id/distance_to_restaurant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="@dimen/restaurant_nearby_card_distance_margin_start"
-            android:layout_marginRight="@dimen/restaurant_nearby_card_distance_margin_start"
-            android:fontFamily="@font/open_sans_semibold"
-            android:maxLines="1"
-            android:textColor="@color/black"
-            android:textSize="@dimen/restaurant_nearby_card_distance_text_size"
-            tools:text="0m" />
+    <TextView
+        android:id="@+id/distance_to_restaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/restaurant_nearby_card_street_margin_end"
+        android:fontFamily="@font/open_sans_semibold"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/restaurant_nearby_card_distance_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/restaurant_street"
+        app:layout_constraintEnd_toEndOf="@+id/restaurant_type"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/restaurant_street"
+        app:layout_constraintTop_toTopOf="@+id/restaurant_street"
+        tools:text="0m"
+        android:layout_marginLeft="@dimen/restaurant_nearby_card_street_margin_end" />
 
-    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

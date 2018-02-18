@@ -1,6 +1,6 @@
 <resources>
 	<dimen name="order_type_header_item_arrow_margin_bottom">6.2dp</dimen>
-	<dimen name="restaurant_nearby_card_street_max_width">164.8dp</dimen>
+	<dimen name="restaurant_nearby_card_street_max_width">157.5dp</dimen>
 	<dimen name="restaurant_card_item_background_height">201.9dp</dimen>
 	<dimen name="restaurant_advertising_card_service_rest_img_margin_bottom">10.1dp</dimen>
 	<dimen name="fragment_restaurant_header_address_margin_start">3.8dp</dimen>
@@ -109,7 +109,7 @@
 	<dimen name="restaurant_advertising_card_title_margin_start">10.1dp</dimen>
 	<dimen name="restaurant_advertising_card_service_delivery_img_width">17.9dp</dimen>
 	<dimen name="restaurant_advertising_card_service_takeaway_img_height">11.6dp</dimen>
-	<dimen name="fragment_restaurant_header_fav_text_margin_start">6.2dp</dimen>
+	<dimen name="fragment_restaurant_header_fav_text_margin_start">6.4dp</dimen>
 	<dimen name="special_item_big_icon_size">13.2dp</dimen>
 	<dimen name="restaurant_contact_item_title_margin_start">5.4dp</dimen>
 	<dimen name="order_type_header_item_arrow_margin_end">24.2dp</dimen>
@@ -260,7 +260,7 @@
 	<dimen name="item_service_button_title_text_size">17.1sp</dimen>
 	<dimen name="order_type_header_item_title_text_size">20.5sp</dimen>
 	<dimen name="order_type_dropdown_item_title_text_size">15.8sp</dimen>
-	<dimen name="category_product_item_price_sub_text_size">9.4sp</dimen>
+	<dimen name="category_product_item_price_sub_text_size">11.6sp</dimen>
 	<dimen name="restaurant_item_text_linespacing">12.4sp</dimen>
 	<dimen name="fragment_restaurant_header_restaurant_data_text_size">11.4sp</dimen>
 	<dimen name="popup_item_title_text_size">11.6sp</dimen>
@@ -425,11 +425,11 @@
 	<dimen name="search_text_view_padding_right">28dp</dimen>
 	<dimen name="filter_popup_item_chbx_size">20.5dp</dimen>
 	<dimen name="filter_popup_content_action_cancel_margin">19.4dp</dimen>
-	<dimen name="filter_popup_content_cuisine_list_margin_top">17.9dp</dimen>
-	<dimen name="filter_popup_item_chbx_margin_top">18.6dp</dimen>
+	<dimen name="filter_popup_content_cuisine_list_margin_top">16.2dp</dimen>
+	<dimen name="filter_popup_item_chbx_margin_top">18.5dp</dimen>
 	<dimen name="filter_popup_item_title_margin_horiz">11.6dp</dimen>
 	<dimen name="filter_popup_item_chbx_icon_width">10.1dp</dimen>
-	<dimen name="filter_popup_item_item_chbx_margin_bottom">11.6dp</dimen>
+	<dimen name="filter_popup_item_item_chbx_margin_bottom">10.8dp</dimen>
 	<dimen name="filter_popup_content_button_save_height">70dp</dimen>
 	<dimen name="filter_popup_item_chbx_icon_height">7.7dp</dimen>
 	<dimen name="filter_popup_content_button_save_margin_top">20.2dp</dimen>
@@ -438,9 +438,9 @@
 	<dimen name="filter_popup_content_action_cancel_size">15.6dp</dimen>
 	<dimen name="filter_popup_content_institute_title_text_size">21sp</dimen>
 	<dimen name="filter_popup_item_title_text_size">14sp</dimen>
-	<dimen name="filter_popup_content_save_text_size">21sp</dimen>
-	<dimen name="filter_popup_content_title_text_size">21sp</dimen>
-	<dimen name="filter_popup_content_filter_text_size">21sp</dimen>
+	<dimen name="filter_popup_content_save_text_size">20.5sp</dimen>
+	<dimen name="filter_popup_content_title_text_size">20.5sp</dimen>
+	<dimen name="filter_popup_content_filter_text_size">20.5sp</dimen>
 	<dimen name="fragment_restaurant_header_restaurant_type_margin_top">0dp</dimen>
 	<dimen name="activity_restaurant_margin_start">18.2dp</dimen>
 	<dimen name="toolbar_restaurant_settings_margin_end">3dp</dimen>
@@ -477,9 +477,10 @@
 	<dimen name="popup_product_image_gallery_height">198.8dp</dimen>
 	<dimen name="divider_width">0.7dp</dimen>
 	<dimen name="search_cancel_size">8.8dp</dimen>
-	<dimen name="search_cancel_margin">17.5dp</dimen>
+	<dimen name="search_cancel_margin">12.2dp</dimen>
 	<dimen name="action_reset_height">45.5dp</dimen>
 	<dimen name="rounded_rect">14dp</dimen>
 	<dimen name="rounded_rect_height">12.2dp</dimen>
-    <dimen name="filter_quantity_text_size">8sp</dimen>
+	<dimen name="filter_quantity_text_size">7sp</dimen>
+	<dimen name="filter_popup_content_institute_title_margin_top">37.4dp</dimen>
 </resources>

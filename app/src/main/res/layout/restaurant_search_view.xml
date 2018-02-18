@@ -40,14 +40,14 @@
                     android:fontFamily="@font/open_sans"
                     android:hint="@string/search_hint"
                     android:imeOptions="actionSearch"
-                    android:inputType="textNoSuggestions"
+                    android:inputType="text"
+                    android:maxLines="1"
                     android:paddingEnd="@dimen/search_text_view_padding_right"
                     android:paddingLeft="@dimen/search_text_view_padding_left"
                     android:paddingRight="@dimen/search_text_view_padding_right"
                     android:paddingStart="@dimen/search_text_view_padding_left"
                     android:singleLine="true"
-                    android:textColor="#212121"
-                    android:textColorHint="#999999"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/search_text_view_size" />
 
 

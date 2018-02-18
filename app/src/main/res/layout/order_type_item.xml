@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Spinner xmlns:android="http://schemas.android.com/apk/res/android"
+<com.restamenu.views.custom.CustomSpinner xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/order_type_spinner"
     android:layout_width="match_parent"
     android:layout_height="@dimen/order_type_header_item_height"
     android:background="@android:color/transparent"
-    android:popupBackground="@android:color/white"
+    android:popupBackground="@android:color/transparent"
     android:popupElevation="@null"/>

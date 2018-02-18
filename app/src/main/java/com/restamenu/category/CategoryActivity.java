@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +24,7 @@ import com.restamenu.views.custom.CustomSwipeToRefresh;
 import com.restamenu.views.pager.CircularViewPagerHandler;
 import com.restamenu.views.pager.MaterialViewPager;
 import com.restamenu.views.setting.OnSettingItemChanged;
+import com.restamenu.views.setting.SettingListener;
 import com.restamenu.views.setting.SettingView;
 
 import java.util.ArrayList;
@@ -29,7 +32,8 @@ import java.util.List;
 
 
 public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, CategoryView, List<Category>>
-        implements CategoryView, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, OnSettingItemChanged {
+        implements CategoryView, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, OnSettingItemChanged,
+        SettingListener {
 
     public static final String KEY_RESTAURANT = "key_rest";
     public static final String KEY_SERVICE_ID = "key_service_id";
@@ -148,7 +152,6 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         viewPager.getViewPager().addOnPageChangeListener(circularViewPagerHandler);
 
         categoryIndex = getCategoryIndex(data, categoryId);
-        Logger.log("categoryIndex = " + categoryIndex);
 
         txtCategoryName.setText(data.get(categoryIndex).getName());
         viewPager.getViewPager().setCurrentItem(categoryIndex + 1, false);
@@ -218,11 +221,11 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         btnTopCategoryNext = findViewById(R.id.category_arrow_right);
         txtCategoryName = findViewById(R.id.category_title);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
-        View back = findViewById(R.id.back_to_category);
         settingView = findViewById(R.id.settings_view);
 
         swipeRefreshLayout.setOnRefreshListener(this);
         settingView.setOnSettingItemChanged(this);
+        settingView.setSettingListener(this);
 
         //productHeader = findViewById(R.id.product_header);
         buttonFind = findViewById(R.id.button_find);
@@ -230,7 +233,23 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         findEditText.clearFocus();
 
 
-        buttonFind.setOnClickListener(view -> onPerformSearch(findEditText.getText().toString()));
+        buttonFind.setOnClickListener(view -> {
+            onPerformSearch(findEditText.getText().toString());
+        });
+
+
+        findEditText.setOnEditorActionListener((textView, i, keyEvent) -> {
+
+            if (i == EditorInfo.IME_ACTION_SEARCH) {
+
+                InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
+
+                buttonFind.performClick();
+                return true;
+            }
+            return false;
+        });
 
         // For tablet
         btnBottomCategoryPrevious = findViewById(R.id.previous_category_button);
@@ -242,7 +261,6 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         if (isTablet()) {
             btnBottomCategoryNext.setOnClickListener(this);
             btnBottomCategoryPrevious.setOnClickListener(this);
-            back.setOnClickListener(view -> finish());
         }
 
         btnTopCategoryNext.setOnClickListener(this);
@@ -378,6 +396,7 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         presenter.loadData(keyValueStorage.getLanguageId());
         categoryId = categories.get(viewPager.getViewPager().getCurrentItem() - 1).geId();
         swipeRefreshLayout.setRefreshing(false);
+        findEditText.setText(null);
     }
 
     public synchronized void registerOnCategoryDataChangeListener(OnCategoryDataChangeListener onCategoryDataChangeListener) {
@@ -429,5 +448,23 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
     public void setCurrentCurrency(Currency currentCurrency) {
         this.currentCurrency = currentCurrency;
+    }
+
+    public SettingView getSettingView() {
+        return settingView;
+    }
+
+    public void setSettingView(SettingView settingView) {
+        this.settingView = settingView;
+    }
+
+    @Override
+    public void popupOpened() {
+        showTransparentView(true);
+    }
+
+    @Override
+    public void popupClosed() {
+        showTransparentView(false);
     }
 }

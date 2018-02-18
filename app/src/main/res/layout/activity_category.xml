@@ -13,5 +13,5 @@
     app:viewpager_imageHeaderDarkLayerAlpha="0"
     app:viewpager_parallaxHeaderFactor="0"
     app:viewpager_headerAdditionalHeight="0dp"
-    app:viewpager_animatedHeaderImage="false" />
+    app:viewpager_animatedHeaderImage="true" />
 

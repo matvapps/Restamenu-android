@@ -4,15 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#E5E5E5">
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp"
-        android:background="#E5E5E5">
+        app:elevation="0dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
@@ -47,7 +45,8 @@
                         android:layout_marginRight="@dimen/activity_main_search_margin"
                         android:layout_marginTop="@dimen/activity_main_search_padding"
                         android:background="@drawable/round_rect_stroke_grey"
-                        android:gravity="center_vertical" />
+                        android:gravity="center_vertical"
+                        android:textColorHint="@color/grey_99"/>
                 </FrameLayout>
 
                 <View
@@ -79,9 +78,7 @@
         android:id="@+id/restaurants_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:paddingLeft="@dimen/activity_main_restaurant_list_margin"
-        android:paddingRight="@dimen/activity_main_restaurant_list_margin"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 
 </android.support.design.widget.CoordinatorLayout>

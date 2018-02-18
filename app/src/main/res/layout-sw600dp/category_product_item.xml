@@ -6,11 +6,10 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/land_category_product_padding">
 
-    <android.support.v7.widget.CardView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/land_rest_card_nearby_radius"
-        app:cardElevation="0dp">
+        android:background="@drawable/bg_restaurant_card">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -27,62 +26,64 @@
                     android:id="@+id/product_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
                     android:background="@color/greyish"
-                    app:riv_corner_radius_top_right="@dimen/land_rest_card_nearby_radius"
-                    app:riv_corner_radius_top_left="@dimen/land_rest_card_nearby_radius"
+                    android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_corner_radius_top_left="@dimen/restaurant_nearby_card_radius"
+                    app:riv_corner_radius_top_right="@dimen/restaurant_nearby_card_radius" />
 
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/service_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/land_category_product_service_margin_start"
                     android:layout_marginStart="@dimen/land_category_product_service_margin_start"
                     android:layout_marginTop="@dimen/land_category_product_service_margin_top"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginLeft="@dimen/land_category_product_service_margin_start" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </android.support.constraint.ConstraintLayout>
 
 
             <TextView
                 android:id="@+id/product_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/land_category_product_name_margin_start"
-                android:layout_marginRight="@dimen/land_category_product_name_margin_start"
                 android:layout_marginEnd="@dimen/land_category_product_name_margin_start"
+                android:layout_marginStart="@dimen/land_category_product_name_margin_start"
                 android:layout_marginTop="@dimen/land_category_product_margin_top"
-                android:fontFamily="@font/open_sans_bold"
-                android:textColor="@color/black"
-                android:maxLines="1"
                 android:ellipsize="end"
+                android:fontFamily="@font/open_sans_bold"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="@color/black"
                 android:textSize="@dimen/land_category_product_name_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/background"
-                tools:text="Salmon sandwich"
-                android:layout_marginLeft="@dimen/land_category_product_name_margin_start" />
+                tools:text="Salmon sandwich" />
 
             <TextView
                 android:id="@+id/product_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/land_category_product_name_margin_start"
+                android:layout_marginRight="@dimen/land_category_product_name_margin_start"
                 android:layout_marginTop="5dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/open_sans"
                 android:maxLines="2"
+                android:minLines="2"
+                android:text="fjkl;j fl;kas dfy, and Grilled Chicken Salad Recipe dsfsdf asdg dfgh fdsg dfsg dsfh j rt ty jtyh tertdfgbgd hgfh eh erthdfhg tyej"
                 android:textColor="#666666"
                 android:textSize="@dimen/land_category_product_desc_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/product_name"
                 app:layout_constraintTop_toBottomOf="@+id/product_name"
-                tools:text="Avocado, cheese, Iceberg salad, Tobiko caviar, smoked eel, teriyaki sauce and sesame."
-                android:layout_marginRight="@dimen/land_category_product_name_margin_start" />
+                tools:text="Avocado, cheese, Iceberg salad, Tobiko caviar, smoked eel, teriyaki sauce and sesame." />
 
             <TextView
                 android:id="@+id/product_price"
@@ -102,31 +103,30 @@
                 android:id="@+id/product_price_sub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:textColor="#b3000000"
-                android:textSize="12sp"
-                android:visibility="invisible"
+                android:textSize="@dimen/land_product_price_sub_text_size"
                 app:layout_constraintBottom_toBottomOf="@+id/product_price"
                 app:layout_constraintStart_toEndOf="@+id/product_price"
                 app:layout_constraintTop_toTopOf="@+id/product_price"
                 app:layout_constraintVertical_bias="0.74"
-                tools:text="$2"
-                android:layout_marginLeft="8dp" />
+                tools:text="$2" />
 
             <FrameLayout
                 android:id="@+id/product_quantity_container"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/land_category_product_quant_container_height"
                 android:layout_marginEnd="@dimen/land_category_product_quant_container_margin_end"
+                android:layout_marginRight="@dimen/land_category_product_quant_container_margin_end"
                 android:background="@drawable/search_view_background"
+                android:paddingBottom="@dimen/land_category_product_quant_padding_top"
                 android:paddingLeft="@dimen/land_category_product_quant_padding_left"
                 android:paddingRight="@dimen/land_category_product_quant_padding_left"
                 android:paddingTop="@dimen/land_category_product_quant_padding_top"
-                android:paddingBottom="@dimen/land_category_product_quant_padding_top"
                 app:layout_constraintBottom_toBottomOf="@+id/buy_container"
                 app:layout_constraintEnd_toStartOf="@+id/buy_container"
-                app:layout_constraintTop_toTopOf="@+id/buy_container"
-                android:layout_marginRight="@dimen/land_category_product_quant_container_margin_end">
+                app:layout_constraintTop_toTopOf="@+id/buy_container">
 
                 <EditText
                     android:id="@+id/product_quantity"
@@ -143,8 +143,6 @@
                     android:textSize="@dimen/land_category_product_quant_text_size" />
 
             </FrameLayout>
-
-
 
 
             <LinearLayout
@@ -164,25 +162,25 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/land_category_product_buy_text_margin_end"
                     android:layout_marginLeft="@dimen/land_category_product_buy_text_margin_start"
+                    android:layout_marginRight="@dimen/land_category_product_buy_text_margin_end"
+                    android:layout_marginStart="@dimen/land_category_product_buy_text_margin_start"
                     android:fontFamily="@font/open_sans_semibold"
                     android:text="Buy"
                     android:textColor="@color/white"
                     android:textSize="@dimen/land_category_product_buy_text_size"
-                    android:textStyle="bold"
-                    android:layout_marginRight="@dimen/land_category_product_buy_text_margin_end"
-                    android:layout_marginStart="@dimen/land_category_product_buy_text_margin_start" />
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="@dimen/land_category_product_cart_size"
                     android:layout_height="@dimen/land_category_product_cart_size"
+                    android:layout_marginEnd="@dimen/land_category_product_cart_margin_end"
                     android:layout_marginRight="@dimen/land_category_product_cart_margin_end"
-                    android:src="@drawable/ic_buy"
-                    android:layout_marginEnd="@dimen/land_category_product_cart_margin_end" />
+                    android:src="@drawable/ic_buy" />
 
             </LinearLayout>
 
         </android.support.constraint.ConstraintLayout>
 
-    </android.support.v7.widget.CardView>
+    </FrameLayout>
 
 </FrameLayout>

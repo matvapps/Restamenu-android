@@ -6,9 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/restaurant_category_item_margin"
     android:paddingLeft="@dimen/activity_restaurant_margin_start"
-    android:paddingRight="@dimen/activity_restaurant_margin_start"
-    android:background="?selectableItemBackground"
-    android:foreground="?selectableItemBackground">
+    android:paddingRight="@dimen/activity_restaurant_margin_start">
 
 
     <com.makeramen.roundedimageview.RoundedImageView
@@ -16,6 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/restaurant_category_item_height"
         android:scaleType="centerCrop"
+        android:background="?selectableItemBackground"
+        android:foreground="?selectableItemBackground"
         android:src="@color/greyish"
         app:riv_corner_radius="@dimen/card_corner_radius"/>
 

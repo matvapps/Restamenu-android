@@ -29,13 +29,23 @@
             android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <FrameLayout
-                android:id="@+id/container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbarAlwaysDrawVerticalTrack="true"
-                android:scrollbars="vertical" />
+                <FrameLayout
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbarAlwaysDrawVerticalTrack="true"
+                    android:scrollbars="vertical" />
+
+
+
         </com.restamenu.views.custom.CustomSwipeToRefresh>
+
+        <View
+            android:id="@+id/view_transparent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#4d000000"
+            android:visibility="invisible"/>
 
     </android.support.design.widget.CoordinatorLayout>
 </merge>

@@ -4,8 +4,8 @@
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E5E5E5"
         android:orientation="vertical">
+
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar_layout"
@@ -47,7 +47,8 @@
                             android:layout_marginLeft="@dimen/land_activity_main_margin"
                             android:layout_marginRight="@dimen/land_activity_main_margin"
                             android:background="@drawable/round_rect_stroke_grey"
-                            android:gravity="center_vertical" />
+                            android:gravity="center_vertical"
+                            android:textColorHint="@color/grey_99"/>
                     </FrameLayout>
 
                     <View

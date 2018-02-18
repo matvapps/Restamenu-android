@@ -7,10 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.model.content.Image;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,12 +68,25 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             String image = items.get(position).getImage();
             String backgroundUrl = image.substring(1, image.length());
-            Picasso.with(holder.itemView.getContext())
-                    .load(BuildConfig.BASE_URL + backgroundUrl + BuildConfig.IMAGE_WIDTH_400).into(imageViewHolder.photo);
+            Glide.with(holder.itemView.getContext())
+                    .load(BuildConfig.BASE_URL + backgroundUrl + BuildConfig.IMAGE_WIDTH_400)
+                    .apply(new RequestOptions()
+                            .placeholder(R.color.greyish)
+                            .override(400, 400)
+                            .fitCenter())
+                    .into(imageViewHolder.photo);
 
 
         } else if (position > 0 && useScrollIt) {
-
+            String image = items.get(position).getImage();
+            String backgroundUrl = image.substring(1, image.length());
+            Glide.with(holder.itemView.getContext())
+                    .load(BuildConfig.BASE_URL + backgroundUrl + BuildConfig.IMAGE_WIDTH_400)
+                    .apply(new RequestOptions()
+                            .placeholder(R.color.greyish)
+                            .override(400, 400)
+                            .fitCenter())
+                    .into(imageViewHolder.photo);
         }
     }
 

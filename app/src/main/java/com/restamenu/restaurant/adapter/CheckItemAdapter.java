@@ -95,9 +95,9 @@ public class CheckItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             currencyViewHolder.icon.setText((((Currency) getItem(position).getItem()).getSymbol()));
             if (getItem(position).isChecked()) {
                 currencyViewHolder.name.setTextColor(
-                        ContextCompat.getColor(currencyViewHolder.itemView.getContext(), R.color.grey_99));
-                currencyViewHolder.icon.setTextColor(
-                        ContextCompat.getColor(currencyViewHolder.itemView.getContext(), R.color.grey_99));
+                        ContextCompat.getColor(currencyViewHolder.itemView.getContext(), R.color.black));
+//                currencyViewHolder.icon.setTextColor(
+//                        ContextCompat.getColor(currencyViewHolder.itemView.getContext(), R.color.grey_99));
                 if (!isTablet())
                     currencyViewHolder.check.setVisibility(View.VISIBLE);
             }
@@ -122,19 +122,18 @@ public class CheckItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             languageViewHolder.image.setImageResource(getLanguageFlag(((Language) getItem(position).getItem()).getLanguage_id()));
             if (getItem(position).isChecked()) {
                 languageViewHolder.name.setTextColor(
-                        ContextCompat.getColor(languageViewHolder.itemView.getContext(), R.color.grey_99));
-                languageViewHolder.image.setAlpha(0.2f);
+                        ContextCompat.getColor(languageViewHolder.itemView.getContext(), R.color.black));
+//                languageViewHolder.image.setAlpha(0.2f);
                 if (!isTablet())
                     languageViewHolder.check.setVisibility(View.VISIBLE);
             } else {
                 languageViewHolder.name.setTextColor(
                         ContextCompat.getColor(languageViewHolder.itemView.getContext(), R.color.cerulean));
-                languageViewHolder.image.setAlpha(1.0f);
+//                languageViewHolder.image.setAlpha(1.0f);
                 languageViewHolder.check.setVisibility(View.INVISIBLE);
             }
             languageViewHolder.itemView.setOnClickListener(view -> {
                 if (checkItemChangeListener != null) {
-                    checkItemChangeListener.onCheckItemSelected(getItem(position));
                     checkItem(position);
                 }
             });
@@ -144,6 +143,7 @@ public class CheckItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public void checkItem(int position) {
+        checkItemChangeListener.onCheckItemSelected(getItem(position));
         for (CheckedItem item : items) {
             item.setChecked(false);
         }

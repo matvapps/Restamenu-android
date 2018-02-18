@@ -86,6 +86,7 @@ public class RestaurantsPresenter implements Presenter<RestaurantView> {
 
 
     private void loadCategories(int restaurantId, int serviceId) {
+        Logger.log("loadCategories");
         RepositoryProvider.getAppRepository().getCategories(restaurantId, serviceId)
                 .flatMap(Flowable::fromIterable)
                 .toList()

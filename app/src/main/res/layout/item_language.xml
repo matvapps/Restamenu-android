@@ -9,27 +9,29 @@
         android:id="@+id/language_icon"
         android:layout_width="@dimen/language_icon_width"
         android:layout_height="@dimen/language_icon_height"
-        android:layout_marginLeft="@dimen/language_icon_margin_left"
         android:layout_marginStart="@dimen/language_icon_margin_left"
-        android:layout_marginTop="@dimen/language_icon_margin_top"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_flag_arabic"
+        app:layout_constraintBottom_toBottomOf="@+id/language_name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/language_name"
+        android:layout_marginLeft="@dimen/language_icon_margin_left" />
 
     <TextView
         android:id="@+id/language_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/language_name_margin_start"
+        android:layout_marginBottom="@dimen/currency_divider_margin_top"
         android:layout_marginStart="@dimen/language_name_margin_start"
         android:fontFamily="@font/open_sans"
-        tools:text="Dollar"
         android:textColor="@color/cerulean"
+        android:includeFontPadding="false"
         android:textSize="@dimen/currency_name_text_size"
-        app:layout_constraintBottom_toBottomOf="@+id/language_icon"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintStart_toEndOf="@+id/language_icon"
-        app:layout_constraintTop_toTopOf="@+id/language_icon" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Dollar"
+        android:layout_marginLeft="@dimen/language_name_margin_start" />
 
     <ImageView
         android:id="@+id/check_image"
@@ -37,18 +39,19 @@
         android:layout_height="@dimen/item_language_check_image_size"
         android:src="@drawable/ic_check"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/language_name"
+        app:layout_constraintBottom_toBottomOf="@+id/language_icon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/language_name" />
+        app:layout_constraintTop_toTopOf="@+id/language_icon" />
 
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dip"
-        android:layout_marginTop="@dimen/currency_divider_margin_top"
+        android:layout_marginBottom="@dimen/language_icon_margin_top"
         android:background="#F1F2F3"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/language_icon" />
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

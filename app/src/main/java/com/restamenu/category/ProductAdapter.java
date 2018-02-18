@@ -1,19 +1,21 @@
 package com.restamenu.category;
 
 import android.annotation.SuppressLint;
+import android.graphics.Paint;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.restamenu.BuildConfig;
 import com.restamenu.R;
 import com.restamenu.model.content.Product;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private List<Product> items;
     private List<Product> defaultList;
     private String currencyIcon = "$";
+
+    private final String pricePattern = "%d %s";
+
+    private final int imageWidthPixels = 512;
+    private final int imageHeightPixels = 384;
+
+//    private static final StrikethroughSpan STRIKE_THROUGH_SPAN = new StrikethroughSpan();
+
 
     ProductAdapter() {
         items = new ArrayList<>();
@@ -75,15 +85,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         int priceOriginal = product.getPriceOriginal();
         int price = product.getPrice();
+        int priceOld = product.getPrice_old();
 
-        if (priceOriginal == price) {
-            holder.productPriceSub.setVisibility(View.INVISIBLE);
-        } else {
-            holder.productPrice.setText(String.format("%d %s", product.getPriceOriginal(), currencyIcon));
+
+        holder.productPrice.setText(String.format(pricePattern, price, currencyIcon));
+
+        if (priceOld != 0) {
+            holder.productPriceSub.setText(String.format(pricePattern, priceOld, currencyIcon));
+            holder.productPriceSub.setPaintFlags(holder.productPriceSub.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        } else if (!currencyIcon.equals("$")) {
+            holder.productPriceSub.setText(String.format(pricePattern, priceOriginal, "$"));
         }
 
-        //for (int i = 0; i < items.get(position).getSpecial().size(); i++)
-        //    Logger.log(items.get(position).getSpecial().get(i));
 
         SpecialsAdapter specialsAdapter = new SpecialsAdapter();
         holder.serviceList.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext(), HORIZONTAL, false));
@@ -93,12 +106,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         String imageUrl = product.getImages().get(0);
         if (!imageUrl.equals("")) {
             String path = BuildConfig.BASE_URL + imageUrl.substring(1, imageUrl.length()) + BuildConfig.IMAGE_WIDTH_400;
-            Picasso.with(holder.itemView.getContext()).load(path).into(holder.productImage);
+            Glide
+                    .with(holder.itemView.getContext())
+                    .load(path)
+                    .apply(new RequestOptions()
+                            .placeholder(R.color.greyish)
+                            .override(imageWidthPixels, imageHeightPixels))
+                    .into(holder.productImage);
         }
         specialsAdapter.setItems(items.get(position).getSpecial());
-
-
-        holder.productPrice.setText(String.format("%d %s", product.getPrice(), currencyIcon));
 
     }
 
@@ -137,10 +153,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
 
-
     public class ProductViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView productImage;
+        private RoundedImageView productImage;
         private TextView productName;
         private TextView productDescription;
         //        private TextView productMass;

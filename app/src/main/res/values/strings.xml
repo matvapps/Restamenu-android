@@ -51,5 +51,7 @@
     <string name="search">Search</string>
     <string name="cuisine">Cuisine</string>
     <string name="back">Back</string>
+    <string name="reset_filter_setting">Reset Filter setting</string>
+    <string name="apply_filter">Apply filter</string>
 
 </resources>

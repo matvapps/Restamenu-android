@@ -12,13 +12,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.github.florent37.viewanimator.ViewAnimator;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.restamenu.BuildConfig;
@@ -61,27 +58,31 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     private TextView filterQuantText;
     private View filterQuantContainer;
     private View filterContainer;
-
+    private View logo;
+    private FrameLayout searchContainer;
 
     private String keyword = null;
     private String filterCuisines = null;
     private String filterInstitutes = null;
+
+    private int currentNearRestaurantIndex = -1;
+    private int currentAppBarOffset;
 
     private final Target target = new Target() {
         @Override
         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
             ViewAnimator
                     .animate(nearbyContainerBackground)
-                    .duration(450)
+                    .duration(800)
                     .interpolator(new AccelerateInterpolator())
-                    .alpha(1, 0.35f)
+                    .alpha(1, 0.6f)
                     .onStop(() -> {
                         nearbyContainerBackground.setImageBitmap(bitmap);
                     })
                     .thenAnimate(nearbyContainerBackground)
-                    .duration(550)
+                    .duration(700)
                     .interpolator(new AccelerateInterpolator())
-                    .alpha(0.35f, 1)
+                    .alpha(0.6f, 1)
                     .start();
         }
 
@@ -96,24 +97,26 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         }
     };
 
-    private final SimpleTarget simpleTarget = new SimpleTarget<Drawable>() {
-        @Override
-        public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
-            ViewAnimator
-                    .animate(nearbyContainerBackground)
-                    .duration(450)
-                    .interpolator(new AccelerateInterpolator())
-                    .alpha(1, 0.35f)
-                    .onStop(() -> {
-                        nearbyContainerBackground.setImageDrawable(resource);
-                    })
-                    .thenAnimate(nearbyContainerBackground)
-                    .duration(550)
-                    .interpolator(new AccelerateInterpolator())
-                    .alpha(0.35f, 1)
-                    .start();
-        }
-    };
+//    private final SimpleTarget simpleTarget = new SimpleTarget<Drawable>() {
+//        @Override
+//        public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
+//            ViewAnimator
+//                    .animate(nearbyContainerBackground)
+//                    .duration(5000)
+//                    .interpolator(new LinearInterpolator())
+//                    .alpha(1, 0.35f)
+//                    .onStop(() -> {
+//                        Toast.makeText(MainActivity.this, "onStop", Toast.LENGTH_SHORT).show();
+//                        nearbyContainerBackground.setAlpha(0.35f);
+//                        nearbyContainerBackground.setImageDrawable(resource);
+//                    })
+//                    .thenAnimate(nearbyContainerBackground)
+//                    .duration(2000)
+//                    .interpolator(new LinearInterpolator())
+//                    .alpha(0.35f, 1)
+//                    .start();
+//        }
+//    };
 
     private int currentPage = 1;
 
@@ -129,8 +132,9 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         nearbyContainerBackground = findViewById(R.id.nearby_restaurants_container_background);
         appBarLayout = findViewById(R.id.appbar_layout);
         filterContainer = findViewById(R.id.action_choose_filter);
-
         filterQuantText = findViewById(R.id.filter_quantity);
+        logo = findViewById(R.id.logo);
+        searchContainer = findViewById(R.id.search_container);
 
 
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -145,6 +149,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
         institutes = new ArrayList<>();
 
+        logo.setOnClickListener(view -> scrollToTop());
 
         if (!isTablet()) {
             filterQuantContainer = findViewById(R.id.filter_quant_container);
@@ -178,7 +183,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
         } else {
             new GravitySnapHelper(Gravity.START, false, this)
-                    .attachToRecyclerView(nearbyRestaurantPicker);
+                    .attachToRecyclerView(nearbyRestaurantsRecycler);
 
             nearbyRestaurantsRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
             nearbyRestaurantsRecycler.setAdapter(nearbyRestaurantListAdapter);
@@ -251,6 +256,8 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     @Override
     public void setData(List<Restaurant> data) {
+        Logger.log("loaded " + data.size() + " restaurants");
+
         hasOtherPages = true;
         if (currentPage == 1)
             restaurantListAdapter.setItems(data);
@@ -330,7 +337,6 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     @Override
     public void showError() {
         super.showError();
-        //TODO
     }
 
     @Override
@@ -340,28 +346,16 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     private void onItemChanged(int position) {
         Restaurant restaurant = nearbyRestaurantListAdapter.getItem(position);
-        //load restaurant background
-        String backgroundUrl = restaurant.getBackground() + BuildConfig.IMAGE_WIDTH_400;
 
-        Toast.makeText(this, position + "", Toast.LENGTH_SHORT).show();
-
-
-
-//        Picasso.with(this)
-//                .load(BuildConfig.BASE_URL +
-//                        backgroundUrl.substring(1, backgroundUrl.length()))
-//                .resize(400, 400)
-//                .into(target);
-
-        Glide.with(this)
-                .load(BuildConfig.BASE_URL +
-                        backgroundUrl.substring(1, backgroundUrl.length()))
-                .into(simpleTarget);
-
-//        Glide.with(this)
-//                .load(BuildConfig.BASE_URL +
-//                        backgroundUrl.substring(1, backgroundUrl.length()))
-//                .into(nearbyContainerBackground);
+        if (currentNearRestaurantIndex != position) {
+            currentNearRestaurantIndex = position;
+            //load restaurant background
+            String backgroundUrl = restaurant.getBackground() + BuildConfig.IMAGE_WIDTH_400;
+            Picasso.with(this)
+                    .load(BuildConfig.BASE_URL + backgroundUrl.substring(1, backgroundUrl.length()))
+                    .resize(800, 800).centerInside()
+                    .into(target);
+        }
 
     }
 
@@ -374,11 +368,10 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     @Override
     public void onSnap(int position) {
         Logger.log("snapped item: " + position);
-
-        Toast.makeText(this, "snapped item " + position, Toast.LENGTH_SHORT).show();
+        if (position == 0)
+            position = 1;
 
         onItemChanged(position);
-
     }
 
     @Override
@@ -419,9 +412,29 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         keyword = searchString.toString();
 
         currentPage = 1;
-        restaurantListAdapter.setItems(new ArrayList<>());
+        restaurantListAdapter.clearItems();
         presenter.loadRestaurants(currentPage, keyword, filterCuisines, filterInstitutes);
 
+    }
+
+    @Override
+    public void popupOpened() {
+        if (isTablet()) {
+            showTransparentView(true);
+        }
+    }
+
+    @Override
+    public void popupClosed() {
+        if (isTablet())
+            showTransparentView(false);
+    }
+
+    @Override
+    public void searchViewClicked() {
+        if (isTablet()) {
+            appBarLayout.offsetTopAndBottom(-searchContainer.getTop() - currentAppBarOffset);
+        }
     }
 
     @Override
@@ -488,6 +501,15 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         presenter.init(currentPage);
     }
 
+    /**
+     * SearchListener
+     */
+
+    public void scrollToTop() {
+        restaurantsRecycler.scrollToPosition(0);
+        appBarLayout.setExpanded(true);
+    }
+
     @Override
     public void showLoading(boolean show) {
         super.showLoading(show);
@@ -499,6 +521,11 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
+
+        Logger.log("offset " + offset);
+
+        currentAppBarOffset = offset;
+
         if (offset == 0) {
             // Fully expanded
             swipeRefreshLayout.setEnabled(true);
@@ -507,8 +534,4 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
             swipeRefreshLayout.setEnabled(false);
         }
     }
-
-    /**
-     * SearchListener
-     */
 }

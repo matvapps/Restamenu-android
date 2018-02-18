@@ -9,7 +9,7 @@
         android:id="@+id/nearby_restaurants_container_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/darker_gray"
+        android:background="@color/greyish"
         android:scaleType="centerCrop" />
 
     <android.support.constraint.ConstraintLayout

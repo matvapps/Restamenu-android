@@ -96,10 +96,14 @@
                 android:layout_marginLeft="@dimen/activity_category_edit_text_margin_start"
                 android:layout_marginStart="@dimen/activity_category_edit_text_margin_start"
                 android:layout_weight="8"
-                android:background="@android:color/transparent"
+                android:background="@null"
+                android:singleLine="true"
                 android:fontFamily="@font/open_sans"
-                android:hint="Start typing the name..."
+                android:hint="@string/search_hint"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
                 android:textColor="@color/black"
+                android:textColorHint="@color/grey_99"
                 android:textSize="@dimen/activity_category_edit_text_size" />
 
 
