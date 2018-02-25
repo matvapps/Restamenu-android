@@ -15,7 +15,6 @@ import com.restamenu.R;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.restaurant.RestaurantActivity;
-import com.restamenu.util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,8 +57,6 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerVi
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rootView;
-
-        Logger.log(viewType + "");
 
         if (viewType == 0 && useScrollIt) {
             rootView = LayoutInflater.from(parent.getContext())
@@ -131,7 +128,8 @@ public class NearbyRestaurantListAdapter extends RecyclerView.Adapter<RecyclerVi
                 institutions.append(getInstituteName(restaurant.getInstitutes().get(i))).append("");
         }
 
-        cardHolder.restaurantTypeTextView.setText(institutions.toString());
+        //        TODO: Uncomment
+//        cardHolder.restaurantTypeTextView.setText(institutions.toString());
 
         if (clickListener != null)
             cardHolder.rootView.setOnClickListener(clickListener);

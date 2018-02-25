@@ -96,8 +96,7 @@ public class CheckItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             if (getItem(position).isChecked()) {
                 currencyViewHolder.name.setTextColor(
                         ContextCompat.getColor(currencyViewHolder.itemView.getContext(), R.color.black));
-//                currencyViewHolder.icon.setTextColor(
-//                        ContextCompat.getColor(currencyViewHolder.itemView.getContext(), R.color.grey_99));
+
                 if (!isTablet())
                     currencyViewHolder.check.setVisibility(View.VISIBLE);
             }
@@ -107,6 +106,7 @@ public class CheckItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 currencyViewHolder.icon.setTextColor(
                         ContextCompat.getColor(currencyViewHolder.itemView.getContext(), R.color.black));
                 currencyViewHolder.check.setVisibility(View.INVISIBLE);
+                checkItemChangeListener.onCheckItemSelected(items.get(position));
             }
             currencyViewHolder.itemView.setOnClickListener(view -> {
                 if (checkItemChangeListener != null) {

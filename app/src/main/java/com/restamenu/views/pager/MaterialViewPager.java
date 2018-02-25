@@ -192,9 +192,9 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
         //add @layout/activity_category_layout as child, containing all the MaterialViewPager views
         addView(LayoutInflater.from(getContext()).inflate(R.layout.activity_category_layout, this, false));
 
-        headerBackgroundContainer = (ViewGroup) findViewById(R.id.headerBackgroundContainer);
-        pagerTitleStripContainer = (ViewGroup) findViewById(R.id.pagerTitleStripContainer);
-        viewpagerContainer = (ViewGroup) findViewById(R.id.viewpager_layout);
+//        headerBackgroundContainer = (ViewGroup) findViewById(R.id.headerBackgroundContainer);
+//        pagerTitleStripContainer = (ViewGroup) findViewById(R.id.pagerTitleStripContainer);
+//        viewpagerContainer = (ViewGroup) findViewById(R.id.viewpager_layout);
 
         { //replace the viewpager ?
             int viewPagerLayoutId = settings.viewpagerId;
@@ -204,9 +204,9 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
             }
         }
 
-        mViewPager = (ViewPager) findViewById(R.id.materialviewpager_viewpager);
+//        mViewPager = (ViewPager) findViewById(R.id.materialviewpager_viewpager);
 
-        mViewPager.addOnPageChangeListener(this);
+//        mViewPager.addOnPageChangeListener(this);
 
         //inflate subviews defined in attributes
 
@@ -227,7 +227,7 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
         }
 
 
-        headerBackground = findViewById(R.id.headerBackground);
+//        headerBackground = findViewById(R.id.headerBackground);
         initialiseHeights();
 
         //construct the materialViewPagerHeader with subviews

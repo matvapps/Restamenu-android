@@ -6,6 +6,7 @@ import com.restamenu.api.RepositoryProvider;
 import com.restamenu.base.Presenter;
 import com.restamenu.rx.BaseSchedulerProvider;
 import com.restamenu.rx.SchedulerProvider;
+import com.restamenu.util.Logger;
 
 import io.reactivex.Flowable;
 
@@ -45,13 +46,29 @@ public class CategoryPresenter implements Presenter<CategoryView> {
                 .observeOn(schedulerProvider.ui())
                 .subscribe(currencies -> {
                     view.setCurrencies(currencies);
-                    loadProducts();
+                    loadCategories();
                     view.showLoading(false);
                 }, throwable -> view.showError());
     }
 
+    public void loadProducts(int restaurantId, int categoryId) {
+        view.showLoading(true);
+        //refreshLayout.setRefreshing(true);
+        RepositoryProvider.getAppRepository().getCategoryProducts(restaurantId, categoryId)
+                .flatMap(Flowable::fromIterable)
+                .toList()
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(products -> {
+                    Logger.log("Products: " + products.toString());
+                    //refreshLayout.setRefreshing(false);
+                    view.showLoading(false);
+                    view.setProducts(products);
+                }, throwable -> view.showError());
+    }
 
-    public void loadProducts() {
+
+    public void loadCategories() {
         view.showLoading(true);
         RepositoryProvider.getAppRepository().getCategories(restaurantId, serviceId)
                 .flatMap(Flowable::fromIterable)

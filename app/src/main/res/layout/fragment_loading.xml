@@ -1,31 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_gravity="center">
-    
-    <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:indeterminateDrawable="@drawable/progress"
-        android:indeterminate="true"/>
 
-    <TextView
-        android:id="@+id/progress_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/gotham_pro_bold"
-        android:layout_gravity="center_vertical"
-        android:textColor="@color/white"
-        android:layout_marginStart="@dimen/fragment_loading_progress_title_margin_start"
-        android:textSize="@dimen/activity_category_title_text_size"
-        android:text="@string/loading_title"
-        android:layout_marginLeft="@dimen/fragment_loading_progress_title_margin_start" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/progress"
+            android:layoutDirection="ltr" />
+
+        <TextView
+            android:id="@+id/progress_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/fragment_loading_progress_title_margin_start"
+            android:layout_marginStart="@dimen/fragment_loading_progress_title_margin_start"
+            android:fontFamily="@font/gotham_pro_bold"
+            android:text="@string/loading_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/activity_category_title_text_size" />
 
 
-
-</LinearLayout>
+    </LinearLayout>
+</FrameLayout>

@@ -93,15 +93,13 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Logger.log("Bind View: " + position);
-
         final Restaurant item = getItem(position);
 
 
-        if (holder.rootCardView != null) {
-            holder.rootCardView.setElevation(60.0f);
-            holder.rootCardView.setTranslationZ(10f);
-        }
+//        if (holder.rootCardView != null) {
+//            holder.rootCardView.setElevation(60.0f);
+//            holder.rootCardView.setTranslationZ(10f);
+//        }
 
         holder.restaurantTitleTextView.setText(item.getName());
         holder.itemView.setOnClickListener(click -> listener.onRestaurantClicked(item.getId()));
@@ -149,7 +147,8 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
                 institutions.append(getInstituteName(item.getInstitutes().get(i))).append("");
         }
 
-        holder.restaurantTypeTextView.setText(institutions.toString());
+//        TODO: Uncomment
+//        holder.restaurantTypeTextView.setText(institutions.toString());
 
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(holder.itemView.getContext(), RestaurantActivity.class);

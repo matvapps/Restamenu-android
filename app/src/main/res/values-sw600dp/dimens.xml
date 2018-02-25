@@ -350,4 +350,5 @@
     <dimen name="land_restaurant_opening_hours_margin_start">4dp</dimen>
     <dimen name="land_dropdown_content_list">5dp</dimen>
     <dimen name="land_product_price_sub_text_size">13sp</dimen>
+    <dimen name="margin">37dp</dimen>
 </resources>

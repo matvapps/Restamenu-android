@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="25dp"
+    android:orientation="vertical">
+
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#6e000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycler" />
+
+
+    <LinearLayout
+        android:id="@+id/button_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider">
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/previous_category_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_bottom_navigation">
+
+
+            <ImageView
+                android:id="@+id/image_prev"
+                android:layout_width="@dimen/land_activity_category_bottom_arrow_size"
+                android:layout_height="@dimen/land_activity_category_bottom_arrow_size"
+                android:layout_marginLeft="@dimen/land_toolbar_burger_menu_margin_start"
+                android:layout_marginStart="@dimen/land_toolbar_burger_menu_margin_start"
+                android:src="@drawable/ic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/previous_category_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/land_activity_category_bottom_title_margin_bottom"
+                android:layout_marginTop="@dimen/land_activity_category_bottom_title_margin_top"
+                android:fontFamily="@font/open_sans_bold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/land_activity_category_bottom_title_text_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/prev_text"
+                app:layout_constraintTop_toBottomOf="@+id/prev_text"
+                tools:text="Salads" />
+
+
+            <TextView
+                android:id="@+id/prev_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/land_activity_category_prev_text_margin_end"
+                android:layout_marginRight="@dimen/land_activity_category_prev_text_margin_end"
+                android:layout_marginTop="@dimen/land_activity_category_prev_text_margin_top"
+                android:fontFamily="@font/open_sans"
+                android:text="Previous"
+                android:textColor="@color/black"
+                android:textSize="@dimen/land_activity_category_prev_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="#6e000000" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/next_category_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_bottom_navigation">
+
+
+            <ImageView
+                android:id="@+id/image_next"
+                android:layout_width="@dimen/land_activity_category_bottom_arrow_size"
+                android:layout_height="@dimen/land_activity_category_bottom_arrow_size"
+                android:layout_marginEnd="@dimen/land_toolbar_burger_menu_margin_start"
+                android:layout_marginLeft="@dimen/land_toolbar_burger_menu_margin_start"
+                android:layout_marginRight="@dimen/land_toolbar_burger_menu_margin_start"
+                android:layout_marginStart="@dimen/land_toolbar_burger_menu_margin_start"
+                android:rotation="180"
+                android:src="@drawable/ic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/next_category_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/land_activity_category_bottom_title_margin_bottom"
+                android:layout_marginTop="@dimen/land_activity_category_bottom_title_margin_top"
+                android:fontFamily="@font/open_sans_bold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/land_activity_category_bottom_title_text_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/next_text"
+                app:layout_constraintTop_toBottomOf="@+id/next_text"
+                tools:text="Main Dishes" />
+
+
+            <TextView
+                android:id="@+id/next_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/land_activity_category_prev_text_margin_end"
+                android:layout_marginStart="@dimen/land_activity_category_prev_text_margin_end"
+                android:layout_marginTop="@dimen/land_activity_category_prev_text_margin_top"
+                android:fontFamily="@font/open_sans"
+                android:text="Next"
+                android:textColor="@color/black"
+                android:textSize="@dimen/land_activity_category_prev_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#6e000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_container" />
+
+
+</LinearLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.restamenu.category.CategoryActivity">
+
+    <com.restamenu.views.pager.MaterialViewPager
+        android:id="@+id/materialViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:viewpager_pagerTitleStrip="@layout/item_pagertitlestrip"
+        app:viewpager_color="@color/colorPrimary"
+        app:viewpager_headerHeight="@dimen/category_header_height"
+        app:viewpager_headerAlpha="1.0"
+        app:viewpager_imageHeaderDarkLayerAlpha="0"
+        app:viewpager_parallaxHeaderFactor="0"
+        app:viewpager_headerAdditionalHeight="0dp"
+        app:viewpager_animatedHeaderImage="false" />
+
+
+
+</LinearLayout>
+
+
+

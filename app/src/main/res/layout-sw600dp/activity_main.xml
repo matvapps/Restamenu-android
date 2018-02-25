@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="com.restamenu.main.MainActivity">
 
     <include
@@ -60,6 +61,7 @@
         android:id="@+id/restaurants_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:layout_gravity="center"
         android:layout_marginEnd="@dimen/land_activity_main_rest_list_margin_horiz"
         android:layout_marginLeft="@dimen/land_activity_main_rest_list_margin_horiz"

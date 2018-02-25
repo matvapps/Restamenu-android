@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<com.restamenu.views.pager.MaterialViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/materialViewPager"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:viewpager_pagerTitleStrip="@layout/item_pagertitlestrip"
-    app:viewpager_color="@color/colorPrimary"
-    app:viewpager_headerHeight="@dimen/category_header_height"
-    app:viewpager_header="@layout/activity_category_header"
-    app:viewpager_headerAlpha="1.0"
-    app:viewpager_imageHeaderDarkLayerAlpha="0"
-    app:viewpager_parallaxHeaderFactor="0"
-    app:viewpager_headerAdditionalHeight="0dp"
-    app:viewpager_animatedHeaderImage="true" />
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/category_list_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</FrameLayout>
+
 

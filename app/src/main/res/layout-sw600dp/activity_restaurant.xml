@@ -316,7 +316,7 @@
             android:layout_marginTop="@dimen/land_recycler_gallery_list_margin_top"
             android:minHeight="1dp"
             android:nestedScrollingEnabled="false"
-            app:layout_constraintEnd_toEndOf="@+id/gallery_list_title"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.045"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/gallery_list_title" />

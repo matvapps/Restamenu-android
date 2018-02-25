@@ -4,14 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.restamenu.R;
 import com.restamenu.base.BasePresenterActivity;
@@ -19,10 +15,12 @@ import com.restamenu.data.preferences.KeyValueStorage;
 import com.restamenu.model.content.Category;
 import com.restamenu.model.content.Currency;
 import com.restamenu.model.content.Language;
+import com.restamenu.model.content.Product;
+import com.restamenu.restaurant.adapter.AdapterItemType;
+import com.restamenu.restaurant.adapter.ItemType;
 import com.restamenu.util.Logger;
 import com.restamenu.views.custom.CustomSwipeToRefresh;
-import com.restamenu.views.pager.CircularViewPagerHandler;
-import com.restamenu.views.pager.MaterialViewPager;
+import com.restamenu.views.custom.OnVerticalScrollListener;
 import com.restamenu.views.setting.OnSettingItemChanged;
 import com.restamenu.views.setting.SettingListener;
 import com.restamenu.views.setting.SettingView;
@@ -33,7 +31,7 @@ import java.util.List;
 
 public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, CategoryView, List<Category>>
         implements CategoryView, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, OnSettingItemChanged,
-        SettingListener {
+        SettingListener, CategoryAdapter.OnNavigationButtonClickListener {
 
     public static final String KEY_RESTAURANT = "key_rest";
     public static final String KEY_SERVICE_ID = "key_service_id";
@@ -59,38 +57,20 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
     private SettingView settingView;
     private CustomSwipeToRefresh swipeRefreshLayout;
-    private List<OnCategoryDataChangeListener> onCategoryDataChangeListeners;
     private Language currentLanguage;
     private Currency currentCurrency;
+    private RecyclerView categoryListContainer;
 
-    //private View productHeader;
-    //Header
-    private ImageView btnTopCategoryPrevious;
-    private ImageView btnTopCategoryNext;
-    private TextView txtCategoryName;
 
-    private EditText findEditText;
-    private View buttonFind;
-
-    //Tablet
-    private View btnBottomCategoryPrevious;
-    private View btnBottomCategoryNext;
-    private TextView prevCategoryName;
-    private TextView nextCategoryName;
-
-//    private Restaurant restaurant;
-
-    private MaterialViewPager viewPager;
-    private CategoryPagerAdapter pagerAdapter;
 
     private List<Category> categories;
+    private CategoryAdapter categoryAdapter;
 
     public static void start(@NonNull Context context, @NonNull int restaurantId, @NonNull String restaurantTitle,
                              @NonNull Integer serviceId, @NonNull Integer categoryId,
                              @NonNull int[] currencies, @NonNull int[] languages) {
         Intent intent = new Intent(context, CategoryActivity.class);
         intent.putExtra(KEY_SERVICE_ID, serviceId);
-//        intent.putExtra(KEY_RESTAURANT, restaurant);
         intent.putExtra(KEY_RESTAURANT_ID, restaurantId);
         intent.putExtra(KEY_RESTAURANT_TITLE, restaurantTitle);
         intent.putExtra(KEY_RESTAURANT_LANGS, languages);
@@ -101,7 +81,6 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        restaurant = (Restaurant) getIntent().getSerializableExtra(KEY_RESTAURANT);
         serviceId = getIntent().getIntExtra(KEY_SERVICE_ID, 1);
         categoryId = getIntent().getIntExtra(KEY_CATEGORY_ID, 1);
         restaurantTitle = getIntent().getStringExtra(KEY_RESTAURANT_TITLE);
@@ -109,7 +88,6 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         restLanguages = getIntent().getIntArrayExtra(KEY_RESTAURANT_LANGS);
         restaurantId = getIntent().getIntExtra(KEY_RESTAURANT_ID, 1);
 
-        onCategoryDataChangeListeners = new ArrayList<>();
         currentCurrency = new Currency();
         currentLanguage = new Language();
 
@@ -125,18 +103,25 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     }
 
     private void increaseCategory() {
-        int position = viewPager.getViewPager().getCurrentItem();
-        viewPager.getViewPager().setCurrentItem(position + 1, true);
+        presenter.loadProducts(restaurantId, getNextCategory().geId());
+        categoryAdapter.setCategoryIndex(categoryIndex);
     }
 
     private void decreaseCategory() {
-        int position = viewPager.getViewPager().getCurrentItem();
-        viewPager.getViewPager().setCurrentItem(position - 1, true);
+        presenter.loadProducts(restaurantId, getPreviousCategory().geId());
+        categoryAdapter.setCategoryIndex(categoryIndex);
     }
 
-    private void updateCategory() {
-        int position = viewPager.getViewPager().getCurrentItem();
-        viewPager.getViewPager().setCurrentItem(position, true);
+
+    @Override
+    public void setProducts(List<Product> products) {
+        categoryAdapter.change(new AdapterItemType<>("", categories.get(categoryIndex), ItemType.HEADER), 0);
+        if (isTablet()) {
+            categoryAdapter.change(new AdapterItemType<>("", products, ItemType.PRODUCT_MENU), 1);
+            categoryAdapter.change(new AdapterItemType<>("", categories.get(categoryIndex), ItemType.FOOTER), 2);
+        } else {
+            categoryAdapter.change(new AdapterItemType<>("", products, ItemType.PRODUCT_MENU_PHONE), 1);
+        }
     }
 
     @Override
@@ -144,127 +129,56 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
         Logger.log("Set category(ies): " + data.size());
         categories = data;
 
-        pagerAdapter = new CategoryPagerAdapter(getSupportFragmentManager(), data, restaurantId, serviceId);
-        viewPager.getViewPager().setAdapter(pagerAdapter);
-
-        final CircularViewPagerHandler circularViewPagerHandler = new CircularViewPagerHandler(viewPager.getViewPager());
-        circularViewPagerHandler.setOnPageChangeListener(createOnPageChangeListener());
-        viewPager.getViewPager().addOnPageChangeListener(circularViewPagerHandler);
-
         categoryIndex = getCategoryIndex(data, categoryId);
 
-        txtCategoryName.setText(data.get(categoryIndex).getName());
-        viewPager.getViewPager().setCurrentItem(categoryIndex + 1, false);
-
-        //pager.scrollToPosition(categoryIndex);
-        btnTopCategoryPrevious.setOnClickListener(this);
-        btnTopCategoryNext.setOnClickListener(this);
-
-        if (isTablet()) {
-            btnBottomCategoryPrevious.setOnClickListener(this);
-            btnTopCategoryNext.setOnClickListener(this);
-        }
-
-        if (categoryIndex == (data.size() - 1)) {
-
-            btnTopCategoryPrevious.setEnabled(true);
-            btnTopCategoryPrevious.setVisibility(View.VISIBLE);
-
-
-            if (isTablet()) {
-                prevCategoryName.setText(data.get(categoryIndex + PREV_CATEGORY).getName());
-
-                nextCategoryName.setText("To First");
-
-                btnBottomCategoryPrevious.setVisibility(View.VISIBLE);
-                btnBottomCategoryPrevious.setEnabled(true);
-            }
-
-
-        } else if (categoryIndex == 0 && data.size() > 1) {
-
-            btnTopCategoryNext.setEnabled(true);
-            btnTopCategoryNext.setVisibility(View.VISIBLE);
-
-            if (isTablet()) {
-                nextCategoryName.setText(data.get(categoryIndex + NEXT_CATEGORY).getName());
-                btnBottomCategoryNext.setOnClickListener(this);
-
-                prevCategoryName.setText("To Last");
-
-                btnBottomCategoryNext.setEnabled(true);
-                btnBottomCategoryNext.setVisibility(View.VISIBLE);
-            }
-
-
-        } else {
-
-            btnTopCategoryPrevious.setVisibility(View.VISIBLE);
-            btnTopCategoryPrevious.setEnabled(true);
-
-            if (isTablet()) {
-                nextCategoryName.setText(data.get(categoryIndex + NEXT_CATEGORY).getName());
-                prevCategoryName.setText(data.get(categoryIndex + PREV_CATEGORY).getName());
-                btnBottomCategoryNext.setVisibility(View.VISIBLE);
-                btnBottomCategoryNext.setEnabled(true);
-                btnBottomCategoryPrevious.setVisibility(View.VISIBLE);
-                btnTopCategoryPrevious.setEnabled(true);
-            }
-        }
+        categoryAdapter.setCategories(categories);
+        categoryAdapter.setCategoryIndex(categoryIndex);
+        presenter.loadProducts(restaurantId, categoryId);
     }
 
     @Override
     protected void initViews() {
-        viewPager = findViewById(R.id.materialViewPager);
 
-        btnTopCategoryPrevious = findViewById(R.id.category_arrow_left);
-        btnTopCategoryNext = findViewById(R.id.category_arrow_right);
-        txtCategoryName = findViewById(R.id.category_title);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         settingView = findViewById(R.id.settings_view);
+        categoryListContainer = findViewById(R.id.category_list_container);
+
+        categoryListContainer.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        categoryListContainer.setNestedScrollingEnabled(false);
+        categoryListContainer.addOnScrollListener(new OnVerticalScrollListener() {
+            @Override
+            public void onScrolledDown(int dy) {
+                super.onScrolledDown(dy);
+                onSwipeRefreshEnabled(false);
+            }
+
+            @Override
+            public void onScrolledToTop() {
+                super.onScrolledToTop();
+                onSwipeRefreshEnabled(true);
+            }
+        });
+
+
+        categoryAdapter = new CategoryAdapter(this);
+
+//        categoryAdapter.setCurrentLanguage(currentLanguage);
+//        categoryAdapter.setCurrentCurrency(currentCurrency);
+
+        int quantity = 2;
+        if (isTablet())
+            quantity = 3;
+
+
+        for (int i = 0; i < quantity; i++) {
+            categoryAdapter.add(new AdapterItemType<>("", null, ItemType.PRODUCT_MENU));
+        }
+        categoryListContainer.setAdapter(categoryAdapter);
 
         swipeRefreshLayout.setOnRefreshListener(this);
         settingView.setOnSettingItemChanged(this);
         settingView.setSettingListener(this);
 
-        //productHeader = findViewById(R.id.product_header);
-        buttonFind = findViewById(R.id.button_find);
-        findEditText = findViewById(R.id.search_edit_text);
-        findEditText.clearFocus();
-
-
-        buttonFind.setOnClickListener(view -> {
-            onPerformSearch(findEditText.getText().toString());
-        });
-
-
-        findEditText.setOnEditorActionListener((textView, i, keyEvent) -> {
-
-            if (i == EditorInfo.IME_ACTION_SEARCH) {
-
-                InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
-
-                buttonFind.performClick();
-                return true;
-            }
-            return false;
-        });
-
-        // For tablet
-        btnBottomCategoryPrevious = findViewById(R.id.previous_category_button);
-        btnBottomCategoryNext = findViewById(R.id.next_category_button);
-        prevCategoryName = findViewById(R.id.previous_category_title);
-        nextCategoryName = findViewById(R.id.next_category_title);
-
-
-        if (isTablet()) {
-            btnBottomCategoryNext.setOnClickListener(this);
-            btnBottomCategoryPrevious.setOnClickListener(this);
-        }
-
-        btnTopCategoryNext.setOnClickListener(this);
-        btnTopCategoryPrevious.setOnClickListener(this);
     }
 
     @Override
@@ -293,18 +207,21 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.category_arrow_left:
-            case R.id.previous_category_button: {
-                decreaseCategory();
-                break;
-            }
-            case R.id.category_arrow_right:
-            case R.id.next_category_button: {
-                increaseCategory();
-                break;
-            }
-        }
+
+    }
+
+    public Category getNextCategory() {
+        categoryIndex = (categoryIndex + 1) % categories.size();
+
+        return categories.get(categoryIndex);
+    }
+
+    public Category getPreviousCategory() {
+        categoryIndex = (categoryIndex - 1) % categories.size();
+        if (categoryIndex < 0)
+            categoryIndex = categories.size() - 1;
+
+        return categories.get(categoryIndex);
     }
 
     @Override
@@ -338,6 +255,12 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
             }
         }
 
+        for (Language language : languages)
+            if (language.getLanguage_id() == keyValueStorage.getLanguageId())
+                currentLanguage = language;
+
+        categoryAdapter.setCurrentLanguage(currentLanguage);
+
         settingView.setLanguages(restLangList);
     }
 
@@ -352,31 +275,16 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
                 }
             }
         }
+
+        for (Currency currency : currencies)
+            if (currency.getCurrency_id() == keyValueStorage.getCurrencyId())
+                currentCurrency = currency;
+
+        categoryAdapter.setCurrentCurrency(currentCurrency);
+
         settingView.setCurrencies(restCurrList);
     }
 
-    private ViewPager.OnPageChangeListener createOnPageChangeListener() {
-        return new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(final int position) {
-                Logger.log("Position selected: " + position);
-                try {
-                    txtCategoryName.setText(categories.get(position).getName());
-                    categoryIndex = position;
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(final int state) {
-            }
-        };
-    }
 
     @Override
     public void finish() {
@@ -394,23 +302,9 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     @Override
     public void onRefresh() {
         presenter.loadData(keyValueStorage.getLanguageId());
-        categoryId = categories.get(viewPager.getViewPager().getCurrentItem() - 1).geId();
+//        categoryId = categories.get(viewPager.getCurrentItem() - 1).geId();
         swipeRefreshLayout.setRefreshing(false);
-        findEditText.setText(null);
-    }
-
-    public synchronized void registerOnCategoryDataChangeListener(OnCategoryDataChangeListener onCategoryDataChangeListener) {
-        onCategoryDataChangeListeners.add(onCategoryDataChangeListener);
-    }
-
-    public synchronized void unregisterOnCategoryDataChangeListener(OnCategoryDataChangeListener onCategoryDataChangeListener) {
-        onCategoryDataChangeListeners.remove(onCategoryDataChangeListener);
-    }
-
-
-    public synchronized void onPerformSearch(String str) {
-        for (OnCategoryDataChangeListener item : onCategoryDataChangeListeners)
-            item.onPerformSearch(str, viewPager.getViewPager().getCurrentItem());
+//        findEditText.setText(null);
     }
 
     /**
@@ -418,44 +312,20 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
      */
     @Override
     public void onLanguageChanged(Language language) {
+        Logger.log("");
         currentLanguage = language;
+        categoryAdapter.setCurrentLanguage(language);
         presenter.loadData(language.getLanguage_id());
-        categoryId = categories.get(viewPager.getViewPager().getCurrentItem() - 1).geId();
+//        categoryId = categories.get(viewPager.getCurrentItem() - 1).geId();
     }
 
     @Override
     public void onCurrencyChanged(Currency currency) {
+        Logger.log("");
         currentCurrency = currency;
+        categoryAdapter.setCurrentCurrency(currency);
         presenter.loadData(keyValueStorage.getLanguageId());
-        categoryId = categories.get(viewPager.getViewPager().getCurrentItem() - 1).geId();
-    }
-
-    /**
-     * -------------------------------------------
-     */
-
-    public Language getCurrentLanguage() {
-        return currentLanguage;
-    }
-
-    public void setCurrentLanguage(Language currentLanguage) {
-        this.currentLanguage = currentLanguage;
-    }
-
-    public Currency getCurrentCurrency() {
-        return currentCurrency;
-    }
-
-    public void setCurrentCurrency(Currency currentCurrency) {
-        this.currentCurrency = currentCurrency;
-    }
-
-    public SettingView getSettingView() {
-        return settingView;
-    }
-
-    public void setSettingView(SettingView settingView) {
-        this.settingView = settingView;
+//        categoryId = categories.get(viewPager.getCurrentItem() - 1).geId();
     }
 
     @Override
@@ -467,4 +337,68 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
     public void popupClosed() {
         showTransparentView(false);
     }
+
+    /**
+     * -------------------------------------------
+     */
+
+//    public Language getCurrentLanguage() {
+//        return currentLanguage;
+//    }
+//
+//    public void setCurrentLanguage(Language currentLanguage) {
+//        this.currentLanguage = currentLanguage;
+//    }
+//
+//    public Currency getCurrentCurrency() {
+//        return currentCurrency;
+//    }
+//
+//    public void setCurrentCurrency(Currency currentCurrency) {
+//        this.currentCurrency = currentCurrency;
+//    }
+
+
+
+
+    public SettingView getSettingView() {
+        return settingView;
+    }
+
+
+
+    /**
+     * Actions Listeners
+     */
+    @Override
+    public void onNextCategory() {
+        increaseCategory();
+    }
+
+    @Override
+    public void onPreviousCategory() {
+        decreaseCategory();
+    }
+
+    @Override
+    public void onPerformSearch(String keyword, List<Product> products) {
+
+        ProductAdapter productAdapter = new ProductAdapter();
+        productAdapter.setItems(products);
+        productAdapter.findProductBy(keyword);
+
+        if (isTablet()) {
+            categoryAdapter.change(new AdapterItemType<>("", productAdapter.getItems(), ItemType.PRODUCT_MENU), 1);
+        } else {
+            categoryAdapter.change(new AdapterItemType<>("", productAdapter.getItems(), ItemType.PRODUCT_MENU_PHONE), 1);
+        }
+    }
+
+    @Override
+    public void onSwipeRefreshEnabled(boolean enabled) {
+        swipeRefreshLayout.setEnabled(enabled);
+    }
+    /**-------------------------------------*/
+
+
 }

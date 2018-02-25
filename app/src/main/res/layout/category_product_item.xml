@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<carbon.widget.FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/category_product_item_margin_bottom">
 
-    <FrameLayout
+    <carbon.widget.FrameLayout
+        android:id="@+id/root_cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/category_product_item_margin_bottom"
+        app:carbon_elevation="6dp"
+        app:carbon_elevationShadowColor="#73000000"
         android:background="@drawable/bg_restaurant_card"
         android:foreground="?selectableItemBackground">
 
@@ -134,6 +137,7 @@
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/open_sans_semibold"
                         android:gravity="center"
+                        android:maxLength="2"
                         android:hint="1"
                         android:inputType="numberDecimal"
                         android:textAlignment="center"
@@ -150,6 +154,7 @@
                     android:layout_marginStart="@dimen/category_product_item_price_sub_margin_start"
                     android:includeFontPadding="false"
                     android:textColor="#666666"
+                    android:fontFamily="@font/open_sans"
                     android:textSize="@dimen/category_product_item_price_sub_text_size"
                     app:layout_constraintBottom_toBottomOf="@+id/product_price"
                     app:layout_constraintStart_toEndOf="@+id/product_price"
@@ -198,6 +203,6 @@
 
         </android.support.constraint.ConstraintLayout>
 
-    </FrameLayout>
+    </carbon.widget.FrameLayout>
 
-</FrameLayout>
+</carbon.widget.FrameLayout>

@@ -38,7 +38,7 @@
         <item name="android:checked">false</item>
         <item name="android:layout_weight">1</item>
         <item name="android:clickable">true</item>
-        <item name="android:fontFamily">@font/open_sans_semibold</item>
+        <item name="android:fontFamily">@font/open_sans</item>
     </style>
 
     <style name="MSV_ImageButton">

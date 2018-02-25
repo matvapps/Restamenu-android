@@ -40,6 +40,7 @@ import com.restamenu.model.content.Cusine;
 import com.restamenu.model.content.Institute;
 import com.restamenu.model.content.Restaurant;
 import com.restamenu.views.custom.ExpandedListView;
+import com.restamenu.views.custom.GridSpacingItemDecoration;
 import com.restamenu.views.search.utils.AnimationUtil;
 
 import java.lang.reflect.Field;
@@ -357,7 +358,14 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
             TextView textView = layout.findViewById(R.id.dropdown_content_title);
             RecyclerView recyclerView = layout.findViewById(R.id.dropdown_content_grid);
 
-            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+            int spacingHoriz = getContext().getResources().getDimensionPixelSize(R.dimen.land_popup_item_title_margin_end);
+            int spacingVert = getContext().getResources().getDimensionPixelSize(R.dimen.land_popup_item_chbx_margin);
+            GridSpacingItemDecoration spacingItemDecoration = new GridSpacingItemDecoration(2, spacingHoriz, spacingVert, false);
+
+
+            recyclerView.setLayoutManager(gridLayoutManager);
+            recyclerView.addItemDecoration(spacingItemDecoration);
             recyclerView.setAdapter(cuisinePopupDropdownAdapter);
 
             String titlePattern = getResources().getString(R.string.popup_dropdown_title);
@@ -418,8 +426,12 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
 
             TextView textView = layout.findViewById(R.id.dropdown_content_title);
             RecyclerView recyclerView = layout.findViewById(R.id.dropdown_content_grid);
+            int spacingHoriz = getContext().getResources().getDimensionPixelSize(R.dimen.land_popup_item_title_margin_end);
+            int spacingVert = getContext().getResources().getDimensionPixelSize(R.dimen.land_popup_item_chbx_margin);
+            GridSpacingItemDecoration spacingItemDecoration = new GridSpacingItemDecoration(2, spacingHoriz, spacingVert, false);
 
             recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            recyclerView.addItemDecoration(spacingItemDecoration);
             recyclerView.setAdapter(institutePopupDropdownAdapter);
 
             String titlePattern = getResources().getString(R.string.popup_dropdown_title);

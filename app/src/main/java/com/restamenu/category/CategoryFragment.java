@@ -21,9 +21,7 @@ import com.restamenu.model.content.Language;
 import com.restamenu.model.content.Product;
 import com.restamenu.rx.BaseSchedulerProvider;
 import com.restamenu.rx.SchedulerProvider;
-import com.restamenu.util.AndroidUtils;
 import com.restamenu.util.Logger;
-import com.restamenu.views.pager.MaterialViewPagerHeaderDecorator;
 
 import java.util.List;
 
@@ -64,7 +62,7 @@ public class CategoryFragment extends Fragment implements OnCategoryDataChangeLi
         serviceId = getArguments().getInt(KEY_SERVICE);
         super.onCreate(savedInstanceState);
 
-        ((CategoryActivity) getActivity()).registerOnCategoryDataChangeListener(this);
+//        ((CategoryActivity) getActivity()).registerOnCategoryDataChangeListener(this);
 
         schedulerProvider = SchedulerProvider.getInstance();
         adapter = new ProductAdapter();
@@ -77,7 +75,7 @@ public class CategoryFragment extends Fragment implements OnCategoryDataChangeLi
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ((CategoryActivity) getActivity()).unregisterOnCategoryDataChangeListener(this);
+//        ((CategoryActivity) getActivity()).unregisterOnCategoryDataChangeListener(this);
     }
 
     @Nullable
@@ -96,16 +94,11 @@ public class CategoryFragment extends Fragment implements OnCategoryDataChangeLi
 
         recycler.setClipToPadding(false);
 
-        if (isTablet()) {
-            layoutManager = new GridLayoutManager(getContext(), getResources().getInteger(R.integer.product_span_count));
+        layoutManager = new GridLayoutManager(getContext(), getResources().getInteger(R.integer.product_span_count));
 
-            recycler.setPadding(0, 0, 0, (int) AndroidUtils.dpToPixel(16, getContext()));
-        } else {
-            layoutManager = new LinearLayoutManager(getContext());
-        }
         recycler.setLayoutManager(layoutManager);
 
-        recycler.addItemDecoration(new MaterialViewPagerHeaderDecorator());
+//        recycler.addItemDecoration(new MaterialViewPagerHeaderDecorator());
 
         recycler.setAdapter(adapter);
 

@@ -11,7 +11,8 @@
         android:id="@+id/root_cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:carbon_elevationShadowColor="#74000000"
+        app:carbon_elevationShadowColor="#a4000000"
+        app:carbon_elevation="@dimen/land_rest_card_elevation"
         android:foreground="?selectableItemBackground"
         android:background="@drawable/bg_restaurant_card">
 
@@ -65,7 +66,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/restaurant_title"
                 app:layout_constraintStart_toStartOf="@+id/restaurant_title"
                 app:layout_constraintTop_toBottomOf="@+id/restaurant_title"
-                tools:text="Order a table in advance to enjoy the performance of the artist performing your favorite hits." />
+                android:text="Restaurant &amp; Bar" />
 
 
             <ImageView

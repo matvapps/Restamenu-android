@@ -4,6 +4,10 @@ import android.annotation.SuppressLint;
 import android.graphics.Paint;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.style.AbsoluteSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +23,8 @@ import com.restamenu.model.content.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import carbon.widget.FrameLayout;
 
 import static android.widget.LinearLayout.HORIZONTAL;
 
@@ -37,12 +43,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private final int imageWidthPixels = 512;
     private final int imageHeightPixels = 384;
 
-//    private static final StrikethroughSpan STRIKE_THROUGH_SPAN = new StrikethroughSpan();
-
-
     ProductAdapter() {
         items = new ArrayList<>();
         defaultList = new ArrayList<>();
+    }
+
+    public List<Product> getItems() {
+        return items;
     }
 
     public void addItems(List<Product> data) {
@@ -80,15 +87,42 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void onBindViewHolder(ProductAdapter.ProductViewHolder holder, int position) {
         Product product = items.get(position);
 
+        int priceSize = holder.itemView.getContext().getResources().getDimensionPixelSize(R.dimen.land_category_product_price_text_size);
+        int priceLessSize = holder.itemView.getContext().getResources().getDimensionPixelSize(R.dimen.land_category_product_price_text_less_size);
+
         holder.productName.setText(product.getName());
-        holder.productDescription.setText(product.getDescription());
+
+//        TODO: Uncomment
+//        holder.productDescription.setText(product.getDescription());
 
         int priceOriginal = product.getPriceOriginal();
         int price = product.getPrice();
         int priceOld = product.getPrice_old();
 
+//        if (holder.rootCardView != null) {
+//            holder.rootCardView.setElevation(30f);
+//            holder.rootCardView.setTranslationZ(30f);
+//        }
 
-        holder.productPrice.setText(String.format(pricePattern, price, currencyIcon));
+        holder.productQuantityContainer.setOnClickListener(view -> {
+            holder.productQuantity.requestFocus();
+            holder.productQuantity.setText("");
+        });
+
+        if (!currencyIcon.equals("AED"))
+            holder.productPrice.setText(String.format(pricePattern, price, currencyIcon));
+        else {
+            SpannableString spanPrice = new SpannableString(String.valueOf(price));
+            spanPrice.setSpan(new AbsoluteSizeSpan(priceSize), 0, String.valueOf(price).length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+
+            SpannableString spanCurrency = new SpannableString("AED");
+            spanCurrency.setSpan(new AbsoluteSizeSpan(priceLessSize), 0, "AED".length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+
+            CharSequence finalText = TextUtils.concat(spanPrice, " ", spanCurrency);
+
+            holder.productPrice.setText(finalText);
+        }
+
 
         if (priceOld != 0) {
             holder.productPriceSub.setText(String.format(pricePattern, priceOld, currencyIcon));
@@ -153,24 +187,47 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
 
+    public class FooterViewHolder extends RecyclerView.ViewHolder {
+
+        private View btnNext;
+        private View btnPrev;
+
+        private TextView nextCategory;
+        private TextView prevCategory;
+
+        public FooterViewHolder(View itemView) {
+            super(itemView);
+
+            btnNext = itemView.findViewById(R.id.next_category_button);
+            btnPrev = itemView.findViewById(R.id.previous_category_button);
+            nextCategory = itemView.findViewById(R.id.next_category_title);
+            prevCategory = itemView.findViewById(R.id.previous_category_title);
+
+        }
+    }
+
     public class ProductViewHolder extends RecyclerView.ViewHolder {
 
         private RoundedImageView productImage;
         private TextView productName;
         private TextView productDescription;
+        private FrameLayout rootCardView;
         //        private TextView productMass;
         private TextView productPrice;
         private TextView productPriceSub;
         private RecyclerView serviceList;
         private EditText productQuantity;
         private View buyContainerView;
+        private View productQuantityContainer;
 
         public ProductViewHolder(View itemView) {
             super(itemView);
 
+            rootCardView = itemView.findViewById(R.id.root_cardview);
             productImage = itemView.findViewById(R.id.product_image);
             productName = itemView.findViewById(R.id.product_name);
             productDescription = itemView.findViewById(R.id.product_description);
+            productQuantityContainer = itemView.findViewById(R.id.product_quantity_container);
 //            productMass = itemView.findViewById(R.id.product_mass);
             serviceList = itemView.findViewById(R.id.service_list);
             productPrice = itemView.findViewById(R.id.product_price);

@@ -1,6 +1,7 @@
 package com.restamenu.main;
 
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +22,9 @@ import java.util.List;
 public class PopupDropDownAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<CheckedItem> items;
-//    private PopupItemClickListener popupItemClickListener;
+    //    private PopupItemClickListener popupItemClickListener;
     private FilterItemChangeListener filterItemChangeListener;
+    private Context context;
 
     public PopupDropDownAdapter() {
         items = new ArrayList<>();
@@ -51,6 +53,9 @@ public class PopupDropDownAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        context = parent.getContext();
+
         View rootView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.filter_popup_item, parent, false);
 
@@ -62,7 +67,7 @@ public class PopupDropDownAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         FilterViewHolder filterViewHolder = (FilterViewHolder) holder;
 
-        if(items.get(position).isChecked())
+        if (items.get(position).isChecked())
             filterViewHolder.chbx.setVisibility(View.VISIBLE);
         else
             filterViewHolder.chbx.setVisibility(View.INVISIBLE);
@@ -83,13 +88,18 @@ public class PopupDropDownAdapter extends RecyclerView.Adapter<RecyclerView.View
         });
 
         if (items.get(position).getItem() instanceof Cusine) {
-            filterViewHolder.title.setText(((Cusine) items.get(position).getItem()).getName());
+            String cuisineName = ((Cusine) items.get(position).getItem()).getName();
+            cuisineName = cuisineName.substring(0, cuisineName.indexOf(" "));
+            filterViewHolder.title.setText(cuisineName);
 
         } else if (items.get(position).getItem() instanceof Institute) {
             filterViewHolder.title.setText(((Institute) items.get(position).getItem()).getName());
         }
 
     }
+
+
+
 
     public interface FilterItemChangeListener {
         void onFilterItemChanged(CheckedItem item);
@@ -112,5 +122,10 @@ public class PopupDropDownAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         }
     }
+
+    public boolean isTablet() {
+        return context.getResources().getBoolean(R.bool.isLargeLayout);
+    }
+
 
 }

@@ -192,6 +192,10 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         if (isTablet()) {
             final int span_count = getResources().getInteger(R.integer.restaurant_span_count);
             GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, span_count);
+
+//            int itemPadding = getResources().getDimensionPixelSize(R.dimen.land_rest_card_padding);
+//            GridSpacingItemDecoration spacingItemDecoration = new GridSpacingItemDecoration(span_count, itemPadding, itemPadding, false);
+
             gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
@@ -213,6 +217,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
 
             restaurantsRecycler.setLayoutManager(gridLayoutManager);
+//            restaurantsRecycler.addItemDecoration(spacingItemDecoration);
         } else {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
             restaurantsRecycler.setLayoutManager(linearLayoutManager);
@@ -521,9 +526,6 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
-
-        Logger.log("offset " + offset);
-
         currentAppBarOffset = offset;
 
         if (offset == 0) {

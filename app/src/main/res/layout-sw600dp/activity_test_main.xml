@@ -63,6 +63,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/land_activity_main_restaurants_in_city_margin_top"
+                        android:layout_marginBottom="@dimen/land_restaurants_in_city_margin_bottom"
                         android:fontFamily="@font/open_sans_semibold"
                         android:text="Restaurants in Dubai"
                         android:textColor="@color/black"

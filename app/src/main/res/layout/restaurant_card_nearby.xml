@@ -51,7 +51,8 @@
         app:layout_constraintEnd_toEndOf="@+id/restaurant_title"
         app:layout_constraintStart_toStartOf="@+id/restaurant_title"
         app:layout_constraintTop_toBottomOf="@+id/restaurant_title"
-        tools:text="Restaurant" />
+        tools:text="Restaurant"
+        android:text="Restaurant &amp; Bar" />
 
 
     <ImageView

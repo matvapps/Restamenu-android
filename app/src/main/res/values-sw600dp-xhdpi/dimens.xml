@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<item name="isLargeLayout" type="bool">true</item>
+	<item name="restaurant_span_count" type="integer">3</item>
+	<item name="product_span_count" type="integer">4</item>
+
 	<dimen name="popup_product_image_gallery_height">170.4dp</dimen>
-	<dimen name="splash_cursor_margin_left">142.5dp</dimen>
-	<dimen name="splash_title_width">131.2dp</dimen>
-	<dimen name="splash_title_height">56.2dp</dimen>
-	<dimen name="splash_cursor_width">11.2dp</dimen>
-	<dimen name="splash_rest_text_width">97.5dp</dimen>
-	<dimen name="splash_rest_text_height">71.2dp</dimen>
-	<dimen name="splash_title_container_height">112.5dp</dimen>
+	<dimen name="splash_cursor_margin_left">202.5dp</dimen>
+	<dimen name="splash_title_width">187.5dp</dimen>
+	<dimen name="splash_title_height">75dp</dimen>
+	<dimen name="splash_cursor_width">15dp</dimen>
+	<dimen name="splash_rest_text_width">120dp</dimen>
+	<dimen name="splash_rest_text_height">60dp</dimen>
+	<dimen name="splash_title_container_height">150dp</dimen>
+
 	<dimen name="land_popup_item_chbx_size">17.2dp</dimen>
 	<dimen name="land_popup_item_chbx_icon_height">6.8dp</dimen>
 	<dimen name="land_popup_item_chbx_margin">13.5dp</dimen>
@@ -173,7 +178,7 @@
 	<dimen name="land_activity_restaurant_pin_width">6.8dp</dimen>
 	<dimen name="land_activity_restaurant_pin_height">9.8dp</dimen>
 	<dimen name="land_activity_restaurant_pin_margin_top">7.5dp</dimen>
-	<dimen name="land_activity_restaurant_adress_margin_start">5.2dp</dimen>
+	<dimen name="land_activity_restaurant_adress_margin_start">7.5dp</dimen>
 	<dimen name="land_activity_restaurant_adress_text_size">9.8sp</dimen>
 	<dimen name="land_activity_restaurant_timing_container">16.5dp</dimen>
 	<dimen name="land_activity_restaurant_timing_container_padding">6dp</dimen>
@@ -214,7 +219,7 @@
 	<dimen name="land_about_text_content_linespacing">5.2sp</dimen>
 	<dimen name="land_contact_list_title_margin_top">51dp</dimen>
 	<dimen name="land_restaurant_contact_margin_vert">6dp</dimen>
-	<dimen name="land_restaurant_contact_margin_horiz">12dp</dimen>
+	<dimen name="land_restaurant_contact_margin_horiz">84dp</dimen>
 	<dimen name="land_rest_contact_icon_size">11.2dp</dimen>
 	<dimen name="land_rest_contact_icon_margin_top">9.8dp</dimen>
 	<dimen name="land_rest_contact_margin_start">5.2dp</dimen>
@@ -236,7 +241,7 @@
 	<dimen name="land_gallery_item_width">207dp</dimen>
 	<dimen name="land_gallery_item_height">220.5dp</dimen>
 	<dimen name="land_gallery_item_margin_end">18.8dp</dimen>
-	<dimen name="land_scroll_it_width">261dp</dimen>
+	<dimen name="land_scroll_it_width">264dp</dimen>
 	<dimen name="land_scroll_it_height">221.2dp</dimen>
 	<dimen name="land_scroll_it_image_size">17.2dp</dimen>
 	<dimen name="land_scroll_it_image_margin_end">6dp</dimen>
@@ -321,7 +326,7 @@
 	<dimen name="land_category_product_cart_size">11.2dp</dimen>
 	<dimen name="land_category_product_cart_margin_end">16.5dp</dimen>
 	<dimen name="land_activity_category_list_margin_top">9.8dp</dimen>
-	<dimen name="land_category_product_margin_top">7.5dp</dimen>
+	<dimen name="land_category_product_margin_top">14.2dp</dimen>
 	<dimen name="land_sett_view_curr_icon_text_size">14.2sp</dimen>
 	<dimen name="currency_icon_margin_left">5.2dp</dimen>
 	<dimen name="language_icon_width">17.2dp</dimen>
@@ -332,7 +337,7 @@
 	<dimen name="item_language_check_image_size">13.1dp</dimen>
 	<dimen name="language_icon_margin_left">0.9dp</dimen>
 	<dimen name="language_icon_height">11.2dp</dimen>
-	<dimen name="currency_name_margin_start">9dp</dimen>
+	<dimen name="currency_name_margin_start">8.2dp</dimen>
 	<dimen name="currency_name_text_size">14.2sp</dimen>
 	<dimen name="currency_icon_text_size">13.5sp</dimen>
 	<dimen name="land_item_currency_icon_container">27dp</dimen>
@@ -342,8 +347,9 @@
 	<dimen name="action_reset_height">39dp</dimen>
 	<dimen name="rounded_rect">12dp</dimen>
 	<dimen name="rounded_rect_height">10.5dp</dimen>
-    <dimen name="filter_quantity_text_size">8sp</dimen>
-    <dimen name="land_restaurant_opening_hours_margin_start">4dp</dimen>
-    <dimen name="land_dropdown_content_list">5dp</dimen>
-    <dimen name="land_product_price_sub_text_size">13sp</dimen>
+	<dimen name="filter_quantity_text_size">6sp</dimen>
+	<dimen name="land_restaurant_opening_hours_margin_start">3dp</dimen>
+	<dimen name="land_dropdown_content_list">3.8dp</dimen>
+	<dimen name="land_product_price_sub_text_size">9.8sp</dimen>
+    <dimen name="margin">37dp</dimen>
 </resources>

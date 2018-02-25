@@ -27,6 +27,7 @@ public class ServiceButton extends RelativeLayout {
     private final TextView isAvailable;
     private final View triangle;
     private String titleText;
+    private carbon.widget.RelativeLayout container;
     //private final View container;
 
     private boolean isServiceAvailable = true;
@@ -44,7 +45,7 @@ public class ServiceButton extends RelativeLayout {
 
         LayoutInflater.from(context).inflate(R.layout.item_service_button, this, true);
 
-        //container = findViewById(R.id.container);
+        container = findViewById(R.id.container);
         title = findViewById(R.id.title);
         image = findViewById(R.id.image);
         isAvailable = findViewById(R.id.is_available);
@@ -79,6 +80,7 @@ public class ServiceButton extends RelativeLayout {
         if (isServiceAvailable) {
             setSelected(false);
             triangle.setVisibility(INVISIBLE);
+            container.setElevation(12f);
             isServiceAvailable = true;
             image.setScaleX(0.88f);
             image.setScaleY(0.88f);
@@ -92,6 +94,7 @@ public class ServiceButton extends RelativeLayout {
         if (selected) {
             setSelected(true);
             triangle.setVisibility(VISIBLE);
+            container.setElevation(0f);
             title.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
             image.setScaleX(1f);
             image.setScaleY(1f);

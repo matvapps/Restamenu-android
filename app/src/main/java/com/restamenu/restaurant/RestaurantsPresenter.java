@@ -95,7 +95,7 @@ public class RestaurantsPresenter implements Presenter<RestaurantView> {
                 .subscribe(categories -> {
                     view.setCategories(categories);
                     //if (!ListUtils.isEmpty(categories))
-                    //    loadProducts(restaurantId, serviceId, categories.get(0).geId());
+                    //    loadCategories(restaurantId, serviceId, categories.get(0).geId());
                 }, throwable -> view.showError());
     }
 

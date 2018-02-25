@@ -11,14 +11,16 @@
         android:id="@+id/root_cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:carbon_elevationShadowColor="#74000000"
+        app:carbon_elevationShadowColor="#50000000"
+        app:carbon_elevation="@dimen/land_rest_card_elevation"
         android:foreground="?selectableItemBackground"
         android:background="@drawable/bg_restaurant_card">
 
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_restaurant_card">
 
 
             <com.makeramen.roundedimageview.RoundedImageView
@@ -65,7 +67,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/restaurant_title"
                 app:layout_constraintStart_toStartOf="@+id/restaurant_title"
                 app:layout_constraintTop_toBottomOf="@+id/restaurant_title"
-                tools:text="Order a table in advance to enjoy the performance of the artist performing your favorite hits." />
+                android:text="Order a table in advance to enjoy the performance of the artist performing your favorite hits." />
 
 
             <ImageView
@@ -79,7 +81,8 @@
                 android:src="@drawable/ic_restaurant_disabled"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/restaurant_type"
-                app:layout_constraintTop_toBottomOf="@+id/restaurant_type" />
+                app:layout_constraintTop_toBottomOf="@+id/restaurant_type"
+                android:text="Restaurant &amp; Bar"/>
 
             <ImageView
                 android:id="@+id/food_type_takeaway_img"

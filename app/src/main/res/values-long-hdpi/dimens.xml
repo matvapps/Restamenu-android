@@ -1,4 +1,12 @@
 <resources>
+	<dimen name="splash_rest_text_width">53.3dp</dimen>
+	<dimen name="splash_title_width">100dp</dimen>
+	<dimen name="splash_title_container_height">66.7dp</dimen>
+	<dimen name="splash_rest_text_height">20dp</dimen>
+	<dimen name="splash_cursor_width">5.3dp</dimen>
+	<dimen name="splash_title_height">26.7dp</dimen>
+	<dimen name="splash_cursor_margin_left">106.7dp</dimen>
+
 	<dimen name="order_type_header_item_arrow_margin_bottom">5.3dp</dimen>
 	<dimen name="restaurant_nearby_card_street_max_width">135dp</dimen>
 	<dimen name="restaurant_card_item_background_height">173.1dp</dimen>
@@ -36,7 +44,6 @@
 	<dimen name="restaurant_category_item_height">136.7dp</dimen>
 	<dimen name="popup_content_title_margin_end">10.7dp</dimen>
 	<dimen name="item_service_button_available_padding">4dp</dimen>
-	<dimen name="splash_rest_text_width">53.3dp</dimen>
 	<dimen name="restaurant_gallery_item_width">205.5dp</dimen>
 	<dimen name="restaurant_nearby_card_deliv_img_margin_start">6.3dp</dimen>
 	<dimen name="restaurant_nearby_card_deliv_img_height">8.9dp</dimen>
@@ -57,7 +64,6 @@
 	<dimen name="activity_main_search_container_padding_vertical">16dp</dimen>
 	<dimen name="order_type_item_height">34dp</dimen>
 	<dimen name="restaurant_advertising_card_service_rest_img_heighy">10dp</dimen>
-	<dimen name="splash_title_width">100dp</dimen>
 	<dimen name="restaurant_card_item_rest_img_margin_bottom">13.3dp</dimen>
 	<dimen name="fragment_restaurant_header_gallery_margin_bottom">26.6dp</dimen>
 	<dimen name="order_type_header_item_title_container_margin_start">26.8dp</dimen>
@@ -118,7 +124,7 @@
 	<dimen name="activity_category_arrow_left_margin_bottom">16dp</dimen>
 	<dimen name="order_type_dropdown_item_notavailable_margin_start">16.7dp</dimen>
 	<dimen name="restaurant_advertising_card_title_margin_top">9.3dp</dimen>
-	<dimen name="splash_title_container_height">66.7dp</dimen>
+
 	<dimen name="order_type_dropdown_item_height">34dp</dimen>
 	<dimen name="fragment_restaurant_header_fav_icon_size">9.2dp</dimen>
 	<dimen name="toolbar_main_logo_margin_horizontal">5.3dp</dimen>
@@ -127,7 +133,7 @@
 	<dimen name="category_product_item_name_margin_start">18.5dp</dimen>
 	<dimen name="restaurant_nearby_card_title_margin_start">12dp</dimen>
 	<dimen name="search_spinner_item_arrow_width">8.7dp</dimen>
-	<dimen name="splash_rest_text_height">20dp</dimen>
+
 	<dimen name="toolbar_main_logo_height">19.6dp</dimen>
 	<dimen name="restaurant_advertising_card_type_margin_top">7.4dp</dimen>
 	<dimen name="restaurant_card_item_rest_img_height">10dp</dimen>
@@ -137,11 +143,10 @@
 	<dimen name="fragment_nearby_restaurants_near_text_margin_horizontal">5.3dp</dimen>
 	<dimen name="scroll_it_text_margin_end">24dp</dimen>
 	<dimen name="restaurant_advertising_card_service_rest_img_width">10dp</dimen>
-	<dimen name="splash_cursor_width">5.3dp</dimen>
+
 	<dimen name="special_item_size">19.6dp</dimen>
 	<dimen name="title_shift_margin">8.7dp</dimen>
 	<dimen name="restaurant_nearby_card_background_radius">2dp</dimen>
-	<dimen name="splash_title_height">26.7dp</dimen>
 	<dimen name="activity_main_search_container_margin_horizontal">16dp</dimen>
 	<dimen name="activity_category_search_icon_size">11.8dp</dimen>
 	<dimen name="restaurant_card_item_take_img_margin_start">4.6dp</dimen>
@@ -219,7 +224,6 @@
 	<dimen name="restaurant_promotion_item_radius">2dp</dimen>
 	<dimen name="fragment_nearby_restaurants_near_text_margin_top">20.6dp</dimen>
 	<dimen name="restaurant_nearby_card_distance_margin_start">4.6dp</dimen>
-	<dimen name="splash_cursor_margin_left">106.7dp</dimen>
 	<dimen name="restaurant_nearby_card_distance_text_margin_end">21.3dp</dimen>
 	<dimen name="scroll_it_margin">5.3dp</dimen>
 	<dimen name="category_product_item_quantity_container_margin_end">5.3dp</dimen>

@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
+    android:orientation="horizontal"
     android:layout_height="wrap_content">
 
     <FrameLayout
         android:id="@+id/popup_item_chbx"
         android:layout_width="@dimen/land_popup_item_chbx_size"
         android:layout_height="@dimen/land_popup_item_chbx_size"
-        android:layout_marginBottom="@dimen/land_popup_item_chbx_margin"
-        android:layout_marginTop="@dimen/land_popup_item_chbx_margin"
         android:background="@drawable/ic_checkbox_before"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,8 +30,6 @@
         android:id="@+id/popup_item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/land_popup_item_title_margin_end"
-        android:layout_marginRight="@dimen/land_popup_item_title_margin_end"
         android:layout_marginLeft="@dimen/land_popup_item_title_margin_start"
         android:layout_marginStart="@dimen/land_popup_item_title_margin_start"
         android:ellipsize="end"
@@ -48,4 +45,4 @@
         tools:text="Restaurant" />
 
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

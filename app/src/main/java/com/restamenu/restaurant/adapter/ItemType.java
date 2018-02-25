@@ -16,7 +16,13 @@ public enum ItemType {
     ABOUT(7),
     CONTACTS_PHONE(8),
     CONTACTS_TABLET(10),
-    MAP(9);
+    MAP(9),
+
+    HEADER(22),
+    PRODUCT_MENU(23),
+    PRODUCT_MENU_PHONE(25),
+    FOOTER(24);
+
 
     private final int position;
 

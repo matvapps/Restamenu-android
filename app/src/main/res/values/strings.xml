@@ -5,7 +5,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="service_delivery">Delivery</string>
-    <string name="service_takeaway">Takeaway</string>
+    <string name="service_takeaway">Take away</string>
     <string name="service_restaurant">At restaurant</string>
 
     <string name="service_selected">Selected</string>

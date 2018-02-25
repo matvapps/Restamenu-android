@@ -38,23 +38,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/category_title"
+        <com.yarolegovich.discretescrollview.DiscreteScrollView
+            android:id="@+id/category_title_list"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_category_title_margin"
+            android:layout_height="0dp"
             android:layout_marginEnd="@dimen/activity_category_title_margin"
             android:layout_marginStart="@dimen/activity_category_title_margin"
-            android:fontFamily="@font/gotham_pro_bold"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/activity_category_title_text_size"
-            android:textStyle="bold"
+            android:overScrollMode="never"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/category_arrow_right"
             app:layout_constraintStart_toEndOf="@+id/category_arrow_left"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="SIGNATURE DISHES" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/category_arrow_right"
@@ -78,7 +72,7 @@
         android:id="@+id/container_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/grey"
+        android:background="#f0f0f0"
         android:visibility="visible">
 
         <LinearLayout
@@ -130,4 +124,11 @@
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#15000000"/>
+
 </LinearLayout>
