@@ -40,7 +40,6 @@ public class MainPresenter implements Presenter<MainView> {
 
 
     private void loadNearRestaurants(int width) {
-        view.showLoading(true);
 
         RepositoryProvider.getAppRepository().getNearRestaurants(1, "25.1948827,55.2738285", width)
                 .flatMap(Flowable::fromIterable)
@@ -67,7 +66,7 @@ public class MainPresenter implements Presenter<MainView> {
 //    }
 
     public void loadRestaurants(int page, String keyword, String filterCuisines, String filterInstitutes) {
-        view.showLoading(true);
+
         RepositoryProvider.getAppRepository().getRestaurants(1, keyword, filterCuisines, filterInstitutes, page, true)
                 .flatMap(Flowable::fromIterable)
                 .toList()
@@ -94,7 +93,6 @@ public class MainPresenter implements Presenter<MainView> {
     }
 
     private void loadCuisines() {
-        view.showLoading(true);
 
         RepositoryProvider.getAppRepository().getCusines()
                 .flatMap(Flowable::fromIterable)

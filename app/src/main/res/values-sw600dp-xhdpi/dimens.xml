@@ -12,14 +12,13 @@
 	<dimen name="splash_rest_text_width">120dp</dimen>
 	<dimen name="splash_rest_text_height">60dp</dimen>
 	<dimen name="splash_title_container_height">150dp</dimen>
-
 	<dimen name="land_popup_item_chbx_size">17.2dp</dimen>
 	<dimen name="land_popup_item_chbx_icon_height">6.8dp</dimen>
 	<dimen name="land_popup_item_chbx_margin">13.5dp</dimen>
 	<dimen name="land_popup_item_chbx_icon_width">8.2dp</dimen>
 	<dimen name="land_popup_item_title_text_size">11.2sp</dimen>
 	<dimen name="land_popup_item_title_margin_start">10.5dp</dimen>
-	<dimen name="land_popup_item_title_margin_end">30dp</dimen>
+	<dimen name="land_popup_item_title_margin_end">45dp</dimen>
 	<dimen name="land_popup_content_triangle_size">8.3dp</dimen>
 	<dimen name="land_popup_content_title_margin_end">6.7dp</dimen>
 	<dimen name="land_popup_content_title_margin_start">27.8dp</dimen>
@@ -63,7 +62,7 @@
 	<dimen name="land_rest_adv_text_margin_bottom">13.5dp</dimen>
 	<dimen name="land_rest_adv_text_margin_end">15.8dp</dimen>
 	<dimen name="land_rest_adv_text_size">9.8sp</dimen>
-	<dimen name="land_rest_card_padding">9dp</dimen>
+	<dimen name="land_rest_card_padding">9.8dp</dimen>
 	<dimen name="land_rest_card_radius">3dp</dimen>
 	<dimen name="land_rest_card_background_height">175.5dp</dimen>
 	<dimen name="land_rest_card_title_margin_end">12.8dp</dimen>
@@ -190,7 +189,7 @@
 	<dimen name="land_activity_restaurant_margin_horizontal">37.5dp</dimen>
 	<dimen name="land_activity_restaurant_image_margin_top">47.2dp</dimen>
 	<dimen name="land_activity_restaurant_nav_container_margin_top">12.8dp</dimen>
-	<dimen name="land_activity_restaurant_order_list_height">82.5dp</dimen>
+	<dimen name="land_activity_restaurant_order_list_height">88.5dp</dimen>
 	<dimen name="land_activity_restaurant_addtofav_tex_margin_end">12.8dp</dimen>
 	<dimen name="land_activity_restaurant_call_icon_size">9.8dp</dimen>
 	<dimen name="land_activity_restauran_call_icon_margin_top">7.5dp</dimen>
@@ -201,9 +200,9 @@
 	<dimen name="land_item_service_button_text_size">17.2sp</dimen>
 	<dimen name="land_item_service_button_is_available_text_size">8.2sp</dimen>
 	<dimen name="land_item_recycler_order_list_margin_start">263.2dp</dimen>
-	<dimen name="land_space_between_order_type_item">19.5dp</dimen>
+	<dimen name="land_space_between_order_type_item">7.5dp</dimen>
 	<dimen name="land_activity_restaurant_item_title">22.5sp</dimen>
-	<dimen name="land_activity_restaurant_categories_list_title_margin_top">37.5dp</dimen>
+	<dimen name="land_activity_restaurant_categories_list_title_margin_top">31.5dp</dimen>
 	<dimen name="land_recycler_category_list_margin_top">22.5dp</dimen>
 	<dimen name="land_recycler_category_list_margin_end">18.8dp</dimen>
 	<dimen name="land_restaurant_category_margin">18.8dp</dimen>
@@ -317,7 +316,7 @@
 	<dimen name="land_category_product_quant_text_size">11.2sp</dimen>
 	<dimen name="land_category_product_price_margin_bottom">21dp</dimen>
 	<dimen name="land_category_product_price_margin_top">18.8dp</dimen>
-	<dimen name="land_category_product_price_text_size">17.2sp</dimen>
+	<dimen name="land_category_product_price_text_size">14.2sp</dimen>
 	<dimen name="land_category_product_buy_margin_borrom">14.2dp</dimen>
 	<dimen name="land_category_product_buy_margin_top">17.2dp</dimen>
 	<dimen name="land_category_product_buy_text_margin_end">4.5dp</dimen>
@@ -351,5 +350,9 @@
 	<dimen name="land_restaurant_opening_hours_margin_start">3dp</dimen>
 	<dimen name="land_dropdown_content_list">3.8dp</dimen>
 	<dimen name="land_product_price_sub_text_size">9.8sp</dimen>
-    <dimen name="margin">37dp</dimen>
+	<dimen name="margin">27.8dp</dimen>
+	<dimen name="land_rest_card_elevation">6dp</dimen>
+	<dimen name="land_restaurants_in_city_margin_bottom">9dp</dimen>
+	<dimen name="title_shift_margin">18.8dp</dimen>
+	<dimen name="land_category_product_price_text_less_size">9sp</dimen>
 </resources>

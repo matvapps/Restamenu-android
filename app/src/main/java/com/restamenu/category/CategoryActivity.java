@@ -21,6 +21,7 @@ import com.restamenu.restaurant.adapter.ItemType;
 import com.restamenu.util.Logger;
 import com.restamenu.views.custom.CustomSwipeToRefresh;
 import com.restamenu.views.custom.OnVerticalScrollListener;
+import com.restamenu.views.dialog.NoInternetDialog;
 import com.restamenu.views.setting.OnSettingItemChanged;
 import com.restamenu.views.setting.SettingListener;
 import com.restamenu.views.setting.SettingView;
@@ -202,6 +203,21 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 
         presenter.attachView(this);
         presenter.loadData(keyValueStorage.getLanguageId());
+
+        noInternetDialog.setNoInternetDialogListener(new NoInternetDialog.NoInternetDialogListener() {
+            @Override
+            public void onDismiss() {
+                if (!noInternetDialog.isRefreshing())
+                    finish();
+                else
+                    noInternetDialog.setRefreshing(false);
+            }
+
+            @Override
+            public void onRefresh() {
+                presenter.loadData(keyValueStorage.getLanguageId());
+            }
+        });
     }
 
 
@@ -359,12 +375,23 @@ public class CategoryActivity extends BasePresenterActivity<CategoryPresenter, C
 //    }
 
 
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+        super.onNetworkConnectionChanged(isConnected);
 
+        if (isConnected) {
+            // Connection retrieved
+            if (noInternetDialog.isShown())
+                noInternetDialog.dismiss();
+
+            presenter.loadData(keyValueStorage.getLanguageId());
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
 
     public SettingView getSettingView() {
         return settingView;
     }
-
 
 
     /**

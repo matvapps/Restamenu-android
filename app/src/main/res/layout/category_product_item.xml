@@ -81,7 +81,7 @@
                 android:minLines="2"
                 android:maxLines="2"
                 android:ellipsize="end"
-                android:text="fjkl;j fl;kas dfy, and Grilled Chicken Salad Recipe dsfsdf asdg dfgh fdsg dfsg dsfh j rt ty jtyh tertdfgbgd hgfh eh erthdfhg tyej"
+                android:text="Avocado, cheese, Iceberg salad, Tobiko caviar, smoked eel, teriyaki sauce and sesame."
                 android:textColor="#666666"
                 android:textSize="@dimen/category_product_item_description_text_size"
                 app:layout_constraintEnd_toEndOf="parent"

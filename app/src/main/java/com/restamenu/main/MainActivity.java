@@ -2,6 +2,7 @@ package com.restamenu.main;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -15,6 +16,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.florent37.viewanimator.ViewAnimator;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
@@ -28,6 +30,7 @@ import com.restamenu.restaurant.RestaurantActivity;
 import com.restamenu.util.AndroidUtils;
 import com.restamenu.util.Logger;
 import com.restamenu.views.custom.CustomSwipeToRefresh;
+import com.restamenu.views.dialog.NoInternetDialog;
 import com.restamenu.views.recycler.EndlessRecyclerOnScrollListener;
 import com.restamenu.views.search.RestaurantsSearchView;
 import com.squareup.picasso.Picasso;
@@ -45,6 +48,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         RestaurantsSearchView.SearchListener, SwipeRefreshLayout.OnRefreshListener, AppBarLayout.OnOffsetChangedListener {
 
     private View nearbyListContainer;
+    private View nearBackContainer;
     private RecyclerView nearbyRestaurantsRecycler;
     private RecyclerView restaurantsRecycler;
     private NearbyRestaurantListAdapter nearbyRestaurantListAdapter;
@@ -71,18 +75,20 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     private final Target target = new Target() {
         @Override
         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+
+//            nearBackContainer.setBackgroundColor(Color.BLACK);
             ViewAnimator
                     .animate(nearbyContainerBackground)
-                    .duration(800)
+                    .duration(1200)
                     .interpolator(new AccelerateInterpolator())
-                    .alpha(1, 0.6f)
+                    .alpha(1, 0.0f)
                     .onStop(() -> {
                         nearbyContainerBackground.setImageBitmap(bitmap);
                     })
                     .thenAnimate(nearbyContainerBackground)
-                    .duration(700)
+                    .duration(900)
                     .interpolator(new AccelerateInterpolator())
-                    .alpha(0.6f, 1)
+                    .alpha(0.0f, 1)
                     .start();
         }
 
@@ -125,6 +131,7 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
     @Override
     protected void initViews() {
         super.initViews();
+        nearBackContainer = findViewById(R.id.nearby_under_content);
         nearbyRestaurantsRecycler = findViewById(R.id.restaurant_list_container);
         restaurantsRecycler = findViewById(R.id.restaurants_list);
         nearbyListContainer = findViewById(R.id.nearby_list_container);
@@ -247,6 +254,28 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         filterQuantContainer = findViewById(R.id.filter_quant_container);
         presenter.init(currentPage);
 
+        noInternetDialog.setNoInternetDialogListener(new NoInternetDialog.NoInternetDialogListener() {
+            @Override
+            public void onDismiss() {
+                if (noInternetDialog.isRefreshing()) {
+                    presenter.init(currentPage);
+                    noInternetDialog.setRefreshing(false);
+                } else {
+                    if (!doubleBackToExitPressedOnce)
+                        presenter.init(currentPage);
+
+                    onBackPressed();
+                }
+
+
+
+            }
+
+            @Override
+            public void onRefresh() {
+                presenter.init(currentPage);
+            }
+        });
     }
 
     @Override
@@ -379,17 +408,54 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
         onItemChanged(position);
     }
 
+//    @Override
+//    public void finish() {
+//
+//        // dismiss filter popup window if it's showing on phone
+//        if (!isTablet()) {
+//            if (searchView.getFilterPopup().isShowing()) {
+//                searchView.getFilterPopup().dismiss();
+//                return;
+//            }
+//        }
+//
+//        super.finish();
+//    }
+
+    boolean doubleBackToExitPressedOnce = false;
+
     @Override
-    public void finish() {
-        // dismiss filter popup window if it's showing on phone
-        if (!isTablet()) {
-            if (searchView.getFilterPopup().isShowing()) {
-                searchView.getFilterPopup().dismiss();
-                return;
-            }
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
         }
 
-        super.finish();
+
+//        if (!loadingView.isShow()) {
+
+            this.doubleBackToExitPressedOnce = true;
+
+            if (!isTablet()) {
+                if (searchView.getFilterPopup().isShowing()) {
+                    searchView.getFilterPopup().dismiss();
+                    this.doubleBackToExitPressedOnce = false;
+                    super.onBackPressed();
+                    return;
+                }
+            }
+
+
+            Toast.makeText(this, "Please click back again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+//        }
     }
 
 
@@ -536,4 +602,31 @@ public class MainActivity extends BaseNavigationActivity<MainPresenter, MainView
             swipeRefreshLayout.setEnabled(false);
         }
     }
+
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+        super.onNetworkConnectionChanged(isConnected);
+        if (isConnected) {
+            if (noInternetDialog.isShown()) {
+                noInternetDialog.setRefreshing(true);
+                noInternetDialog.dismiss();
+            }
+
+            presenter.init(currentPage);
+        }
+    }
+
+
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        Logger.log("Button back pressed");
+//
+//        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+//
+//            return false;
+//        }
+//
+//        return super.onKeyDown(keyCode, event);
+//    }
+
 }

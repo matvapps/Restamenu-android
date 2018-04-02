@@ -112,7 +112,7 @@
 	<dimen name="land_popup_content_title_margin_start">37dp</dimen>
 	<dimen name="land_toolbar_burger_menu_width">31dp</dimen>
 	<dimen name="land_rest_card_padding">13dp</dimen>
-    <dimen name="land_rest_card_elevation">16dp</dimen>
+    <dimen name="land_rest_card_elevation">8dp</dimen>
 	<dimen name="land_popup_item_chbx_size">23dp</dimen>
 	<dimen name="land_toolbar_main_pin_margin_end">9dp</dimen>
 	<dimen name="land_rest_card_delivery_img_width">21dp</dimen>
@@ -333,7 +333,7 @@
 	<dimen name="land_category_product_quant_text_size">15sp</dimen>
 	<dimen name="land_category_product_price_margin_bottom">28dp</dimen>
 	<dimen name="land_category_product_price_margin_top">25dp</dimen>
-	<dimen name="land_category_product_price_text_less_size">16sp</dimen>
+	<dimen name="land_category_product_price_text_less_size">12sp</dimen>
 	<dimen name="land_category_product_price_text_size">19sp</dimen>
 	<dimen name="land_category_product_buy_margin_borrom">19dp</dimen>
 	<dimen name="land_category_product_buy_margin_top">23dp</dimen>

@@ -40,20 +40,18 @@ public class CategoryPresenter implements Presenter<CategoryView> {
     }
 
     public void loadCurrencies(int language_id) {
-        view.showLoading(true);
         RepositoryProvider.getAppRepository().getCurrencies(language_id)
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(currencies -> {
                     view.setCurrencies(currencies);
                     loadCategories();
-                    view.showLoading(false);
                 }, throwable -> view.showError());
     }
 
     public void loadProducts(int restaurantId, int categoryId) {
-        view.showLoading(true);
         //refreshLayout.setRefreshing(true);
+        view.showLoading(true);
         RepositoryProvider.getAppRepository().getCategoryProducts(restaurantId, categoryId)
                 .flatMap(Flowable::fromIterable)
                 .toList()
@@ -69,7 +67,6 @@ public class CategoryPresenter implements Presenter<CategoryView> {
 
 
     public void loadCategories() {
-        view.showLoading(true);
         RepositoryProvider.getAppRepository().getCategories(restaurantId, serviceId)
                 .flatMap(Flowable::fromIterable)
                 .toList()
@@ -83,6 +80,7 @@ public class CategoryPresenter implements Presenter<CategoryView> {
 
 
     public void loadData(int languageId) {
+        view.showLoading(true);
         RepositoryProvider.getAppRepository().getLanguages()
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())

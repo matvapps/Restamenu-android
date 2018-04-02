@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.restamenu.R;
 import com.restamenu.views.dialog.LoadingDialog;
 import com.restamenu.views.dialog.LoadingView;
+import com.restamenu.views.dialog.NoInternetView;
 
 /**
  * @author Roodie
@@ -24,6 +25,7 @@ import com.restamenu.views.dialog.LoadingView;
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected LoadingView loadingView;
+    protected NoInternetView noInternetView;
     protected FrameLayout container;
     protected Toolbar toolbar;
     protected TextView toolbarTitle;
@@ -77,6 +79,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         configureToolbar();
 
         loadingView = LoadingDialog.view(getSupportFragmentManager());
+//        noInternetView = NoInternetDialog.view(getSupportFragmentManager());
     }
 
     protected void setContentFrame() {

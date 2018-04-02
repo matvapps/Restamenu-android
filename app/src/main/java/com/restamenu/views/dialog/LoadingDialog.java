@@ -87,6 +87,14 @@ public class LoadingDialog extends DialogFragment {
         }
 
         @Override
+        public boolean isShow() {
+            final LoadingDialog dialog = (LoadingDialog) mFm.findFragmentByTag(LoadingDialog.class.getName());
+
+            return dialog != null && dialog.isVisible();
+
+        }
+
+        @Override
         public void hideLoadingIndicator() {
             if (mWaitForHide.compareAndSet(true, false)) {
                 //noinspection ConstantConditions

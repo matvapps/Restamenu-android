@@ -10,6 +10,7 @@ import com.restamenu.api.RemoteRepository;
 import com.restamenu.api.RepositoryProvider;
 import com.restamenu.data.database.LocalRepository;
 import com.restamenu.data.preferences.KeyValueStorage;
+import com.restamenu.util.ConnectionReceiver;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -43,6 +44,9 @@ public class RestamenuApp extends Application {
 
     }
 
+    public void setConnectionListener(ConnectionReceiver.ConnectionReceiverListener listener) {
+        ConnectionReceiver.connectionReceiverListener = listener;
+    }
     private void initApi() {
         RepositoryProvider.setPreferences(new KeyValueStorage(this));
          RepositoryProvider.setAppRepository(new ApplicationRepository(new LocalRepository(),

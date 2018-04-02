@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.restamenu">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -38,6 +39,15 @@
         <activity android:name=".restaurant.RestaurantActivity"/>
         <activity android:name=".category.CategoryActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
+
+        <receiver
+            android:name=".util.ConnectionReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

@@ -56,6 +56,7 @@ import com.restamenu.views.custom.CustomSpinner;
 import com.restamenu.views.custom.CustomSwipeToRefresh;
 import com.restamenu.views.custom.ServiceButton;
 import com.restamenu.views.custom.StickyScrollView;
+import com.restamenu.views.dialog.NoInternetDialog;
 import com.restamenu.views.setting.OnSettingItemChanged;
 import com.restamenu.views.setting.SettingListener;
 import com.restamenu.views.setting.SettingView;
@@ -792,6 +793,29 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         KeyValueStorage keyValueStorage = new KeyValueStorage(this);
         presenter.loadData(width, keyValueStorage.getLanguageId());
 
+        noInternetDialog.setNoInternetDialogListener(new NoInternetDialog.NoInternetDialogListener() {
+            @Override
+            public void onDismiss() {
+                if (!noInternetDialog.isRefreshing())
+                    finish();
+                else
+                    noInternetDialog.setRefreshing(false);
+            }
+
+            @Override
+            public void onRefresh() {
+
+                Display display = getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+
+                int width = size.x;
+                KeyValueStorage keyValueStorage = new KeyValueStorage(RestaurantActivity.this);
+                presenter.loadData(width, keyValueStorage.getLanguageId());
+            }
+        });
+
+
     }
 
     @Override
@@ -921,6 +945,24 @@ public class RestaurantActivity extends BasePresenterActivity<RestaurantsPresent
         int width = size.x;
         KeyValueStorage keyValueStorage = new KeyValueStorage(this);
         presenter.loadData(width, keyValueStorage.getLanguageId());
+    }
+
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+        super.onNetworkConnectionChanged(isConnected);
+
+        if (isConnected) {
+            if (noInternetDialog.isShown())
+                noInternetDialog.dismiss();
+
+            Display display = getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+
+            int width = size.x;
+            KeyValueStorage keyValueStorage = new KeyValueStorage(this);
+            presenter.loadData(width, keyValueStorage.getLanguageId());
+        }
     }
 
     @Override

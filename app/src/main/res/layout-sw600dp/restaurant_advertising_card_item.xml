@@ -11,7 +11,7 @@
         android:id="@+id/root_cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:carbon_elevationShadowColor="#50000000"
+        app:carbon_elevationShadowColor="#d6000000"
         app:carbon_elevation="@dimen/land_rest_card_elevation"
         android:foreground="?selectableItemBackground"
         android:background="@drawable/bg_restaurant_card">
@@ -19,8 +19,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_restaurant_card">
+            android:layout_height="wrap_content">
 
 
             <com.makeramen.roundedimageview.RoundedImageView

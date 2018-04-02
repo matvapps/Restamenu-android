@@ -61,6 +61,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
     private ListAdapter mAdapter;
     private List<CheckedItem> filterList;
     private String keyword;
+    private ArrayList<String> mSuggestions = new ArrayList<>();
     //Views
     private View mSearchLayout;
     private View mTintView;
@@ -101,6 +102,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
                 displayInstitutePopupWindow(v);
             } else if (v == searchBtn) {
                 onSubmitQuery();
+                dismissSuggestions();
             } else if (v == mEmptyBtn) {
                 mSearchSrcTextView.setText(null);
             } else if (v == mSearchSrcTextView) {
@@ -222,6 +224,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
 
                 filterList = new ArrayList<>();
                 searchListener.onInputDataChanged(filterList, keyword);
+                actionReset.setVisibility(GONE);
             });
 
             actionCancel.setOnClickListener(view -> filterPopup.dismiss());
@@ -304,6 +307,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
         if (mAdapter != null && mAdapter instanceof Filterable) {
             ((Filterable) mAdapter).getFilter().filter(s, RestaurantsSearchView.this);
         }
+
     }
 
     public void setSearchListener(SearchListener searchListener) {
@@ -628,6 +632,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
     public void setSuggestions(ArrayList<String> suggestions) {
         if (suggestions != null && suggestions.size() > 0) {
             mTintView.setVisibility(VISIBLE);
+            mSuggestions = suggestions;
             SearchAdapter adapter = new SearchAdapter(mContext, suggestions, suggestionIcon, ellipsize);
             setAdapter(adapter);
 
@@ -667,6 +672,7 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
         if (query != null) {
             mSearchSrcTextView.setSelection(mSearchSrcTextView.length());
             mUserQuery = query;
+            dismissSuggestions();
         }
         if (submit && !TextUtils.isEmpty(query)) {
             onSubmitQuery();
@@ -819,7 +825,10 @@ public class RestaurantsSearchView extends FrameLayout implements Filter.FilterL
     @Override
     public void onFilterComplete(int count) {
         if (count > 0) {
-            showSuggestions();
+            if (mSuggestions.get(0).equals(mSearchSrcTextView.getText().toString()))
+                dismissSuggestions();
+            else
+                showSuggestions();
         } else {
             dismissSuggestions();
         }

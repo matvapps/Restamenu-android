@@ -1,6 +1,7 @@
 package com.restamenu.category;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Paint;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -87,9 +88,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void onBindViewHolder(ProductAdapter.ProductViewHolder holder, int position) {
         Product product = items.get(position);
 
-        int priceSize = holder.itemView.getContext().getResources().getDimensionPixelSize(R.dimen.land_category_product_price_text_size);
-        int priceLessSize = holder.itemView.getContext().getResources().getDimensionPixelSize(R.dimen.land_category_product_price_text_less_size);
-
         holder.productName.setText(product.getName());
 
 //        TODO: Uncomment
@@ -109,9 +107,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             holder.productQuantity.setText("");
         });
 
-        if (!currencyIcon.equals("AED"))
+        holder.productPrice.setText(String.format(pricePattern, price, currencyIcon));
+
+        if (!currencyIcon.equals("AED") || !isTablet(holder.itemView.getContext()))
             holder.productPrice.setText(String.format(pricePattern, price, currencyIcon));
         else {
+            int priceSize = holder.itemView.getContext().getResources().getDimensionPixelSize(R.dimen.land_category_product_price_text_size);
+            int priceLessSize = holder.itemView.getContext().getResources().getDimensionPixelSize(R.dimen.land_category_product_price_text_less_size);
+
             SpannableString spanPrice = new SpannableString(String.valueOf(price));
             spanPrice.setSpan(new AbsoluteSizeSpan(priceSize), 0, String.valueOf(price).length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
@@ -238,6 +241,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
 
 
+    }
+
+    private boolean isTablet(Context context) {
+        return context.getResources().getBoolean(R.bool.isLargeLayout);
     }
 
 }
